@@ -14,6 +14,7 @@ function Trialapp() {
   const [totalSupply, settotalSupply] = useState(0);
   const [colors, setcolors] = useState([]);
   const [color, setcolor] = useState("");
+  const [arr, setarr] = useState([]);
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -41,6 +42,9 @@ function Trialapp() {
       setcontract(contract);
       const totalSupply = await contract.methods.totalSupply().call();
       settotalSupply(totalSupply);
+      const arr = await contract.methods.getArray().call();
+      setarr(arr);
+      console.log(arr)
       // Load Colors
       for (var i = 1; i <= totalSupply; i++) {
         const color = await contract.getArray;
