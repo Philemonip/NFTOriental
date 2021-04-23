@@ -2,7 +2,6 @@ import React, { Component, setState, useState, useEffect } from 'react';
 import Web3 from 'web3';
 import './trialapp.css';
 import FiveToken from './abi/FiveToken.json';
-import { totalSupply } from './abi/ERC721Enumerable.json'
 
 
 function Trialapp() {
@@ -42,11 +41,11 @@ function Trialapp() {
             const address = networkData.address
             const contract = new web3.eth.Contract(abi, address)
             setcontract(contract);
-            const totalSupply = await contract.methods.totalSupply().call()
+            const totalSupply = await contract.methods.totalSupply().call();
             settotalSupply(totalSupply)
             // Load Colors
             for (var i = 1; i <= totalSupply; i++) {
-                const color = await contract.methods.colors(i - 1).call()
+                const color = await contract.getArray
                 setcolors([...colors, color])
             }
         } else {
@@ -56,7 +55,8 @@ function Trialapp() {
 
     const mint = (color) => {
         contract.methods.mint(color).send({ from: account })
-            .once('receipt', (receipt) => {
+            .on('receipt', (receipt) => {
+                console.log("receipt", receipt)
                 setcolors([...colors, color])
             })
     }
