@@ -21,6 +21,9 @@ const Navi = (props) => {
         <LinkContainer to="/">
           <Nav.Link>Pricing</Nav.Link>
         </LinkContainer>
+        <LinkContainer to="/trial">
+          <Nav.Link>ERC20 Mint</Nav.Link>
+        </LinkContainer>
       </Nav>
     </Navbar>
   );
