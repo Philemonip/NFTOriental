@@ -45,6 +45,9 @@ function Trialapp() {
       const arr = await contract.methods.getArray().call();
       setarr(arr);
       console.log(arr)
+      const owner = await contract.methods.findOwner(0).call();
+      console.log(owner)
+
       // Load Colors
       for (var i = 1; i <= totalSupply; i++) {
         const color = await contract.getArray;
@@ -55,7 +58,6 @@ function Trialapp() {
     }
   };
 
-
   const mint = (color) => {
     contract.methods
       .mint(color)
@@ -65,6 +67,7 @@ function Trialapp() {
         setcolors([...colors, color]);
       });
   };
+
 
   return (
     <div>
@@ -122,6 +125,7 @@ function Trialapp() {
                 <div className="token" style={{ backgroundColor: color.color }}></div>
                 <div>{color.color}</div>
                 <p>id:{color.id}</p>
+                {/* <p>owner:{owner(color.id)}</p> */}
                 <button className="btn btn-info">Transfer</button>
               </div>
             );

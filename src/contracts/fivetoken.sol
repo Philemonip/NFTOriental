@@ -14,6 +14,8 @@ struct Colors{
 Colors [] public colors;
 
 mapping(string => bool) _colorExists;
+mapping (uint => address) toOwner;
+
 
 function mint(string memory _color) public{
 require(_colorExists[_color] == false);
@@ -21,6 +23,7 @@ require(_colorExists[_color] == false);
 uint _id = colors.length;
 colors.push(Colors(_color, _id));
 _safeMint(msg.sender, _id);
+toOwner[_id] = msg.sender;
 _colorExists[_color] = true;
 }
 
@@ -28,6 +31,9 @@ function getArray() public view returns(Colors[] memory){
     return colors;
 }
 
+function findOwner(uint _id) public view returns(address){
+    return toOwner[_id];
+}
 
 
 
