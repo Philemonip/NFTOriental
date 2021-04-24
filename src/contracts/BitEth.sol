@@ -25,14 +25,22 @@ _safeMint(msg.sender, _id);
 _itemExists[_itemName] == true;
 }
 
-function transfer (address _from,address _to, uint _id) public {
+function transfer (address _to, uint _id) public {
 // require (ownerOf(_id) == msg.sender);
 // address owner = ownerOf(_id);
 // address buyer = _to;
 // approve(buyer, _id);
 // itemApprovals[_id] = buyer;
+address _from = ownerOf(_id);
 safeTransferFrom(_from, _to, _id);
 itemToOwner[_id] = _to;
 }
+
+function getItem ()public view returns(Item[] memory){
+    return items;
+}
+
+
+
 
 }
