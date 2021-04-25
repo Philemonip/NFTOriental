@@ -94,12 +94,12 @@ function getowner (uint _tokenId) public view returns (address){
 }
 
 function getownertwo (uint _tokenId) public view returns (address){
-   address owner;
-   for (uint i=0; i<items.length;i++){
-       if(items[i].id == _tokenId){
-           owner = items[i].owner;
-       } 
-   } return owner;
+    address owner;
+    for (uint i=0; i<items.length;i++){
+        if(items[i].id == _tokenId){
+            owner = items[i].owner;
+        } 
+    } return owner;
 }
 
 function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, uint price, bool forSale){
