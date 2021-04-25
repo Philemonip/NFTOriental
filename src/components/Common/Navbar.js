@@ -1,13 +1,14 @@
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import logo from "../asset/hedge.png";
+import logo from "../../asset/hedge.png";
+import classes from "./Navbar.module.css";
 
 const Navi = (props) => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar className={classes.navbar} variant="dark" sticky="top">
       <LinkContainer to="/">
         <Navbar.Brand>
-          <img className="mr-3" width="30px" src={logo} alt="logo" />
+          <img className="ml-4 mr-3" width="30px" src={logo} alt="logo" />
           CloseSea
         </Navbar.Brand>
       </LinkContainer>

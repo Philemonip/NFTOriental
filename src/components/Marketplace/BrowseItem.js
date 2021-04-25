@@ -9,17 +9,9 @@ import BrowseItemCard from "./BrowseItemCard";
 import { Container, Row, Col } from "react-bootstrap";
 dotenv.config();
 
-const BrowseItem = () => {
-  // let style = {
-  //   maxWidth: "18rem",
-  // };
-  // let center = {
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   flexWrap: "wrap",
-  // };
+//FIXME: Center the cards
 
+const BrowseItem = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -41,7 +33,7 @@ const BrowseItem = () => {
           {items &&
             items.map((item, index) => {
               return (
-                <Col sm lg md={4}>
+                <Col className="mt-4" xs={12} sm={6} md={4} lg={4} xl={3}>
                   <BrowseItemCard key={index} item={item} />
                 </Col>
               );
@@ -50,23 +42,6 @@ const BrowseItem = () => {
       </Container>
     </>
   );
-  // return (
-  //   <>
-  //     {items &&
-  //       items.map((item, index) => {
-  //         return (
-  //           <Card key={index} style={style}>
-  //             <Card.Img variant="top" src={item.image} />
-  //             <Card.Body>
-  //               <Card.Title>{item.category}</Card.Title>
-  //               <Card.Text>{item.title}</Card.Text>
-  //             </Card.Body>
-  //             <Card.Footer>ETH {item.price}</Card.Footer>
-  //           </Card>
-  //         );
-  //       })}
-  //   </>
-  // );
 };
 
 export default BrowseItem;

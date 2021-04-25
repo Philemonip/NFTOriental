@@ -1,4 +1,4 @@
-import Navi from "../components/Navbar";
+import Navi from "../components/Common/Navbar";
 import logo from "../asset/hedge.png";
 import "../App.css";
 
