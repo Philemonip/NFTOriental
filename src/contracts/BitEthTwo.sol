@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-
 contract BitEth is ERC721Enumerable{
 // using Counters for Counters.Counter;
 // Counters.Counter private _tokenIdTracker;
@@ -16,11 +15,11 @@ Counters.Counter private tokenId;
 constructor() ERC721('BitEth NFT','BTE') {
 }
 
-
 struct Item{
     string itemName;
     uint id;
     address owner;
+    address creator;
     uint price;
     bool forSale;
 }
@@ -29,17 +28,18 @@ Item [] public items;
 mapping(string => bool) private _itemExists;
 mapping (uint => address) itemToOwner;
 
-
 function Mint(string memory _itemName) external{
     uint currentId = tokenId.current();
     Item memory _item = Item({
         itemName: _itemName,
         id: currentId,
         owner: msg.sender,
+        creator: msg.sender,
         price: 0,
         forSale: false
     });
     items.push(_item);
+    // items.push(Item(_itemName,currentId,msg.sender,msg.sender,0,false));
     _safeMint(msg.sender, currentId);
     itemToOwner[currentId] = msg.sender;
     tokenId.increment();
@@ -52,6 +52,12 @@ function tokenOnSale (uint _tokenId, uint price) external{
     _item.forSale = true;
 }
 
+function notForSale (uint _tokenId) external {
+    require(ownerOf(_tokenId) == msg.sender);
+    Item storage _item = items[_tokenId];
+    _item.price = 0;
+    _item.forSale = false;
+}
 
 // function MintandBuy(string memory _itemName) public{
 // require (_itemExists[_itemName] == false);
@@ -84,7 +90,6 @@ _item.forSale = false;
 //     }
 // }
 
-
 function getItem () public view returns(Item[] memory){
     return items;
 }
@@ -102,11 +107,12 @@ function getownertwo (uint _tokenId) public view returns (address){
     } return owner;
 }
 
-function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, uint price, bool forSale){
+function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, address creator, uint price, bool forSale){
     Item storage _item = items[_tokenId];
     name = _item.itemName;
     id = _item.id;
     owner = ownerOf(_tokenId);
+    creator = _item.creator;
     price = _item.price;
     forSale = _item.forSale;
 }
