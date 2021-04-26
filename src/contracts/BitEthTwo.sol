@@ -27,6 +27,12 @@ Item [] public items;
 mapping (uint => address) private _tokenApprovals;
 mapping (uint => address) itemToOwner;
 
+modifier onlyOwnerOf (uint _tokenId) {
+    require (ownerOf(_tokenId) == msg.sender);
+    _;
+}
+
+
 function Mint(string memory _itemName) external{
     uint currentId = tokenId.current();
     string memory idString = Strings.toString(currentId);
@@ -49,22 +55,22 @@ function Mint(string memory _itemName) external{
     tokenId.increment();
 }
 
-function tokenOnSale (uint _tokenId, uint price) external{
-    require(ownerOf(_tokenId) == msg.sender);
+function tokenOnSale (uint _tokenId, uint price) external onlyOwnerOf(_tokenId){
+    // require(ownerOf(_tokenId) == msg.sender);
     Item storage _item = items[_tokenId];
     _item.price = price;
     _item.forSale = true;
 }
 
-function notForSale (uint _tokenId) external {
-    require(ownerOf(_tokenId) == msg.sender);
+function notForSale (uint _tokenId) external onlyOwnerOf(_tokenId){
+    // require(ownerOf(_tokenId) == msg.sender);
     Item storage _item = items[_tokenId];
     _item.price = 0;
     _item.forSale = false;
 }
 
-function approvalTo (address _to, uint _tokenId) external {
-    require (ownerOf(_tokenId) == msg.sender);
+function approvalTo (address _to, uint _tokenId) external onlyOwnerOf(_tokenId){
+    // require (ownerOf(_tokenId) == msg.sender);
     Item storage _item = items[_tokenId];
     require(_item.forSale == true);
     require(_item.price > 0);
@@ -72,7 +78,8 @@ function approvalTo (address _to, uint _tokenId) external {
     _tokenApprovals[_tokenId] = _to;
 }
 
-function clearApproval (uint _tokenId) private{
+function cancelApproval (uint _tokenId) external onlyOwnerOf(_tokenId){
+    // require(ownerOf(_tokenId) == msg.sender);
     _tokenApprovals[_tokenId] = address(0);
 }
 
@@ -87,12 +94,12 @@ function buyingFrom (uint _tokenId) external payable {
     _item.owner = msg.sender;
     _item.price = 0;
     _item.forSale = false;
-    clearApproval(_tokenId);
+    _tokenApprovals[_tokenId] = address(0);
 }
 
-function burnToken (uint _tokenId) external {
+function burnToken (uint _tokenId) external onlyOwnerOf(_tokenId) {
     Item storage _item = items[_tokenId];
-    require(ownerOf(_tokenId) == msg.sender);
+    // require(ownerOf(_tokenId) == msg.sender);
     require(_item.creator == msg.sender);
     _burn(_tokenId);
     delete items[_tokenId];
