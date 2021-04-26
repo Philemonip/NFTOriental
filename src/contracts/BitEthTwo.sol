@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+// import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract BitEth is ERC721Enumerable{
-using SafeMath for uint256;
+contract BitEth is ERC721URIStorage{
 using Counters for Counters.Counter;
 Counters.Counter private tokenId;
 
@@ -20,6 +20,7 @@ struct Item{
     address creator;
     uint price;
     bool forSale;
+    string tokenURI;
 }
 
 Item [] public items;
@@ -28,16 +29,22 @@ mapping (uint => address) itemToOwner;
 
 function Mint(string memory _itemName) external{
     uint currentId = tokenId.current();
+    string memory idString = Strings.toString(currentId);
+    string memory metadata = "/metadata.json";
+    string memory url = string(abi.encodePacked(idString, metadata));
+
     Item memory _item = Item({
         itemName: _itemName,
         id: currentId,
         owner: msg.sender,
         creator: msg.sender,
         price: 0,
-        forSale: false
+        forSale: false,
+        tokenURI: url
     });
     items.push(_item);
     _safeMint(msg.sender, currentId);
+    _setTokenURI(currentId, url);
     itemToOwner[currentId] = msg.sender;
     tokenId.increment();
 }
@@ -69,7 +76,7 @@ function clearApproval (uint _tokenId) private{
     _tokenApprovals[_tokenId] = address(0);
 }
 
-function buyingFrom (uint _tokenId) public payable {
+function buyingFrom (uint _tokenId) external payable {
     require (ownerOf(_tokenId) != msg.sender, "Owner cannot execute buy function");
     require (_tokenApprovals[_tokenId] == msg.sender);
     Item storage _item = items[_tokenId];
@@ -92,15 +99,19 @@ function burnToken (uint _tokenId) external {
     delete itemToOwner[_tokenId];
 }
 
-function getAllItems () public view returns(Item[] memory){
+function getAllItems () external view returns(Item[] memory){
     return items;
 }
 
-function getOwner (uint _tokenId) public view returns (address){
+function getURI (uint _tokenId) external view returns (string memory){
+    return tokenURI(_tokenId);
+}
+
+function getOwner (uint _tokenId) external view returns (address){
     return itemToOwner[_tokenId];
 }
 
-function getOwnertwo (uint _tokenId) public view returns (address){
+function getOwnertwo (uint _tokenId) external view returns (address){
    address owner;
    for (uint i=0; i<items.length;i++){
        if(items[i].id == _tokenId){
@@ -113,7 +124,7 @@ function isApproved (uint _tokenId) external view returns (address){
     return _tokenApprovals[_tokenId];
 }
 
-function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, address creator, uint price, bool forSale){
+function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, address creator, uint price, bool forSale, string memory tokenURI){
     Item storage _item = items[_tokenId];
     name = _item.itemName;
     id = _item.id;
@@ -121,6 +132,7 @@ function getToken(uint _tokenId) external view returns (string memory name, uint
     creator = _item.creator;
     price = _item.price;
     forSale = _item.forSale;
+    tokenURI = _item.tokenURI;
 }
 
 
