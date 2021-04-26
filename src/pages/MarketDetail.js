@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
-import logo from "../asset/hedge.png";
+import DetailImgInfo from "../components/Marketplace/DetailImgInfo";
+import DetailTitlePrice from "../components/Marketplace/DetailTitlePrice";
+import DetailTradingHistory from "../components/Marketplace/DetailTradingHistory";
 import "../App.css";
 
 function MarketDetail() {
@@ -9,20 +12,22 @@ function MarketDetail() {
   return (
     <div className="App">
       <Navi />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <Container fluid>
         {params.itemAddress && (
           <p>You are in ItemDetail, address: {params.itemAddress}</p>
         )}
-        <a
-          className="App-link"
-          href="https://www.youtube.com/watch?v=EnDg65ISswg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Click Me
-        </a>
-      </header>
+        <Row>
+          <Col>
+            <DetailImgInfo />
+          </Col>
+          <Col>
+            <DetailTitlePrice />
+          </Col>
+        </Row>
+        <Row>
+          <DetailTradingHistory />
+        </Row>
+      </Container>
     </div>
   );
 }
