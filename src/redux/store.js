@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
+import browseItems from "./browseSlice";
 
 const reducer = {
-  //List of Reducers
-  //linksReducer: linksReducer,
+  browseItems: browseItems,
 };
 
 export const store = configureStore({
