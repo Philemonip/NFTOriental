@@ -1,24 +1,24 @@
-import Navi from "../components/navbar";
-import logo from "../asset/hedge.png";
+import { Container, Row, Col } from "react-bootstrap";
+import Navi from "../components/Common/Navbar";
+import BrowseItem from "../components/Marketplace/BrowseItem";
+import BrowseSidebar from "../components/Marketplace/BrowseSidebar";
 import "../App.css";
 
 function MarketBrowse() {
   return (
-    <div className="App">
+    <>
       <Navi />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>You are in ItemBrowse</p>
-        <a
-          className="App-link"
-          href="https://www.youtube.com/watch?v=EnDg65ISswg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Click Me
-        </a>
-      </header>
-    </div>
+      <Container fluid>
+        <Row>
+          {/* <Col lg="auto" className="px-0 "> */}
+          <BrowseSidebar />
+          {/* </Col> */}
+          <Col className="px-0">
+            <BrowseItem />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 
