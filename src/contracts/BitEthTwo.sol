@@ -6,11 +6,11 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract BitEth is ERC721URIStorage{
+contract CloseSeaNFT is ERC721URIStorage{
 using Counters for Counters.Counter;
 Counters.Counter private tokenId;
 
-constructor() ERC721('BitEth NFT','BTE') {
+constructor() ERC721('CloseSea NFT','CLS') {
 }
 
 struct Item{
