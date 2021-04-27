@@ -28,16 +28,12 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\nimport \"./IERC165.sol\";\n\n/**\n * @dev Implementation of the {IERC165} interface.\n *\n * Contracts that want to implement ERC165 should inherit from this contract and override {supportsInterface} to check\n * for the additional interface id that will be supported. For example:\n *\n * ```solidity\n * function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {\n *     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId);\n * }\n * ```\n *\n * Alternatively, {ERC165Storage} provides an easier to use but more expensive implementation.\n */\nabstract contract ERC165 is IERC165 {\n    /**\n     * @dev See {IERC165-supportsInterface}.\n     */\n    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {\n        return interfaceId == type(IERC165).interfaceId;\n    }\n}\n",
-  "sourcePath": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+  "sourcePath": "@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol",
   "ast": {
     "absolutePath": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
     "exportedSymbols": {
-      "ERC165": [
-        2844
-      ],
-      "IERC165": [
-        2856
-      ]
+      "ERC165": [2844],
+      "IERC165": [2856]
     },
     "id": 2845,
     "license": "MIT",
@@ -45,12 +41,7 @@
     "nodes": [
       {
         "id": 2822,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:23:15"
       },
@@ -81,9 +72,7 @@
             "src": "688:7:15"
           }
         ],
-        "contractDependencies": [
-          2856
-        ],
+        "contractDependencies": [2856],
         "contractKind": "contract",
         "documentation": {
           "id": 2824,
@@ -93,17 +82,12 @@
         },
         "fullyImplemented": true,
         "id": 2844,
-        "linearizedBaseContracts": [
-          2844,
-          2856
-        ],
+        "linearizedBaseContracts": [2844, 2856],
         "name": "ERC165",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "baseFunctions": [
-              2855
-            ],
+            "baseFunctions": [2855],
             "body": {
               "id": 2842,
               "nodeType": "Block",
@@ -310,12 +294,8 @@
   "legacyAST": {
     "absolutePath": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
     "exportedSymbols": {
-      "ERC165": [
-        2844
-      ],
-      "IERC165": [
-        2856
-      ]
+      "ERC165": [2844],
+      "IERC165": [2856]
     },
     "id": 2845,
     "license": "MIT",
@@ -323,12 +303,7 @@
     "nodes": [
       {
         "id": 2822,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:23:15"
       },
@@ -359,9 +334,7 @@
             "src": "688:7:15"
           }
         ],
-        "contractDependencies": [
-          2856
-        ],
+        "contractDependencies": [2856],
         "contractKind": "contract",
         "documentation": {
           "id": 2824,
@@ -371,17 +344,12 @@
         },
         "fullyImplemented": true,
         "id": 2844,
-        "linearizedBaseContracts": [
-          2844,
-          2856
-        ],
+        "linearizedBaseContracts": [2844, 2856],
         "name": "ERC165",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "baseFunctions": [
-              2855
-            ],
+            "baseFunctions": [2855],
             "body": {
               "id": 2842,
               "nodeType": "Block",

@@ -8,13 +8,11 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\n/*\n * @dev Provides information about the current execution context, including the\n * sender of the transaction and its data. While these are generally available\n * via msg.sender and msg.data, they should not be accessed in such a direct\n * manner, since when dealing with meta-transactions the account sending and\n * paying for execution may not be the actual sender (as far as an application\n * is concerned).\n *\n * This contract is only required for intermediate, library-like contracts.\n */\nabstract contract Context {\n    function _msgSender() internal view virtual returns (address) {\n        return msg.sender;\n    }\n\n    function _msgData() internal view virtual returns (bytes calldata) {\n        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691\n        return msg.data;\n    }\n}\n",
-  "sourcePath": "@openzeppelin/contracts/utils/Context.sol",
+  "sourcePath": "@openzeppelin\\contracts\\utils\\Context.sol",
   "ast": {
     "absolutePath": "@openzeppelin/contracts/utils/Context.sol",
     "exportedSymbols": {
-      "Context": [
-        2617
-      ]
+      "Context": [2617]
     },
     "id": 2618,
     "license": "MIT",
@@ -22,12 +20,7 @@
     "nodes": [
       {
         "id": 2596,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:23:13"
       },
@@ -38,9 +31,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 2617,
-        "linearizedBaseContracts": [
-          2617
-        ],
+        "linearizedBaseContracts": [2617],
         "name": "Context",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -254,9 +245,7 @@
   "legacyAST": {
     "absolutePath": "@openzeppelin/contracts/utils/Context.sol",
     "exportedSymbols": {
-      "Context": [
-        2617
-      ]
+      "Context": [2617]
     },
     "id": 2618,
     "license": "MIT",
@@ -264,12 +253,7 @@
     "nodes": [
       {
         "id": 2596,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:23:13"
       },
@@ -280,9 +264,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 2617,
-        "linearizedBaseContracts": [
-          2617
-        ],
+        "linearizedBaseContracts": [2617],
         "name": "Context",
         "nodeType": "ContractDefinition",
         "nodes": [

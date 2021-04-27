@@ -54,9 +54,7 @@
   "ast": {
     "absolutePath": "/Users/cfred/Documents/GitHub/crypto_coin/src/contracts/Migrations.sol",
     "exportedSymbols": {
-      "Migrations": [
-        224
-      ]
+      "Migrations": [224]
     },
     "id": 225,
     "license": "MIT",
@@ -64,15 +62,7 @@
     "nodes": [
       {
         "id": 193,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.4",
-          ".22",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:32:1"
       },
@@ -83,9 +73,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 224,
-        "linearizedBaseContracts": [
-          224
-        ],
+        "linearizedBaseContracts": [224],
         "name": "Migrations",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -266,10 +254,7 @@
                       "id": 201,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "196:7:1",
                       "typeDescriptions": {
@@ -442,9 +427,7 @@
   "legacyAST": {
     "absolutePath": "/Users/cfred/Documents/GitHub/crypto_coin/src/contracts/Migrations.sol",
     "exportedSymbols": {
-      "Migrations": [
-        224
-      ]
+      "Migrations": [224]
     },
     "id": 225,
     "license": "MIT",
@@ -452,15 +435,7 @@
     "nodes": [
       {
         "id": 193,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.4",
-          ".22",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:32:1"
       },
@@ -471,9 +446,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 224,
-        "linearizedBaseContracts": [
-          224
-        ],
+        "linearizedBaseContracts": [224],
         "name": "Migrations",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -654,10 +627,7 @@
                       "id": 201,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "196:7:1",
                       "typeDescriptions": {

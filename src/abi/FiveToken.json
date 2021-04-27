@@ -462,42 +462,18 @@
   "ast": {
     "absolutePath": "/Users/cfred/Documents/GitHub/crypto_coin/src/contracts/fivetoken.sol",
     "exportedSymbols": {
-      "Address": [
-        2594
-      ],
-      "Context": [
-        2617
-      ],
-      "ERC165": [
-        2844
-      ],
-      "ERC721": [
-        1768
-      ],
-      "ERC721Enumerable": [
-        2240
-      ],
-      "FiveToken": [
-        368
-      ],
-      "IERC165": [
-        2856
-      ],
-      "IERC721": [
-        1884
-      ],
-      "IERC721Enumerable": [
-        2271
-      ],
-      "IERC721Metadata": [
-        2298
-      ],
-      "IERC721Receiver": [
-        1902
-      ],
-      "Strings": [
-        2820
-      ]
+      "Address": [2594],
+      "Context": [2617],
+      "ERC165": [2844],
+      "ERC721": [1768],
+      "ERC721Enumerable": [2240],
+      "FiveToken": [368],
+      "IERC165": [2856],
+      "IERC721": [1884],
+      "IERC721Enumerable": [2271],
+      "IERC721Metadata": [2298],
+      "IERC721Receiver": [1902],
+      "Strings": [2820]
     },
     "id": 369,
     "license": "MIT",
@@ -505,12 +481,7 @@
     "nodes": [
       {
         "id": 302,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:23:3"
       },
@@ -829,10 +800,7 @@
                       "id": 326,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "399:7:3",
                       "typeDescriptions": {
@@ -927,9 +895,7 @@
                   "src": "439:19:3"
                 },
                 {
-                  "assignments": [
-                    341
-                  ],
+                  "assignments": [341],
                   "declarations": [
                     {
                       "constant": false,
@@ -1044,10 +1010,7 @@
                       "id": 345,
                       "name": "_safeMint",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        1462,
-                        1491
-                      ],
+                      "overloadedDeclarations": [1462, 1491],
                       "referencedDeclaration": 1462,
                       "src": "487:9:3",
                       "typeDescriptions": {
@@ -1297,42 +1260,18 @@
   "legacyAST": {
     "absolutePath": "/Users/cfred/Documents/GitHub/crypto_coin/src/contracts/fivetoken.sol",
     "exportedSymbols": {
-      "Address": [
-        2594
-      ],
-      "Context": [
-        2617
-      ],
-      "ERC165": [
-        2844
-      ],
-      "ERC721": [
-        1768
-      ],
-      "ERC721Enumerable": [
-        2240
-      ],
-      "FiveToken": [
-        368
-      ],
-      "IERC165": [
-        2856
-      ],
-      "IERC721": [
-        1884
-      ],
-      "IERC721Enumerable": [
-        2271
-      ],
-      "IERC721Metadata": [
-        2298
-      ],
-      "IERC721Receiver": [
-        1902
-      ],
-      "Strings": [
-        2820
-      ]
+      "Address": [2594],
+      "Context": [2617],
+      "ERC165": [2844],
+      "ERC721": [1768],
+      "ERC721Enumerable": [2240],
+      "FiveToken": [368],
+      "IERC165": [2856],
+      "IERC721": [1884],
+      "IERC721Enumerable": [2271],
+      "IERC721Metadata": [2298],
+      "IERC721Receiver": [1902],
+      "Strings": [2820]
     },
     "id": 369,
     "license": "MIT",
@@ -1340,12 +1279,7 @@
     "nodes": [
       {
         "id": 302,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:23:3"
       },
@@ -1664,10 +1598,7 @@
                       "id": 326,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "399:7:3",
                       "typeDescriptions": {
@@ -1762,9 +1693,7 @@
                   "src": "439:19:3"
                 },
                 {
-                  "assignments": [
-                    341
-                  ],
+                  "assignments": [341],
                   "declarations": [
                     {
                       "constant": false,
@@ -1879,10 +1808,7 @@
                       "id": 345,
                       "name": "_safeMint",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        1462,
-                        1491
-                      ],
+                      "overloadedDeclarations": [1462, 1491],
                       "referencedDeclaration": 1462,
                       "src": "487:9:3",
                       "typeDescriptions": {
