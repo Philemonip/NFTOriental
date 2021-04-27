@@ -1,3 +1,16 @@
+/* GLOBAL STYLES */
+
+a {
+  color: #474652;
+}
+
+a:hover {
+  color: #474652;
+  text-decoration: none;
+}
+
+/* React Default Style */
+
 .App {
   text-align: center;
 }
