@@ -4,13 +4,13 @@ import logger from "redux-logger";
 import bancoSlice from "./Banco/bancoSlice";
 
 const reducer = {
-	// browseItems,
-	banco: bancoSlice.reducer,
+  // browseItems,
+  banco: bancoSlice.reducer,
 };
 
 const store = configureStore({
-	reducer,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;

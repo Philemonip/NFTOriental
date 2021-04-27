@@ -8777,71 +8777,14 @@
   },
   "networks": {
     "5777": {
-      "events": {
-        "0x90890809c654f11d6e72a28fa60149770a0d11ec6c92319d6ceb2bb0a4ea1a15": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "user",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "etherAmount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "timeSeart",
-              "type": "uint256"
-            }
-          ],
-          "name": "Deposit",
-          "type": "event"
-        },
-        "0x02f25270a4d87bea75db541cdfe559334a275b4a233520ed6c0a2429667cca94": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "user",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "etherAmount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "depositTime",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "interest",
-              "type": "uint256"
-            }
-          ],
-          "name": "Withdraw",
-          "type": "event"
-        }
-      },
+      "events": {},
       "links": {},
-      "address": "0xA4C2c5d1b4A44848CdAC03CBa35B5a0aDfB59244",
-      "transactionHash": "0xce92eebf464c4c8e37f9137dc9eb1dda20f46b45c3b975ed4fa763a71e53a4b3"
+      "address": "0x1c66929A13a922F642d7e7Ff8844317005719f09",
+      "transactionHash": "0x29cbb8e96e1b2439eb4200be8b445d74c778aa02f32204d450fa61e8ed0c6996"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-27T03:21:47.152Z",
+  "updatedAt": "2021-04-27T03:57:11.680Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
