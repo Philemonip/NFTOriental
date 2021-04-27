@@ -4,7 +4,7 @@ import TrialApp from "./pages/Trialapp";
 import MarketHome from "./pages/MarketHome";
 import MarketBrowse from "./pages/MarketBrowse";
 import MarketDetail from "./pages/MarketDetail";
-import Main from "./pages/Main";
+import BancoHome from "./pages/BancoHome";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
@@ -29,7 +29,7 @@ function App() {
 					<TrialApp />
 				</Route>
 				<Route path="/cincochicos">
-					<Main />
+					<BancoHome />
 				</Route>
 				<Route path="*">
 					<NoMatch />
