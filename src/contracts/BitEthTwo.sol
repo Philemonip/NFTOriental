@@ -18,7 +18,7 @@ struct Item{
     uint id;
     address owner;
     address creator;
-    uint price;
+    uint64 price;
     bool forSale;
     string tokenURI;
 }
@@ -36,8 +36,9 @@ modifier onlyOwnerOf (uint _tokenId) {
 function Mint(string memory _itemName) external{
     uint currentId = tokenId.current();
     string memory idString = Strings.toString(currentId);
+    string memory baseURI = "http://localhost:8000/";
     string memory metadata = "/metadata.json";
-    string memory url = string(abi.encodePacked(idString, metadata));
+    string memory url = string(abi.encodePacked(baseURI, idString, metadata));
 
     Item memory _item = Item({
         itemName: _itemName,
@@ -55,7 +56,7 @@ function Mint(string memory _itemName) external{
     tokenId.increment();
 }
 
-function tokenOnSale (uint _tokenId, uint price) external onlyOwnerOf(_tokenId){
+function tokenOnSale (uint _tokenId, uint64 price) external onlyOwnerOf(_tokenId){
     // require(ownerOf(_tokenId) == msg.sender);
     Item storage _item = items[_tokenId];
     _item.price = price;
@@ -119,19 +120,19 @@ function getOwner (uint _tokenId) external view returns (address){
 }
 
 function getOwnertwo (uint _tokenId) external view returns (address){
-   address owner;
-   for (uint i=0; i<items.length;i++){
-       if(items[i].id == _tokenId){
-           owner = items[i].owner;
-       } 
-   } return owner;
+    address owner;
+    for (uint i=0; i<items.length;i++){
+        if(items[i].id == _tokenId){
+            owner = items[i].owner;
+        } 
+    } return owner;
 }
 
 function isApproved (uint _tokenId) external view returns (address){
     return _tokenApprovals[_tokenId];
 }
 
-function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, address creator, uint price, bool forSale, string memory tokenURI){
+function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, address creator, uint64 price, bool forSale, string memory tokenURI){
     Item storage _item = items[_tokenId];
     name = _item.itemName;
     id = _item.id;
