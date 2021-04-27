@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import browseItemsSlice from "./browseSlice";
+// import browseItems from "./browseSlice";
+import bancoSlice from "./Banco/bancoSlice";
 
 const reducer = {
-  browseItems: browseItemsSlice,
+  // browseItems,
+  banco: bancoSlice.reducer,
 };
 
-export const store = configureStore({
+const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
+
+export default store;
