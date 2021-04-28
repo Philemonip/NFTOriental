@@ -16,6 +16,7 @@ const initialState = {
 	loading: true,
 	loadingTransaction: true,
 	showTransactionHistory: false,
+	bancoContent: "Home",
 };
 
 const bancoSlice = createSlice({
@@ -64,6 +65,9 @@ const bancoSlice = createSlice({
 		},
 		toggleTransactionHistory(state, action) {
 			state.showTransactionHistory = !state.showTransactionHistory;
+		},
+		changeBancoContent(state, action) {
+			state.bancoContent = action.payload;
 		},
 	},
 });
