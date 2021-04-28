@@ -1,0 +1,22 @@
+.cchHome {
+	background-color: #282c34;
+	color: white;
+	height: 100vh;
+}
+
+/* Inactive tab */
+.bancoActionTabs ul > li > a {
+	background-color: white;
+	color: red;
+}
+.bancoActionTabs ul > li > a:hover {
+	background-color: pink;
+}
+
+/* Active tab */
+.bancoActionTabs ul > li.active > a,
+.bancoActionTabs ul > li.active > a:hover,
+.bancoActionTabs ul > li.active > a:focus {
+	background-color: red;
+	color: white;
+}

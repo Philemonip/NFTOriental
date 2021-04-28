@@ -39,12 +39,16 @@ function Trialapp() {
       const abi = FiveToken.abi;
       const address = networkData.address;
       const contract = new web3.eth.Contract(abi, address);
+      console.log('contract loaded', contract)
       setcontract(contract);
       const totalSupply = await contract.methods.totalSupply().call();
       settotalSupply(totalSupply);
       const arr = await contract.methods.getArray().call();
       setarr(arr);
       console.log(arr)
+      const owner = await contract.methods.findOwner(0).call();
+      console.log(owner)
+
       // Load Colors
       for (var i = 1; i <= totalSupply; i++) {
         const color = await contract.getArray;
@@ -65,16 +69,17 @@ function Trialapp() {
       });
   };
 
+
   return (
     <div>
       <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a
           className="navbar-brand col-sm-3 col-md-2 mr-0"
-          href="http://www.dappuniversity.com/bootcamp"
+          href="/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Color Tokens
+          Five Tokens
         </a>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -88,7 +93,7 @@ function Trialapp() {
         <div className="row">
           <main role="main" className="col-lg-12 d-flex text-center">
             <div className="content mr-auto ml-auto">
-              <h1>Issue Token</h1>
+              <h1>NFT Token Minting</h1>
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
@@ -115,14 +120,34 @@ function Trialapp() {
         </div>
         <hr />
         <div className="row text-center">
-          {colors.map((color, key) => {
+          {arr.map((color) => {
             return (
-              <div key={key} className="col-md-3 mb-3">
-                <div className="token" style={{ backgroundColor: color }}></div>
-                <div>{color}</div>
+              <div key={color.id} className="col-md-3 mb-3">
+                <div className="token" style={{ backgroundColor: color.color }}></div>
+                <div>{color.color}</div>
+                <p>id:{color.id}</p>
+                {/* <p>owner:{owner(color.id)}</p> */}
+                <button className="btn btn-info">Transfer</button>
               </div>
             );
           })}
+        </div>
+        <div>
+
+          <img className="m-3" src="https://images.livemint.com/img/2021/04/23/600x338/2021-01-21T102524Z_1_LYNXMPEH0K0KV_RTROPTP_3_CRYPTO-CURRENCY_1611913260480_1611913274330_1619147448882.JPG"
+            style={{ height: "200px", width: "200px" }}
+            alt="bitcoin" />
+          <button className="mx-2 btn btn-info">mint</button>
+          <button className="mx-2 btn btn-success">buy</button>
+          <button className="mx-2 btn btn-danger">sell back</button>
+          <span>owner: </span>
+
+          <img className="m-3" src="https://www.etftrends.com/wp-content/uploads/2021/03/Another-Reason-to-Consider-High-Flying-Ethereum.jpg" alt="ethereum" style={{ height: "200px", width: "200px" }} />
+          <button className="mx-2 btn btn-info">mint</button>
+          <button className="mx-2 btn btn-success">buy</button>
+          <button className="mx-2 btn btn-danger">sell back</button>
+          <span>owner: </span>
+
         </div>
       </div>
     </div>
