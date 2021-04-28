@@ -2,11 +2,15 @@ import { Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
 import BrowseItem from "../components/Marketplace/BrowseItem";
 import BrowseSidebar from "../components/Marketplace/BrowseSidebar";
-import "../App.css";
 
 function MarketBrowse() {
+  const style = {
+    overflow: "hidden",
+    height: "100vh",
+  };
+
   return (
-    <>
+    <div style={style}>
       <Navi />
       <Container fluid>
         <Row>
@@ -14,7 +18,7 @@ function MarketBrowse() {
           <BrowseItem />
         </Row>
       </Container>
-    </>
+    </div>
   );
 }
 

@@ -1,13 +1,14 @@
 // import React, { useState, useEffect } from "react";
 // import axios from "axios";
-import { Card, Image } from "react-bootstrap";
+import { Card, Image, Row, Col } from "react-bootstrap";
 import classes from "./BrowseItemCard.module.css";
 
 const BrowseItemCard = ({ item }) => {
   //Text shortener helper function
   const shortText = (longtext) => {
-    if (longtext.length > 15) {
-      return longtext.substring(0, 15) + "...";
+    const TEXT_LIMIT = 20;
+    if (longtext.length > TEXT_LIMIT) {
+      return longtext.substring(0, TEXT_LIMIT) + "...";
     } else {
       return longtext;
     }
@@ -18,13 +19,34 @@ const BrowseItemCard = ({ item }) => {
   return (
     <a href={"/items/" + item.id}>
       <Card className={classes.card}>
-        <Image className={classes.image} src={dummypic} />
-        <Card.Body>
-          {/* <Card.Title>{item.title}</Card.Title> */}
-          <Card.Text>{item.category}</Card.Text>
-          <Card.Text>{shortText(item.title)}</Card.Text>
+        <div className={classes.imagediv}>
+          <Image fluid className={classes.image} src={dummypic} />
+        </div>
+        <Card.Body className={classes.cardbody}>
+          <Row>
+            <Col lg={8} className="pl-3 pr-0">
+              <Card.Text className={classes.cardtitle}>
+                {item.category}
+              </Card.Text>
+              <Card.Text className={classes.cardtext}>
+                {shortText(item.title)}
+              </Card.Text>
+            </Col>
+            <Col className="pl-0 pr-3">
+              <Card.Text
+                className={`${classes.cardtitle} ${classes.textalignright}`}
+              >
+                Price
+              </Card.Text>
+              <Card.Text
+                className={`${classes.cardtext} ${classes.textalignright}`}
+              >
+                <b>ETH</b> {item.price}
+              </Card.Text>
+            </Col>
+          </Row>
         </Card.Body>
-        <Card.Footer>ETH {item.price}</Card.Footer>
+        {/* <Card.Footer>ETH {item.price}</Card.Footer> */}
       </Card>
     </a>
   );
