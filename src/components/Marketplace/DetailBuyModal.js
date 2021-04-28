@@ -12,21 +12,23 @@ function DetailBuyModal(props) {
       centered
       animation={false}
     >
-      <Modal.Header closeButton className={classes.modalheader}>
-        {/* <Modal.Title id="contained-modal-title-vcenter">Checkout</Modal.Title> */}
-      </Modal.Header>
+      <Modal.Header closeButton className={classes.modalheader}></Modal.Header>
       <Modal.Body className={classes.modalbody}>
         <Row className="mb-3 d-flex justify-content-center align-items-center">
           <h4>Checkout</h4>
         </Row>
-        <Row>
-          <Col lg={9}>Item</Col>
-          <Col>Subtotal</Col>
+        <Row className={classes.subtotalrow}>
+          <Col lg={9}>
+            <h5>Item</h5>
+          </Col>
+          <Col>
+            <h5>Subtotal</h5>
+          </Col>
         </Row>
         <Row className="mt-3">
           <Col lg={9}>
             <Row>
-              <Col>
+              <Col lg={4}>
                 <Image className={classes.image} src={dummypic} fluid />
               </Col>
               <Col className="d-flex align-items-center">
@@ -41,17 +43,20 @@ function DetailBuyModal(props) {
             <h5>ETH 0.01</h5>
           </Col>
         </Row>
-        <Row className="mt-3">
-          <Col>
+        <Row className={classes.totalrow}>
+          <Col className="d-flex align-items-end">
             <h5>Total</h5>
           </Col>
           <Col className="d-flex justify-content-end">
             <h5>DER PRICE</h5>
           </Col>
         </Row>
-        <Row className="d-flex mt-3 justify-content-center">
+        <Row className="d-flex mt-2 justify-content-center">
           <Button>Checkout</Button>
           <Button className="ml-3">Add Funds</Button>
+        </Row>
+        <Row>
+          <h5 className="text-danger">Bigger Buttons</h5>
         </Row>
       </Modal.Body>
     </Modal>

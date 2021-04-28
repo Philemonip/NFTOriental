@@ -17,13 +17,10 @@ const Navi = (props) => {
           <Nav.Link>Browse</Nav.Link>
         </LinkContainer>
         <LinkContainer to="/">
-          <Nav.Link>Features</Nav.Link>
+          <Nav.Link>How to Buy</Nav.Link>
         </LinkContainer>
         <LinkContainer to="/">
-          <Nav.Link>Pricing</Nav.Link>
-        </LinkContainer>
-        <LinkContainer to="/trial">
-          <Nav.Link>ERC20 Mint</Nav.Link>
+          <Nav.Link>Create</Nav.Link>
         </LinkContainer>
       </Nav>
     </Navbar>

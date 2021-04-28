@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
-import TrialApp from "./pages/Trialapp";
+// import TrialApp from "./pages/Trialapp";
 import MarketHome from "./pages/MarketHome";
 import MarketBrowse from "./pages/MarketBrowse";
 import MarketDetail from "./pages/MarketDetail";
@@ -25,9 +25,9 @@ function App() {
         <Route path="/items/:itemAddress">
           <MarketDetail />
         </Route>
-        <Route path="/trial">
+        {/* <Route path="/trial">
           <TrialApp />
-        </Route>
+        </Route> */}
         <Route path="/cincochicos">
           <Main />
         </Route>
