@@ -39,6 +39,7 @@ function Trialapp() {
       const abi = FiveToken.abi;
       const address = networkData.address;
       const contract = new web3.eth.Contract(abi, address);
+      console.log('contract loaded', contract)
       setcontract(contract);
       const totalSupply = await contract.methods.totalSupply().call();
       settotalSupply(totalSupply);
