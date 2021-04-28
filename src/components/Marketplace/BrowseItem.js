@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dotenv from "dotenv";
-// import Card from "react-bootstrap/Card";
 import BrowseItemCard from "./BrowseItemCard";
-// import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 import { Container, Row, Col } from "react-bootstrap";
+import classes from "./BrowseItem.module.css";
 dotenv.config();
 
 //FIXME: Center the cards
@@ -24,23 +21,24 @@ const BrowseItem = () => {
       setItems(data);
     };
     fetchData();
-  }, [items]);
+  }, []);
 
   return (
-    <>
-      <Container fluid>
+    <Col className="px-0">
+      <Container fluid className={classes.browseitem}>
         <Row>
           {items &&
             items.map((item, index) => {
               return (
-                <Col className="mt-4" xs={12} sm={6} md={4} lg={4} xl={3}>
-                  <BrowseItemCard key={index} item={item} />
+                // <Col className="mt-4" xs={12} sm={6} md={4} lg={4} xl={3}>
+                <Col className="mt-4 d-flex justify-content-center" key={index}>
+                  <BrowseItemCard item={item} />
                 </Col>
               );
             })}
         </Row>
       </Container>
-    </>
+    </Col>
   );
 };
 
