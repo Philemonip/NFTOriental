@@ -20,12 +20,6 @@ const detailSlice = createSlice({
         updateContract(state, action) {
             state.contract = action.payload;
         },
-        // updateEthBalance(state, action) {
-        //     state.ethBalance = action.payload;
-        // },
-        // updateCchBalance(state, action) {
-        //     state.cchBalance = action.payload;
-        // },
         updateItem(state, action) {
             state.items = action.payload;
         }

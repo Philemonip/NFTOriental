@@ -64,6 +64,7 @@ function MarketDetail() {
       console.log(await contract.methods.getURI(1).call());
       const getToken = await contract.methods.getToken(1).call();
       console.log(getToken.creator)
+      console.log(await contract.methods.isApproved(3).call());
     } else {
       window.alert("Smart contract not deployed to detected network.");
     };
@@ -123,6 +124,8 @@ function MarketDetail() {
     }
   }
 
+
+
   async function buyToken(tokenId) {
     try {
       await contractNFT.methods
@@ -142,6 +145,7 @@ function MarketDetail() {
       console.log("burning token error", err);
     }
   }
+
 
   return (
     <div className="App">
