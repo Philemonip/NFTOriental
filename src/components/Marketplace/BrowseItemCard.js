@@ -18,12 +18,11 @@ const BrowseItemCard = ({ item }) => {
   return (
     <a href={"/items/" + item.id}>
       <Card className={classes.card}>
-        {/* <Card.Img variant="top" src={dummypic} /> */}
         <Image className={classes.image} src={dummypic} />
         <Card.Body>
           {/* <Card.Title>{item.title}</Card.Title> */}
           <Card.Text>{item.category}</Card.Text>
-          <Card.Title>{shortText(item.title)}</Card.Title>
+          <Card.Text>{shortText(item.title)}</Card.Text>
         </Card.Body>
         <Card.Footer>ETH {item.price}</Card.Footer>
       </Card>
