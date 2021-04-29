@@ -11,7 +11,7 @@ contract("CloseSeaNFT", (accounts) => {
   });
   describe("testing minting", () => {
     it("should be able to Mint NFT", async () => {
-      const result = await contractInstance.Mint(coinNames[0], { from: alice });
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
       expect(result.receipt.status).to.equal(true);
@@ -25,16 +25,16 @@ contract("CloseSeaNFT", (accounts) => {
   });
   describe("testing transfer", () => {
     it("should not be able to transfer without token being on sale or being approved by owner", async () => {
-      const result = await contractInstance.Mint(coinNames[0], { from: alice });
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
       await utils.shouldThrow(
-        contractInstance.buyingFrom(tokenId, { from: alice })
+        contractInstance.buyingWithApproval(tokenId, { from: alice })
       );
     });
 
     it("should not be able to approve buyer without token being on sale", async () => {
-      const result = await contractInstance.Mint(coinNames[0], { from: alice });
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
       await utils.shouldThrow(
@@ -42,7 +42,7 @@ contract("CloseSeaNFT", (accounts) => {
       );
     });
     it("transfer success with approval by owner", async () => {
-      const result = await contractInstance.Mint(coinNames[0], { from: alice });
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
       await contractInstance.tokenOnSale(tokenId, 33, {
@@ -52,12 +52,12 @@ contract("CloseSeaNFT", (accounts) => {
       expect(tokenInfo.forSale).to.equal(true);
       expect(tokenInfo.price.words[0]).to.equal(33);
       await contractInstance.approvalTo(bob, tokenId, { from: alice });
-      await contractInstance.buyingFrom(tokenId, { from: bob });
+      await contractInstance.buyingWithApproval(tokenId, { from: bob });
       const newOwner = await contractInstance.getOwner(tokenId);
       expect(newOwner).to.equal(bob);
     });
     it("After owner cancelled approval to buyer, buyer cannot buy Token", async () => {
-      const result = await contractInstance.Mint(coinNames[0], { from: alice });
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
       await contractInstance.tokenOnSale(tokenId, 33, {
@@ -69,14 +69,14 @@ contract("CloseSeaNFT", (accounts) => {
       await contractInstance.approvalTo(bob, tokenId, { from: alice });
       await contractInstance.cancelApproval(tokenId, { from: alice });
       await utils.shouldThrow(
-        contractInstance.buyingFrom(tokenId, { from: bob })
+        contractInstance.buyingWithApproval(tokenId, { from: bob })
       );
       expect(tokenInfo.owner).to.equal(alice);
     });
   });
   describe("testing burn Token", () => {
     it("burn Token", async () => {
-      const result = await contractInstance.Mint(coinNames[0], { from: alice });
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
       await contractInstance.burnToken(tokenId, { from: alice });
@@ -84,7 +84,7 @@ contract("CloseSeaNFT", (accounts) => {
       expect(newOwner).to.equal("0x0000000000000000000000000000000000000000");
     });
     it("cannot burn Token if you are not Owner", async () => {
-      const result = await contractInstance.Mint(coinNames[0], { from: alice });
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
       await utils.shouldThrow(
@@ -100,7 +100,7 @@ contract("CloseSeaNFT", (accounts) => {
     });
     it("Cannot buy Coin from others", async () => {
       await utils.shouldThrow(
-        contractInstance.buyingFrom(alice, 0, { from: bob })
+        contractInstance.buyingWithApproval(alice, 0, { from: bob })
       );
     });
     it("Cannot set Token on sale", async () => {
