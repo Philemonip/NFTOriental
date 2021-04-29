@@ -10,7 +10,7 @@ contract CloseSeaNFT is ERC721URIStorage{
 using Counters for Counters.Counter;
 Counters.Counter private tokenId;
 
-constructor() ERC721('CloseSea NFT','CLS') {
+constructor() ERC721('BitEth NFT','BTE') {
 }
 
 struct Item{
@@ -32,8 +32,7 @@ modifier onlyOwnerOf (uint _tokenId) {
     _;
 }
 
-
-function Mint(string memory _itemName) external{
+function mint(string memory _itemName) external{
     uint currentId = tokenId.current();
     string memory idString = Strings.toString(currentId);
     string memory baseURI = "http://localhost:8000/";
@@ -57,21 +56,23 @@ function Mint(string memory _itemName) external{
 }
 
 function tokenOnSale (uint _tokenId, uint64 price) external onlyOwnerOf(_tokenId){
-    // require(ownerOf(_tokenId) == msg.sender);
     Item storage _item = items[_tokenId];
+    require(_item.forSale == false);
     _item.price = price;
     _item.forSale = true;
+    // approve(address(this), _tokenId);
+    // safeTransferFrom(ownerOf(_tokenId), address(this), _tokenId);
 }
 
 function notForSale (uint _tokenId) external onlyOwnerOf(_tokenId){
-    // require(ownerOf(_tokenId) == msg.sender);
     Item storage _item = items[_tokenId];
+    require(_item.forSale == true);
     _item.price = 0;
     _item.forSale = false;
 }
 
 function approvalTo (address _to, uint _tokenId) external onlyOwnerOf(_tokenId){
-    // require (ownerOf(_tokenId) == msg.sender);
+    require(_tokenApprovals[_tokenId] != _to);
     Item storage _item = items[_tokenId];
     require(_item.forSale == true);
     require(_item.price > 0);
@@ -80,11 +81,10 @@ function approvalTo (address _to, uint _tokenId) external onlyOwnerOf(_tokenId){
 }
 
 function cancelApproval (uint _tokenId) external onlyOwnerOf(_tokenId){
-    // require(ownerOf(_tokenId) == msg.sender);
     _tokenApprovals[_tokenId] = address(0);
 }
 
-function buyingFrom (uint _tokenId) external payable {
+function buyingWithApproval (uint _tokenId) external payable {
     require (ownerOf(_tokenId) != msg.sender, "Owner cannot execute buy function");
     require (_tokenApprovals[_tokenId] == msg.sender);
     Item storage _item = items[_tokenId];
@@ -98,9 +98,20 @@ function buyingFrom (uint _tokenId) external payable {
     _tokenApprovals[_tokenId] = address(0);
 }
 
+function buyingWithoutApproval (uint _tokenId) external payable {
+    require (ownerOf(_tokenId) != msg.sender);
+    Item storage _item = items[_tokenId];
+    require(_item.forSale == true);
+    address _from = ownerOf(_tokenId);
+    _transfer(_from, msg.sender, _tokenId);
+    itemToOwner[_tokenId] = msg.sender;
+    _item.owner = msg.sender;
+    _item.price = 0;
+    _item.forSale = false;
+}
+
 function burnToken (uint _tokenId) external onlyOwnerOf(_tokenId) {
     Item storage _item = items[_tokenId];
-    // require(ownerOf(_tokenId) == msg.sender);
     require(_item.creator == msg.sender);
     _burn(_tokenId);
     delete items[_tokenId];
