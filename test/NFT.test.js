@@ -41,7 +41,36 @@ contract("CloseSeaNFT", (accounts) => {
         contractInstance.approvalTo(bob, tokenId, { from: alice })
       );
     });
-    it("transfer success with approval by owner", async () => {
+    it("buying without approval then cross-transfer again", async () => {
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
+      const event = result.logs[0].args;
+      const tokenId = event.tokenId.toNumber();
+      await contractInstance.tokenOnSale(tokenId, 33, {
+        from: alice,
+      });
+      const result2 = await contractInstance.buyingWithoutApproval(0, {
+        from: bob,
+      });
+      console.log(result2);
+      const newOwner = await contractInstance.getOwner(tokenId);
+      expect(newOwner).to.equal(bob);
+      const tokenInfo = await contractInstance.getToken(tokenId);
+      console.log(tokenInfo);
+      expect(tokenInfo.owner).to.equal(bob);
+      await contractInstance.tokenOnSale(tokenId, 33, {
+        from: bob,
+      });
+      const result3 = await contractInstance.buyingWithoutApproval(0, {
+        from: alice,
+      });
+      console.log(result3);
+      const renewedOwner = await contractInstance.getOwner(tokenId);
+      expect(renewedOwner).to.equal(alice);
+      const renewedtokenInfo = await contractInstance.getToken(tokenId);
+      console.log(renewedtokenInfo);
+      expect(renewedtokenInfo.owner).to.equal(alice);
+    });
+    xit("transfer success with approval by owner", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -56,7 +85,7 @@ contract("CloseSeaNFT", (accounts) => {
       const newOwner = await contractInstance.getOwner(tokenId);
       expect(newOwner).to.equal(bob);
     });
-    it("After owner cancelled approval to buyer, buyer cannot buy Token", async () => {
+    xit("After owner cancelled approval to buyer, buyer cannot buy Token", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -75,7 +104,7 @@ contract("CloseSeaNFT", (accounts) => {
     });
   });
   describe("testing burn Token", () => {
-    it("burn Token", async () => {
+    xit("burn Token", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -83,7 +112,7 @@ contract("CloseSeaNFT", (accounts) => {
       const newOwner = await contractInstance.getOwner(tokenId);
       expect(newOwner).to.equal("0x0000000000000000000000000000000000000000");
     });
-    it("cannot burn Token if you are not Owner", async () => {
+    xit("cannot burn Token if you are not Owner", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -93,20 +122,20 @@ contract("CloseSeaNFT", (accounts) => {
     });
   });
   describe("contract functions should not work if token has not been minted", () => {
-    it("Cannot send approval to others", async () => {
+    xit("Cannot send approval to others", async () => {
       await utils.shouldThrow(
         contractInstance.approvalTo(bob, 0, { from: alice })
       );
     });
-    it("Cannot buy Coin from others", async () => {
+    xit("Cannot buy Coin from others", async () => {
       await utils.shouldThrow(
         contractInstance.buyingWithApproval(alice, 0, { from: bob })
       );
     });
-    it("Cannot set Token on sale", async () => {
+    xit("Cannot set Token on sale", async () => {
       await utils.shouldThrow(contractInstance.tokenOnSale(1, { from: alice }));
     });
-    it("Cannot burn Token", async () => {
+    xit("Cannot burn Token", async () => {
       await utils.shouldThrow(contractInstance.burnToken(2, { from: alice }));
     });
   });
