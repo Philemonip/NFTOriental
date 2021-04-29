@@ -1,4 +1,14 @@
 .pricediv {
   border-radius: 10px;
   background-color: aquamarine;
+  padding: 15px;
+}
+
+.category {
+  color: #6181e4;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 26px;
 }
