@@ -1,9 +1,12 @@
 import logo from "../../asset/hedge.png";
+import { useSelector } from "react-redux";
+
 const NavBanco = () => {
+	const windowWidth = useSelector((state) => state.banco.windowWidth);
 	return (
 		<div className="container-fluid bancoNav">
 			<div className="row">
-				<div className="col-lg-1 d-flex justify-content-right ">
+				<div className="col-1 d-flex justify-content-right ">
 					<div className="logo">
 						<div class="scene">
 							<div class="cube">
@@ -19,7 +22,13 @@ const NavBanco = () => {
 					{/* <img src={logo} className="logo" alt="logo" /> */}
 				</div>
 				<div className="col d-flex align-items-center text-left">
-					<h1>banco de cinco chicos</h1>
+					<div className="bancoTitle">
+						{windowWidth >= 614 ? (
+							<h1>banco de cinco chicos</h1>
+						) : (
+							<h1>BdeCC</h1>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

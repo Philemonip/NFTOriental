@@ -27,12 +27,17 @@ const BancoHome = () => {
 	// const banco = useSelector((state) => state.banco.banco);
 	const account = useSelector((state) => state.banco.account);
 	const loading = useSelector((state) => state.banco.loading);
-
 	const bancoContent = useSelector((state) => state.banco.bancoContent);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		loadBlockchainData();
 	}, []);
+	useEffect(() => {
+		window.addEventListener("resize", handleResize);
+	}, []);
+	function handleResize() {
+		dispatch(bancoSliceActions.resizeWindowWidth(window.innerWidth));
+	}
 	// useEffect(() => {
 	// 	console.log("useeffect", transaction);
 	// }, [transaction]);
@@ -102,6 +107,7 @@ const BancoHome = () => {
 					.deposit()
 					.send({ value: amount.toString(), from: account });
 				await showBalance();
+				dispatch(bancoSliceActions.toggleDeposit());
 			} catch (e) {
 				console.log("Error, deposit: ", e);
 			}
@@ -132,7 +138,7 @@ const BancoHome = () => {
 						currency: "CCH",
 					})
 				);
-				await console.log("after call backend");
+				dispatch(bancoSliceActions.toggleDeposit());
 				dispatch(bancoSliceActions.toggleTransactionLoading(true));
 				await dispatch(getTransactionThunk(account));
 				dispatch(bancoSliceActions.toggleTransactionLoading(false));
