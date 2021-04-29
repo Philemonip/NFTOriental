@@ -1,28 +1,26 @@
 import Navi from "../components/Common/Navbar";
-import logo from "../asset/hedge.png";
+import HomeNewlyMinted from "../components/Marketplace/HomeNewlyMinted";
+import classes from "./MarketHome.module.css";
 import "../App.css";
 
 function MarketHome() {
   return (
     <>
-      <div className="App">
-        <Navi />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>You are in Marketplace</p>
-          <a
-            className="App-link"
-            href="https://www.youtube.com/watch?v=EnDg65ISswg"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Click Me
-          </a>
-        </header>
-        {/* <Trending Collection /> */}
-        {/* <Maybe a Carousel /> */}
+      <Navi />
+      {/* <Trending Collection /> */}
+      {/* <Maybe a Carousel /> */}
+      {/* SOME CARD */}
+      <div className={classes.markethome}>
+        <div className={classes.title}>
+          <h5>Trending Items</h5>
+        </div>
         {/* <Trending Items /> */}
+        <HomeNewlyMinted />
+        <div className={classes.title}>
+          <h5>Newly Minted</h5>
+        </div>
         {/* <Newly Minted /> */}
+        <HomeNewlyMinted />
       </div>
     </>
   );
