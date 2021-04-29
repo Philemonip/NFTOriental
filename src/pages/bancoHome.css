@@ -3,20 +3,215 @@
 	color: white;
 	height: 100vh;
 }
-
-/* Inactive tab */
-.bancoActionTabs ul > li > a {
-	background-color: white;
-	color: red;
+.bancoTitle {
+	white-space: nowrap;
+	width: 100%;
+	color: white;
+	overflow: hidden;
+	animation-fill-mode: forwards;
+	animation: animate 8s linear;
 }
-.bancoActionTabs ul > li > a:hover {
-	background-color: pink;
+@keyframes animate {
+	0%,
+	75% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}
+.bancoNav {
+	height: 10vh;
+}
+.bancoMain {
+	height: 90vh;
+	opacity: 1;
+	animation-name: changeOpacity;
+	animation-duration: 6s;
+	animation-fill-mode: forwards;
 }
 
-/* Active tab */
-.bancoActionTabs ul > li.active > a,
-.bancoActionTabs ul > li.active > a:hover,
-.bancoActionTabs ul > li.active > a:focus {
+.bancoContent {
+	height: 90vh;
+	background-color: green;
+}
+
+.bancoSide {
+	background-color: brown;
+	height: 90vh;
+	/* opacity: 0; */
+	/* animation-name: changeOpacity;
+	animation-duration: 6s;
+	animation-fill-mode: forwards; */
+}
+
+.bancoProfile {
+	background-color: blue;
+}
+
+.bancoAction {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: orange;
+	height: 90vh;
+}
+
+.tabDetail {
 	background-color: red;
+	height: 35vh;
+	/* display: flex;
+	align-items: center;
+	justify-content: center; */
+}
+/* Inactive tab */
+.bancoActionTabs > a {
+	background-color: #282c34;
 	color: white;
 }
+
+/* logo */
+.logo {
+	color: aqua;
+	width: 10vh;
+	height: 10vh;
+	position: relative;
+	animation-name: midToTop;
+	animation-duration: 6s;
+	animation-fill-mode: forwards;
+	z-index: 10;
+}
+@keyframes midToTop {
+	0% {
+		left: calc(50vw - 5vh);
+		top: calc(50vh - 5vh);
+		width: 10vh;
+		height: 10vh;
+		/* transform: translateZ(-100px); */
+	}
+	33% {
+		/* left: calc(50vw - 20vh);
+		top: calc(50vh - 20vh);
+		width: 40vh;
+		height: 40vh; */
+		left: calc(50vw - 5vh);
+		top: calc(50vh - 5vh);
+		width: 10vh;
+		height: 10vh;
+		/* transform: translateZ(-100px); */
+	}
+
+	100% {
+		left: 0px;
+		top: 0px;
+		width: 10vh;
+		height: 10vh;
+		/* transform: translateZ(-230px) rotateY(230deg) rotateX(240deg); */
+	}
+}
+
+@keyframes changeOpacity {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+/* logo cube */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+.scene {
+	width: 10vh;
+	height: 10vh;
+	/* border: 1px solid #ccc; */
+	perspective: 20vh;
+}
+
+.cube {
+	width: 10vh;
+	height: 10vh;
+	position: relative;
+	transform-style: preserve-3d;
+	animation-name: spining;
+	animation-duration: 6s;
+	animation-fill-mode: forwards;
+	/* transform: translateZ(-230px) rotateY(230deg) rotateX(240deg); */
+	transform: translateZ(-100px);
+	transition: transform 2s;
+}
+
+@keyframes spining {
+	0% {
+		transform: translateZ(-100px);
+	}
+	50% {
+		transform: translateZ(-230px) rotateY(230deg) rotateX(240deg);
+	}
+	100% {
+		transform: translateZ(-230px) rotateY(230deg) rotateX(240deg);
+	}
+}
+
+.cube__face {
+	position: absolute;
+	width: 10vh;
+	height: 10vh;
+	border: 3px solid #282c34;
+	line-height: 10vh;
+	font-size: 40px;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+}
+
+.cube__face--front {
+	background: hsla(0, 100%, 50%, 0.7);
+}
+.cube__face--right {
+	background: hsla(60, 100%, 50%, 0.7);
+}
+.cube__face--back {
+	background: hsla(120, 100%, 50%, 0.7);
+}
+.cube__face--left {
+	background: hsla(180, 100%, 50%, 0.7);
+}
+.cube__face--top {
+	background: hsla(240, 100%, 50%, 0.7);
+}
+.cube__face--bottom {
+	background: hsla(300, 100%, 50%, 0.7);
+}
+
+.cube__face--front {
+	transform: rotateY(0deg) translateZ(5vh);
+}
+.cube__face--right {
+	transform: rotateY(90deg) translateZ(5vh);
+}
+.cube__face--back {
+	transform: rotateY(180deg) translateZ(5vh);
+}
+.cube__face--left {
+	transform: rotateY(-90deg) translateZ(5vh);
+}
+.cube__face--top {
+	transform: rotateX(90deg) translateZ(5vh);
+}
+.cube__face--bottom {
+	transform: rotateX(-90deg) translateZ(5vh);
+}
+
+/* logo cube */

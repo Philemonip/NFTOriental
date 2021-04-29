@@ -3,7 +3,9 @@ const WithdrawOfBanco = ({ withdraw }) => {
 	return (
 		<div>
 			<br></br>
-			Do you want to withdraw + take interest?
+			Withdraw your ETH
+			<br></br>+<br></br>
+			Get Interest
 			<br></br>
 			<br></br>
 			<div>

@@ -6,7 +6,7 @@ function DetailTradingHistory() {
   return (
     <>
       <Accordion defaultActiveKey="0" className={classes.accordion}>
-        <Card>
+        <Card className={classes.card}>
           <Accordion.Toggle as={Card.Header} eventKey="0">
             Trading History
           </Accordion.Toggle>
