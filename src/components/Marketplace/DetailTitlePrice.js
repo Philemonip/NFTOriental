@@ -1,7 +1,9 @@
+import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import classes from "./DetailTitlePrice.module.css";
 import DetailBuyModal from "./DetailBuyModal";
+
 
 function DetailTitlePrice(props) {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -46,19 +48,6 @@ function DetailTitlePrice(props) {
             Mint
           </Button>
         </form>
-
-        <Button className="m-3" variant="success">
-          Transfer to
-        </Button>
-        <Button className="m-3" variant="success">
-          Approve
-        </Button>
-        <Button className="m-3" variant="success">
-          Cancel Approve
-        </Button>
-        <Button className="m-3" variant="success">
-          Burn Token
-        </Button>
       </div>
     </>
   );

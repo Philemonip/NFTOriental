@@ -5,6 +5,7 @@ const initialState = {
     owner: "",
     contract: null,
     items: [],
+    token: [],
 };
 
 const detailSlice = createSlice({
@@ -22,7 +23,10 @@ const detailSlice = createSlice({
         },
         updateItem(state, action) {
             state.items = action.payload;
-        }
+        },
+        updateToken(state, action) {
+            state.token = action.payload;
+        },
     }
 });
 

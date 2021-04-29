@@ -32,6 +32,7 @@ function MarketDetail() {
   const owner = useSelector((state) => state.detail.owner);
   const contractNFT = useSelector((state) => state.detail.contract);
   const items = useSelector((state) => state.detail.items);
+  const token = useSelector((state) => state.detail.token)
 
   const dispatch = useDispatch();
 
@@ -72,28 +73,40 @@ function MarketDetail() {
       const getItem = await contract.methods.getAllItems().call();
       dispatch(detailSliceActions.updateItem(getItem));
       console.log(getItem);
-      console.log(await contract.methods.getOwner(1).call());
-      console.log(await contract.methods.getOwnertwo(1).call());
-      console.log(await contract.methods.getURI(1).call());
-      const getToken = await contract.methods.getToken(1).call();
-      console.log(getToken.creator);
-      console.log(await contract.methods.isApproved(3).call());
+      const getToken = await contract.methods.getToken(0).call();
+      console.log("get token", getToken);
+      dispatch(detailSliceActions.updateToken(getToken))
+      // console.log("getowner", await contract.methods.getOwner(0).call());
+      // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
+      // console.log("get uri", await contract.methods.getURI(0).call());
+
+      // console.log("approve?", await contract.methods.isApproved(0).call());
     } else {
       window.alert("Smart contract not deployed to detected network.");
     }
   };
 
+  //marketplace
+  async function buyToken(tokenId) {
+    try {
+      await contractNFT.methods.buyingFrom(tokenId).send({ from: owner });
+    } catch (err) {
+      console.log("buying error", err);
+    }
+  }
+
+  //admin page
   async function mint(itemName) {
     try {
       await contractNFT.methods.Mint(itemName).send({ from: owner });
-      console.log("minted");
-      const whatisthis = await contractNFT.methods.getAllItems().call();
-      console.log("done?", whatisthis);
+      const minting = await contractNFT.methods.getAllItems().call();
+      console.log("minted", minting);
     } catch (err) {
       console.log("minting error", err);
     }
   }
 
+  //admin page
   async function itemOnSale(tokenId, price) {
     console.log("item on sale");
     try {
@@ -105,6 +118,7 @@ function MarketDetail() {
     }
   }
 
+  //admin page
   async function itemNotForSale(tokenId) {
     try {
       await contractNFT.methods.notForSale(tokenId).send({ from: owner });
@@ -113,6 +127,7 @@ function MarketDetail() {
     }
   }
 
+  //admin page
   async function approveTo(buyer, tokenId) {
     try {
       await contractNFT.methods
@@ -123,6 +138,7 @@ function MarketDetail() {
     }
   }
 
+  //admin page
   async function cancelApproval(tokenId) {
     try {
       await contractNFT.methods.cancelApproval(tokenId).send({ from: owner });
@@ -131,14 +147,7 @@ function MarketDetail() {
     }
   }
 
-  async function buyToken(tokenId) {
-    try {
-      await contractNFT.methods.buyingFrom(tokenId).send({ from: owner });
-    } catch (err) {
-      console.log("buying error", err);
-    }
-  }
-
+  //admin page
   async function burnToken(tokenId) {
     try {
       await contractNFT.methods.burnToken(tokenId).send({ from: owner });
