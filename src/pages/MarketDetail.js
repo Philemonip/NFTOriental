@@ -67,6 +67,7 @@ function MarketDetail() {
       const abi = CloseSeaNFT.abi;
       const address = networkData.address;
       const contract = new web3.eth.Contract(abi, address);
+      console.log(address, 'address')
       dispatch(detailSliceActions.updateContract(contract));
       const getItem = await contract.methods.getAllItems().call();
       dispatch(detailSliceActions.updateItem(getItem));
@@ -84,9 +85,17 @@ function MarketDetail() {
   };
 
   //marketplace
-  async function buyToken(tokenId) {
+  async function buyApprovalToken(tokenId) {
     try {
-      await contractNFT.methods.buyingFrom(tokenId).send({ from: currentUser });
+      await contractNFT.methods.buyingWithApproval(tokenId).send({ from: currentUser });
+    } catch (err) {
+      console.log("buying error", err);
+    }
+  }
+
+  async function buyWithoutApprovalToken(tokenId) {
+    try {
+      await contractNFT.methods.buyingWithoutApproval(tokenId).send({ from: currentUser });
     } catch (err) {
       console.log("buying error", err);
     }
@@ -95,7 +104,7 @@ function MarketDetail() {
   //admin page
   async function mint(itemName) {
     try {
-      await contractNFT.methods.Mint(itemName).send({ from: currentUser });
+      await contractNFT.methods.mint(itemName).send({ from: currentUser });
       const minting = await contractNFT.methods.getAllItems().call();
       console.log("minted", minting);
     } catch (err) {
