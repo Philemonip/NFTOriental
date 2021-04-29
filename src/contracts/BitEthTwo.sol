@@ -72,6 +72,7 @@ function notForSale (uint _tokenId) external onlyOwnerOf(_tokenId){
 
 function approvalTo (address _to, uint _tokenId) external onlyOwnerOf(_tokenId){
     // require (ownerOf(_tokenId) == msg.sender);
+    require(_tokenApprovals[_tokenId] != _to);
     Item storage _item = items[_tokenId];
     require(_item.forSale == true);
     require(_item.price > 0);

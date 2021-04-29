@@ -15,8 +15,8 @@ const detailSlice = createSlice({
         updateWeb3(state, action) {
             state.web3 = action.payload;
         },
-        updateOwner(state, action) {
-            state.owner = action.payload;
+        updateCurrentUser(state, action) {
+            state.currentUser = action.payload;
         },
         updateContract(state, action) {
             state.contract = action.payload;

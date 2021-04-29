@@ -9,11 +9,13 @@ function DetailTitlePrice(props) {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [itemName, setitemName] = useState("");
 
+  const token = useSelector((state) => state.detail.token);
+
   return (
     <>
       <p className={classes.category}>{props.itemdata.category}</p>
       <p className={classes.title}>{props.itemdata.title}</p>
-      <p>Owned by "NAME"</p>
+      <p>Owned by {token.owner}</p>
       <div className={classes.pricediv}>
         <p>Current Price</p>
         <p className={classes.title}>ETH {props.itemdata.price}</p>
