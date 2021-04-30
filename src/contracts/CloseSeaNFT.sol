@@ -64,6 +64,32 @@ function tokenOnSale (uint _tokenId, uint64 price) external onlyOwnerOf(_tokenId
     // safeTransferFrom(ownerOf(_tokenId), address(this), _tokenId);
 }
 
+function tokenOnSale2 (uint _tokenId, uint64 price) external onlyOwnerOf(_tokenId){
+    address owner = ownerOf(_tokenId);
+    Item storage _item = items[_tokenId];
+    _item.price = price;
+    _item.forSale = true;
+    approve(address(this), _tokenId);
+    emit Approval(owner, address(this), _tokenId);
+     _tokenApprovals[_tokenId] = address(this);
+}
+
+function buyingWithoutApproval2 (uint _tokenId) external payable {
+    address buyer = msg.sender;
+    require (ownerOf(_tokenId) != msg.sender, "Owner cannot execute buy function");
+    require(getApproved(_tokenId) == address(this));
+    Item storage _item = items[_tokenId];
+    require(_item.forSale == true);
+    address _from = ownerOf(_tokenId);
+    safeTransferFrom(_from, buyer, _tokenId);
+    itemToOwner[_tokenId] = msg.sender;
+    _item.owner = msg.sender;
+    _item.price = 0;
+    _item.forSale = false;
+    _tokenApprovals[_tokenId] = address(0);
+}
+
+
 function notForSale (uint _tokenId) external onlyOwnerOf(_tokenId){
     Item storage _item = items[_tokenId];
     require(_item.forSale == true);
