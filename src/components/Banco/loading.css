@@ -1,0 +1,9 @@
+.loader {
+	height: 100vh;
+	flex-direction: column;
+}
+
+.loadingSpinner {
+	height: 50px;
+	width: 50px;
+}

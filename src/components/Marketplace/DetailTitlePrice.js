@@ -1,17 +1,20 @@
+import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import classes from "./DetailTitlePrice.module.css";
 import DetailBuyModal from "./DetailBuyModal";
 
+
 function DetailTitlePrice(props) {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [itemName, setitemName] = useState("");
+  const token = useSelector((state) => state.detail.token);
 
   return (
     <>
       <p className={classes.category}>{props.itemdata.category}</p>
       <p className={classes.title}>{props.itemdata.title}</p>
-      <p>Owned by "NAME"</p>
+      <p>Owned by {token.owner}</p>
       <div className={classes.pricediv}>
         <p>Current Price</p>
         <p className={classes.title}>ETH {props.itemdata.price}</p>
@@ -47,19 +50,6 @@ function DetailTitlePrice(props) {
             Mint
           </Button>
         </form>
-
-        <Button className="m-3" variant="success">
-          Transfer to
-        </Button>
-        <Button className="m-3" variant="success">
-          Approve
-        </Button>
-        <Button className="m-3" variant="success">
-          Cancel Approve
-        </Button>
-        <Button className="m-3" variant="success">
-          Burn Token
-        </Button>
       </div>
     </>
   );

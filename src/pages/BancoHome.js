@@ -8,12 +8,15 @@ import {
   getTransactionThunk,
   addTransactionThunk,
 } from "../redux/Banco/bancoSlice";
-import TransactionHistory from "../components/Common/TransactionHistory";
-import ActionOfBanco from "../components/Common/ActionOfBanco";
-import Loading from "../components/Common/Loading";
+import TransactionHistory from "../components/Banco/TransactionHistory";
+import ActionOfBanco from "../components/Banco/ActionOfBanco";
+import Loading from "../components/Banco/Loading";
 import "./BancoHome.css";
 import Navi from "../components/Common/Navbar";
-import ProfileOfBanco from "../components/Common/ProfileOfBanco";
+import ProfileOfBanco from "../components/Banco/ProfileOfBanco";
+import NavBanco from "../components/Banco/NavBanco";
+import SideBanco from "../components/Banco/SideBanco";
+import ContentOfBanco from "../components/Banco/ContentOfBanco";
 var web3;
 var token;
 var banco;
@@ -23,17 +26,18 @@ const BancoHome = () => {
   // const token = useSelector((state) => state.banco.token);
   // const banco = useSelector((state) => state.banco.banco);
   const account = useSelector((state) => state.banco.account);
-  const ethBalance = useSelector((state) => state.banco.ethBalance);
-  const cchBalance = useSelector((state) => state.banco.cchBalance);
   const loading = useSelector((state) => state.banco.loading);
-  const loadingTransaction = useSelector(
-    (state) => state.banco.loadingTransaction
-  );
-
+  const bancoContent = useSelector((state) => state.banco.bancoContent);
   const dispatch = useDispatch();
   useEffect(() => {
     loadBlockchainData();
   }, []);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  }, []);
+  function handleResize() {
+    dispatch(bancoSliceActions.resizeWindowWidth(window.innerWidth));
+  }
   // useEffect(() => {
   // 	console.log("useeffect", transaction);
   // }, [transaction]);
@@ -103,6 +107,7 @@ const BancoHome = () => {
           .deposit()
           .send({ value: amount.toString(), from: account });
         await showBalance();
+        dispatch(bancoSliceActions.toggleDeposit());
       } catch (e) {
         console.log("Error, deposit: ", e);
       }
@@ -133,7 +138,7 @@ const BancoHome = () => {
             currency: "CCH",
           })
         );
-        await console.log("after call backend");
+        dispatch(bancoSliceActions.toggleDeposit());
         dispatch(bancoSliceActions.toggleTransactionLoading(true));
         await dispatch(getTransactionThunk(account));
         dispatch(bancoSliceActions.toggleTransactionLoading(false));
@@ -167,35 +172,33 @@ const BancoHome = () => {
 
   return (
     <div>
-      <Navi />
+      {/* <Navi /> */}
       <div className="cchHome">
         {loading ? (
           <Loading />
         ) : (
           <div className="text-monospace">
             <div className="container-fluid text-center">
-              <br></br>
-              <br></br>
-              <h1>bienvenido al banco de cinco chicos</h1>
-              <br></br>
-              <br></br>
-              <div className="row">
-                <ProfileOfBanco />
-                <ActionOfBanco
-                  deposit={deposit}
-                  withdraw={withdraw}
-                  transferCCH={transferCCH}
-                />
+              <NavBanco />
+              <div className="row bancoMain">
+                <SideBanco />
+                <div className="col-md-10">
+                  <div className="row">
+                    {bancoContent == "Home" ? (
+                      <ContentOfBanco />
+                    ) : bancoContent == "Profile" ? (
+                      <ProfileOfBanco />
+                    ) : (
+                      <ActionOfBanco
+                        deposit={deposit}
+                        withdraw={withdraw}
+                        transferCCH={transferCCH}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-            {loadingTransaction ? (
-              <Loading />
-            ) : (
-              <div className="mr-auto ml-auto">
-                <h3 className="">transaction history</h3>
-                <TransactionHistory />
-              </div>
-            )}
           </div>
         )}
       </div>
