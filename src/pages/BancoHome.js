@@ -8,11 +8,9 @@ import {
 	getTransactionThunk,
 	addTransactionThunk,
 } from "../redux/Banco/bancoSlice";
-import TransactionHistory from "../components/Banco/TransactionHistory";
 import ActionOfBanco from "../components/Banco/ActionOfBanco";
 import Loading from "../components/Banco/Loading";
 import "./bancoHome.css";
-import Navi from "../components/Common/Navbar";
 import ProfileOfBanco from "../components/Banco/ProfileOfBanco";
 import NavBanco from "../components/Banco/NavBanco";
 import SideBanco from "../components/Banco/SideBanco";
@@ -22,9 +20,6 @@ var token;
 var banco;
 
 const BancoHome = () => {
-	// const web3 = useSelector((state) => state.banco.web3);
-	// const token = useSelector((state) => state.banco.token);
-	// const banco = useSelector((state) => state.banco.banco);
 	const account = useSelector((state) => state.banco.account);
 	const loading = useSelector((state) => state.banco.loading);
 	const bancoContent = useSelector((state) => state.banco.bancoContent);
@@ -37,17 +32,14 @@ const BancoHome = () => {
 	}, []);
 	function handleResize() {
 		dispatch(bancoSliceActions.resizeWindowWidth(window.innerWidth));
+		window.innerWidth >= 767
+			? dispatch(bancoSliceActions.sideDisplay(true))
+			: dispatch(bancoSliceActions.sideDisplay(false));
 	}
 	// useEffect(() => {
 	// 	console.log("useeffect", transaction);
 	// }, [transaction]);
 
-	// useEffect(() => {
-	// 	async function fetchData() {
-	// 		await loadBlockchainData();
-	// 	}
-	// 	fetchData();
-	// }, []);
 	const loadBlockchainData = async () => {
 		dispatch(bancoSliceActions.toggleLoading(true));
 		console.log("hi");
@@ -184,9 +176,9 @@ const BancoHome = () => {
 								<SideBanco />
 								<div className="col-md-10">
 									<div className="row">
-										{bancoContent == "Home" ? (
+										{bancoContent === "Home" ? (
 											<ContentOfBanco />
-										) : bancoContent == "Profile" ? (
+										) : bancoContent === "Profile" ? (
 											<ProfileOfBanco />
 										) : (
 											<ActionOfBanco

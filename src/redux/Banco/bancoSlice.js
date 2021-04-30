@@ -18,7 +18,8 @@ const initialState = {
 	showTransactionHistory: false,
 	bancoContent: "Home",
 	isDeposited: false,
-	windowWidth: 99999,
+	windowWidth: window.innerWidth,
+	sideDisplay: null,
 };
 
 const bancoSlice = createSlice({
@@ -76,6 +77,9 @@ const bancoSlice = createSlice({
 		},
 		resizeWindowWidth(state, action) {
 			state.windowWidth = action.payload;
+		},
+		sideDisplay(state, action) {
+			state.sideDisplay = action.payload;
 		},
 	},
 });
