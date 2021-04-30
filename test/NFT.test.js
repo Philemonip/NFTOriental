@@ -7,7 +7,8 @@ contract("CloseSeaNFT", (accounts) => {
   let [alice, bob] = accounts;
   let contractInstance;
   beforeEach("should set up the contract instance", async () => {
-    contractInstance = await CloseSeaNFT.new();
+    //set up admin = Account "bob"
+    contractInstance = await CloseSeaNFT.new({ from: bob });
   });
   describe("testing minting", () => {
     it("should be able to Mint NFT", async () => {
@@ -48,26 +49,22 @@ contract("CloseSeaNFT", (accounts) => {
       await contractInstance.tokenOnSale(tokenId, 33, {
         from: alice,
       });
-      const result2 = await contractInstance.buyingWithoutApproval(0, {
+      await contractInstance.buyingWithoutApproval(0, {
         from: bob,
       });
-      console.log(result2);
       const newOwner = await contractInstance.getOwner(tokenId);
       expect(newOwner).to.equal(bob);
       const tokenInfo = await contractInstance.getToken(tokenId);
-      console.log(tokenInfo);
       expect(tokenInfo.owner).to.equal(bob);
       await contractInstance.tokenOnSale(tokenId, 33, {
         from: bob,
       });
-      const result3 = await contractInstance.buyingWithoutApproval(0, {
+      await contractInstance.buyingWithoutApproval(0, {
         from: alice,
       });
-      console.log(result3);
       const renewedOwner = await contractInstance.getOwner(tokenId);
       expect(renewedOwner).to.equal(alice);
       const renewedtokenInfo = await contractInstance.getToken(tokenId);
-      console.log(renewedtokenInfo);
       expect(renewedtokenInfo.owner).to.equal(alice);
     });
     it("transfer success with approval by owner", async () => {
@@ -137,6 +134,47 @@ contract("CloseSeaNFT", (accounts) => {
     });
     it("Cannot burn Token", async () => {
       await utils.shouldThrow(contractInstance.burnToken(2, { from: alice }));
+    });
+  });
+  describe("Testing admin functions", () => {
+    it("Cannot change TOKEN URI if not admin", async () => {
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
+      const event = result.logs[0].args;
+      const tokenId = event.tokenId.toNumber();
+      await utils.shouldThrow(
+        contractInstance.setTokenURI(tokenId, "https://david.com", {
+          from: alice,
+        })
+      );
+    });
+    it("Can change TOKEN URI if you are admin", async () => {
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
+      const event = result.logs[0].args;
+      const tokenId = event.tokenId.toNumber();
+      await contractInstance.setTokenURI(tokenId, "https://david.com", {
+        from: bob,
+      });
+      const newURIInfo = await contractInstance.getURI(tokenId);
+      expect(newURIInfo).to.equal("https://david.com");
+      const tokenInfo = await contractInstance.getToken(tokenId);
+      expect(tokenInfo.tokenURI).to.equal("https://david.com");
+    });
+    it("Grant Admin role to another and change TOKEN URI", async () => {
+      const result = await contractInstance.mint(coinNames[0], { from: alice });
+      const event = result.logs[0].args;
+      const tokenId = event.tokenId.toNumber();
+      await contractInstance.grantRole(
+        "0x0000000000000000000000000000000000000000000000000000000000000000",
+        alice,
+        { from: bob }
+      );
+      await contractInstance.setTokenURI(tokenId, "https://david.com", {
+        from: alice,
+      });
+      const newURIInfo = await contractInstance.getURI(tokenId);
+      expect(newURIInfo).to.equal("https://david.com");
+      const tokenInfo = await contractInstance.getToken(tokenId);
+      expect(tokenInfo.tokenURI).to.equal("https://david.com");
     });
   });
 });

@@ -18,7 +18,10 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+require("dotenv").config();
+const HDWalletProvider = require("truffle-hdwallet-provider");
+const MNEMONIC = process.env.MNEMONIC;
+const RINKEBY_URL = process.env.RINKEBY_URL;
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
@@ -43,9 +46,20 @@ module.exports = {
     // options below to some value.
     //
     development: {
-      host: "127.0.0.1",     // Localhost (default: none)
-      port: 7545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
+      host: "127.0.0.1", // Localhost (default: none)
+      port: 7545, // Standard Ethereum port (default: none)
+      network_id: "*", // Any network (default: none)
+    },
+
+    rinkeby: {
+      // Special function to setup the provider
+      provider: function () {
+        // Setting the provider with the Infura Rinkeby address and Token
+        return new HDWalletProvider(MNEMONIC, RINKEBY_URL);
+      },
+      network_id: 4,
+      gas: 4500000,
+      gasPrice: 10000000000, //Fill in the `network_id` for the Rinkeby network.
     },
     // Another network with more advanced options...
     // advanced: {
@@ -78,21 +92,22 @@ module.exports = {
   mocha: {
     // timeout: 100000
   },
-  contracts_directory: './src/contracts/',
-  contracts_build_directory: './src/abi/',
+  contracts_directory: "./src/contracts/",
+  contracts_build_directory: "./src/abi/",
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.0", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-      settings: {          // See the solidity docs for advice about optimization and evmVersion
+      settings: {
+        // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: false,
-          runs: 200
+          runs: 200,
         },
-        evmVersion: "byzantium"
-      }
-    }
+        evmVersion: "byzantium",
+      },
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled: false to enabled: true
@@ -102,6 +117,6 @@ module.exports = {
   // $ truffle migrate --reset --compile-all
 
   db: {
-    enabled: false
-  }
+    enabled: false,
+  },
 };
