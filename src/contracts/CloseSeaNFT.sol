@@ -2,15 +2,20 @@
 pragma solidity ^0.8.0;
 
 // import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract CloseSeaNFT is ERC721URIStorage{
+contract CloseSeaNFT is AccessControlEnumerable, ERC721URIStorage{
 using Counters for Counters.Counter;
 Counters.Counter private tokenId;
 
+ bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+  string private _internalBaseURI = "http://localhost:8000/";
+
 constructor() ERC721('BitEth NFT','BTE') {
+     _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
 }
 
 struct Item{
@@ -28,14 +33,18 @@ mapping (uint => address) private _tokenApprovals;
 mapping (uint => address) itemToOwner;
 
 modifier onlyOwnerOf (uint _tokenId) {
-    require (ownerOf(_tokenId) == msg.sender);
+    require ((ownerOf(_tokenId) == msg.sender), "Caller is not owner of Token");
     _;
 }
+
+ function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, AccessControlEnumerable) returns (bool) {
+        return super.supportsInterface(interfaceId);
+    }
 
 function mint(string memory _itemName) external{
     uint currentId = tokenId.current();
     string memory idString = Strings.toString(currentId);
-    string memory baseURI = "http://localhost:8000/";
+    string memory baseURI = _internalBaseURI;
     string memory metadata = "/metadata.json";
     string memory url = string(abi.encodePacked(baseURI, idString, metadata));
 
@@ -63,32 +72,6 @@ function tokenOnSale (uint _tokenId, uint64 price) external onlyOwnerOf(_tokenId
     // approve(address(this), _tokenId);
     // safeTransferFrom(ownerOf(_tokenId), address(this), _tokenId);
 }
-
-function tokenOnSale2 (uint _tokenId, uint64 price) external onlyOwnerOf(_tokenId){
-    address owner = ownerOf(_tokenId);
-    Item storage _item = items[_tokenId];
-    _item.price = price;
-    _item.forSale = true;
-    approve(address(this), _tokenId);
-    emit Approval(owner, address(this), _tokenId);
-     _tokenApprovals[_tokenId] = address(this);
-}
-
-function buyingWithoutApproval2 (uint _tokenId) external payable {
-    address buyer = msg.sender;
-    require (ownerOf(_tokenId) != msg.sender, "Owner cannot execute buy function");
-    require(getApproved(_tokenId) == address(this));
-    Item storage _item = items[_tokenId];
-    require(_item.forSale == true);
-    address _from = ownerOf(_tokenId);
-    safeTransferFrom(_from, buyer, _tokenId);
-    itemToOwner[_tokenId] = msg.sender;
-    _item.owner = msg.sender;
-    _item.price = 0;
-    _item.forSale = false;
-    _tokenApprovals[_tokenId] = address(0);
-}
-
 
 function notForSale (uint _tokenId) external onlyOwnerOf(_tokenId){
     Item storage _item = items[_tokenId];
@@ -156,15 +139,6 @@ function getOwner (uint _tokenId) external view returns (address){
     return itemToOwner[_tokenId];
 }
 
-function getOwnertwo (uint _tokenId) external view returns (address){
-    address owner;
-    for (uint i=0; i<items.length;i++){
-        if(items[i].id == _tokenId){
-            owner = items[i].owner;
-        } 
-    } return owner;
-}
-
 function isApproved (uint _tokenId) external view returns (address){
     return _tokenApprovals[_tokenId];
 }
@@ -179,6 +153,13 @@ function getToken(uint _tokenId) external view returns (string memory name, uint
     forSale = _item.forSale;
     tokenURI = _item.tokenURI;
 }
-
-
+  function setTokenURI(uint256 _tokenId, string memory _tokenURI) public {
+        require(
+            hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
+            "ERC721: must have admin role to set Token URIs"
+        );
+        super._setTokenURI(_tokenId, _tokenURI);
+        Item storage _item = items[_tokenId];
+        _item.tokenURI = _tokenURI;
+    }
 }
