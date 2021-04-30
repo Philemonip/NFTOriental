@@ -70,7 +70,7 @@ contract("CloseSeaNFT", (accounts) => {
       console.log(renewedtokenInfo);
       expect(renewedtokenInfo.owner).to.equal(alice);
     });
-    xit("transfer success with approval by owner", async () => {
+    it("transfer success with approval by owner", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -85,7 +85,7 @@ contract("CloseSeaNFT", (accounts) => {
       const newOwner = await contractInstance.getOwner(tokenId);
       expect(newOwner).to.equal(bob);
     });
-    xit("After owner cancelled approval to buyer, buyer cannot buy Token", async () => {
+    it("After owner cancelled approval to buyer, buyer cannot buy Token", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -104,7 +104,7 @@ contract("CloseSeaNFT", (accounts) => {
     });
   });
   describe("testing burn Token", () => {
-    xit("burn Token", async () => {
+    it("burn Token", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -112,7 +112,7 @@ contract("CloseSeaNFT", (accounts) => {
       const newOwner = await contractInstance.getOwner(tokenId);
       expect(newOwner).to.equal("0x0000000000000000000000000000000000000000");
     });
-    xit("cannot burn Token if you are not Owner", async () => {
+    it("cannot burn Token if you are not Owner", async () => {
       const result = await contractInstance.mint(coinNames[0], { from: alice });
       const event = result.logs[0].args;
       const tokenId = event.tokenId.toNumber();
@@ -122,20 +122,20 @@ contract("CloseSeaNFT", (accounts) => {
     });
   });
   describe("contract functions should not work if token has not been minted", () => {
-    xit("Cannot send approval to others", async () => {
+    it("Cannot send approval to others", async () => {
       await utils.shouldThrow(
         contractInstance.approvalTo(bob, 0, { from: alice })
       );
     });
-    xit("Cannot buy Coin from others", async () => {
+    it("Cannot buy Coin from others", async () => {
       await utils.shouldThrow(
         contractInstance.buyingWithApproval(alice, 0, { from: bob })
       );
     });
-    xit("Cannot set Token on sale", async () => {
+    it("Cannot set Token on sale", async () => {
       await utils.shouldThrow(contractInstance.tokenOnSale(1, { from: alice }));
     });
-    xit("Cannot burn Token", async () => {
+    it("Cannot burn Token", async () => {
       await utils.shouldThrow(contractInstance.burnToken(2, { from: alice }));
     });
   });
