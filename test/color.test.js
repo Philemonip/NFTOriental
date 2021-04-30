@@ -1,5 +1,7 @@
 // const Color = artifacts.require('./fivetoken.sol')
 
+const { assert } = require("chai");
+
 // require('chai')
 //     .use(require('chai-as-promised'))
 //     .should()
@@ -80,127 +82,127 @@ const Token = artifacts.require("./Token");
 const Banco = artifacts.require("./Banco");
 const revert = "VM Exception while processing transaction: revert";
 const wait = (s) => {
-	const milliseconds = s * 1000;
-	return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  const milliseconds = s * 1000;
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
 require("chai").use(require("chai-as-promised")).should();
 
 contract("Banco", ([deployer, user]) => {
-	let banco, token;
-	const interestPerSecond = 1e16;
-	beforeEach(async () => {
-		token = await Token.new();
-		banco = await Banco.new(token.address);
-		await token.passMinterRole(banco.address, { from: deployer });
-	});
+  let banco, token;
+  const interestPerSecond = 1e16;
+  beforeEach(async () => {
+    token = await Token.new();
+    banco = await Banco.new(token.address);
+    await token.passMinterRole(banco.address, { from: deployer });
+  });
 
-	describe("testing token contract", () => {
-		describe("successfully deployed", () => {
-			it("token name", async () => {
-				expect(await token.name()).to.be.eq("Cinco Chicos");
-			});
+  describe("testing token contract", () => {
+    describe("successfully deployed", () => {
+      it("token name", async () => {
+        expect(await token.name()).to.be.eq("Cinco Chicos");
+      });
 
-			it("token symbol", async () => {
-				expect(await token.symbol()).to.be.eq("CCH");
-			});
+      it("token symbol", async () => {
+        expect(await token.symbol()).to.be.eq("CCH");
+      });
 
-			it("token initial total supply", async () => {
-				expect(Number(await token.totalSupply())).to.eq(0);
-			});
+      it("token initial total supply", async () => {
+        expect(Number(await token.totalSupply())).to.eq(0);
+      });
 
-			it("Banco should have Token minter role", async () => {
-				expect(await token.minter()).to.eq(banco.address);
-			});
-		});
+      it("Banco should have Token minter role", async () => {
+        expect(await token.minter()).to.eq(banco.address);
+      });
+    });
 
-		describe("fail to depoly", () => {
-			it("only owner can pass minter role, passing minter role should be rejected", async () => {
-				await token
-					.passMinterRole(user, { from: deployer })
-					.should.be.rejectedWith(revert);
-			});
+    describe("fail to depoly", () => {
+      it("only owner can pass minter role, passing minter role should be rejected", async () => {
+        await token
+          .passMinterRole(user, { from: deployer })
+          .should.be.rejectedWith(revert);
+      });
 
-			it("only minter can mint token, tokens minting should be rejected", async () => {
-				await token
-					.mint(user, "1", { from: deployer })
-					.should.be.rejectedWith(revert);
-			});
-		});
-	});
+      it("only minter can mint token, tokens minting should be rejected", async () => {
+        await token
+          .mint(user, "1", { from: deployer })
+          .should.be.rejectedWith(revert);
+      });
+    });
+  });
 
-	describe("testing deposit", () => {
-		describe("successfully deposited", () => {
-			beforeEach(async () => {
-				await banco.deposit({ value: 10 ** 16, from: user });
-			});
+  describe("testing deposit", () => {
+    describe("successfully deposited", () => {
+      beforeEach(async () => {
+        await banco.deposit({ value: 10 ** 16, from: user });
+      });
 
-			it("balance should increase", async () => {
-				expect(Number(await banco.etherBalanceOf(user))).to.eq(10 ** 16);
-			});
+      it("balance should increase", async () => {
+        expect(Number(await banco.etherBalanceOf(user))).to.eq(10 ** 16);
+      });
 
-			it("deposit time should > 0", async () => {
-				expect(Number(await banco.depositStart(user))).to.be.above(0);
-			});
+      it("deposit time should > 0", async () => {
+        expect(Number(await banco.depositStart(user))).to.be.above(0);
+      });
 
-			it("deposit status should eq true", async () => {
-				expect(await banco.isDeposited(user)).to.eq(true);
-			});
-		});
+      it("deposit status should eq true", async () => {
+        expect(await banco.isDeposited(user)).to.eq(true);
+      });
+    });
 
-		describe("fail to deposit", () => {
-			it("amount too small, depositing should be rejected", async () => {
-				await banco
-					.deposit({ value: 10 ** 15, from: user })
-					.should.be.rejectedWith(revert);
-			});
-		});
-	});
+    describe("fail to deposit", () => {
+      it("amount too small, depositing should be rejected", async () => {
+        await banco
+          .deposit({ value: 10 ** 15, from: user })
+          .should.be.rejectedWith(revert);
+      });
+    });
+  });
 
-	describe("testing withdraw", () => {
-		let balance;
+  describe("testing withdraw", () => {
+    let balance;
 
-		describe("successfully withdraw", () => {
-			beforeEach(async () => {
-				await banco.deposit({ value: 10 ** 16, from: user });
+    describe("successfully withdraw", () => {
+      beforeEach(async () => {
+        await banco.deposit({ value: 10 ** 16, from: user });
 
-				await wait(2);
+        await wait(2);
 
-				balance = await web3.eth.getBalance(user);
-				await banco.withdraw({ from: user });
-			});
+        balance = await web3.eth.getBalance(user);
+        await banco.withdraw({ from: user });
+      });
 
-			it("balances should decrease", async () => {
-				expect(Number(await web3.eth.getBalance(banco.address))).to.eq(0);
-				expect(Number(await banco.etherBalanceOf(user))).to.eq(0);
-			});
+      it("balances should decrease", async () => {
+        expect(Number(await web3.eth.getBalance(banco.address))).to.eq(0);
+        expect(Number(await banco.etherBalanceOf(user))).to.eq(0);
+      });
 
-			it("user should receive ether back", async () => {
-				expect(Number(await web3.eth.getBalance(user))).to.be.above(
-					Number(balance)
-				);
-			});
+      it("user should receive ether back", async () => {
+        expect(Number(await web3.eth.getBalance(user))).to.be.above(
+          Number(balance)
+        );
+      });
 
-			it("user should receive proper amount of interest", async () => {
-				balance = Number(await token.balanceOf(user));
-				expect(balance).to.be.above(0);
-				expect(balance % interestPerSecond).to.eq(0);
-				expect(balance).to.be.below(interestPerSecond * 4);
-			});
+      it("user should receive proper amount of interest", async () => {
+        balance = Number(await token.balanceOf(user));
+        expect(balance).to.be.above(0);
+        expect(balance % interestPerSecond).to.eq(0);
+        expect(balance).to.be.below(interestPerSecond * 4);
+      });
 
-			it("depositer data should be reseted", async () => {
-				expect(Number(await banco.depositStart(user))).to.eq(0);
-				expect(Number(await banco.etherBalanceOf(user))).to.eq(0);
-				expect(await banco.isDeposited(user)).to.eq(false);
-			});
-		});
+      it("depositer data should be reseted", async () => {
+        expect(Number(await banco.depositStart(user))).to.eq(0);
+        expect(Number(await banco.etherBalanceOf(user))).to.eq(0);
+        expect(await banco.isDeposited(user)).to.eq(false);
+      });
+    });
 
-		describe("fail to withdraw", () => {
-			it("withdrawing should be rejected from wrong user", async () => {
-				await banco.deposit({ value: 10 ** 16, from: user });
-				await wait(2);
-				await banco.withdraw({ from: deployer }).should.be.rejectedWith(revert);
-			});
-		});
-	});
+    describe("fail to withdraw", () => {
+      it("withdrawing should be rejected from wrong user", async () => {
+        await banco.deposit({ value: 10 ** 16, from: user });
+        await wait(2);
+        await banco.withdraw({ from: deployer }).should.be.rejectedWith(revert);
+      });
+    });
+  });
 });

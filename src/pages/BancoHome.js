@@ -10,7 +10,8 @@ import {
 } from "../redux/Banco/bancoSlice";
 import ActionOfBanco from "../components/Banco/ActionOfBanco";
 import Loading from "../components/Banco/Loading";
-import "./bancoHome.css";
+import "./BancoHome.css";
+import Navi from "../components/Common/Navbar";
 import ProfileOfBanco from "../components/Banco/ProfileOfBanco";
 import NavBanco from "../components/Banco/NavBanco";
 import SideBanco from "../components/Banco/SideBanco";
