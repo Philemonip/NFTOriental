@@ -22,6 +22,7 @@ function DetailTitlePrice(props) {
           Buy Now (LAUNCH MODAL)
         </Button>
         <DetailBuyModal
+          itemdata={props.itemdata}
           show={showBuyModal}
           buyWithoutApprovalToken={props.buyWithoutApprovalToken}
           onHide={() => setShowBuyModal(false)}
