@@ -6,8 +6,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import classes from "./BrowseItem.module.css";
 dotenv.config();
 
-//FIXME: Center the cards
-
 const BrowseItem = () => {
   const [items, setItems] = useState([]);
 
