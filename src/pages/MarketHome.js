@@ -25,12 +25,16 @@ function MarketHome() {
         </Container>
         <HomeFeatureCard />
         <div className={classes.title}>
-          <h5>Trending Items</h5>
+          <h5>
+            <b>Trending Items</b>
+          </h5>
         </div>
         {/* <Trending Items /> */}
         <HomeNewlyMinted />
         <div className={classes.title}>
-          <h5>Newly Minted</h5>
+          <h5>
+            <b>Newly Minted</b>
+          </h5>
         </div>
         {/* <Newly Minted /> */}
         <HomeNewlyMinted />

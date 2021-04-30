@@ -1,5 +1,6 @@
 import { Accordion, Card, Col } from "react-bootstrap";
 import classes from "./BrowseSidebar.module.css";
+import BrowseSidebarStatus from "./BrowseSidebarStatus";
 
 //TODO: MAY NEED REFACTOR INTO ACCORDION COMPONENT
 
@@ -14,8 +15,9 @@ function BrowseSidebar() {
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
               <Card.Body>
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout
+                <BrowseSidebarStatus />
+                {/* It is a long established fact that a reader will be distracted
+                by the readable content of a page when looking at its layout */}
               </Card.Body>
             </Accordion.Collapse>
           </Card>
@@ -64,12 +66,11 @@ function BrowseSidebar() {
         <Accordion defaultActiveKey="0">
           <Card className={classes.card}>
             <Accordion.Toggle as={Card.Header} eventKey="0">
-              Tradable In
+              Price Range
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
               <Card.Body>
-                <p>ETH</p>
-                <p>FRED</p>
+                <p>Some price range here</p>
               </Card.Body>
             </Accordion.Collapse>
           </Card>
