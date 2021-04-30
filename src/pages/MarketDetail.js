@@ -67,7 +67,6 @@ function MarketDetail() {
       const abi = CloseSeaNFT.abi;
       const address = networkData.address;
       const contract = new web3.eth.Contract(abi, address);
-      console.log(address, 'address')
       dispatch(detailSliceActions.updateContract(contract));
       const getItem = await contract.methods.getAllItems().call();
       dispatch(detailSliceActions.updateItem(getItem));
