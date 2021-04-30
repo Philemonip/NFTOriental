@@ -11,11 +11,11 @@ contract CloseSeaNFT is AccessControlEnumerable, ERC721URIStorage{
 using Counters for Counters.Counter;
 Counters.Counter private tokenId;
 
- bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-  string private _internalBaseURI = "http://localhost:8000/";
+bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+string private _internalBaseURI = "http://localhost:8000/";
 
 constructor() ERC721('BitEth NFT','BTE') {
-     _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
 }
 
 struct Item{
@@ -37,7 +37,7 @@ modifier onlyOwnerOf (uint _tokenId) {
     _;
 }
 
- function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, AccessControlEnumerable) returns (bool) {
+function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, AccessControlEnumerable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 
@@ -153,7 +153,8 @@ function getToken(uint _tokenId) external view returns (string memory name, uint
     forSale = _item.forSale;
     tokenURI = _item.tokenURI;
 }
-  function setTokenURI(uint256 _tokenId, string memory _tokenURI) public {
+
+function setTokenURI(uint256 _tokenId, string memory _tokenURI) public {
         require(
             hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
             "ERC721: must have admin role to set Token URIs"
