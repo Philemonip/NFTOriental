@@ -1,8 +1,8 @@
 import Navi from "../components/Common/Navbar";
-import HomeNewlyMinted from "../components/Marketplace/HomeNewlyMinted";
+import HomeNewlyMinted from "../components/Marketplace/Home/HomeNewlyMinted";
 import classes from "./MarketHome.module.css";
 import "../App.css";
-import HomeFeatureCard from "../components/Marketplace/HomeFeatureCard";
+import HomeFeatureCard from "../components/Marketplace/Home/HomeFeatureCard";
 import { Container, Row, Col } from "react-bootstrap";
 
 function MarketHome() {
@@ -14,6 +14,11 @@ function MarketHome() {
 
       <div className={classes.markethome}>
         <Container fluid>
+          <div className={classes.title}>
+            <h5>
+              <b>Featuring Items</b>
+            </h5>
+          </div>
           <Row>
             <Col className="pl-0">
               <HomeFeatureCard />

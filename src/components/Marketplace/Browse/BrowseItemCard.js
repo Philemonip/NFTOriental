@@ -1,5 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
 import { Card, Image, Row, Col } from "react-bootstrap";
 import classes from "./BrowseItemCard.module.css";
 
@@ -46,7 +44,6 @@ const BrowseItemCard = ({ item }) => {
             </Col>
           </Row>
         </Card.Body>
-        {/* <Card.Footer>ETH {item.price}</Card.Footer> */}
       </Card>
     </a>
   );

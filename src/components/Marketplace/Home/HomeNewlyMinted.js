@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import classes from "./HomeNewlyMinted.module.css";
-import BrowseItemCard from "./BrowseItemCard";
+import HomeItemCard from "./HomeItemCard"; //TODO: make card an individual component
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
@@ -25,7 +25,7 @@ function HomeNewlyMinted() {
           items.map((item, index) => {
             return (
               <div className="d-flex justify-content-center" key={index}>
-                <BrowseItemCard item={item} key={index} />
+                <HomeItemCard item={item} key={index} />
               </div>
             );
           })}

@@ -1,7 +1,7 @@
 import { Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
-import BrowseItem from "../components/Marketplace/BrowseItem";
-import BrowseSidebar from "../components/Marketplace/BrowseSidebar";
+import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
+import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
 
 function MarketBrowse() {
   const style = {
