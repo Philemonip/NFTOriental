@@ -5,6 +5,7 @@ import MarketHome from "./pages/MarketHome";
 import MarketBrowse from "./pages/MarketBrowse";
 import MarketDetail from "./pages/MarketDetail";
 import BancoHome from "./pages/BancoHome";
+import ProfilePage from "./pages/ProfilePage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
@@ -28,6 +29,9 @@ function App() {
         {/* <Route path="/trial">
           <TrialApp />
         </Route> */}
+        <Route path="/profile">
+          <ProfilePage />
+        </Route>
         <Route path="/cincochicos">
           <BancoHome />
         </Route>
