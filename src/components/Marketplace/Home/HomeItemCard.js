@@ -18,7 +18,7 @@ const HomeItemCard = ({ item }) => {
     <a href={"/items/" + item.id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
-          <Image fluid className={classes.image} src={dummypic} />
+          <Image fluid className={classes.image} src={item.image} />
         </div>
         <Card.Body className={classes.cardbody}>
           <Row>

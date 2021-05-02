@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-// import browseItems from "./browseSlice";
+import browseSlice from "./Marketplace/browseSlice";
 import bancoSlice from "./Banco/bancoSlice";
-import detailSlice from "./Marketplace/detailSlice"
+import detailSlice from "./Marketplace/detailSlice";
 
 const reducer = {
-  // browseItems,
+  browse: browseSlice.reducer,
   banco: bancoSlice.reducer,
   detail: detailSlice.reducer,
 };

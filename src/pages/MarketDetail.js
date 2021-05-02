@@ -28,11 +28,11 @@ function MarketDetail() {
     };
     fetchData();
   }, [params.itemAddress]);
-  const web3 = useSelector((state) => state.detail.web3);
+  // const web3 = useSelector((state) => state.detail.web3);
   const currentUser = useSelector((state) => state.detail.currentUser);
   const contractNFT = useSelector((state) => state.detail.contract);
-  const items = useSelector((state) => state.detail.items);
-  const token = useSelector((state) => state.detail.token);
+  // const items = useSelector((state) => state.detail.items);
+  // const token = useSelector((state) => state.detail.token);
 
   const dispatch = useDispatch();
 
