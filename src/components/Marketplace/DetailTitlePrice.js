@@ -5,6 +5,7 @@ import classes from "./DetailTitlePrice.module.css";
 import DetailBuyModal from "./DetailBuyModal";
 
 
+
 function DetailTitlePrice(props) {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [itemName, setitemName] = useState("");
