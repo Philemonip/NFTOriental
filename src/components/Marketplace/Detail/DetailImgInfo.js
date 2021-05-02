@@ -1,5 +1,6 @@
 import { Accordion, Card, Image } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 // import classes from "./DetailImgInfo.module.css";
 
 function DetailImgInfo({ itemdata }) {

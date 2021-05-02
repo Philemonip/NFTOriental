@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+// import { useState, useEffect } from "react";
+// import { Container, Row, Col, Image } from "react-bootstrap";
 import classes from "./HomeFeatureCard.module.css";
 // import BrowseItemCard from "./BrowseItemCard";
 // import axios from "axios";

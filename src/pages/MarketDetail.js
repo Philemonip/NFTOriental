@@ -7,9 +7,9 @@ import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import Navi from "../components/Common/Navbar";
-import DetailImgInfo from "../components/Marketplace/DetailImgInfo";
-import DetailTitlePrice from "../components/Marketplace/DetailTitlePrice";
-import DetailTradingHistory from "../components/Marketplace/DetailTradingHistory";
+import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
+import DetailTitlePrice from "../components/Marketplace/Detail/DetailTitlePrice";
+import DetailTradingHistory from "../components/Marketplace/Detail/DetailTradingHistory";
 import classes from "./MarketDetail.module.css";
 import dotenv from "dotenv";
 dotenv.config();
@@ -28,11 +28,11 @@ function MarketDetail() {
     };
     fetchData();
   }, [params.itemAddress]);
-  const web3 = useSelector((state) => state.detail.web3);
+  // const web3 = useSelector((state) => state.detail.web3);
   const currentUser = useSelector((state) => state.detail.currentUser);
   const contractNFT = useSelector((state) => state.detail.contract);
-  const items = useSelector((state) => state.detail.items);
-  const token = useSelector((state) => state.detail.token)
+  // const items = useSelector((state) => state.detail.items);
+  // const token = useSelector((state) => state.detail.token);
 
   const dispatch = useDispatch();
 
@@ -67,13 +67,14 @@ function MarketDetail() {
       const abi = CloseSeaNFT.abi;
       const address = networkData.address;
       const contract = new web3.eth.Contract(abi, address);
+      console.log(address, "address");
       dispatch(detailSliceActions.updateContract(contract));
       const getItem = await contract.methods.getAllItems().call();
       dispatch(detailSliceActions.updateItem(getItem));
       console.log(getItem);
       const getToken = await contract.methods.getToken(0).call();
       console.log("get token", getToken);
-      dispatch(detailSliceActions.updateToken(getToken))
+      dispatch(detailSliceActions.updateToken(getToken));
       // console.log("getowner", await contract.methods.getOwner(0).call());
       // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
       // console.log("get uri", await contract.methods.getURI(0).call());
@@ -86,7 +87,9 @@ function MarketDetail() {
   //marketplace
   async function buyApprovalToken(tokenId) {
     try {
-      await contractNFT.methods.buyingWithApproval(tokenId).send({ from: currentUser });
+      await contractNFT.methods
+        .buyingWithApproval(tokenId)
+        .send({ from: currentUser });
     } catch (err) {
       console.log("buying error", err);
     }
@@ -94,7 +97,9 @@ function MarketDetail() {
 
   async function buyWithoutApprovalToken(tokenId) {
     try {
-      await contractNFT.methods.buyingWithoutApproval(tokenId).send({ from: currentUser });
+      await contractNFT.methods
+        .buyingWithoutApproval(tokenId)
+        .send({ from: currentUser });
     } catch (err) {
       console.log("buying error", err);
     }
@@ -146,7 +151,9 @@ function MarketDetail() {
   //admin page
   async function cancelApproval(tokenId) {
     try {
-      await contractNFT.methods.cancelApproval(tokenId).send({ from: currentUser });
+      await contractNFT.methods
+        .cancelApproval(tokenId)
+        .send({ from: currentUser });
     } catch (err) {
       console.log("cancel approval error", err);
     }
@@ -167,7 +174,8 @@ function MarketDetail() {
       <Container className={classes.containerstyle}>
         {params.itemAddress && (
           <p>
-            You are in ItemDetail, address: {params.itemAddress}, you are{currentUser}
+            You are in ItemDetail, address: {params.itemAddress}, you are
+            {currentUser}
           </p>
         )}
         <Row>
@@ -175,7 +183,12 @@ function MarketDetail() {
             <DetailImgInfo itemdata={item} />
           </Col>
           <Col>
-            <DetailTitlePrice itemdata={item} mint={mint} buyWithoutApprovalToken={buyWithoutApprovalToken} itemOnSale={itemOnSale} />
+            <DetailTitlePrice
+              itemdata={item}
+              mint={mint}
+              buyWithoutApprovalToken={buyWithoutApprovalToken}
+              itemOnSale={itemOnSale}
+            />
           </Col>
         </Row>
         <Row className={classes.tradehistoryrow}>
