@@ -183,7 +183,12 @@ function MarketDetail() {
             <DetailImgInfo itemdata={item} />
           </Col>
           <Col>
-            <DetailTitlePrice itemdata={item} mint={mint} />
+            <DetailTitlePrice
+              itemdata={item}
+              mint={mint}
+              buyWithoutApprovalToken={buyWithoutApprovalToken}
+              itemOnSale={itemOnSale}
+            />
           </Col>
         </Row>
         <Row className={classes.tradehistoryrow}>

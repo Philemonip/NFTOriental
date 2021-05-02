@@ -54,14 +54,14 @@ function DetailBuyModal(props) {
           </Col>
         </Row>
         <Row className="d-flex mt-2 justify-content-center">
-          <Button>Checkout</Button>
+          <Button onClick={(e) => props.buyWithoutApprovalToken(0)}> Checkout</Button>
           <Button className="ml-3">Add Funds</Button>
         </Row>
         <Row>
           <h5 className="text-danger">Bigger Buttons</h5>
         </Row>
-      </Modal.Body>
-    </Modal>
+      </Modal.Body >
+    </Modal >
   );
 }
 
