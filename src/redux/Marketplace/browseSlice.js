@@ -43,12 +43,10 @@ const browseSlice = createSlice({
 // 1. dispatch: update status/collec. state
 // 2. process query string and submit getReq
 // 3. dispatch: update output with res.data
-//TODO: itemArr is not connected to actually page, which still use useeffect
+//TODO: itemArr is not connected to actual page, which still use useeffect
 export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
   // console.log("status thunk");
   // console.log(type, data);
-  const getRequest = async () =>
-    await axios.get(`${process.env.REACT_APP_API_SERVER}`);
 
   try {
     switch (type) {
@@ -62,10 +60,15 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
         console.error(`Error: Switch Case not found`);
     }
     let state = getState();
+    console.log("getstate");
     console.log(state.browse.statusfilter);
     console.log(state.browse.collectionfilter);
-    let res = await getRequest();
-    dispatch(browseActions.getFiltered(res.data));
+    //FIXME: enable me when connected to real data
+    // let res = await axios.post(`${process.env.REACT_APP_API_SERVER}`, {
+    //   status: state.browse.statusfilter,
+    //   collection: state.browse.collectionfilter,
+    // });
+    // dispatch(browseActions.getFiltered(res.data));
   } catch (err) {
     console.log("Get Filtered Item Failed", err);
   }

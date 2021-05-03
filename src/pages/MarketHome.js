@@ -12,13 +12,41 @@ dotenv.config();
 function MarketHome() {
   const [trendItem, setTrendItem] = useState([]);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const { data } = await axios.get(`${process.env.REACT_APP_API_SERVER}`);
+  //     console.log(data);
+  //     setTrendItem(data);
+  //   };
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     const fetchData = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_SERVER}`);
-      console.log(data);
-      setTrendItem(data);
+      try {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_API_SERVER}`,
+          {
+            cancelToken: source.token,
+          }
+        );
+        setTrendItem(data);
+        console.log(data);
+      } catch (error) {
+        if (axios.isCancel(error)) {
+        } else {
+          throw error;
+        }
+      }
     };
+
     fetchData();
+
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   const [newItem, setNewItem] = useState([]);

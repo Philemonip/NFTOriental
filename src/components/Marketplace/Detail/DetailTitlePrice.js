@@ -50,9 +50,6 @@ function DetailTitlePrice(props) {
           <Button type="submit" className="m-3" variant="success">
             Mint
           </Button>
-          <Button className="m-3" variant="info" onClick={(e) => props.itemOnSale(0, 20)}>
-            Make Item On Sale
-          </Button>
         </form>
       </div>
     </>

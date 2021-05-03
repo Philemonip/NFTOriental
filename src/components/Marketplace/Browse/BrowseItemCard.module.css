@@ -17,7 +17,6 @@
 }
 
 .imagediv {
-  /* object-fit: contain; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,7 +26,6 @@
 .image {
   padding: 15px;
   border-radius: 20px;
-  /* object-fit: contain; */
   width: auto;
   height: auto;
   max-width: 100%;

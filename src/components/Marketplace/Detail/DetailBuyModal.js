@@ -3,7 +3,6 @@ import classes from "./DetailBuyModal.module.css";
 import { useSelector, useDispatch } from "react-redux";
 
 function DetailBuyModal(props) {
-
   const cchBalance = useSelector((state) => state.banco.cchBalance);
 
   return (
@@ -17,7 +16,9 @@ function DetailBuyModal(props) {
       <Modal.Header closeButton className={classes.modalheader}></Modal.Header>
       <Modal.Body className={classes.modalbody}>
         <Row className="mb-3 d-flex justify-content-center align-items-center">
-          <h4>Checkout</h4>
+          <h4>
+            <b>Checkout</b>
+          </h4>
         </Row>
         <Row className={classes.subtotalrow}>
           <Col lg={9}>
@@ -30,7 +31,7 @@ function DetailBuyModal(props) {
         <Row className="mt-3">
           <Col lg={9}>
             <Row>
-              <Col lg={4}>
+              <Col lg={4} className={classes.imgdiv}>
                 <Image
                   className={classes.image}
                   src={props.itemdata.image}
@@ -39,7 +40,7 @@ function DetailBuyModal(props) {
               </Col>
               <Col className="d-flex align-items-center">
                 <div>
-                  <p>ITEM CATEGORY</p>
+                  <p className="text-primary">{props.itemdata.category}</p>
                   <h5>{props.itemdata.title}</h5>
                 </div>
               </Col>
@@ -57,15 +58,19 @@ function DetailBuyModal(props) {
             <h5>ETH {props.itemdata.price}</h5>
           </Col>
         </Row>
-        <Row className="d-flex mt-2 justify-content-center">
-          <Button onClick={(e) => props.buyWithoutApprovalToken(0, cchBalance)}> Checkout, {cchBalance}</Button>
-          <Button className="ml-3">Add Funds</Button>
+        <Row className="d-flex mt-5 justify-content-center">
+          <Button
+            className={classes.button}
+            onClick={(e) => props.buyWithoutApprovalToken(0, cchBalance)}
+          >
+            <b>Checkout, {cchBalance}</b>
+          </Button>
+          <Button className={`${classes.button} ml-4`}>
+            <b>Add Funds</b>
+          </Button>
         </Row>
-        <Row>
-          <h5 className="text-danger">Bigger Buttons</h5>
-        </Row>
-      </Modal.Body >
-    </Modal >
+      </Modal.Body>
+    </Modal>
   );
 }
 

@@ -1,17 +1,16 @@
+import classes from "./DetailImgInfo.module.css";
 import { Accordion, Card, Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 // import { useSelector, useDispatch } from "react-redux";
 // import classes from "./DetailImgInfo.module.css";
 
 function DetailImgInfo({ itemdata }) {
-  // const dummypic = `https://lh3.googleusercontent.com/pBZykzbkTOOygSF2ym8PKHU5o45p8VWIvmc1wLG2m7wGOJRz8NAH6LEiwRBpLY6IyUBX5aqQkz7rwvEadw3_2y3HDPm9wHSLqa3DGZE=s0`;
-
   const token = useSelector((state) => state.detail.token);
   // const dispatch = useDispatch();
 
   return (
     <>
-      <div>
+      <div className={classes.imagediv}>
         <Image fluid src={itemdata.image} />
       </div>
       <Accordion defaultActiveKey="0" className="mt-4">
