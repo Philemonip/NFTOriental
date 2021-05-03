@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Jumbotron, Button, Image, Col, Card } from "react-bootstrap";
+
+import { useSelector } from "react-redux";
+import { Button, Card } from "react-bootstrap";
 
 const Collectibles = (props) => {
 
@@ -15,7 +15,6 @@ const Collectibles = (props) => {
     ownerItems(items, currentUser)
 
     return (
-
         <div className="d-flex">
             {ownedArr &&
                 ownedArr.map((item, index) => {
@@ -28,7 +27,6 @@ const Collectibles = (props) => {
                                     <h6>Id: {item.id}</h6>
                                     <h6>Owner: {item.owner}</h6>
                                     <h6>Creator: {item.creator}</h6>
-                                    <h6>On Sale? {item.forSale}</h6>
                                     <h6>Price {item.price}</h6>
                                 </Card.Text>
                                 {item.forSale === true ?

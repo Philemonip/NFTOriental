@@ -1,5 +1,5 @@
 import Navi from "../components/Common/Navbar";
-import { Jumbotron, Button, Image, Col } from "react-bootstrap";
+import { Jumbotron, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
@@ -61,7 +61,6 @@ function ProfilePage() {
         }
     };
 
-    //admin page
     async function itemOnSale(tokenId, price) {
         console.log("item on sale");
         try {
@@ -73,7 +72,6 @@ function ProfilePage() {
         }
     }
 
-    //admin page
     async function itemNotForSale(tokenId) {
         try {
             await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
@@ -82,7 +80,6 @@ function ProfilePage() {
         }
     }
 
-    //admin page
     async function approveTo(buyer, tokenId) {
         try {
             await contractNFT.methods
@@ -93,7 +90,6 @@ function ProfilePage() {
         }
     }
 
-    //admin page
     async function cancelApproval(tokenId) {
         try {
             await contractNFT.methods.cancelApproval(tokenId).send({ from: currentUser });
@@ -102,7 +98,6 @@ function ProfilePage() {
         }
     }
 
-    //admin page
     async function burnToken(tokenId) {
         try {
             await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
@@ -111,26 +106,18 @@ function ProfilePage() {
         }
     }
 
-    let ownedArr
-
-    const ownerItems = (items, currentUser) => {
-        ownedArr = items.filter((i) => i.owner === currentUser)
-        console.log('this owner owns', ownedArr)
-    }
-    ownerItems(items, currentUser)
-
     return (
         <>
             <Navi />
-            <Jumbotron>
-                <h4>Hello, {currentUser} </h4>
+            <Jumbotron className="mb-1 p-5">
+                <h4>Hello, Name </h4>
                 <div xs={6} md={4} className="text-center">
                     <Image src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png" roundedCircle />
                 </div>
             </Jumbotron>
             <div>
                 <div className="text-center">
-                    <p>Name</p>
+                    <h2>Name</h2>
                     <p>{currentUser}</p>
                 </div>
 
@@ -143,7 +130,6 @@ function ProfilePage() {
                         <Collectibles />
                     )}
                 </div> */}
-
 
                 <div>
                     <button onClick={() => setProfileContent("Collectibles")}>Collectibles</button>
