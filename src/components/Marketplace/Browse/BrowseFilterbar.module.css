@@ -1,0 +1,50 @@
+.bar {
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  min-height: 4rem;
+  padding-left: 25px;
+}
+
+.displaycol {
+  flex-grow: 0;
+  padding: 10px 8px;
+}
+
+.clearallcol {
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  /* border: 2px black solid; */
+  width: max-content;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: greenyellow;
+  box-shadow: none;
+}
+
+.active:hover {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.1s box-shadow;
+}
+
+.clearall {
+  color: blue;
+  cursor: pointer;
+}
+
+.ptext {
+  position: relative;
+  transform: translateY(30%);
+}
+
+.deletebutton {
+  margin-left: 5px;
+}
+
+.deletebutton:hover {
+  color: rgb(250, 84, 84);
+}

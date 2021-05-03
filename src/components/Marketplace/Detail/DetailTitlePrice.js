@@ -1,10 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import classes from "./DetailTitlePrice.module.css";
 import DetailBuyModal from "./DetailBuyModal";
-
-
 
 function DetailTitlePrice(props) {
   const [showBuyModal, setShowBuyModal] = useState(false);

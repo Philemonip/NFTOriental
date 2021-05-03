@@ -1,4 +1,3 @@
-import { Tab } from "bootstrap";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bancoSliceActions } from "../../redux/Banco/bancoSlice";
@@ -11,7 +10,7 @@ const DepositOfBanco = ({ deposit }) => {
 	return (
 		<div>
 			{isDeposited ? (
-				<div>youve already made a deposit, FUCKOFF</div>
+				<div>youve already made a deposit</div>
 			) : (
 				<div>
 					<br></br>
