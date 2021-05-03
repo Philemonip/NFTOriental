@@ -1,6 +1,6 @@
 const Token = artifacts.require("./Token");
 const Banco = artifacts.require("./Banco");
-const CloseSeaNFT = artifacts.require("CloseSeaNFT")
+const CloseSeaNFT = artifacts.require("CloseSeaNFT");
 module.exports = async function (deployer) {
 	await deployer.deploy(CloseSeaNFT);
 	await deployer.deploy(Token);
