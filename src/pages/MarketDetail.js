@@ -122,12 +122,15 @@ function MarketDetail() {
 	// 	}
 	// }
 
-	async function buyWithoutApprovalToken(tokenId, cchBalance, amount) {
-		if (cchBalance > amount) {
-			try {
-				const targetAccount = await contractNFT.methods.ownerOf(tokenId);
-				transferCCH(targetAccount, amount);
+	async function buyWithoutApprovalToken(tokenId, cchBalance) {
 
+		if (cchBalance * 1e18 > 0.01 * 1e18) {
+			console.log("hi")
+			try {
+				const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
+
+				transferCCH(targetAccount, 0.01 * 1e18);
+				console.log("hi", targetAccount)
 				await contractNFT.methods
 					.buyingWithoutApproval(tokenId)
 					.send({ from: currentUser });
