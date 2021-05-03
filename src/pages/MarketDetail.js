@@ -12,191 +12,229 @@ import DetailTitlePrice from "../components/Marketplace/Detail/DetailTitlePrice"
 import DetailTradingHistory from "../components/Marketplace/Detail/DetailTradingHistory";
 import classes from "./MarketDetail.module.css";
 import dotenv from "dotenv";
+import Token from "../abi/Token.json";
+import Banco from "../abi/banco.json";
+import { bancoSliceActions } from "../redux/Banco/bancoSlice";
 dotenv.config();
+var web3;
+var cch;
+var banco;
 
 function MarketDetail() {
-  const params = useParams();
-  const [item, setItems] = useState([]);
+	const params = useParams();
+	const [item, setItems] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/${params.itemAddress}`
-      );
-      console.log(data);
-      setItems(data);
-    };
-    fetchData();
-  }, [params.itemAddress]);
-  // const web3 = useSelector((state) => state.detail.web3);
-  const currentUser = useSelector((state) => state.detail.currentUser);
-  const contractNFT = useSelector((state) => state.detail.contract);
-  // const items = useSelector((state) => state.detail.items);
-  // const token = useSelector((state) => state.detail.token);
+	useEffect(() => {
+		const fetchData = async () => {
+			const { data } = await axios.get(
+				`${process.env.REACT_APP_API_SERVER}/${params.itemAddress}`
+			);
+			console.log(data);
+			setItems(data);
+		};
+		fetchData();
+	}, [params.itemAddress]);
+	const web3 = useSelector((state) => state.detail.web3);
+	const currentUser = useSelector((state) => state.detail.currentUser);
+	const contractNFT = useSelector((state) => state.detail.contract);
+	const items = useSelector((state) => state.detail.items);
+	const token = useSelector((state) => state.detail.token);
+	const cchBalance = useSelector((state) => state.banco.cchBalance);
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  useEffect(async () => {
-    await loadWeb3();
-    await loadBlockchainData();
-  }, []);
+	useEffect(async () => {
+		await loadWeb3();
+		await loadBlockchainData();
+	}, []);
 
-  const loadWeb3 = async () => {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert("Please login with Metamask!");
-    }
-  };
+	const loadWeb3 = async () => {
+		if (window.ethereum) {
+			window.web3 = new Web3(window.ethereum);
+			await window.ethereum.enable();
+		} else if (window.web3) {
+			window.web3 = new Web3(window.web3.currentProvider);
+		} else {
+			window.alert("Please login with Metamask!");
+		}
+	};
 
-  const loadBlockchainData = async () => {
-    const web3 = window.web3;
-    const accounts = await web3.eth.getAccounts();
-    const networkId = await web3.eth.net.getId();
-    dispatch(detailSliceActions.updateWeb3(web3));
-    dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
-    console.log("current user:", accounts[0]);
+	const loadBlockchainData = async () => {
+		const web3 = window.web3;
+		const accounts = await web3.eth.getAccounts();
+		const networkId = await web3.eth.net.getId();
+		dispatch(detailSliceActions.updateWeb3(web3));
+		dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
+		console.log("current user:", accounts[0]);
 
-    //load contract
-    const networkData = CloseSeaNFT.networks[networkId];
+		//load contract
+		const networkData = CloseSeaNFT.networks[networkId];
 
-    if (networkData) {
-      const abi = CloseSeaNFT.abi;
-      const address = networkData.address;
-      const contract = new web3.eth.Contract(abi, address);
-      console.log(address, "address");
-      dispatch(detailSliceActions.updateContract(contract));
-      const getItem = await contract.methods.getAllItems().call();
-      dispatch(detailSliceActions.updateItem(getItem));
-      console.log(getItem);
-      const getToken = await contract.methods.getToken(0).call();
-      console.log("get token", getToken);
-      dispatch(detailSliceActions.updateToken(getToken));
-      // console.log("getowner", await contract.methods.getOwner(0).call());
-      // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
-      // console.log("get uri", await contract.methods.getURI(0).call());
-      // console.log("approve?", await contract.methods.isApproved(0).call());
-    } else {
-      window.alert("Smart contract not deployed to detected network.");
-    }
-  };
+		if (networkData) {
+			const abi = CloseSeaNFT.abi;
+			const address = networkData.address;
+			const contract = new web3.eth.Contract(abi, address);
+			dispatch(detailSliceActions.updateContract(contract));
+			const getItem = await contract.methods.getAllItems().call();
+			dispatch(detailSliceActions.updateItem(getItem));
+			console.log(getItem);
+			const getToken = await contract.methods.getToken(0).call();
+			console.log("get token", getToken);
+			dispatch(detailSliceActions.updateToken(getToken));
+			// console.log("getowner", await contract.methods.getOwner(0).call());
+			// console.log("getowner2", await contract.methods.getOwnertwo(0).call());
+			// console.log("get uri", await contract.methods.getURI(0).call());
+			// console.log("approve?", await contract.methods.isApproved(0).call());
+			cch = new web3.eth.Contract(Token.abi, Token.networks[networkId].address);
+			banco = new web3.eth.Contract(
+				Banco.abi,
+				Banco.networks[networkId].address
+			);
+			const cchBalanceInWei = await cch.methods.balanceOf(accounts[0]).call();
+			dispatch(
+				bancoSliceActions.updateCchBalance(
+					web3.utils.fromWei(`${cchBalanceInWei}`)
+				)
+			);
+		} else {
+			window.alert("Smart contract not deployed to detected network.");
+		}
+	};
 
-  //marketplace
-  async function buyApprovalToken(tokenId) {
-    try {
-      await contractNFT.methods
-        .buyingWithApproval(tokenId)
-        .send({ from: currentUser });
-    } catch (err) {
-      console.log("buying error", err);
-    }
-  }
+	//marketplace
+	async function buyApprovalToken(tokenId) {
+		try {
+			await contractNFT.methods
+				.buyingWithApproval(tokenId)
+				.send({ from: currentUser });
+		} catch (err) {
+			console.log("buying error", err);
+		}
+	}
 
-  async function buyWithoutApprovalToken(tokenId) {
-    try {
-      await contractNFT.methods
-        .buyingWithoutApproval(tokenId)
-        .send({ from: currentUser });
-    } catch (err) {
-      console.log("buying error", err);
-    }
-  }
+	// async function buyWithoutApprovalToken(tokenId) {
+	// 	try {
+	// 		await contractNFT.methods
+	// 			.buyingWithoutApproval(tokenId)
+	// 			.send({ from: currentUser });
+	// 	} catch (err) {
+	// 		console.log("buying error", err);
+	// 	}
+	// }
 
-  //admin page
-  async function mint(itemName) {
-    try {
-      await contractNFT.methods.mint(itemName).send({ from: currentUser });
-      const minting = await contractNFT.methods.getAllItems().call();
-      console.log("minted", minting);
-    } catch (err) {
-      console.log("minting error", err);
-    }
-  }
+	async function buyWithoutApprovalToken(tokenId, cchBalance, amount) {
+		if (cchBalance > amount) {
+			try {
+				const targetAccount = await contractNFT.methods.ownerOf(tokenId);
+				transferCCH(targetAccount, amount);
 
-  //admin page
-  async function itemOnSale(tokenId, price) {
-    console.log("item on sale");
-    try {
-      await contractNFT.methods
-        .tokenOnSale(tokenId, price)
-        .send({ from: currentUser });
-    } catch (err) {
-      console.log("item on sale error", err);
-    }
-  }
+				await contractNFT.methods
+					.buyingWithoutApproval(tokenId)
+					.send({ from: currentUser });
+			} catch (err) {
+				console.log("buying error", err);
+			}
+		}
+	}
+	//transfer cch
+	async function transferCCH(targetAccount, amount) {
+		await cch.methods
+			.transfer(targetAccount, `${amount}`)
+			.send({ from: currentUser });
+	}
 
-  //admin page
-  async function itemNotForSale(tokenId) {
-    try {
-      await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
-    } catch (err) {
-      console.log("item not for sale error", err);
-    }
-  }
+	//admin page
+	async function mint(itemName) {
+		try {
+			await contractNFT.methods.mint(itemName).send({ from: currentUser });
+			const minting = await contractNFT.methods.getAllItems().call();
+			console.log("minted", minting);
+		} catch (err) {
+			console.log("minting error", err);
+		}
+	}
 
-  //admin page
-  async function approveTo(buyer, tokenId) {
-    try {
-      await contractNFT.methods
-        .approvalTo(buyer, tokenId)
-        .send({ from: currentUser });
-    } catch (err) {
-      console.log("approving to buyer error", err);
-    }
-  }
+	//admin page
+	async function itemOnSale(tokenId, price) {
+		console.log("item on sale");
+		try {
+			await contractNFT.methods
+				.tokenOnSale(tokenId, price)
+				.send({ from: currentUser });
+		} catch (err) {
+			console.log("item on sale error", err);
+		}
+	}
 
-  //admin page
-  async function cancelApproval(tokenId) {
-    try {
-      await contractNFT.methods
-        .cancelApproval(tokenId)
-        .send({ from: currentUser });
-    } catch (err) {
-      console.log("cancel approval error", err);
-    }
-  }
+	//admin page
+	async function itemNotForSale(tokenId) {
+		try {
+			await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
+		} catch (err) {
+			console.log("item not for sale error", err);
+		}
+	}
 
-  //admin page
-  async function burnToken(tokenId) {
-    try {
-      await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
-    } catch (err) {
-      console.log("burning token error", err);
-    }
-  }
+	//admin page
+	async function approveTo(buyer, tokenId) {
+		try {
+			await contractNFT.methods
+				.approvalTo(buyer, tokenId)
+				.send({ from: currentUser });
+		} catch (err) {
+			console.log("approving to buyer error", err);
+		}
+	}
 
-  return (
-    <div>
-      <Navi />
-      <Container className={classes.containerstyle}>
-        {params.itemAddress && (
-          <p>
-            You are in ItemDetail, address: {params.itemAddress}, you are
-            {currentUser}
-          </p>
-        )}
-        <Row>
-          <Col xl={5}>
-            <DetailImgInfo itemdata={item} />
-          </Col>
-          <Col>
-            <DetailTitlePrice
-              itemdata={item}
-              mint={mint}
-              buyWithoutApprovalToken={buyWithoutApprovalToken}
-              itemOnSale={itemOnSale}
-            />
-          </Col>
-        </Row>
-        <Row className={classes.tradehistoryrow}>
-          <DetailTradingHistory />
-        </Row>
-      </Container>
-    </div>
-  );
+	//admin page
+	async function cancelApproval(tokenId) {
+		try {
+			await contractNFT.methods
+				.cancelApproval(tokenId)
+				.send({ from: currentUser });
+		} catch (err) {
+			console.log("cancel approval error", err);
+		}
+	}
+
+	//admin page
+	async function burnToken(tokenId) {
+		try {
+			await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
+		} catch (err) {
+			console.log("burning token error", err);
+		}
+	}
+
+	return (
+		<div>
+			<Navi />
+			<Container className={classes.containerstyle}>
+				{params.itemAddress && (
+					<p>
+						You are in ItemDetail, address: {params.itemAddress}, you are
+						{currentUser}
+					</p>
+				)}
+				<Row>
+					<Col xl={5}>
+						<DetailImgInfo itemdata={item} />
+					</Col>
+					<Col>
+						<DetailTitlePrice
+							itemdata={item}
+							mint={mint}
+							buyWithoutApprovalToken={buyWithoutApprovalToken}
+							itemOnSale={itemOnSale}
+						/>
+					</Col>
+				</Row>
+				<Row className={classes.tradehistoryrow}>
+					<DetailTradingHistory />
+				</Row>
+			</Container>
+		</div>
+	);
 }
 
 export default MarketDetail;

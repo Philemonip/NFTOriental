@@ -31,7 +31,7 @@ const TransactionHistory = () => {
 				<div key={key} className="row">
 					<div className="col-lg-6 justify-contents-center ">
 						<div className="fromAddress">
-							{t.from_address == "Banco" ? (
+							{t.from_address === "Banco" ? (
 								<p>From: {t.from_address}</p>
 							) : (
 								<p>From: {t.from_address}</p>
