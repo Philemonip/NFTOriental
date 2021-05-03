@@ -10,7 +10,7 @@ const DepositOfBanco = ({ deposit }) => {
 	return (
 		<div>
 			{isDeposited ? (
-				<div>youve already made a deposit, FUCKOFF</div>
+				<div>youve already made a deposit</div>
 			) : (
 				<div>
 					<br></br>
