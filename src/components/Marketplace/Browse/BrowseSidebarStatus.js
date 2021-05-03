@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { browseActions } from "../../../redux/Marketplace/browseSlice";
+import { browseToggleThunk } from "../../../redux/Marketplace/browseSlice";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./BrowseSidebarStatus.module.css";
 
@@ -7,10 +7,6 @@ const BrowseSidebarStatus = (props) => {
   const dispatch = useDispatch();
   const selectedStatus = useSelector((state) => state.browse.statusfilter);
   const statusValue = ["New", "Featured", "Buy Now", "On Auction"];
-
-  const toggleStatus = (value) => {
-    dispatch(browseActions.toggleStatusFilter(value));
-  };
 
   return (
     <Col className="px-0">
@@ -22,7 +18,7 @@ const BrowseSidebarStatus = (props) => {
                 className={`${classes.statusbutton} ${
                   selectedStatus.indexOf(i) > -1 ? classes.activebutton : ""
                 }`}
-                onClick={() => toggleStatus(i)}
+                onClick={() => dispatch(browseToggleThunk("status", i))}
               >
                 <p className={classes.ptext}>{i}</p>
               </div>

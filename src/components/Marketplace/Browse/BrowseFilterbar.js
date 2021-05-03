@@ -1,7 +1,10 @@
 import classes from "./BrowseFilterbar.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { browseActions } from "../../../redux/Marketplace/browseSlice";
+import {
+  browseActions,
+  browseToggleThunk,
+} from "../../../redux/Marketplace/browseSlice";
 import { FaTimes } from "react-icons/fa";
 
 function BrowseFilterbar() {
@@ -11,14 +14,7 @@ function BrowseFilterbar() {
     (state) => state.browse.collectionfilter
   );
 
-  const deleteStatusFilter = (item) => {
-    dispatch(browseActions.deleteStatusFilter(item));
-  };
-
-  const deleteCollectionFilter = (item) => {
-    dispatch(browseActions.deleteCollectionFilter(item));
-  };
-
+  //TODO: change to thunk
   const clearFilter = () => {
     dispatch(browseActions.clearFilter());
   };
@@ -34,7 +30,7 @@ function BrowseFilterbar() {
                   {i}
                   <FaTimes
                     className={classes.deletebutton}
-                    onClick={() => deleteCollectionFilter(i)}
+                    onClick={() => dispatch(browseToggleThunk("collection", i))}
                   />
                 </div>
               </div>
@@ -47,7 +43,7 @@ function BrowseFilterbar() {
                   {i}
                   <FaTimes
                     className={classes.deletebutton}
-                    onClick={() => deleteStatusFilter(i)}
+                    onClick={() => dispatch(browseToggleThunk("status", i))}
                   />
                 </div>
               </div>

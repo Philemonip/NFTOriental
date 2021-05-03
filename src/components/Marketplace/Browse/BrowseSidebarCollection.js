@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { browseActions } from "../../../redux/Marketplace/browseSlice";
+import { browseToggleThunk } from "../../../redux/Marketplace/browseSlice";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./BrowseSidebarCollection.module.css";
 
@@ -21,10 +21,6 @@ const BrowseSidebarCollection = (props) => {
     "Collection 10",
   ];
 
-  const toggleStatus = (value) => {
-    dispatch(browseActions.toggleCollectionFilter(value));
-  };
-
   return (
     <Col className="px-0">
       <Container fluid>
@@ -35,7 +31,7 @@ const BrowseSidebarCollection = (props) => {
                 className={`${classes.collectionbutton} ${
                   selectedCollection.indexOf(i) > -1 ? classes.activebutton : ""
                 }`}
-                onClick={() => toggleStatus(i)}
+                onClick={() => dispatch(browseToggleThunk("collection", i))}
               >
                 <p className={classes.ptext}>{i}</p>
               </div>
