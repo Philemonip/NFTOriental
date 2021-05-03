@@ -6,11 +6,17 @@ import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 
+import NFTtransactions from "../components/Profile/Transactions";
+import Settings from "../components/Profile/Setting";
+import Collectibles from "../components/Profile/Collectibles";
+
+
 function ProfilePage() {
     const currentUser = useSelector((state) => state.detail.currentUser);
     const items = useSelector((state) => state.detail.items);
     const contractNFT = useSelector((state) => state.detail.contract);
 
+    const [profileContent, setProfileContent] = useState("Collectibles")
     const dispatch = useDispatch();
 
     useEffect(async () => {
@@ -117,70 +123,44 @@ function ProfilePage() {
         <>
             <Navi />
             <Jumbotron>
-                <h1>Hello, {currentUser} </h1>
-                <Col xs={6} md={4}>
+                <h4>Hello, {currentUser} </h4>
+                <div xs={6} md={4} className="text-center">
                     <Image src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png" roundedCircle />
-                </Col>
+                </div>
             </Jumbotron>
             <div>
+                <div className="text-center">
+                    <p>Name</p>
+                    <p>{currentUser}</p>
+                </div>
+
                 {/* <div className="row">
-                    {bancoContent === "Home" ? (
-                        <ContentOfBanco />
-                    ) : bancoContent === "Profile" ? (
-                        <ProfileOfBanco />
+                    {profileContent === "NFTtransactions" ? (
+                        <NFTtransactions />
+                    ) : profileContent === "Settings" ? (
+                        <p>setting</p>
                     ) : (
-                        <ActionOfBanco
-                            deposit={deposit}
-                            withdraw={withdraw}
-                            transferCCH={transferCCH}
-                        />
+                        <Collectibles />
                     )}
                 </div> */}
 
 
+                <div>
+                    <button onClick={() => setProfileContent("Collectibles")}>Collectibles</button>
+                    <button onClick={() => setProfileContent("")}>Transactions</button>
+                    <button>Settings</button>
+                </div>
 
-
-                <p>Address {currentUser}</p>
-                <p>Edit Profile / Sharelink</p>
-
-                <p>Collectibles</p>
-                {ownedArr &&
-                    ownedArr.map((item, index) => {
-                        return (
-                            <Col className="mt-4 d-flex" key={index}>
-                                {/* <BrowseItemCard item={item} /> */}
-                                <div>
-                                    <h6>Name: {item.itemName}</h6>
-                                    <h6>Id: {item.id}</h6>
-                                    <h6>Owner: {item.owner}</h6>
-                                    <h6>Creator: {item.creator}</h6>
-                                    <h6>On Sale? {item.forSale}</h6>
-                                    <h6>Price {item.price}</h6>
-                                    {/* Only Creator functions */}
-                                    {item.owner === item.creator ?
-                                        <div>
-                                            {item.forSale === true ?
-                                                <Button variant="warning" onClick={(e) => itemNotForSale(item.id)}>Not for Sale</Button> :
-                                                <Button variant="success" onClick={(e) => itemOnSale(item.id, 20)}>List on Sale</Button>
-                                            }
-                                            <Button variant="success">Approve</Button>
-                                            <Button variant="warning">Cancel Approve</Button>
-                                            <Button variant="danger" onClick={(e) => burnToken(item.id)}>Burn Token</Button>
-                                        </div>
-                                        :
-                                        <div>
-                                            <Button variant="success" onClick={(e) => itemOnSale(item.id, 20)}>List on Sale</Button>
-                                            <Button variant="warning" onClick={(e) => itemNotForSale(item.id)}>Not for Sale</Button>
-                                            <Button variant="success">Approve</Button>
-                                            <Button variant="warning">Cancel Approve</Button>
-                                        </div>
-                                    }
-                                </div>
-                            </Col>
-                        );
-                    })}
-
-                <p>Activity / Transactions</p>
+                <div>
+                    {profileContent === "Collectibles" ?
+                        <Collectibles
+                            itemNotForSale={itemNotForSale}
+                            itemOnSale={itemOnSale}
+                            burnToken={burnToken}
+                        /> :
+                        <p>hi</p>
+                    }
+                </div>
 
             </div>
         </>
