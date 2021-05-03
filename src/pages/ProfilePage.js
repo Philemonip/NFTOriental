@@ -5,11 +5,10 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
-
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
-
+import CreatedNFT from "../components/Profile/CreatedNFT";
 
 function ProfilePage() {
     const currentUser = useSelector((state) => state.detail.currentUser);
@@ -31,7 +30,8 @@ function ProfilePage() {
         } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
-            window.alert("Please login with Metamask!");
+            window.alert("Please login with Metamask.");
+
         }
     };
 
@@ -54,10 +54,9 @@ function ProfilePage() {
             const getItem = await contract.methods.getAllItems().call();
             dispatch(detailSliceActions.updateItem(getItem));
             console.log(getItem);
-            // const getToken = await contract.methods.getToken(0).call();
-            // dispatch(detailSliceActions.updateToken(getToken))
         } else {
-            window.alert("Smart contract not deployed to detected network.");
+            window.alert("Please use correct network and refresh the page.");
+
         }
     };
 
@@ -67,6 +66,8 @@ function ProfilePage() {
             await contractNFT.methods
                 .tokenOnSale(tokenId, price)
                 .send({ from: currentUser });
+            const getItem = await contractNFT.methods.getAllItems().call();
+            await dispatch(detailSliceActions.updateItem(getItem));
         } catch (err) {
             console.log("item on sale error", err);
         }
@@ -75,6 +76,8 @@ function ProfilePage() {
     async function itemNotForSale(tokenId) {
         try {
             await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
+            const getItem = await contractNFT.methods.getAllItems().call();
+            await dispatch(detailSliceActions.updateItem(getItem));
         } catch (err) {
             console.log("item not for sale error", err);
         }
@@ -101,6 +104,8 @@ function ProfilePage() {
     async function burnToken(tokenId) {
         try {
             await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
+            const getItem = await contractNFT.methods.getAllItems().call();
+            await dispatch(detailSliceActions.updateItem(getItem));
         } catch (err) {
             console.log("burning token error", err);
         }
@@ -121,20 +126,11 @@ function ProfilePage() {
                     <p>{currentUser}</p>
                 </div>
 
-                {/* <div className="row">
-                    {profileContent === "NFTtransactions" ? (
-                        <NFTtransactions />
-                    ) : profileContent === "Settings" ? (
-                        <p>setting</p>
-                    ) : (
-                        <Collectibles />
-                    )}
-                </div> */}
-
                 <div>
                     <button onClick={() => setProfileContent("Collectibles")}>Collectibles</button>
+                    <button onClick={() => setProfileContent("Created")}>Created NFT</button>
                     <button onClick={() => setProfileContent("")}>Transactions</button>
-                    <button>Settings</button>
+                    <button onClick={() => setProfileContent("Settings")}>Settings</button>
                 </div>
 
                 <div>
@@ -144,13 +140,20 @@ function ProfilePage() {
                             itemOnSale={itemOnSale}
                             burnToken={burnToken}
                         /> :
-                        <p>hi</p>
+                        profileContent === "Created" ?
+                            <CreatedNFT
+                                itemNotForSale={itemNotForSale}
+                                itemOnSale={itemOnSale}
+                                burnToken={burnToken}
+                            /> :
+
+                            profileContent === "Settings" ?
+                                <Settings /> :
+                                <p>hi</p>
                     }
                 </div>
-
             </div>
         </>
-
     )
 }
 
