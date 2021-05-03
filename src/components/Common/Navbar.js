@@ -22,6 +22,10 @@ const Navi = (props) => {
         <LinkContainer to="/">
           <Nav.Link>Create</Nav.Link>
         </LinkContainer>
+        <LinkContainer to="/profile">
+          {/* change to icon for click later */}
+          <Nav.Link>Profile</Nav.Link>
+        </LinkContainer>
       </Nav>
     </Navbar>
   );
