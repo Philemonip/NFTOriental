@@ -108,7 +108,7 @@ function ProfilePage() {
     let ownedArr
 
     const ownerItems = (items, currentUser) => {
-        ownedArr = items.filter((i) => i.owner == currentUser)
+        ownedArr = items.filter((i) => i.owner === currentUser)
         console.log('this owner owns', ownedArr)
     }
     ownerItems(items, currentUser)
@@ -121,9 +121,25 @@ function ProfilePage() {
                 <Col xs={6} md={4}>
                     <Image src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png" roundedCircle />
                 </Col>
-                <Button variant="info">Edit Profile</Button>
             </Jumbotron>
             <div>
+                {/* <div className="row">
+                    {bancoContent === "Home" ? (
+                        <ContentOfBanco />
+                    ) : bancoContent === "Profile" ? (
+                        <ProfileOfBanco />
+                    ) : (
+                        <ActionOfBanco
+                            deposit={deposit}
+                            withdraw={withdraw}
+                            transferCCH={transferCCH}
+                        />
+                    )}
+                </div> */}
+
+
+
+
                 <p>Address {currentUser}</p>
                 <p>Edit Profile / Sharelink</p>
 
@@ -131,7 +147,6 @@ function ProfilePage() {
                 {ownedArr &&
                     ownedArr.map((item, index) => {
                         return (
-                            // <Col className="mt-4" xs={12} sm={6} md={4} lg={4} xl={3}>
                             <Col className="mt-4 d-flex" key={index}>
                                 {/* <BrowseItemCard item={item} /> */}
                                 <div>
@@ -142,14 +157,15 @@ function ProfilePage() {
                                     <h6>On Sale? {item.forSale}</h6>
                                     <h6>Price {item.price}</h6>
                                     {/* Only Creator functions */}
-                                    {item.owner == item.creator ?
+                                    {item.owner === item.creator ?
                                         <div>
-                                            <Button variant="success" onClick={(e) => itemOnSale(item.id, 20)}>List on Sale</Button>
-                                            <Button variant="warning" onClick={(e) => itemNotForSale(item.id)}>Not for Sale</Button>
+                                            {item.forSale === true ?
+                                                <Button variant="warning" onClick={(e) => itemNotForSale(item.id)}>Not for Sale</Button> :
+                                                <Button variant="success" onClick={(e) => itemOnSale(item.id, 20)}>List on Sale</Button>
+                                            }
                                             <Button variant="success">Approve</Button>
                                             <Button variant="warning">Cancel Approve</Button>
-                                            <Button variant="danger">Set Token URI</Button>
-                                            <Button variant="danger">Burn Token</Button>
+                                            <Button variant="danger" onClick={(e) => burnToken(item.id)}>Burn Token</Button>
                                         </div>
                                         :
                                         <div>
@@ -163,10 +179,6 @@ function ProfilePage() {
                             </Col>
                         );
                     })}
-
-
-
-
 
                 <p>Activity / Transactions</p>
 
