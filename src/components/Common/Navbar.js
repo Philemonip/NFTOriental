@@ -26,6 +26,9 @@ const Navi = (props) => {
           {/* change to icon for click later */}
           <Nav.Link>Profile</Nav.Link>
         </LinkContainer>
+        <LinkContainer to="/cincochicos">
+          <Nav.Link>Defi Bank</Nav.Link>
+        </LinkContainer>
       </Nav>
     </Navbar>
   );
