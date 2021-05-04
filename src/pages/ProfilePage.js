@@ -6,9 +6,9 @@ import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import {
-    nftSliceActions,
-    getTransactionThunk,
-    addTransactionThunk,
+  nftSliceActions,
+  getTransactionThunk,
+  addTransactionThunk,
 } from "../redux/NFT/nftSlice";
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
@@ -17,155 +17,174 @@ import CreatedNFT from "../components/Profile/CreatedNFT";
 import "./ProfilePage.css";
 
 function ProfilePage() {
-    const currentUser = useSelector((state) => state.detail.currentUser);
-    const items = useSelector((state) => state.detail.items);
-    const contractNFT = useSelector((state) => state.detail.contract);
+  const currentUser = useSelector((state) => state.detail.currentUser);
+  // const items = useSelector((state) => state.detail.items);
+  const contractNFT = useSelector((state) => state.detail.contract);
 
-    const [profileContent, setProfileContent] = useState("Collectibles");
-    const dispatch = useDispatch();
+  const [profileContent, setProfileContent] = useState("Collectibles");
+  const dispatch = useDispatch();
 
-    useEffect(async () => {
-        await loadWeb3();
-        await loadBlockchainData();
-    }, []);
+  useEffect(async () => {
+    await loadWeb3();
+    await loadBlockchainData();
+  }, []);
 
-    const loadWeb3 = async () => {
-        if (window.ethereum) {
-            window.web3 = new Web3(window.ethereum);
-            await window.ethereum.enable();
-        } else if (window.web3) {
-            window.web3 = new Web3(window.web3.currentProvider);
-        } else {
-            window.alert("Please login with Metamask.");
-        }
-    };
-
-    const loadBlockchainData = async () => {
-        const web3 = window.web3;
-        const accounts = await web3.eth.getAccounts();
-        const networkId = await web3.eth.net.getId();
-        dispatch(detailSliceActions.updateWeb3(web3));
-        dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
-        console.log("current user:", accounts[0]);
-
-        //load contract
-        const networkData = CloseSeaNFT.networks[networkId];
-
-        if (networkData) {
-            const abi = CloseSeaNFT.abi;
-            const address = networkData.address;
-            const contract = new web3.eth.Contract(abi, address);
-            dispatch(detailSliceActions.updateContract(contract));
-            const getItem = await contract.methods.getAllItems().call();
-            dispatch(detailSliceActions.updateItem(getItem));
-            console.log(getItem);
-            dispatch(getTransactionThunk(accounts[0]));
-        } else {
-            window.alert("Please use correct network and refresh the page.");
-        }
-    };
-
-    async function itemOnSale(tokenId, price) {
-        console.log("item on sale");
-        try {
-            await contractNFT.methods
-                .tokenOnSale(tokenId, price)
-                .send({ from: currentUser });
-            const getItem = await contractNFT.methods.getAllItems().call();
-            await dispatch(detailSliceActions.updateItem(getItem));
-        } catch (err) {
-            console.log("item on sale error", err);
-        }
+  const loadWeb3 = async () => {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      window.alert("Please login with Metamask.");
     }
+  };
 
-    async function itemNotForSale(tokenId) {
-        try {
-            await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
-            const getItem = await contractNFT.methods.getAllItems().call();
-            await dispatch(detailSliceActions.updateItem(getItem));
-        } catch (err) {
-            console.log("item not for sale error", err);
-        }
+  const loadBlockchainData = async () => {
+    const web3 = window.web3;
+    const accounts = await web3.eth.getAccounts();
+    const networkId = await web3.eth.net.getId();
+    dispatch(detailSliceActions.updateWeb3(web3));
+    dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
+    console.log("current user:", accounts[0]);
+
+    //load contract
+    const networkData = CloseSeaNFT.networks[networkId];
+
+    if (networkData) {
+      const abi = CloseSeaNFT.abi;
+      const address = networkData.address;
+      const contract = new web3.eth.Contract(abi, address);
+      dispatch(detailSliceActions.updateContract(contract));
+      const getItem = await contract.methods.getAllItems().call();
+      dispatch(detailSliceActions.updateItem(getItem));
+      console.log(getItem);
+      dispatch(getTransactionThunk(accounts[0]));
+    } else {
+      window.alert("Please use correct network and refresh the page.");
     }
+  };
 
-    async function approveTo(buyer, tokenId) {
-        try {
-            await contractNFT.methods
-                .approvalTo(buyer, tokenId)
-                .send({ from: currentUser });
-        } catch (err) {
-            console.log("approving to buyer error", err);
-        }
+  async function itemOnSale(tokenId, price) {
+    console.log("item on sale");
+    try {
+      await contractNFT.methods
+        .tokenOnSale(tokenId, price)
+        .send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
+    } catch (err) {
+      console.log("item on sale error", err);
     }
+  }
 
-    async function cancelApproval(tokenId) {
-        try {
-            await contractNFT.methods
-                .cancelApproval(tokenId)
-                .send({ from: currentUser });
-        } catch (err) {
-            console.log("cancel approval error", err);
-        }
+  async function itemNotForSale(tokenId) {
+    try {
+      await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
+    } catch (err) {
+      console.log("item not for sale error", err);
     }
+  }
 
-    async function burnToken(tokenId) {
-        try {
-            await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
-            const getItem = await contractNFT.methods.getAllItems().call();
-            await dispatch(detailSliceActions.updateItem(getItem));
-        } catch (err) {
-            console.log("burning token error", err);
-        }
+  async function approveTo(buyer, tokenId) {
+    try {
+      await contractNFT.methods
+        .approvalTo(buyer, tokenId)
+        .send({ from: currentUser });
+    } catch (err) {
+      console.log("approving to buyer error", err);
     }
+  }
 
-    return (
-        <>
-            <Navi />
-            <Jumbotron className="jumbotron mb-1 p-5">
-                <h4>Hello, Name </h4>
-                <div xs={6} md={4} className="text-center">
-                    <Image className="profileImage" src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
-                    />
-                </div>
-            </Jumbotron>
-            <div className="profileContent">
-                <div className="text-center">
-                    <h4>Name</h4>
-                    <p>{currentUser}</p>
-                </div>
+  async function cancelApproval(tokenId) {
+    try {
+      await contractNFT.methods
+        .cancelApproval(tokenId)
+        .send({ from: currentUser });
+    } catch (err) {
+      console.log("cancel approval error", err);
+    }
+  }
 
-                <div className="px-4 buttonForChange">
-                    <button className="mx-1" onClick={() => setProfileContent("Collectibles")}>Collectibles</button>
-                    <button className="mx-1" onClick={() => setProfileContent("Created")}>Created NFT</button>
-                    <button className="mx-1" onClick={() => setProfileContent("Transactions")}>Transactions</button>
-                    <button className="mx-1" onClick={() => setProfileContent("Settings")}>Settings</button>
-                    <hr></hr>
-                </div>
+  async function burnToken(tokenId) {
+    try {
+      await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
+    } catch (err) {
+      console.log("burning token error", err);
+    }
+  }
 
-                <div className="px-4">
-                    {profileContent === "Collectibles" ?
-                        <Collectibles
-                            itemNotForSale={itemNotForSale}
-                            itemOnSale={itemOnSale}
-                            burnToken={burnToken}
-                        /> :
-                        profileContent === "Created" ?
-                            <CreatedNFT
-                                itemNotForSale={itemNotForSale}
-                                itemOnSale={itemOnSale}
-                                burnToken={burnToken}
-                            /> :
-                            profileContent === "Transactions" ?
-                                <NFTtransactions /> :
-                                profileContent === "Settings" ?
-                                    <Settings /> :
-                                    <p>hi</p>
-                    }
-                </div>
-            </div>
-        </>
-    )
+  return (
+    <>
+      <Navi />
+      <Jumbotron className="jumbotron mb-1 p-5">
+        <h4>Hello, Name </h4>
+        <div xs={6} md={4} className="text-center">
+          <Image
+            className="profileImage"
+            src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+          />
+        </div>
+      </Jumbotron>
+      <div className="profileContent">
+        <div className="text-center">
+          <h4>Name</h4>
+          <p>{currentUser}</p>
+        </div>
 
+        <div className="px-4 buttonForChange">
+          <button
+            className="mx-1"
+            onClick={() => setProfileContent("Collectibles")}
+          >
+            Collectibles
+          </button>
+          <button className="mx-1" onClick={() => setProfileContent("Created")}>
+            Created NFT
+          </button>
+          <button
+            className="mx-1"
+            onClick={() => setProfileContent("Transactions")}
+          >
+            Transactions
+          </button>
+          <button
+            className="mx-1"
+            onClick={() => setProfileContent("Settings")}
+          >
+            Settings
+          </button>
+          <hr></hr>
+        </div>
+
+        <div className="px-4">
+          {profileContent === "Collectibles" ? (
+            <Collectibles
+              itemNotForSale={itemNotForSale}
+              itemOnSale={itemOnSale}
+              burnToken={burnToken}
+            />
+          ) : profileContent === "Created" ? (
+            <CreatedNFT
+              itemNotForSale={itemNotForSale}
+              itemOnSale={itemOnSale}
+              burnToken={burnToken}
+            />
+          ) : profileContent === "Transactions" ? (
+            <NFTtransactions />
+          ) : profileContent === "Settings" ? (
+            <Settings />
+          ) : (
+            <p>hi</p>
+          )}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default ProfilePage;
