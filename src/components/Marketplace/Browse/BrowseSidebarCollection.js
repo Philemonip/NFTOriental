@@ -9,10 +9,10 @@ const BrowseSidebarCollection = (props) => {
     (state) => state.browse.collectionfilter
   );
   const collectionValue = [
-    "Collection 1",
-    "Collection 2",
-    "Collection 3",
-    "Collection 4",
+    "art",
+    "clothing",
+    "festivals",
+    "shoes",
     "Collection 5",
     "Collection 6",
     "Collection 7",

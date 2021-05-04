@@ -8,16 +8,16 @@ import DetailBuyModal from "./DetailBuyModal";
 function DetailTitlePrice(props) {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [itemName, setitemName] = useState("");
-  const token = useSelector((state) => state.detail.token);
+  // const token = useSelector((state) => state.detail.token);
 
   return (
     <>
-      <p className={classes.category}>{props.itemdata.category}</p>
-      <p className={classes.title}>{props.itemdata.title}</p>
-      <p>Owned by {token.owner}</p>
+      <p className={classes.collection}>{props.itemdata.collection}</p>
+      <p className={classes.title}>{props.itemdata.name}</p>
+      <p>Owned by {props.itemdata.owner}</p>
       <div className={classes.pricediv}>
         <p>Current Price</p>
-        <p className={classes.title}>ETH {props.itemdata.price}</p>
+        <p className={classes.title}>ETH {props.itemdata.current_price}</p>
         <Button variant="primary" onClick={() => setShowBuyModal(true)}>
           Buy Now (LAUNCH MODAL)
         </Button>

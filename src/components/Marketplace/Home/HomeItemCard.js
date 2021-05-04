@@ -15,7 +15,7 @@ const HomeItemCard = ({ item }) => {
   const dummypic = `https://lh3.googleusercontent.com/pBZykzbkTOOygSF2ym8PKHU5o45p8VWIvmc1wLG2m7wGOJRz8NAH6LEiwRBpLY6IyUBX5aqQkz7rwvEadw3_2y3HDPm9wHSLqa3DGZE=s0`;
 
   return (
-    <a href={"/items/" + item.id}>
+    <a href={"/items/" + item.token_id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
           <Image fluid className={classes.image} src={item.image} />
@@ -24,10 +24,10 @@ const HomeItemCard = ({ item }) => {
           <Row>
             <Col lg={8} className="pl-3 pr-0">
               <Card.Text className={classes.cardtitle}>
-                {item.category}
+                {item.collection}
               </Card.Text>
               <Card.Text className={classes.cardtext}>
-                {shortText(item.title)}
+                {shortText(item.name)}
               </Card.Text>
             </Col>
             <Col className="pl-0 pr-3">
@@ -39,7 +39,7 @@ const HomeItemCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <b>ETH</b> {item.price}
+                <b>ETH</b> {item.current_price}
               </Card.Text>
             </Col>
           </Row>

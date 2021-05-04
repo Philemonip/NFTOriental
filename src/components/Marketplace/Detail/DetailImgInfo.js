@@ -20,7 +20,7 @@ function DetailImgInfo({ itemdata }) {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              <p>Created by {token.creator}</p>
+              <p>Created by {itemdata.creator}</p>
               <p>{itemdata.description}</p>
             </Card.Body>
           </Accordion.Collapse>
@@ -34,7 +34,7 @@ function DetailImgInfo({ itemdata }) {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               <p>Contract Address: {token.owner}</p>
-              <p>Token ID: {token.name}</p>
+              <p>Token ID: {itemdata.token_id}</p>
               <p>Blockchain: Ethereum</p>
             </Card.Body>
           </Accordion.Collapse>

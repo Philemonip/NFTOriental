@@ -9,6 +9,7 @@ const browseSlice = createSlice({
   initialState: initialState,
   reducers: {
     getFiltered(state, action) {
+      state.itemArr = [];
       state.itemArr.push(...action.payload);
     },
 
@@ -60,15 +61,17 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
         console.error(`Error: Switch Case not found`);
     }
     let state = getState();
-    console.log("getstate");
+    console.log("browseslice");
     console.log(state.browse.statusfilter);
     console.log(state.browse.collectionfilter);
-    //FIXME: enable me when connected to real data
-    // let res = await axios.post(`${process.env.REACT_APP_API_SERVER}`, {
-    //   status: state.browse.statusfilter,
-    //   collection: state.browse.collectionfilter,
-    // });
-    // dispatch(browseActions.getFiltered(res.data));
+    let res = await axios.post(
+      `${process.env.REACT_APP_API_SERVER}/metadata/`,
+      {
+        status: state.browse.statusfilter,
+        collection: state.browse.collectionfilter,
+      }
+    );
+    dispatch(browseActions.getFiltered(res.data));
   } catch (err) {
     console.log("Get Filtered Item Failed", err);
   }

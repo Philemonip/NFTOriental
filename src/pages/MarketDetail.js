@@ -27,10 +27,9 @@ function MarketDetail() {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/${params.itemAddress}`
+        `${process.env.REACT_APP_API_SERVER}/metadata/${params.itemAddress}`
       );
-      console.log(data);
-      setItems(data);
+      setItems(data[0]);
     };
     fetchData();
   }, [params.itemAddress]);

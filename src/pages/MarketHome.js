@@ -27,7 +27,7 @@ function MarketHome() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_API_SERVER}`,
+          `${process.env.REACT_APP_API_SERVER}/metadata`,
           {
             cancelToken: source.token,
           }
@@ -53,7 +53,9 @@ function MarketHome() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_SERVER}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_SERVER}/metadata`
+      );
       console.log(data);
       setNewItem(data.reverse());
     };

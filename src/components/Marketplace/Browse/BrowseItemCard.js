@@ -25,10 +25,10 @@ const BrowseItemCard = ({ item }) => {
           <Row>
             <Col lg={8} className="pl-3 pr-0">
               <Card.Text className={classes.cardtitle}>
-                {item.category}
+                {item.collection}
               </Card.Text>
               <Card.Text className={classes.cardtext}>
-                {shortText(item.title)}
+                {shortText(item.name)}
               </Card.Text>
             </Col>
             <Col className="pl-0 pr-3">
@@ -40,7 +40,7 @@ const BrowseItemCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <b>ETH</b> {item.price}
+                <b>ETH</b> {item.current_price}
               </Card.Text>
             </Col>
           </Row>

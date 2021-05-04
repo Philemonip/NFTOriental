@@ -40,14 +40,14 @@ function DetailBuyModal(props) {
               </Col>
               <Col className="d-flex align-items-center">
                 <div>
-                  <p className="text-primary">{props.itemdata.category}</p>
+                  <p className="text-primary">{props.itemdata.collection}</p>
                   <h5>{props.itemdata.title}</h5>
                 </div>
               </Col>
             </Row>
           </Col>
           <Col className="d-flex align-items-center justify-content-end">
-            <h5>ETH {props.itemdata.price}</h5>
+            <h5>ETH {props.itemdata.current_price}</h5>
           </Col>
         </Row>
         <Row className={classes.totalrow}>
@@ -55,7 +55,7 @@ function DetailBuyModal(props) {
             <h5>Total</h5>
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5>ETH {props.itemdata.price}</h5>
+            <h5>ETH {props.itemdata.current_price}</h5>
           </Col>
         </Row>
         <Row className="d-flex mt-5 justify-content-center">
