@@ -57,13 +57,16 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
       case "collection":
         await dispatch(browseActions.toggleCollectionFilter(data));
         break;
+      case "clear":
+        await dispatch(browseActions.clearFilter());
+        break;
       default:
         console.error(`Error: Switch Case not found`);
     }
     let state = getState();
-    console.log("browseslice");
-    console.log(state.browse.statusfilter);
-    console.log(state.browse.collectionfilter);
+    // console.log("browseslice");
+    // console.log(state.browse.statusfilter);
+    // console.log(state.browse.collectionfilter);
     let res = await axios.post(
       `${process.env.REACT_APP_API_SERVER}/metadata/`,
       {

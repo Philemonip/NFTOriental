@@ -1,10 +1,7 @@
 import classes from "./BrowseFilterbar.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  browseActions,
-  browseToggleThunk,
-} from "../../../redux/Marketplace/browseSlice";
+import { browseToggleThunk } from "../../../redux/Marketplace/browseSlice";
 import { FaTimes } from "react-icons/fa";
 
 function BrowseFilterbar() {
@@ -13,11 +10,6 @@ function BrowseFilterbar() {
   const selectedCollection = useSelector(
     (state) => state.browse.collectionfilter
   );
-
-  //TODO: change to thunk
-  const clearFilter = () => {
-    dispatch(browseActions.clearFilter());
-  };
 
   return (
     <>
@@ -50,7 +42,10 @@ function BrowseFilterbar() {
             </Col>
           ))}
           <Col className={classes.clearallcol}>
-            <div className={classes.clearall} onClick={() => clearFilter()}>
+            <div
+              className={classes.clearall}
+              onClick={() => dispatch(browseToggleThunk("clear"))}
+            >
               Clear All
             </div>
           </Col>
