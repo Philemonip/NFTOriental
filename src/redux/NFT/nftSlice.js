@@ -53,20 +53,66 @@ export const getTransactionThunk = (address) => async (dispatch) => {
   }
 };
 
-export const addTransactionThunk = (newTransactionData) => async (dispatch) => {
-  console.log("add Transaction Thunk", newTransactionData);
-  const addTransactionRequest = async () => {
+// export const addTransactionThunk = (newTransactionData) => async (dispatch) => {
+//   console.log("add Transaction Thunk", newTransactionData);
+//   const addTransactionRequest = async () => {
+//     return await axios.post(
+//       `http://localhost:8000/profile`,
+//       newTransactionData
+//     );
+//   };
+//   try {
+//     await addTransactionRequest();
+//     // dispatch(bancoSliceActions.addTransaction(newTransactionData));
+//   } catch (err) {
+//     console.log("add new transaction fail", err);
+//   }
+// };
+
+export const addmetadataThunk = (newMetaData) => async (dispatch) => {
+  console.log("new metadata", newMetaData);
+  const addMetaData = async () => {
     return await axios.post(
       `http://localhost:8000/profile`,
-      newTransactionData
+      newMetaData,
     );
   };
   try {
-    await addTransactionRequest();
-    // dispatch(bancoSliceActions.addTransaction(newTransactionData));
+    await addMetaData();
   } catch (err) {
-    console.log("add new transaction fail", err);
+    console.log("add new metadata fail", err)
   }
 };
+
+export const updateItemThunk = (updateData) => async (dispatch) => {
+  console.log("changing item status")
+  const updateItem = async () => {
+    return await axios.put(
+      `http://localhost:8000/profile`,
+      updateData,
+    )
+  }
+  try {
+    await updateItem();
+  } catch (err) {
+    console.log("update item fail", err)
+  }
+}
+
+export const deleteItemThunk = (deleteData) => async (dispatch) => {
+  console.log("deleting item")
+  const deleteItem = async () => {
+    return await axios.delete(
+      `http://localhost:8000/profile`,
+      { data: deleteData },
+    )
+  }
+  try {
+    await deleteItem();
+  } catch (err) {
+    console.log("delete item fail", err)
+  }
+}
+
 
 export default nftSlice;

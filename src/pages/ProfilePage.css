@@ -12,12 +12,21 @@
   height: 170px;
   object-fit: cover;
   border-radius: 50%;
-  margin-top: 7%;
+  /* margin-top: 7%; */
   border: 5px solid white;
 }
 
 .profileContent {
   margin-top: 6%;
+}
+
+.profileContent a {
+  color: #007bff;
+}
+
+.profileContent a:hover {
+  color: #474652;
+  text-decoration: underline;
 }
 
 .buttonForChange button {
@@ -38,7 +47,4 @@
 .buttonForChange button:focus {
   color: rgb(44, 44, 44);
   border-bottom: 2px solid rgb(44, 44, 44);
-}
-
-.Collectibles button {
 }

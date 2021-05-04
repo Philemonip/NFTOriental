@@ -9,6 +9,9 @@ import {
     nftSliceActions,
     getTransactionThunk,
     addTransactionThunk,
+    addmetadataThunk,
+    updateItemThunk,
+    deleteItemThunk,
 } from "../redux/NFT/nftSlice";
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
@@ -66,13 +69,24 @@ function ProfilePage() {
     };
 
     async function itemOnSale(tokenId, price) {
-        console.log("item on sale");
         try {
             await contractNFT.methods
                 .tokenOnSale(tokenId, price)
                 .send({ from: currentUser });
             const getItem = await contractNFT.methods.getAllItems().call();
             await dispatch(detailSliceActions.updateItem(getItem));
+            const NFTitem = getItem.filter(i => i.id === tokenId)
+            const owner = NFTitem[0].owner
+            const forSale = NFTitem[0].forSale
+
+            await dispatch(
+                updateItemThunk({
+                    token_id: tokenId,
+                    owner: owner,
+                    current_price: price,
+                    on_sale: forSale,
+                })
+            );
         } catch (err) {
             console.log("item on sale error", err);
         }
@@ -83,6 +97,19 @@ function ProfilePage() {
             await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
             const getItem = await contractNFT.methods.getAllItems().call();
             await dispatch(detailSliceActions.updateItem(getItem));
+            const NFTitem = getItem.filter(i => i.id === tokenId)
+            const owner = NFTitem[0].owner;
+            const forSale = NFTitem[0].forSale;
+            const price = NFTitem[0].price;
+
+            await dispatch(
+                updateItemThunk({
+                    token_id: tokenId,
+                    owner: owner,
+                    current_price: price,
+                    on_sale: forSale,
+                })
+            );
         } catch (err) {
             console.log("item not for sale error", err);
         }
@@ -113,8 +140,46 @@ function ProfilePage() {
             await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
             const getItem = await contractNFT.methods.getAllItems().call();
             await dispatch(detailSliceActions.updateItem(getItem));
+            await dispatch(
+                deleteItemThunk({
+                    token_id: tokenId,
+                })
+            );
         } catch (err) {
             console.log("burning token error", err);
+        }
+    }
+
+    async function mint(itemName) {
+        try {
+            await contractNFT.methods.mint(itemName).send({ from: currentUser });
+            const minting = await contractNFT.methods.getAllItems().call();
+            await dispatch(detailSliceActions.updateItem(minting));
+            const NFTitem = minting[minting.length - 1];
+            const id = NFTitem.id
+            const name = NFTitem.itemName
+            const creator = NFTitem.creator
+            const owner = NFTitem.owner
+            const price = NFTitem.price
+            const forSale = NFTitem.forSale
+
+            await dispatch(
+                addmetadataThunk({
+                    token_id: id,
+                    name: name,
+                    creator: creator,
+                    owner: owner,
+                    on_sale: forSale,
+                    current_price: price,
+                    collection: "shoes",
+                    asset_id: "260156",
+                    image: "https://sportshub.cbsistatic.com/i/r/2021/05/03/7c612065-314a-464b-b09c-e92777922087/thumbnail/1200x675/497827ef3c95b75e6c8b2235bf297cf9/lebron-james.jpg",
+                    description: "lebron",
+                    external_url: "cryptopunk.com",
+                })
+            )
+        } catch (err) {
+            console.log("minting error", err);
         }
     }
 
@@ -132,6 +197,7 @@ function ProfilePage() {
                 <div className="text-center">
                     <h4>Name</h4>
                     <p>{currentUser}</p>
+                    <button className="mx-1" onClick={() => mint('item1')}>Mint stuff</button>
                 </div>
 
                 <div className="px-4 buttonForChange">
