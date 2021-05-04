@@ -114,7 +114,6 @@ function ProfilePage() {
             console.log("item not for sale error", err);
         }
     }
-
     async function approveTo(buyer, tokenId) {
         try {
             await contractNFT.methods
@@ -231,7 +230,6 @@ function ProfilePage() {
             </div>
         </>
     )
-
 }
 
 export default ProfilePage;

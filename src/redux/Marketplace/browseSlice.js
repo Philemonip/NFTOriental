@@ -1,13 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import axios from "axios";
+import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
-const initialState = { statusfilter: [], collectionfilter: [] };
+const initialState = { itemArr: [], statusfilter: [], collectionfilter: [] };
 const browseSlice = createSlice({
   name: "browse",
   initialState: initialState,
   reducers: {
+    getFiltered(state, action) {
+      state.itemArr = [];
+      state.itemArr.push(...action.payload);
+    },
+
     toggleStatusFilter(state, action) {
       let checkExist = state.statusfilter.indexOf(action.payload) > -1;
       if (!checkExist) {
@@ -28,16 +33,6 @@ const browseSlice = createSlice({
         );
       }
     },
-    deleteStatusFilter(state, action) {
-      state.statusfilter = state.statusfilter.filter(
-        (link) => link !== action.payload
-      );
-    },
-    deleteCollectionFilter(state, action) {
-      state.collectionfilter = state.collectionfilter.filter(
-        (link) => link !== action.payload
-      );
-    },
     clearFilter(state) {
       state.statusfilter = [];
       state.collectionfilter = [];
@@ -45,18 +40,45 @@ const browseSlice = createSlice({
   },
 });
 
+//Thunks Here
+// 1. dispatch: update status/collec. state
+// 2. process query string and submit getReq
+// 3. dispatch: update output with res.data
+//TODO: itemArr is not connected to actual page, which still use useeffect
+export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
+  // console.log("status thunk");
+  // console.log(type, data);
+
+  try {
+    switch (type) {
+      case "status":
+        await dispatch(browseActions.toggleStatusFilter(data));
+        break;
+      case "collection":
+        await dispatch(browseActions.toggleCollectionFilter(data));
+        break;
+      case "clear":
+        await dispatch(browseActions.clearFilter());
+        break;
+      default:
+        console.error(`Error: Switch Case not found`);
+    }
+    let state = getState();
+    // console.log("browseslice");
+    // console.log(state.browse.statusfilter);
+    // console.log(state.browse.collectionfilter);
+    let res = await axios.post(
+      `${process.env.REACT_APP_API_SERVER}/metadata/`,
+      {
+        status: state.browse.statusfilter,
+        collection: state.browse.collectionfilter,
+      }
+    );
+    dispatch(browseActions.getFiltered(res.data));
+  } catch (err) {
+    console.log("Get Filtered Item Failed", err);
+  }
+};
+
 export const browseActions = browseSlice.actions;
 export default browseSlice;
-
-// export const getTransactionThunk = (address) => async (dispatch) => {
-//   console.log("getlinkthunk");
-//   const getTransactionRequest = async () => {
-//     return await axios.get(`http://localhost:8000/transaction/${address}`);
-//   };
-//   try {
-//     let res = await getTransactionRequest();
-//     dispatch(bancoSliceActions.getTransaction(res.data));
-//   } catch (err) {
-//     console.log("get transaction fail", err);
-//   }
-// };

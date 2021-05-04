@@ -13,13 +13,12 @@ function BrowseSidebar() {
     },
     { name: "Collections", component: <BrowseSidebarCollection /> },
   ];
-  // const accordionArr = [<BrowseSidebarStatus />, <BrowseSidebarCollection />];
 
   return (
     <Col lg="auto" className={classes.sidebarcolumn}>
       <div className={classes.sidebar}>
         {accordionArr.map((i, key) => (
-          <Accordion defaultActiveKey="0">
+          <Accordion defaultActiveKey="0" key={key}>
             <Card className={classes.card}>
               <Accordion.Toggle as={Card.Header} eventKey="0">
                 {i.name}
