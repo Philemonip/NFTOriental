@@ -20,7 +20,7 @@ const TransactionHistory = () => {
         <tr>
           <th>Date</th>
           <th>Name</th>
-          <th>Token Id</th>
+          <th>Token ID</th>
           <th>From Address</th>
           <th>To Address</th>
           <th>Price (CCH)</th>

@@ -9,7 +9,7 @@ const SettingSide = ({ setContent }) => {
 						setContent("General");
 					}}
 				>
-					general setting
+					General Settings
 				</button>
 			</div>
 
@@ -19,7 +19,7 @@ const SettingSide = ({ setContent }) => {
 						setContent("Hi");
 					}}
 				>
-					Hi
+					Our Team
 				</button>
 			</div>
 		</div>
