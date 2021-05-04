@@ -1,20 +1,19 @@
 import Navi from "../components/Common/Navbar";
-import { Jumbotron, Button, Image, Col } from "react-bootstrap";
+import { Jumbotron, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
-
 import {
   nftSliceActions,
   getTransactionThunk,
   addTransactionThunk,
 } from "../redux/NFT/nftSlice";
-
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
+import CreatedNFT from "../components/Profile/CreatedNFT";
 
 function ProfilePage() {
   const currentUser = useSelector((state) => state.detail.currentUser);
@@ -36,7 +35,7 @@ function ProfilePage() {
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
-      window.alert("Please login with Metamask!");
+      window.alert("Please login with Metamask.");
     }
   };
 
@@ -60,35 +59,34 @@ function ProfilePage() {
       dispatch(detailSliceActions.updateItem(getItem));
       console.log(getItem);
       dispatch(getTransactionThunk(accounts[0]));
-      // const getToken = await contract.methods.getToken(0).call();
-      // dispatch(detailSliceActions.updateToken(getToken))
     } else {
-      window.alert("Smart contract not deployed to detected network.");
+      window.alert("Please use correct network and refresh the page.");
     }
   };
 
-  //admin page
   async function itemOnSale(tokenId, price) {
     console.log("item on sale");
     try {
       await contractNFT.methods
         .tokenOnSale(tokenId, price)
         .send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
     } catch (err) {
       console.log("item on sale error", err);
     }
   }
 
-  //admin page
   async function itemNotForSale(tokenId) {
     try {
       await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
     } catch (err) {
       console.log("item not for sale error", err);
     }
   }
 
-  //admin page
   async function approveTo(buyer, tokenId) {
     try {
       await contractNFT.methods
@@ -99,7 +97,6 @@ function ProfilePage() {
     }
   }
 
-  //admin page
   async function cancelApproval(tokenId) {
     try {
       await contractNFT.methods
@@ -110,28 +107,21 @@ function ProfilePage() {
     }
   }
 
-  //admin page
   async function burnToken(tokenId) {
     try {
       await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
     } catch (err) {
       console.log("burning token error", err);
     }
   }
 
-  let ownedArr;
-
-  const ownerItems = (items, currentUser) => {
-    ownedArr = items.filter((i) => i.owner === currentUser);
-    console.log("this owner owns", ownedArr);
-  };
-  ownerItems(items, currentUser);
-
   return (
     <>
       <Navi />
-      <Jumbotron>
-        <h4>Hello, {currentUser} </h4>
+      <Jumbotron className="mb-1 p-5">
+        <h4>Hello, Name </h4>
         <div xs={6} md={4} className="text-center">
           <Image
             src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
@@ -141,28 +131,23 @@ function ProfilePage() {
       </Jumbotron>
       <div>
         <div className="text-center">
-          <p>Name</p>
+          <h2>Name</h2>
           <p>{currentUser}</p>
         </div>
-
-        {/* <div className="row">
-                    {profileContent === "NFTtransactions" ? (
-                        <NFTtransactions />
-                    ) : profileContent === "Settings" ? (
-                        <p>setting</p>
-                    ) : (
-                        <Collectibles />
-                    )}
-                </div> */}
 
         <div>
           <button onClick={() => setProfileContent("Collectibles")}>
             Collectibles
           </button>
+          <button onClick={() => setProfileContent("Created")}>
+            Created NFT
+          </button>
           <button onClick={() => setProfileContent("Transactions")}>
             Transactions
           </button>
-          <button>Settings</button>
+          <button onClick={() => setProfileContent("Settings")}>
+            Settings
+          </button>
         </div>
 
         <div>
@@ -172,10 +157,18 @@ function ProfilePage() {
               itemOnSale={itemOnSale}
               burnToken={burnToken}
             />
+          ) : profileContent === "Created" ? (
+            <CreatedNFT
+              itemNotForSale={itemNotForSale}
+              itemOnSale={itemOnSale}
+              burnToken={burnToken}
+            />
           ) : profileContent === "Transactions" ? (
             <NFTtransactions />
+          ) : profileContent === "Settings" ? (
+            <Settings />
           ) : (
-            <p>Hi</p>
+            <p>hi</p>
           )}
         </div>
       </div>

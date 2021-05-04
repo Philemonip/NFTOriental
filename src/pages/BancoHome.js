@@ -100,7 +100,7 @@ const BancoHome = () => {
 					.deposit()
 					.send({ value: amount.toString(), from: account });
 				await showBalance();
-				dispatch(bancoSliceActions.toggleDeposit());
+				// dispatch(bancoSliceActions.toggleDeposit());
 			} catch (e) {
 				console.log("Error, deposit: ", e);
 			}
@@ -131,7 +131,7 @@ const BancoHome = () => {
 						currency: "CCH",
 					})
 				);
-				dispatch(bancoSliceActions.toggleDeposit());
+				// dispatch(bancoSliceActions.toggleDeposit());
 				dispatch(bancoSliceActions.toggleTransactionLoading(true));
 				await dispatch(getTransactionThunk(account));
 				dispatch(bancoSliceActions.toggleTransactionLoading(false));
@@ -156,11 +156,26 @@ const BancoHome = () => {
 
 	const transferCCH = async (targetAccount, amount) => {
 		//current cch balance/ac from to to bkend
-		await token.methods
-			.transfer(targetAccount, `${amount}`)
-			.send({ from: account });
-		await showBalance();
-		//current cch balance/ac ac from to to bkend cat = transfer
+		const cchBalanceInWeiBefore = await token.methods.balanceOf(account).call();
+		if (cchBalanceInWeiBefore > amount) {
+			await token.methods
+				.transfer(targetAccount, `${amount}`)
+				.send({ from: account });
+			await dispatch(
+				addTransactionThunk({
+					fromAddress: account,
+					toAddress: targetAccount,
+					amount: `${amount}`,
+					category: "Transfer",
+					currency: "CCH",
+				})
+			);
+			dispatch(bancoSliceActions.toggleTransactionLoading(true));
+			await dispatch(getTransactionThunk(account));
+			dispatch(bancoSliceActions.toggleTransactionLoading(false));
+			await showBalance();
+			//current cch balance/ac ac from to to bkend cat = transfer
+		}
 	};
 
 	return (

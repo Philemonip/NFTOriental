@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Jumbotron, Button, Image, Col, Card } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Button, Card } from "react-bootstrap";
+import React from "react";
 
 const Collectibles = (props) => {
   const currentUser = useSelector((state) => state.detail.currentUser);
