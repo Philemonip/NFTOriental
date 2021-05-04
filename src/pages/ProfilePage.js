@@ -9,6 +9,7 @@ import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
 import CreatedNFT from "../components/Profile/CreatedNFT";
+import "./ProfilePage.css";
 
 function ProfilePage() {
     const currentUser = useSelector((state) => state.detail.currentUser);
@@ -114,26 +115,28 @@ function ProfilePage() {
     return (
         <>
             <Navi />
-            <Jumbotron className="mb-1 p-5">
+            <Jumbotron className="jumbotron mb-1 p-5">
                 <h4>Hello, Name </h4>
                 <div xs={6} md={4} className="text-center">
-                    <Image src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png" roundedCircle />
+                    <Image className="profileImage" src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+                    />
                 </div>
             </Jumbotron>
-            <div>
+            <div className="profileContent">
                 <div className="text-center">
-                    <h2>Name</h2>
+                    <h4>Name</h4>
                     <p>{currentUser}</p>
                 </div>
 
-                <div>
-                    <button onClick={() => setProfileContent("Collectibles")}>Collectibles</button>
-                    <button onClick={() => setProfileContent("Created")}>Created NFT</button>
-                    <button onClick={() => setProfileContent("")}>Transactions</button>
-                    <button onClick={() => setProfileContent("Settings")}>Settings</button>
+                <div className="px-4 buttonForChange">
+                    <button className="mx-1" onClick={() => setProfileContent("Collectibles")}>Collectibles</button>
+                    <button className="mx-1" onClick={() => setProfileContent("Created")}>Created NFT</button>
+                    <button className="mx-1" onClick={() => setProfileContent("")}>Transactions</button>
+                    <button className="mx-1" onClick={() => setProfileContent("Settings")}>Settings</button>
+                    <hr></hr>
                 </div>
 
-                <div>
+                <div className="px-4">
                     {profileContent === "Collectibles" ?
                         <Collectibles
                             itemNotForSale={itemNotForSale}
@@ -146,7 +149,6 @@ function ProfilePage() {
                                 itemOnSale={itemOnSale}
                                 burnToken={burnToken}
                             /> :
-
                             profileContent === "Settings" ?
                                 <Settings /> :
                                 <p>hi</p>
