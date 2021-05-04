@@ -5,6 +5,11 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
+import {
+    nftSliceActions,
+    getTransactionThunk,
+    addTransactionThunk,
+} from "../redux/NFT/nftSlice";
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
@@ -16,7 +21,7 @@ function ProfilePage() {
     const items = useSelector((state) => state.detail.items);
     const contractNFT = useSelector((state) => state.detail.contract);
 
-    const [profileContent, setProfileContent] = useState("Collectibles")
+    const [profileContent, setProfileContent] = useState("Collectibles");
     const dispatch = useDispatch();
 
     useEffect(async () => {
@@ -32,7 +37,6 @@ function ProfilePage() {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
             window.alert("Please login with Metamask.");
-
         }
     };
 
@@ -55,9 +59,9 @@ function ProfilePage() {
             const getItem = await contract.methods.getAllItems().call();
             dispatch(detailSliceActions.updateItem(getItem));
             console.log(getItem);
+            dispatch(getTransactionThunk(accounts[0]));
         } else {
             window.alert("Please use correct network and refresh the page.");
-
         }
     };
 
@@ -96,7 +100,9 @@ function ProfilePage() {
 
     async function cancelApproval(tokenId) {
         try {
-            await contractNFT.methods.cancelApproval(tokenId).send({ from: currentUser });
+            await contractNFT.methods
+                .cancelApproval(tokenId)
+                .send({ from: currentUser });
         } catch (err) {
             console.log("cancel approval error", err);
         }
@@ -131,7 +137,7 @@ function ProfilePage() {
                 <div className="px-4 buttonForChange">
                     <button className="mx-1" onClick={() => setProfileContent("Collectibles")}>Collectibles</button>
                     <button className="mx-1" onClick={() => setProfileContent("Created")}>Created NFT</button>
-                    <button className="mx-1" onClick={() => setProfileContent("")}>Transactions</button>
+                    <button className="mx-1" onClick={() => setProfileContent("Transactions")}>Transactions</button>
                     <button className="mx-1" onClick={() => setProfileContent("Settings")}>Settings</button>
                     <hr></hr>
                 </div>
@@ -149,14 +155,17 @@ function ProfilePage() {
                                 itemOnSale={itemOnSale}
                                 burnToken={burnToken}
                             /> :
-                            profileContent === "Settings" ?
-                                <Settings /> :
-                                <p>hi</p>
+                            profileContent === "Transactions" ?
+                                <NFTtransactions /> :
+                                profileContent === "Settings" ?
+                                    <Settings /> :
+                                    <p>hi</p>
                     }
                 </div>
             </div>
         </>
     )
+
 }
 
 export default ProfilePage;

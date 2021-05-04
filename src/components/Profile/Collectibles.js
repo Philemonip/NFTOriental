@@ -3,11 +3,9 @@ import { Button, Card } from "react-bootstrap";
 import React from "react";
 
 const Collectibles = (props) => {
-
     const currentUser = useSelector((state) => state.detail.currentUser);
     const items = useSelector((state) => state.detail.items);
-
-    let ownedArr
+    let ownedArr;
 
     const ownerItems = (items, currentUser) => {
         ownedArr = items.filter((i) => i.owner === currentUser)
@@ -20,7 +18,7 @@ const Collectibles = (props) => {
             {ownedArr &&
                 ownedArr.map((item, index) => {
                     return (
-                        <Card style={{ width: '18rem' }} className="mx-2">
+                        <Card key={index} style={{ width: '18rem' }} className="mx-2">
                             <Card.Img variant="top" src="https://via.placeholder.com/150" roundedCircle />
                             <Card.Body>
                                 <Card.Title className="text-center">{item.itemName}</Card.Title>
