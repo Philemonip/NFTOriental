@@ -23,12 +23,12 @@ const SettingGeneral = () => {
 						required
 					/>
 					<Form.Text className="text-muted">
-						this name will be shown on your avatar for chatroom
+						* This name will be shown on your avatar for chatroom
 					</Form.Text>
 				</Form.Group>
 
-				<Form.Group className="d-flex justify-content-center">
-					<Button type="submit">Confirm</Button>
+				<Form.Group className="d-flex justify-content-end">
+					<Button type="submit">Save</Button>
 				</Form.Group>
 			</Form>
 		</Container>

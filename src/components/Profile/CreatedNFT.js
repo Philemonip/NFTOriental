@@ -13,7 +13,6 @@ const CreatedNFT = (props) => {
     }
     creatorItems(items, currentUser)
 
-
     return (
         <div className="d-flex">
             {createdArr &&
@@ -22,32 +21,34 @@ const CreatedNFT = (props) => {
                         <Card style={{ width: '18rem' }} className="mx-2">
                             <Card.Img variant="top" src="https://via.placeholder.com/150" roundedCircle />
                             <Card.Body>
-                                <Card.Title>{item.itemName}</Card.Title>
+                                <Card.Title className="text-center">{item.itemName}</Card.Title>
                                 <Card.Text>
-                                    <h6>Id: {item.id}</h6>
-                                    <h6>Owner: {item.owner}</h6>
-                                    <h6>Creator: {item.creator}</h6>
-                                    <h6>Price {item.price}</h6>
+                                    <p className="m-1">Owner: <a href="/">{item.owner.substr(0, 18)}...</a></p>
+                                    <p className="m-1">Creator: <a href="/">{item.creator.substr(0, 18)}...</a></p>
+                                    <p className="m-1">Id: {item.id}</p>
+                                    <p className="m-1">Price {item.price}</p>
                                 </Card.Text>
 
+                                <div className="d-flex">
+                                    {item.owner === currentUser ? <div>
+                                        {item.forSale === true ?
+                                            <button className="mx-1" onClick={(e) => props.itemNotForSale(item.id)} >Not for Sale</button> :
+                                            <button className="mx-1" onClick={(e) => props.itemOnSale(item.id, 20)}>List on Sale</button>
+                                        }
+                                        {/* <Button variant="success">Approve</Button>
+                                    <Button variant="warning">Cancel Approve</Button> */}
+                                    </div> : <div></div>}
 
-                                {item.owner === currentUser ? <div>
-                                    {item.forSale === true ?
-                                        <Button variant="warning" onClick={(e) => props.itemNotForSale(item.id)} >Not for Sale</Button> :
-                                        <Button variant="success" onClick={(e) => props.itemOnSale(item.id, 20)}>List on Sale</Button>
+                                    {item.owner === item.creator ?
+                                        <div>
+                                            <button className="mx-1" onClick={(e) => props.burnToken(item.id)}>Burn Token</button>
+                                        </div>
+                                        :
+                                        <div>
+                                        </div>
                                     }
-                                    <Button variant="success">Approve</Button>
-                                    <Button variant="warning">Cancel Approve</Button>
-                                </div> : <div></div>}
+                                </div>
 
-                                {item.owner === item.creator ?
-                                    <div>
-                                        <Button variant="danger" onClick={(e) => props.burnToken(item.id)}>Burn Token</Button>
-                                    </div>
-                                    :
-                                    <div>
-                                    </div>
-                                }
                             </Card.Body>
                         </Card>
                     );

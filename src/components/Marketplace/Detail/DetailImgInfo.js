@@ -1,17 +1,16 @@
+import classes from "./DetailImgInfo.module.css";
 import { Accordion, Card, Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 // import { useSelector, useDispatch } from "react-redux";
 // import classes from "./DetailImgInfo.module.css";
 
 function DetailImgInfo({ itemdata }) {
-  // const dummypic = `https://lh3.googleusercontent.com/pBZykzbkTOOygSF2ym8PKHU5o45p8VWIvmc1wLG2m7wGOJRz8NAH6LEiwRBpLY6IyUBX5aqQkz7rwvEadw3_2y3HDPm9wHSLqa3DGZE=s0`;
-
   const token = useSelector((state) => state.detail.token);
   // const dispatch = useDispatch();
 
   return (
     <>
-      <div>
+      <div className={classes.imagediv}>
         <Image fluid src={itemdata.image} />
       </div>
       <Accordion defaultActiveKey="0" className="mt-4">
@@ -21,7 +20,7 @@ function DetailImgInfo({ itemdata }) {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              <p>Created by {token.creator}</p>
+              <p>Created by {itemdata.creator}</p>
               <p>{itemdata.description}</p>
             </Card.Body>
           </Accordion.Collapse>
@@ -35,7 +34,7 @@ function DetailImgInfo({ itemdata }) {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               <p>Contract Address: {token.owner}</p>
-              <p>Token ID: {token.name}</p>
+              <p>Token ID: {itemdata.token_id}</p>
               <p>Blockchain: Ethereum</p>
             </Card.Body>
           </Accordion.Collapse>
