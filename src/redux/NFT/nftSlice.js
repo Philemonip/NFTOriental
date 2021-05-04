@@ -69,4 +69,17 @@ export const addTransactionThunk = (newTransactionData) => async (dispatch) => {
   }
 };
 
+export const addItemVariableThunk = (item) => async (dispatch) => {
+  console.log("add Item Variable Think", item);
+  const addItemVariableRequest = async () => {
+    return await axios.post(`http://localhost:8000/api/:tokenId`, item);
+  };
+  try {
+    await addItemVariableRequest();
+    // dispatch(bancoSliceActions.addTransaction(newTransactionData));
+  } catch (err) {
+    console.log("add new item variable fail", err);
+  }
+};
+
 export default nftSlice;
