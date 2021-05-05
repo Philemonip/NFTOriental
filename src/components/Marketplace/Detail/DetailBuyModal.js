@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 function DetailBuyModal(props) {
   const cchBalance = useSelector((state) => state.banco.cchBalance);
+  let tokenId = props.token_id
 
   return (
     <Modal
@@ -61,7 +62,7 @@ function DetailBuyModal(props) {
         <Row className="d-flex mt-5 justify-content-center">
           <Button
             className={classes.button}
-            onClick={(e) => props.buyWithoutApprovalToken(32, cchBalance)}
+            onClick={(e) => props.buyWithoutApprovalToken(tokenId, cchBalance)}
           >
             <b>Checkout, {cchBalance}</b>
           </Button>
@@ -70,7 +71,7 @@ function DetailBuyModal(props) {
           </Button>
         </Row>
       </Modal.Body>
-    </Modal>
+    </Modal >
   );
 }
 

@@ -61,10 +61,7 @@ export const addNFTtransactionThunk = (newTransactionData) => async (
 ) => {
 	console.log("add Transaction Thunk", newTransactionData);
 	const addNFTtransactionRequest = async () => {
-		return await axios.post(
-			`http://localhost:8000/items/32`,
-			newTransactionData
-		);
+		return await axios.post(`http://localhost:8000/items`, newTransactionData);
 	};
 	try {
 		await addNFTtransactionRequest();
@@ -109,6 +106,18 @@ export const deleteItemThunk = (deleteData) => async (dispatch) => {
 		await deleteItem();
 	} catch (err) {
 		console.log("delete item fail", err);
+	}
+};
+
+export const addNameThunk = (name) => async (dispatch) => {
+	console.log("updating name");
+	const addName = async () => {
+		return await axios.post(`http://localhost:8000/profile/displayname`, name);
+	};
+	try {
+		await addName();
+	} catch (err) {
+		console.log("change name fail", err);
 	}
 };
 

@@ -160,17 +160,6 @@ function MarketDetail() {
       .send({ from: currentUser });
   }
 
-  // //admin page
-  async function mint(itemName) {
-    try {
-      await contractNFT.methods.mint(itemName).send({ from: currentUser });
-      const minting = await contractNFT.methods.getAllItems().call();
-      console.log("minted", minting);
-    } catch (err) {
-      console.log("minting error", err);
-    }
-  }
-
   return (
     <div>
       <Navi />
@@ -188,8 +177,8 @@ function MarketDetail() {
           <Col>
             <DetailTitlePrice
               itemdata={item}
-              mint={mint}
               buyWithoutApprovalToken={buyWithoutApprovalToken}
+              token_id={params.itemAddress}
             />
           </Col>
         </Row>
