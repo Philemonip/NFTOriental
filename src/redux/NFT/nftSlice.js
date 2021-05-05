@@ -58,7 +58,7 @@ export const addNFTtransactionThunk = (newTransactionData) => async (dispatch) =
   console.log("add Transaction Thunk", newTransactionData);
   const addNFTtransactionRequest = async () => {
     return await axios.post(
-      `http://localhost:8000/items/32`,
+      `http://localhost:8000/items/${newTransactionData.token_id}`,
       newTransactionData
     );
   };
