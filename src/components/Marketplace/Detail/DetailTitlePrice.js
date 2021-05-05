@@ -25,6 +25,7 @@ function DetailTitlePrice(props) {
           itemdata={props.itemdata}
           show={showBuyModal}
           buyWithoutApprovalToken={props.buyWithoutApprovalToken}
+          token_id={props.token_id}
           onHide={() => setShowBuyModal(false)}
         />
 
