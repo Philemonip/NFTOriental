@@ -97,7 +97,7 @@ function ProfilePage() {
             await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
             const getItem = await contractNFT.methods.getAllItems().call();
             await dispatch(detailSliceActions.updateItem(getItem));
-            const NFTitem = getItem.filter(i => i.id === tokenId)
+            const NFTitem = getItem.filter(i => i.id == tokenId)
             const owner = NFTitem[0].owner;
             const forSale = NFTitem[0].forSale;
             const price = NFTitem[0].price;

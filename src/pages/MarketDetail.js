@@ -8,6 +8,7 @@ import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import {
   addNFTtransactionThunk,
+  updateItemThunk,
 } from "../redux/NFT/nftSlice";
 import Navi from "../components/Common/Navbar";
 import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
@@ -117,7 +118,6 @@ function MarketDetail() {
 
   async function buyWithoutApprovalToken(tokenId, cchBalance) {
     if (cchBalance * 1e18 > 0.01 * 1e18) {
-      console.log("hi");
       try {
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
         transferCCH(targetAccount, 0.01 * 1e18);
@@ -128,19 +128,31 @@ function MarketDetail() {
           .buyingWithoutApproval(tokenId)
           .send({ from: currentUser });
 
+        const getItem = await contractNFT.methods.getAllItems().call();
+        await dispatch(detailSliceActions.updateItem(getItem));
+        console.log(getItem, 'please get this item')
+        const NFTitem = getItem.filter(i => i.id == tokenId);
+        console.log(NFTitem)
+        const owner = NFTitem[0].owner;
+        const forSale = NFTitem[0].forSale;
+        const price = NFTitem[0].price;
+
         await dispatch(addNFTtransactionThunk({
           token_id: tokenId,
-          from_address: currentUser,
-          to_address: targetAccount,
-          price: 20
+          from_address: targetAccount,
+          to_address: currentUser,
+          price: 20,
+          owner: owner,
+          current_price: price,
+          on_sale: forSale,
         })
         )
-        //dispatch allitems
       } catch (err) {
         console.log("buying error", err);
       }
     }
   }
+
   //transfer cch
   async function transferCCH(targetAccount, amount) {
     await cch.methods
