@@ -6,6 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
+import {
+  addNFTtransactionThunk,
+  updateItemThunk,
+} from "../redux/NFT/nftSlice";
 import Navi from "../components/Common/Navbar";
 import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
 import DetailTitlePrice from "../components/Marketplace/Detail/DetailTitlePrice";
@@ -114,20 +118,41 @@ function MarketDetail() {
 
   async function buyWithoutApprovalToken(tokenId, cchBalance) {
     if (cchBalance * 1e18 > 0.01 * 1e18) {
-      console.log("hi");
       try {
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
-
         transferCCH(targetAccount, 0.01 * 1e18);
+        //need another dispatch here
+
         console.log("hi", targetAccount);
         await contractNFT.methods
           .buyingWithoutApproval(tokenId)
           .send({ from: currentUser });
+
+        const getItem = await contractNFT.methods.getAllItems().call();
+        await dispatch(detailSliceActions.updateItem(getItem));
+        console.log(getItem, 'please get this item')
+        const NFTitem = getItem.filter(i => i.id == tokenId);
+        console.log(NFTitem)
+        const owner = NFTitem[0].owner;
+        const forSale = NFTitem[0].forSale;
+        const price = NFTitem[0].price;
+
+        await dispatch(addNFTtransactionThunk({
+          token_id: tokenId,
+          from_address: targetAccount,
+          to_address: currentUser,
+          price: 20,
+          owner: owner,
+          current_price: price,
+          on_sale: forSale,
+        })
+        )
       } catch (err) {
         console.log("buying error", err);
       }
     }
   }
+
   //transfer cch
   async function transferCCH(targetAccount, amount) {
     await cch.methods
@@ -135,7 +160,7 @@ function MarketDetail() {
       .send({ from: currentUser });
   }
 
-  //admin page
+  // //admin page
   async function mint(itemName) {
     try {
       await contractNFT.methods.mint(itemName).send({ from: currentUser });
@@ -165,6 +190,7 @@ function MarketDetail() {
               itemdata={item}
               mint={mint}
               buyWithoutApprovalToken={buyWithoutApprovalToken}
+              token_id={params.itemAddress}
             />
           </Col>
         </Row>
