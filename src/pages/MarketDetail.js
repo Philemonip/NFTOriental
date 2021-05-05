@@ -190,6 +190,7 @@ function MarketDetail() {
               itemdata={item}
               mint={mint}
               buyWithoutApprovalToken={buyWithoutApprovalToken}
+              token_id={params.itemAddress}
             />
           </Col>
         </Row>
