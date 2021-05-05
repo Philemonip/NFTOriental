@@ -42,11 +42,13 @@ export const getTransactionThunk = (address) => async (dispatch) => {
   console.log(address);
   console.log("GET TRANSACTION thunk");
   const getTransactionRequest = async () => {
-    return await axios.get(`http://localhost:8000/profile`, { params: { address } });
+    return await axios.get(`http://localhost:8000/profile`, {
+      params: { address },
+    });
   };
   try {
     let res = await getTransactionRequest();
-    console.log(res, 'res')
+    console.log(res, "res");
     dispatch(nftSliceActions.getTransaction(res.data));
     console.log("DATA", res.data);
   } catch (err) {
@@ -54,13 +56,12 @@ export const getTransactionThunk = (address) => async (dispatch) => {
   }
 };
 
-export const addNFTtransactionThunk = (newTransactionData) => async (dispatch) => {
+export const addNFTtransactionThunk = (newTransactionData) => async (
+  dispatch
+) => {
   console.log("add Transaction Thunk", newTransactionData);
   const addNFTtransactionRequest = async () => {
-    return await axios.post(
-      `http://localhost:8000/items/${newTransactionData.token_id}`,
-      newTransactionData
-    );
+    return await axios.post(`http://localhost:8000/items`, newTransactionData);
   };
   try {
     await addNFTtransactionRequest();
@@ -73,61 +74,51 @@ export const addNFTtransactionThunk = (newTransactionData) => async (dispatch) =
 export const addmetadataThunk = (newMetaData) => async (dispatch) => {
   console.log("new metadata", newMetaData);
   const addMetaData = async () => {
-    return await axios.post(
-      `http://localhost:8000/profile`,
-      newMetaData,
-    );
+    return await axios.post(`http://localhost:8000/profile`, newMetaData);
   };
   try {
     await addMetaData();
   } catch (err) {
-    console.log("add new metadata fail", err)
+    console.log("add new metadata fail", err);
   }
 };
 
 export const updateItemThunk = (updateData) => async (dispatch) => {
-  console.log("changing item status")
+  console.log("changing item status");
   const updateItem = async () => {
-    return await axios.put(
-      `http://localhost:8000/profile`,
-      updateData,
-    )
-  }
+    return await axios.put(`http://localhost:8000/profile`, updateData);
+  };
   try {
     await updateItem();
   } catch (err) {
-    console.log("update item fail", err)
+    console.log("update item fail", err);
   }
-}
+};
 
 export const deleteItemThunk = (deleteData) => async (dispatch) => {
-  console.log("deleting item")
+  console.log("deleting item");
   const deleteItem = async () => {
-    return await axios.delete(
-      `http://localhost:8000/profile`,
-      { data: deleteData },
-    )
-  }
+    return await axios.delete(`http://localhost:8000/profile`, {
+      data: deleteData,
+    });
+  };
   try {
     await deleteItem();
   } catch (err) {
-    console.log("delete item fail", err)
+    console.log("delete item fail", err);
   }
-}
+};
 
 export const addNameThunk = (name) => async (dispatch) => {
-  console.log("updating name")
+  console.log("updating name");
   const addName = async () => {
-    return await axios.post(
-      `http://localhost:8000/profile/displayname`, name
-    )
-  }
+    return await axios.post(`http://localhost:8000/profile/displayname`, name);
+  };
   try {
     await addName();
   } catch (err) {
-    console.log("change name fail", err)
+    console.log("change name fail", err);
   }
-}
-
+};
 
 export default nftSlice;

@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
-import Create from "./pages/Create";
 import MarketHome from "./pages/MarketHome";
 import MarketBrowse from "./pages/MarketBrowse";
 import MarketDetail from "./pages/MarketDetail";
@@ -38,9 +37,6 @@ function App() {
 				</Route>
 				<Route path="/setting">
 					<Setting />
-				</Route>
-				<Route path="/create">
-					<Create />
 				</Route>
 				<Route path="*">
 					<NoMatch />
