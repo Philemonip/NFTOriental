@@ -42,10 +42,11 @@ export const getTransactionThunk = (address) => async (dispatch) => {
   console.log(address);
   console.log("GET TRANSACTION thunk");
   const getTransactionRequest = async () => {
-    return await axios.get(`http://localhost:8000/profile/${address}`);
+    return await axios.get(`http://localhost:8000/profile`, { params: { address } });
   };
   try {
     let res = await getTransactionRequest();
+    console.log(res, 'res')
     dispatch(nftSliceActions.getTransaction(res.data));
     console.log("DATA", res.data);
   } catch (err) {
@@ -53,21 +54,21 @@ export const getTransactionThunk = (address) => async (dispatch) => {
   }
 };
 
-// export const addTransactionThunk = (newTransactionData) => async (dispatch) => {
-//   console.log("add Transaction Thunk", newTransactionData);
-//   const addTransactionRequest = async () => {
-//     return await axios.post(
-//       `http://localhost:8000/profile`,
-//       newTransactionData
-//     );
-//   };
-//   try {
-//     await addTransactionRequest();
-//     // dispatch(bancoSliceActions.addTransaction(newTransactionData));
-//   } catch (err) {
-//     console.log("add new transaction fail", err);
-//   }
-// };
+export const addNFTtransactionThunk = (newTransactionData) => async (dispatch) => {
+  console.log("add Transaction Thunk", newTransactionData);
+  const addNFTtransactionRequest = async () => {
+    return await axios.post(
+      `http://localhost:8000/items/undefined`,
+      newTransactionData
+    );
+  };
+  try {
+    await addNFTtransactionRequest();
+    // dispatch(bancoSliceActions.addTransaction(newTransactionData));
+  } catch (err) {
+    console.log("add new transaction fail", err);
+  }
+};
 
 export const addmetadataThunk = (newMetaData) => async (dispatch) => {
   console.log("new metadata", newMetaData);

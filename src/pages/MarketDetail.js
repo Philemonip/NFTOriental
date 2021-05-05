@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
+import {
+  addNFTtransactionThunk,
+} from "../redux/NFT/nftSlice";
 import Navi from "../components/Common/Navbar";
 import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
 import DetailTitlePrice from "../components/Marketplace/Detail/DetailTitlePrice";
@@ -117,12 +120,22 @@ function MarketDetail() {
       console.log("hi");
       try {
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
-
         transferCCH(targetAccount, 0.01 * 1e18);
+        //need another dispatch here
+
         console.log("hi", targetAccount);
         await contractNFT.methods
           .buyingWithoutApproval(tokenId)
           .send({ from: currentUser });
+
+        await dispatch(addNFTtransactionThunk({
+          token_id: tokenId,
+          from_address: currentUser,
+          to_address: targetAccount,
+          price: 20
+        })
+        )
+        //dispatch allitems
       } catch (err) {
         console.log("buying error", err);
       }
@@ -135,7 +148,7 @@ function MarketDetail() {
       .send({ from: currentUser });
   }
 
-  //admin page
+  // //admin page
   async function mint(itemName) {
     try {
       await contractNFT.methods.mint(itemName).send({ from: currentUser });

@@ -8,7 +8,7 @@ import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import {
     nftSliceActions,
     getTransactionThunk,
-    addTransactionThunk,
+    addNFTtransactionThunk,
     addmetadataThunk,
     updateItemThunk,
     deleteItemThunk,
@@ -114,25 +114,6 @@ function ProfilePage() {
             console.log("item not for sale error", err);
         }
     }
-    async function approveTo(buyer, tokenId) {
-        try {
-            await contractNFT.methods
-                .approvalTo(buyer, tokenId)
-                .send({ from: currentUser });
-        } catch (err) {
-            console.log("approving to buyer error", err);
-        }
-    }
-
-    async function cancelApproval(tokenId) {
-        try {
-            await contractNFT.methods
-                .cancelApproval(tokenId)
-                .send({ from: currentUser });
-        } catch (err) {
-            console.log("cancel approval error", err);
-        }
-    }
 
     async function burnToken(tokenId) {
         try {
@@ -179,6 +160,26 @@ function ProfilePage() {
             )
         } catch (err) {
             console.log("minting error", err);
+        }
+    }
+
+    async function approveTo(buyer, tokenId) {
+        try {
+            await contractNFT.methods
+                .approvalTo(buyer, tokenId)
+                .send({ from: currentUser });
+        } catch (err) {
+            console.log("approving to buyer error", err);
+        }
+    }
+
+    async function cancelApproval(tokenId) {
+        try {
+            await contractNFT.methods
+                .cancelApproval(tokenId)
+                .send({ from: currentUser });
+        } catch (err) {
+            console.log("cancel approval error", err);
         }
     }
 

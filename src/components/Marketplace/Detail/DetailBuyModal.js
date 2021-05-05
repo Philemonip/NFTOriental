@@ -61,7 +61,7 @@ function DetailBuyModal(props) {
         <Row className="d-flex mt-5 justify-content-center">
           <Button
             className={classes.button}
-            onClick={(e) => props.buyWithoutApprovalToken(0, cchBalance)}
+            onClick={(e) => props.buyWithoutApprovalToken(30, cchBalance)}
           >
             <b>Checkout, {cchBalance}</b>
           </Button>
