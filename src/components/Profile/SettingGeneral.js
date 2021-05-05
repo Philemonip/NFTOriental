@@ -1,13 +1,23 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import axios from "axios";
+import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { addNameThunk } from "../../redux/NFT/nftSlice";
+
 const SettingGeneral = () => {
+	const currentUser = useSelector((state) => state.detail.currentUser);
 	const [desireName, setDesireName] = useState("");
-	const handleSubmit = (e) => {
+	const dispatch = useDispatch();
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("edit", desireName);
-		//set to database
-		//need current crypto address
+		console.log("edit", desireName, currentUser);
+		await dispatch(addNameThunk({
+			alias: desireName,
+			address: currentUser,
+		}))
 		setDesireName("");
 	};
 	return (
