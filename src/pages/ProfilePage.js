@@ -8,7 +8,7 @@ import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import {
     nftSliceActions,
     getTransactionThunk,
-    addTransactionThunk,
+    addNFTtransactionThunk,
     addmetadataThunk,
     updateItemThunk,
     deleteItemThunk,
@@ -97,7 +97,7 @@ function ProfilePage() {
             await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
             const getItem = await contractNFT.methods.getAllItems().call();
             await dispatch(detailSliceActions.updateItem(getItem));
-            const NFTitem = getItem.filter(i => i.id === tokenId)
+            const NFTitem = getItem.filter(i => i.id == tokenId)
             const owner = NFTitem[0].owner;
             const forSale = NFTitem[0].forSale;
             const price = NFTitem[0].price;
@@ -112,25 +112,6 @@ function ProfilePage() {
             );
         } catch (err) {
             console.log("item not for sale error", err);
-        }
-    }
-    async function approveTo(buyer, tokenId) {
-        try {
-            await contractNFT.methods
-                .approvalTo(buyer, tokenId)
-                .send({ from: currentUser });
-        } catch (err) {
-            console.log("approving to buyer error", err);
-        }
-    }
-
-    async function cancelApproval(tokenId) {
-        try {
-            await contractNFT.methods
-                .cancelApproval(tokenId)
-                .send({ from: currentUser });
-        } catch (err) {
-            console.log("cancel approval error", err);
         }
     }
 
@@ -179,6 +160,26 @@ function ProfilePage() {
             )
         } catch (err) {
             console.log("minting error", err);
+        }
+    }
+
+    async function approveTo(buyer, tokenId) {
+        try {
+            await contractNFT.methods
+                .approvalTo(buyer, tokenId)
+                .send({ from: currentUser });
+        } catch (err) {
+            console.log("approving to buyer error", err);
+        }
+    }
+
+    async function cancelApproval(tokenId) {
+        try {
+            await contractNFT.methods
+                .cancelApproval(tokenId)
+                .send({ from: currentUser });
+        } catch (err) {
+            console.log("cancel approval error", err);
         }
     }
 
