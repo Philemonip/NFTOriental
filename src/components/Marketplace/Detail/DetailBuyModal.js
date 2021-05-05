@@ -1,6 +1,6 @@
 import { Modal, Button, Row, Col, Image } from "react-bootstrap";
 import classes from "./DetailBuyModal.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function DetailBuyModal(props) {
   const cchBalance = useSelector((state) => state.banco.cchBalance);
