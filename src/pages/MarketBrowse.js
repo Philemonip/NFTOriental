@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { browseActions } from "../redux/Marketplace/browseSlice";
 import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
@@ -10,17 +12,20 @@ import dotenv from "dotenv";
 dotenv.config();
 
 function MarketBrowse() {
-  const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
+  const { itemArr } = useSelector((state) => state.browse);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_SERVER}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_SERVER}/metadata/`
+      );
+      dispatch(browseActions.getFiltered(data));
+      console.log("data from marketbrowse useeffect");
       console.log(data);
-      console.log("data from browseitem");
-      setItems(data);
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={classes.page}>
@@ -30,7 +35,7 @@ function MarketBrowse() {
           <BrowseSidebar />
           <Col className={classes.column}>
             <BrowseFilterbar />
-            <BrowseItem items={items} />
+            <BrowseItem items={itemArr} />
           </Col>
         </Row>
       </Container>

@@ -1,5 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
 import BrowseItemCard from "./BrowseItemCard";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./BrowseItem.module.css";
