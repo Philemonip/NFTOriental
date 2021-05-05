@@ -12,8 +12,6 @@ const HomeItemCard = ({ item }) => {
     }
   };
 
-  const dummypic = `https://lh3.googleusercontent.com/pBZykzbkTOOygSF2ym8PKHU5o45p8VWIvmc1wLG2m7wGOJRz8NAH6LEiwRBpLY6IyUBX5aqQkz7rwvEadw3_2y3HDPm9wHSLqa3DGZE=s0`;
-
   return (
     <a href={"/items/" + item.token_id}>
       <Card className={classes.card}>
