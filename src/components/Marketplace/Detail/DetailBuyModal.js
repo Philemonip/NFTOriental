@@ -1,6 +1,6 @@
 import { Modal, Button, Row, Col, Image } from "react-bootstrap";
 import classes from "./DetailBuyModal.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function DetailBuyModal(props) {
   const cchBalance = useSelector((state) => state.banco.cchBalance);
@@ -61,7 +61,7 @@ function DetailBuyModal(props) {
         <Row className="d-flex mt-5 justify-content-center">
           <Button
             className={classes.button}
-            onClick={(e) => props.buyWithoutApprovalToken(0, cchBalance)}
+            onClick={(e) => props.buyWithoutApprovalToken(32, cchBalance)}
           >
             <b>Checkout, {cchBalance}</b>
           </Button>

@@ -8,36 +8,35 @@ import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import {
 	nftSliceActions,
 	getTransactionThunk,
-	addTransactionThunk,
+	addNFTtransactionThunk,
 	addmetadataThunk,
 	updateItemThunk,
 	deleteItemThunk,
 } from "../redux/NFT/nftSlice";
-// import {
-// 	mintingSliceActions,
-// 	uploadToImgurThunk,
-// 	mintNFTThunk,
-// } from "../redux/Minting/mintingSlice";
+import {
+	uploadToImgurThunk,
+	mintNFTThunk,
+} from "../redux/Minting/mintingSlice";
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
 import CreatedNFT from "../components/Profile/CreatedNFT";
-// import Mint from "../components/Profile/Mint";
+import Mint from "../components/Profile/Mint";
 import "./ProfilePage.css";
 
 function ProfilePage() {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
 	const contractNFT = useSelector((state) => state.detail.contract);
-	// const {
-	// 	file,
-	// 	price,
-	// 	name,
-	// 	category,
-	// 	image,
-	// 	externalUrl,
-	// 	description,
-	// } = useSelector((state) => state.mint);
+	const {
+		file,
+		price,
+		name,
+		category,
+		image,
+		externalUrl,
+		description,
+	} = useSelector((state) => state.mint);
 
 	const [profileContent, setProfileContent] = useState("Collectibles");
 	const dispatch = useDispatch();
@@ -129,6 +128,102 @@ function ProfilePage() {
 			console.log("item not for sale error", err);
 		}
 	}
+
+	async function burnToken(tokenId) {
+		try {
+			await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
+			const getItem = await contractNFT.methods.getAllItems().call();
+			await dispatch(detailSliceActions.updateItem(getItem));
+			await dispatch(
+				deleteItemThunk({
+					token_id: tokenId,
+				})
+			);
+		} catch (err) {
+			console.log("burning token error", err);
+		}
+	}
+
+	// async function mint(itemName) {
+	// 	try {
+	// 		await contractNFT.methods.mint(itemName).send({ from: currentUser });
+	// 		const minting = await contractNFT.methods.getAllItems().call();
+	// 		await dispatch(detailSliceActions.updateItem(minting));
+	// 		const NFTitem = minting[minting.length - 1];
+	// 		const id = NFTitem.id;
+	// 		const name = NFTitem.itemName;
+	// 		const creator = NFTitem.creator;
+	// 		const owner = NFTitem.owner;
+	// 		const price = NFTitem.price;
+	// 		const forSale = NFTitem.forSale;
+
+	// 		await dispatch(
+	// 			addmetadataThunk({
+	// 				token_id: id,
+	// 				name: name,
+	// 				creator: creator,
+	// 				owner: owner,
+	// 				on_sale: forSale,
+	// 				current_price: price,
+	// 				collection: "shoes",
+	// 				asset_id: "260156",
+	// 				image:
+	// 					"https://sportshub.cbsistatic.com/i/r/2021/05/03/7c612065-314a-464b-b09c-e92777922087/thumbnail/1200x675/497827ef3c95b75e6c8b2235bf297cf9/lebron-james.jpg",
+	// 				description: "lebron",
+	// 				external_url: "cryptopunk.com",
+	// 			})
+	// 		);
+	// 	} catch (err) {
+	// 		console.log("minting error", err);
+	// 	}
+	// }
+
+	const handleMintingSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			await contractNFT.methods.mint(name).send({ from: currentUser });
+			const minting = await contractNFT.methods.getAllItems().call();
+			await dispatch(detailSliceActions.updateItem(minting));
+			const NFTitem = minting[minting.length - 1];
+			const id = NFTitem.id;
+			const bcName = NFTitem.itemName;
+			const creator = NFTitem.creator;
+			const owner = NFTitem.owner;
+			// const price = NFTitem.price;
+			const forSale = NFTitem.forSale;
+
+			const data = new FormData();
+			data.append("file", file);
+			let imageUrl = await dispatch(uploadToImgurThunk(data));
+			await dispatch(
+				addmetadataThunk({
+					token_id: id,
+					name: bcName,
+					creator,
+					owner,
+					on_sale: forSale,
+					collection: "shoes",
+					asset_id: "260156",
+					image: imageUrl,
+					externalUrl,
+					description,
+				})
+			);
+
+			// const newNftInfo = {
+			// 	name,
+			// 	price,
+			// 	category,
+			// 	image: imageUrl,
+			// 	externalUrl,
+			// 	description,
+			// };
+			// await dispatch(mintNFTThunk(newNftInfo));
+		} catch (err) {
+			console.log("mint err", err);
+		}
+	};
+
 	async function approveTo(buyer, tokenId) {
 		try {
 			await contractNFT.methods
@@ -148,73 +243,6 @@ function ProfilePage() {
 			console.log("cancel approval error", err);
 		}
 	}
-
-	async function burnToken(tokenId) {
-		try {
-			await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
-			const getItem = await contractNFT.methods.getAllItems().call();
-			await dispatch(detailSliceActions.updateItem(getItem));
-			await dispatch(
-				deleteItemThunk({
-					token_id: tokenId,
-				})
-			);
-		} catch (err) {
-			console.log("burning token error", err);
-		}
-	}
-
-	async function mint(itemName) {
-		try {
-			await contractNFT.methods.mint(itemName).send({ from: currentUser });
-			const minting = await contractNFT.methods.getAllItems().call();
-			await dispatch(detailSliceActions.updateItem(minting));
-			const NFTitem = minting[minting.length - 1];
-			const id = NFTitem.id;
-			const name = NFTitem.itemName;
-			const creator = NFTitem.creator;
-			const owner = NFTitem.owner;
-			const price = NFTitem.price;
-			const forSale = NFTitem.forSale;
-
-			await dispatch(
-				addmetadataThunk({
-					token_id: id,
-					name: name,
-					creator: creator,
-					owner: owner,
-					on_sale: forSale,
-					current_price: price,
-					collection: "shoes",
-					asset_id: "260156",
-					image:
-						"https://sportshub.cbsistatic.com/i/r/2021/05/03/7c612065-314a-464b-b09c-e92777922087/thumbnail/1200x675/497827ef3c95b75e6c8b2235bf297cf9/lebron-james.jpg",
-					description: "lebron",
-					external_url: "cryptopunk.com",
-				})
-			);
-		} catch (err) {
-			console.log("minting error", err);
-		}
-	}
-
-	const handleMintingSubmit = async (e) => {
-		e.preventDefault();
-		// const data = new FormData();
-		// data.append("file", file);
-		// let imageUrl = await dispatch(uploadToImgurThunk(data));
-
-		// const newNftInfo = {
-		// 	name,
-		// 	price,
-		// 	category,
-		// 	image: imageUrl,
-		// 	externalUrl,
-		// 	description,
-		// };
-		// await dispatch(mintNFTThunk(newNftInfo));
-	};
-
 	return (
 		<>
 			<Navi />
@@ -231,9 +259,9 @@ function ProfilePage() {
 				<div className="text-center">
 					<h4>Name</h4>
 					<p>{currentUser}</p>
-					<button className="mx-1" onClick={() => mint("item1")}>
+					{/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
-					</button>
+					</button> */}
 				</div>
 
 				<div className="px-4 buttonForChange">
@@ -281,10 +309,9 @@ function ProfilePage() {
 						<NFTtransactions />
 					) : profileContent === "Settings" ? (
 						<Settings />
+					) : profileContent === "Mint" ? (
+						<Mint handleMintingSubmit={handleMintingSubmit} />
 					) : (
-						// profileContent === "Mint" ? (
-						// 	<Mint handleMintingSubmit={handleMintingSubmit} />
-						// ) :
 						<p>hi</p>
 					)}
 				</div>
@@ -292,5 +319,4 @@ function ProfilePage() {
 		</>
 	);
 }
-
 export default ProfilePage;

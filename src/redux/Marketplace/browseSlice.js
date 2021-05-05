@@ -44,7 +44,6 @@ const browseSlice = createSlice({
 // 1. dispatch: update status/collec. state
 // 2. process query string and submit getReq
 // 3. dispatch: update output with res.data
-//TODO: itemArr is not connected to actual page, which still use useeffect
 export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
   // console.log("status thunk");
   // console.log(type, data);

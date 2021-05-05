@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { browseActions } from "../redux/Marketplace/browseSlice";
+// import {
+//   browseToggleThunk,
+// } from "../redux/Marketplace/browseSlice";
 import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
@@ -26,6 +29,10 @@ function MarketBrowse() {
     };
     fetchData();
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(browseToggleThunk("clear"));
+  // }, [dispatch]);
 
   return (
     <div className={classes.page}>

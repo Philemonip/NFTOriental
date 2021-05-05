@@ -22,6 +22,15 @@ const SettingSide = ({ setContent }) => {
 					Our Team
 				</button>
 			</div>
+			<div>
+				<button
+					onClick={() => {
+						setContent("Join Us");
+					}}
+				>
+					Join Us
+				</button>
+			</div>
 		</div>
 	);
 };
