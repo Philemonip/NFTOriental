@@ -41,7 +41,7 @@ function DetailBuyModal(props) {
               <Col className="d-flex align-items-center">
                 <div>
                   <p className="text-primary">{props.itemdata.collection}</p>
-                  <h5>{props.itemdata.title}</h5>
+                  <h5>{props.itemdata.name}</h5>
                 </div>
               </Col>
             </Row>
