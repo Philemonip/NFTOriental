@@ -115,5 +115,19 @@ export const deleteItemThunk = (deleteData) => async (dispatch) => {
   }
 }
 
+export const addNameThunk = (name) => async (dispatch) => {
+  console.log("updating name")
+  const addName = async () => {
+    return await axios.post(
+      `http://localhost:8000/profile/displayname`, name
+    )
+  }
+  try {
+    await addName();
+  } catch (err) {
+    console.log("change name fail", err)
+  }
+}
+
 
 export default nftSlice;
