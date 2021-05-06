@@ -32,9 +32,9 @@ function ProfilePage() {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
 	const contractNFT = useSelector((state) => state.detail.contract);
-	const itemArr = useSelector((state) => state.browse.itemArr);
+	// const itemArr = useSelector((state) => state.browse.itemArr);
 	const userName = useSelector((state) => state.nft.name);
-
+	const [itemArr, setItemArr] = useState([]);
 	const {
 		file,
 		price,
@@ -54,6 +54,12 @@ function ProfilePage() {
 		await loadWeb3();
 		await loadBlockchainData();
 	}, []);
+	useEffect(async () => {
+		let newItemArr = await axios.get(
+			`${process.env.REACT_APP_API_SERVER}/metadata/`
+		);
+		setItemArr(newItemArr.data);
+	}, []);
 
 	useEffect(async () => {
 		const fetchData = async () => {
@@ -65,9 +71,7 @@ function ProfilePage() {
 			console.log(data);
 		};
 		fetchData();
-
 	}, [dispatch]);
-
 
 	const loadWeb3 = async () => {
 		if (window.ethereum) {
@@ -245,16 +249,12 @@ function ProfilePage() {
 			console.log(1);
 			await handleClose();
 			console.log(2);
+
+			const newItemArr = await axios.get(
+				`${process.env.REACT_APP_API_SERVER}/metadata/`
+			);
+			setItemArr(newItemArr.data);
 			setProfileContent("Created");
-			// const newNftInfo = {
-			// 	name,
-			// 	price,
-			// 	category,
-			// 	image: imageUrl,
-			// 	externalUrl,
-			// 	description,
-			// };
-			// await dispatch(mintNFTThunk(newNftInfo));
 		} catch (err) {
 			console.log("mint err", err);
 			console.log(3);
