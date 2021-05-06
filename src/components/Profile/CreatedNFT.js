@@ -55,6 +55,7 @@ const CreatedNFT = (props) => {
 									</p>
 									<p className="m-1">Id: {item.id}</p>
 									<p className="m-1">Price {item.price}</p>
+									{item.forSale === true ? <p className="m-1">Listing </p> : <p className="m-1">Not Listing </p>}
 								</Card.Text>
 
 								<div className="d-flex">
@@ -63,7 +64,7 @@ const CreatedNFT = (props) => {
 											className="mx-1"
 											onClick={(e) => props.itemNotForSale(item.id)}
 										>
-											Not for Sale
+											Cancel Listing
 										</button>
 									) : (
 										<button
