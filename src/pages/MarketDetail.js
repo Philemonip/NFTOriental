@@ -6,10 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
-import {
-  addNFTtransactionThunk,
-  updateItemThunk,
-} from "../redux/NFT/nftSlice";
+import { addNFTtransactionThunk, updateItemThunk } from "../redux/NFT/nftSlice";
 import Navi from "../components/Common/Navbar";
 import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
 import DetailTitlePrice from "../components/Marketplace/Detail/DetailTitlePrice";
@@ -26,14 +23,15 @@ var banco;
 
 function MarketDetail() {
   const params = useParams();
-  const [item, setItems] = useState([]);
+  const [item, setItems] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/metadata/${params.itemAddress}`
+        `${process.env.REACT_APP_API_SERVER}/items/${params.itemAddress}`
       );
-      setItems(data[0]);
+      setItems(data);
+      console.log(data[0].image);
     };
     fetchData();
   }, [params.itemAddress]);
@@ -130,23 +128,24 @@ function MarketDetail() {
 
         const getItem = await contractNFT.methods.getAllItems().call();
         await dispatch(detailSliceActions.updateItem(getItem));
-        console.log(getItem, 'please get this item')
-        const NFTitem = getItem.filter(i => i.id == tokenId);
-        console.log(NFTitem)
+        console.log(getItem, "please get this item");
+        const NFTitem = getItem.filter((i) => i.id == tokenId);
+        console.log(NFTitem);
         const owner = NFTitem[0].owner;
         const forSale = NFTitem[0].forSale;
         const price = NFTitem[0].price;
 
-        await dispatch(addNFTtransactionThunk({
-          token_id: tokenId,
-          from_address: targetAccount,
-          to_address: currentUser,
-          price: 20,
-          owner: owner,
-          current_price: price,
-          on_sale: forSale,
-        })
-        )
+        await dispatch(
+          addNFTtransactionThunk({
+            token_id: tokenId,
+            from_address: targetAccount,
+            to_address: currentUser,
+            price: 20,
+            owner: owner,
+            current_price: price,
+            on_sale: forSale,
+          })
+        );
       } catch (err) {
         console.log("buying error", err);
       }
@@ -182,20 +181,22 @@ function MarketDetail() {
           </p>
         )}
         <Row>
-          <Col xl={5}>
-            <DetailImgInfo itemdata={item} />
-          </Col>
+          <Col xl={5}>{item ? <DetailImgInfo itemdata={item[0]} /> : ""}</Col>
           <Col>
-            <DetailTitlePrice
-              itemdata={item}
-              mint={mint}
-              buyWithoutApprovalToken={buyWithoutApprovalToken}
-              token_id={params.itemAddress}
-            />
+            {item ? (
+              <DetailTitlePrice
+                itemdata={item[0]}
+                mint={mint}
+                buyWithoutApprovalToken={buyWithoutApprovalToken}
+                token_id={params.itemAddress}
+              />
+            ) : (
+              ""
+            )}
           </Col>
         </Row>
         <Row className={classes.tradehistoryrow}>
-          <DetailTradingHistory />
+          {item ? <DetailTradingHistory itemdata={item} /> : ""}
         </Row>
       </Container>
     </div>
