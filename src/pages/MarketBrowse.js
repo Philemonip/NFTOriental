@@ -4,8 +4,8 @@ import { browseActions } from "../redux/Marketplace/browseSlice";
 // import {
 //   browseToggleThunk,
 // } from "../redux/Marketplace/browseSlice";
-import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
+import axios from "axios";
 import Navi from "../components/Common/Navbar";
 import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
 import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
@@ -16,7 +16,9 @@ dotenv.config();
 
 function MarketBrowse() {
   const dispatch = useDispatch();
-  const { itemArr } = useSelector((state) => state.browse);
+  const { itemArr, statusfilter, collectionfilter } = useSelector(
+    (state) => state.browse
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,9 +33,10 @@ function MarketBrowse() {
   }, [dispatch]);
 
   // useEffect(() => {
-  //   dispatch(browseToggleThunk("clear"));
+  //   dispatch(browseToggwleThunk("clear"));
   // }, [dispatch]);
-
+  console.log(statusfilter);
+  console.log(collectionfilter);
   return (
     <div className={classes.page}>
       <Navi />
@@ -41,7 +44,10 @@ function MarketBrowse() {
         <Row>
           <BrowseSidebar />
           <Col className={classes.column}>
-            <BrowseFilterbar />
+            {(statusfilter.length > 0 || collectionfilter.length > 0) && (
+              <BrowseFilterbar />
+            )}
+            {/* <BrowseFilterbar /> */}
             <BrowseItem items={itemArr} />
           </Col>
         </Row>
