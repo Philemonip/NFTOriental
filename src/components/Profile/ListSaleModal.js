@@ -2,7 +2,6 @@ import { Modal, Button, Row, Col, Image, Form } from "react-bootstrap";
 import { useState } from "react";
 
 function ListSaleModal(props) {
-    console.log(props.tokenId)
     let tokenId = props.tokenId
     const [price, setprice] = useState('')
 
