@@ -35,8 +35,8 @@ function MarketBrowse() {
   // useEffect(() => {
   //   dispatch(browseToggwleThunk("clear"));
   // }, [dispatch]);
-  console.log(statusfilter);
-  console.log(collectionfilter);
+  // console.log(statusfilter);
+  // console.log(collectionfilter);
   return (
     <div className={classes.page}>
       <Navi />
