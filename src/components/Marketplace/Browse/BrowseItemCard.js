@@ -3,7 +3,6 @@ import classes from "./BrowseItemCard.module.css";
 
 const BrowseItemCard = ({ item }) => {
   //Text shortener helper function
-  // console.log(item);
   const shortText = (longtext) => {
     const TEXT_LIMIT = 20;
     if (longtext.length > TEXT_LIMIT) {
