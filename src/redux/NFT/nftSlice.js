@@ -36,7 +36,6 @@ const nftSlice = createSlice({
     sideDisplay(state, action) {
       state.sideDisplay = action.payload;
     },
-
   },
 });
 
@@ -118,7 +117,7 @@ export const addNameThunk = (name) => async (dispatch) => {
   };
   try {
     let res = await addName();
-    console.log(res)
+    console.log(res);
     dispatch(nftSliceActions.getName(res.data));
   } catch (err) {
     console.log("change name fail", err);
@@ -127,9 +126,11 @@ export const addNameThunk = (name) => async (dispatch) => {
 
 export const getNameThunk = (address) => async (dispatch) => {
   console.log("getting name");
-  console.log(address)
+  console.log(address);
   const getName = async () => {
-    return await axios.get(`http://localhost:8000/profile/displayname`, { params: { address } });
+    return await axios.get(`http://localhost:8000/profile/displayname`, {
+      params: { address },
+    });
   };
   try {
     let res = await getName();
@@ -138,7 +139,5 @@ export const getNameThunk = (address) => async (dispatch) => {
     console.log("get name fail", err);
   }
 };
-
-
 
 export default nftSlice;
