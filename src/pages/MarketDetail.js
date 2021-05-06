@@ -31,7 +31,6 @@ function MarketDetail() {
         `${process.env.REACT_APP_API_SERVER}/items/${params.itemAddress}`
       );
       setItems(data);
-      console.log(data[0].image);
     };
     fetchData();
   }, [params.itemAddress]);
