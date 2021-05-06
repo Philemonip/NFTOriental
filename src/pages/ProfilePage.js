@@ -17,6 +17,7 @@ import {
 	getNameThunk,
 } from "../redux/NFT/nftSlice";
 import {
+	mintingSliceActions,
 	uploadToImgurThunk,
 	mintNFTThunk,
 } from "../redux/Minting/mintingSlice";
@@ -31,9 +32,9 @@ function ProfilePage() {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
 	const contractNFT = useSelector((state) => state.detail.contract);
-	const itemArr = useSelector((state) => state.browse.itemArr);
+	// const itemArr = useSelector((state) => state.browse.itemArr);
 	const userName = useSelector((state) => state.nft.name);
-
+	const [itemArr, setItemArr] = useState([]);
 	const {
 		file,
 		price,
@@ -43,13 +44,21 @@ function ProfilePage() {
 		externalUrl,
 		description,
 	} = useSelector((state) => state.mint);
-
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 	const [profileContent, setProfileContent] = useState("Collectibles");
 	const dispatch = useDispatch();
 
 	useEffect(async () => {
 		await loadWeb3();
 		await loadBlockchainData();
+	}, []);
+	useEffect(async () => {
+		let newItemArr = await axios.get(
+			`${process.env.REACT_APP_API_SERVER}/metadata/`
+		);
+		setItemArr(newItemArr.data);
 	}, []);
 
 	useEffect(async () => {
@@ -62,9 +71,7 @@ function ProfilePage() {
 			console.log(data);
 		};
 		fetchData();
-
 	}, [dispatch]);
-
 
 	const loadWeb3 = async () => {
 		if (window.ethereum) {
@@ -202,7 +209,9 @@ function ProfilePage() {
 	const handleMintingSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			handleShow();
 			await contractNFT.methods.mint(name).send({ from: currentUser });
+			//etherscan
 			const minting = await contractNFT.methods.getAllItems().call();
 			await dispatch(detailSliceActions.updateItem(minting));
 			const NFTitem = minting[minting.length - 1];
@@ -215,6 +224,7 @@ function ProfilePage() {
 
 			const data = new FormData();
 			data.append("file", file);
+			console.log(0);
 			let imageUrl = await dispatch(uploadToImgurThunk(data));
 			await dispatch(
 				addmetadataThunk({
@@ -231,17 +241,25 @@ function ProfilePage() {
 				})
 			);
 
-			// const newNftInfo = {
-			// 	name,
-			// 	price,
-			// 	category,
-			// 	image: imageUrl,
-			// 	externalUrl,
-			// 	description,
-			// };
-			// await dispatch(mintNFTThunk(newNftInfo));
+			dispatch(mintingSliceActions.updateFile(null));
+			dispatch(mintingSliceActions.updateName(null));
+			dispatch(mintingSliceActions.updateCategory(null));
+			dispatch(mintingSliceActions.updateExternalUrl(null));
+			dispatch(mintingSliceActions.updateDescription(null));
+			console.log(1);
+			await handleClose();
+			console.log(2);
+
+			const newItemArr = await axios.get(
+				`${process.env.REACT_APP_API_SERVER}/metadata/`
+			);
+			setItemArr(newItemArr.data);
+			setProfileContent("Created");
 		} catch (err) {
 			console.log("mint err", err);
+			console.log(3);
+			await handleClose();
+			console.log(4);
 		}
 	};
 
@@ -333,7 +351,11 @@ function ProfilePage() {
 					) : profileContent === "Settings" ? (
 						<Settings />
 					) : profileContent === "Mint" ? (
-						<Mint handleMintingSubmit={handleMintingSubmit} />
+						<Mint
+							handleMintingSubmit={handleMintingSubmit}
+							show={show}
+							setShow={setShow}
+						/>
 					) : (
 						<p>hi</p>
 					)}

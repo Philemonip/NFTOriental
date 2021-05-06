@@ -6,7 +6,8 @@ import classes from "./BrowseSidebarStatus.module.css";
 const BrowseSidebarStatus = (props) => {
   const dispatch = useDispatch();
   const selectedStatus = useSelector((state) => state.browse.statusfilter);
-  const statusValue = ["New", "Featured", "Buy Now", "Listed on Sale"];
+  // const statusValue = ["New", "Listed on Sale", "Featured", "Buy Now"];
+  const statusValue = ["New", "Listed on Sale"];
 
   return (
     <Col className="px-0">
