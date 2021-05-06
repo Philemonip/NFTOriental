@@ -2,9 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import dotenv from "dotenv";
 import { Button, Container, Form } from "react-bootstrap";
 import { mintingSliceActions } from "../../redux/Minting/mintingSlice";
+import LoadModal from "../Common/LoadModal";
 dotenv.config();
 
-const Mint = ({ handleMintingSubmit }) => {
+const Mint = ({ handleMintingSubmit, show, setShow }) => {
 	const { price } = useSelector((state) => state.mint);
 	const dispatch = useDispatch();
 
@@ -106,6 +107,7 @@ const Mint = ({ handleMintingSubmit }) => {
 					</Form.Group>
 				</Form>
 			</Container>
+			<LoadModal show={show} setShow={setShow} />
 		</div>
 	);
 };
