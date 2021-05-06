@@ -15,9 +15,9 @@ const Collectibles = (props) => {
 	ownerItems(items, currentUser);
 
 	const imgSource = (id) => {
-		// let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
-		// imgsrc = imgsrcArr[0].image;
-		// return imgsrc;
+		let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
+		imgsrc = imgsrcArr[0].image;
+		return imgsrc;
 	};
 
 	return (
@@ -26,7 +26,12 @@ const Collectibles = (props) => {
 				ownedArr.map((item, index) => {
 					return (
 						<Card key={index} style={{ width: "18rem" }} className="mx-2">
-							<Card.Img variant="top" src={imgSource(item.id)} roundedCircle />
+							<Card.Img
+								variant="top"
+								src={imgSource(item.id)}
+								alt={item.id}
+								roundedCircle
+							/>
 							<Card.Body>
 								<Card.Title className="text-center">{item.itemName}</Card.Title>
 								<Card.Text>

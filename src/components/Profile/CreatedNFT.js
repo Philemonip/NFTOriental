@@ -14,9 +14,9 @@ const CreatedNFT = (props) => {
 	creatorItems(items, currentUser);
 
 	const imgSource = (id) => {
-		// let imgsrcArr = props.itemArr.filter((i) => i.token_id == id)
-		// imgsrc = imgsrcArr[0].external_url
-		// return imgsrc
+		let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
+		imgsrc = imgsrcArr[0].external_url;
+		return imgsrc;
 	};
 
 	return (
@@ -25,7 +25,12 @@ const CreatedNFT = (props) => {
 				createdArr.map((item, index) => {
 					return (
 						<Card style={{ width: "18rem" }} className="mx-2">
-							<Card.Img variant="top" src={imgSource(item.id)} roundedCircle />
+							<Card.Img
+								variant="top"
+								src={imgSource(item.id)}
+								alt={item.id}
+								roundedCircle
+							/>
 							<Card.Body>
 								<Card.Title className="text-center">{item.itemName}</Card.Title>
 								<Card.Text>
