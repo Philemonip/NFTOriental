@@ -32,9 +32,9 @@ function ProfilePage() {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
 	const contractNFT = useSelector((state) => state.detail.contract);
-	// const itemArr = useSelector((state) => state.browse.itemArr);
+	const itemArrBackend = useSelector((state) => state.browse.itemArr);
 	const userName = useSelector((state) => state.nft.name);
-	const [itemArr, setItemArr] = useState([]);
+	const [itemArr, setItemArr] = useState(itemArrBackend);
 	const {
 		file,
 		price,
@@ -55,9 +55,11 @@ function ProfilePage() {
 		await loadBlockchainData();
 	}, []);
 	useEffect(async () => {
+		console.log("get into profile");
 		let newItemArr = await axios.get(
 			`${process.env.REACT_APP_API_SERVER}/metadata/`
 		);
+		console.log("state updating", newItemArr.data);
 		setItemArr(newItemArr.data);
 	}, []);
 
