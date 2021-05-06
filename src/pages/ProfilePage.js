@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
+import { browseActions } from "../redux/Marketplace/browseSlice";
+import axios from "axios";
 import {
 	nftSliceActions,
 	getTransactionThunk,
@@ -12,6 +14,7 @@ import {
 	addmetadataThunk,
 	updateItemThunk,
 	deleteItemThunk,
+	getNameThunk,
 } from "../redux/NFT/nftSlice";
 import {
 	mintingSliceActions,
@@ -29,6 +32,9 @@ function ProfilePage() {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
 	const contractNFT = useSelector((state) => state.detail.contract);
+	const itemArr = useSelector((state) => state.browse.itemArr);
+	const userName = useSelector((state) => state.nft.name);
+
 	const {
 		file,
 		price,
@@ -48,6 +54,20 @@ function ProfilePage() {
 		await loadWeb3();
 		await loadBlockchainData();
 	}, []);
+
+	useEffect(async () => {
+		const fetchData = async () => {
+			const { data } = await axios.get(
+				`${process.env.REACT_APP_API_SERVER}/metadata/`
+			);
+			dispatch(browseActions.getFiltered(data));
+			console.log("data from marketbrowse useeffect");
+			console.log(data);
+		};
+		fetchData();
+
+	}, [dispatch]);
+
 
 	const loadWeb3 = async () => {
 		if (window.ethereum) {
@@ -80,6 +100,7 @@ function ProfilePage() {
 			dispatch(detailSliceActions.updateItem(getItem));
 			console.log(getItem);
 			dispatch(getTransactionThunk(accounts[0]));
+			dispatch(getNameThunk(accounts[0]));
 		} else {
 			window.alert("Please use correct network and refresh the page.");
 		}
@@ -265,7 +286,7 @@ function ProfilePage() {
 		<>
 			<Navi />
 			<Jumbotron className="jumbotron mb-1 p-5">
-				<h4>Hello, Name </h4>
+				<h4>Hello, {userName}</h4>
 				<div xs={6} md={4} className="text-center">
 					<Image
 						className="profileImage"
@@ -275,7 +296,7 @@ function ProfilePage() {
 			</Jumbotron>
 			<div className="profileContent">
 				<div className="text-center">
-					<h4>Name</h4>
+					<h4>{userName}</h4>
 					<p>{currentUser}</p>
 					{/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
@@ -316,12 +337,14 @@ function ProfilePage() {
 							itemNotForSale={itemNotForSale}
 							itemOnSale={itemOnSale}
 							burnToken={burnToken}
+							itemArr={itemArr}
 						/>
 					) : profileContent === "Created" ? (
 						<CreatedNFT
 							itemNotForSale={itemNotForSale}
 							itemOnSale={itemOnSale}
 							burnToken={burnToken}
+							itemArr={itemArr}
 						/>
 					) : profileContent === "Transactions" ? (
 						<NFTtransactions />

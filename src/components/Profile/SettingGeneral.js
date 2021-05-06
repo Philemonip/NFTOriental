@@ -4,7 +4,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import axios from "axios";
 import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { addNameThunk } from "../../redux/NFT/nftSlice";
+import { addNameThunk, nftSliceActions } from "../../redux/NFT/nftSlice";
 
 const SettingGeneral = () => {
 	const currentUser = useSelector((state) => state.detail.currentUser);
