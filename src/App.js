@@ -42,9 +42,6 @@ function App() {
         <Route path="/setting">
           <Setting />
         </Route>
-        <Route path="/create">
-          <Create />
-        </Route>
         <Route path="*">
           <NoMatch />
         </Route>
