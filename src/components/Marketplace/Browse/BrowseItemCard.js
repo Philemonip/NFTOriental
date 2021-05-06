@@ -18,7 +18,7 @@ const BrowseItemCard = ({ item }) => {
       <Card className={classes.card}>
         <div className={classes.imagediv}>
           {/* <Image className={classes.image} src={dummypic} /> */}
-          <Image className={classes.image} src={item.image} />
+          <Image className={classes.image} src={item.external_url} />
         </div>
         <Card.Body className={classes.cardbody}>
           <Row>
