@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
 import { bancoSliceActions } from "../../redux/Banco/bancoSlice";
 const SideBanco = () => {
 	const sideDisplay = useSelector((state) => state.banco.sideDisplay);
@@ -44,7 +45,9 @@ const SideBanco = () => {
 				</button>
 			</div>
 			<div className="col">
-				<button className="btn">Closesea</button>
+				<LinkContainer to="/">
+					<button className="btn">Closesea</button>
+				</LinkContainer>
 			</div>
 		</div>
 	);
