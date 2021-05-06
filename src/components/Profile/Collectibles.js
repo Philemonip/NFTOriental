@@ -17,8 +17,12 @@ const Collectibles = (props) => {
 
   const imgSource = (id) => {
     let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
-    imgsrc = imgsrcArr[0].image;
-    return imgsrc;
+    if (imgsrcArr.length > 0) {
+      imgsrc = imgsrcArr[0].image;
+      return imgsrc;
+    } else {
+      return;
+    }
   };
 
   return (
