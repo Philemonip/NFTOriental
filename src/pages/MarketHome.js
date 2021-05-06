@@ -10,16 +10,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 function MarketHome() {
-  const [trendItem, setTrendItem] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { data } = await axios.get(`${process.env.REACT_APP_API_SERVER}`);
-  //     console.log(data);
-  //     setTrendItem(data);
-  //   };
-  //   fetchData();
-  // }, []);
+  // const [trendItem, setTrendItem] = useState([]);
+  // const [newItem, setNewItem] = useState([]);
+  const [homeItem, setHomeItem] = useState([]);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -27,12 +20,12 @@ function MarketHome() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_API_SERVER}/metadata`,
+          `${process.env.REACT_APP_API_SERVER}/metadata/home`,
           {
             cancelToken: source.token,
           }
         );
-        setTrendItem(data);
+        setHomeItem(data);
         console.log(data);
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -47,19 +40,6 @@ function MarketHome() {
     return () => {
       source.cancel();
     };
-  }, []);
-
-  const [newItem, setNewItem] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/metadata`
-      );
-      console.log(data);
-      setNewItem(data.reverse());
-    };
-    fetchData();
   }, []);
 
   return (
@@ -91,14 +71,14 @@ function MarketHome() {
           </h5>
         </div>
         {/* <Trending Items /> */}
-        <HomeNewlyMinted items={trendItem} />
+        <HomeNewlyMinted items={homeItem[0]} />
         <div className={classes.title}>
           <h5>
             <b>Newly Minted</b>
           </h5>
         </div>
         {/* <Newly Minted /> */}
-        <HomeNewlyMinted items={newItem} />
+        <HomeNewlyMinted items={homeItem[1]} />
       </div>
     </>
   );
