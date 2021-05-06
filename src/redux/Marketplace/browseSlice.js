@@ -3,7 +3,12 @@ import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
-const initialState = { itemArr: [], statusfilter: [], collectionfilter: [] };
+const initialState = {
+  sortOption: "default",
+  itemArr: [],
+  statusfilter: [],
+  collectionfilter: [],
+};
 const browseSlice = createSlice({
   name: "browse",
   initialState: initialState,
@@ -11,6 +16,10 @@ const browseSlice = createSlice({
     getFiltered(state, action) {
       state.itemArr = [];
       state.itemArr.push(...action.payload);
+    },
+
+    sortOption(state, action) {
+      state.sortOption = action.payload;
     },
 
     toggleStatusFilter(state, action) {
@@ -23,6 +32,7 @@ const browseSlice = createSlice({
         );
       }
     },
+
     toggleCollectionFilter(state, action) {
       let checkExist = state.collectionfilter.indexOf(action.payload) > -1;
       if (!checkExist) {
@@ -33,9 +43,11 @@ const browseSlice = createSlice({
         );
       }
     },
+
     clearFilter(state) {
       state.statusfilter = [];
       state.collectionfilter = [];
+      state.sortOption = "default";
     },
   },
 });
@@ -47,9 +59,11 @@ const browseSlice = createSlice({
 export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
   // console.log("status thunk");
   // console.log(type, data);
-
   try {
     switch (type) {
+      case "sort":
+        await dispatch(browseActions.sortOption(data));
+        break;
       case "status":
         await dispatch(browseActions.toggleStatusFilter(data));
         break;
@@ -71,6 +85,7 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
       {
         status: state.browse.statusfilter,
         collection: state.browse.collectionfilter,
+        sortoption: state.browse.sortOption,
       }
     );
     dispatch(browseActions.getFiltered(res.data));
