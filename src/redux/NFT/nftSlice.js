@@ -3,7 +3,6 @@ import axios from "axios";
 require("dotenv").config();
 
 const initialState = {
-  // web3: "undefined",
   fromAddress: "",
   toAddress: "",
   price: "",
@@ -14,6 +13,7 @@ const initialState = {
   showTransactionHistory: false,
   windowWidth: window.innerWidth,
   sideDisplay: null,
+  name: null,
 };
 
 const nftSlice = createSlice({
@@ -22,6 +22,9 @@ const nftSlice = createSlice({
   reducers: {
     getTransaction(state, action) {
       state.transaction = [...action.payload];
+    },
+    getName(state, action) {
+      state.name = action.payload;
     },
     // addTransaction(state, action) {
     // 	// state.transaction.push(action.payload);
@@ -33,13 +36,13 @@ const nftSlice = createSlice({
     sideDisplay(state, action) {
       state.sideDisplay = action.payload;
     },
+
   },
 });
 
 export const nftSliceActions = nftSlice.actions;
 
 export const getTransactionThunk = (address) => async (dispatch) => {
-  console.log(address);
   console.log("GET TRANSACTION thunk");
   const getTransactionRequest = async () => {
     return await axios.get(`http://localhost:8000/profile`, {
@@ -48,7 +51,6 @@ export const getTransactionThunk = (address) => async (dispatch) => {
   };
   try {
     let res = await getTransactionRequest();
-    console.log(res, "res");
     dispatch(nftSliceActions.getTransaction(res.data));
     console.log("DATA", res.data);
   } catch (err) {
@@ -115,10 +117,28 @@ export const addNameThunk = (name) => async (dispatch) => {
     return await axios.post(`http://localhost:8000/profile/displayname`, name);
   };
   try {
-    await addName();
+    let res = await addName();
+    console.log(res)
+    dispatch(nftSliceActions.getName(res.data));
   } catch (err) {
     console.log("change name fail", err);
   }
 };
+
+export const getNameThunk = (address) => async (dispatch) => {
+  console.log("getting name");
+  console.log(address)
+  const getName = async () => {
+    return await axios.get(`http://localhost:8000/profile/displayname`, { params: { address } });
+  };
+  try {
+    let res = await getName();
+    dispatch(nftSliceActions.getName(res.data[0].alias));
+  } catch (err) {
+    console.log("get name fail", err);
+  }
+};
+
+
 
 export default nftSlice;
