@@ -55,11 +55,9 @@ function ProfilePage() {
 		await loadBlockchainData();
 	}, []);
 	useEffect(async () => {
-		console.log("get into profile");
 		let newItemArr = await axios.get(
 			`${process.env.REACT_APP_API_SERVER}/metadata/`
 		);
-		console.log("state updating", newItemArr.data);
 		setItemArr(newItemArr.data);
 	}, []);
 
