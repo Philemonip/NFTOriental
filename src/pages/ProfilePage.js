@@ -14,6 +14,7 @@ import {
 	deleteItemThunk,
 } from "../redux/NFT/nftSlice";
 import {
+	mintingSliceActions,
 	uploadToImgurThunk,
 	mintNFTThunk,
 } from "../redux/Minting/mintingSlice";
@@ -37,7 +38,9 @@ function ProfilePage() {
 		externalUrl,
 		description,
 	} = useSelector((state) => state.mint);
-
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 	const [profileContent, setProfileContent] = useState("Collectibles");
 	const dispatch = useDispatch();
 
@@ -181,7 +184,9 @@ function ProfilePage() {
 	const handleMintingSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			handleShow();
 			await contractNFT.methods.mint(name).send({ from: currentUser });
+			//etherscan
 			const minting = await contractNFT.methods.getAllItems().call();
 			await dispatch(detailSliceActions.updateItem(minting));
 			const NFTitem = minting[minting.length - 1];
@@ -194,6 +199,7 @@ function ProfilePage() {
 
 			const data = new FormData();
 			data.append("file", file);
+			console.log(0);
 			let imageUrl = await dispatch(uploadToImgurThunk(data));
 			await dispatch(
 				addmetadataThunk({
@@ -210,6 +216,15 @@ function ProfilePage() {
 				})
 			);
 
+			dispatch(mintingSliceActions.updateFile(null));
+			dispatch(mintingSliceActions.updateName(null));
+			dispatch(mintingSliceActions.updateCategory(null));
+			dispatch(mintingSliceActions.updateExternalUrl(null));
+			dispatch(mintingSliceActions.updateDescription(null));
+			console.log(1);
+			await handleClose();
+			console.log(2);
+			setProfileContent("Created");
 			// const newNftInfo = {
 			// 	name,
 			// 	price,
@@ -221,6 +236,9 @@ function ProfilePage() {
 			// await dispatch(mintNFTThunk(newNftInfo));
 		} catch (err) {
 			console.log("mint err", err);
+			console.log(3);
+			await handleClose();
+			console.log(4);
 		}
 	};
 
@@ -310,7 +328,11 @@ function ProfilePage() {
 					) : profileContent === "Settings" ? (
 						<Settings />
 					) : profileContent === "Mint" ? (
-						<Mint handleMintingSubmit={handleMintingSubmit} />
+						<Mint
+							handleMintingSubmit={handleMintingSubmit}
+							show={show}
+							setShow={setShow}
+						/>
 					) : (
 						<p>hi</p>
 					)}
