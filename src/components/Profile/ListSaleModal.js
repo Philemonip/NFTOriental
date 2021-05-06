@@ -1,30 +1,41 @@
-import { Modal, Button, Row, Col, Image } from "react-bootstrap";
+import { Modal, Button, Row, Col, Image, Form } from "react-bootstrap";
+import { useState } from "react";
 
 function ListSaleModal(props) {
+    console.log(props.tokenId)
+    let tokenId = props.tokenId
+    const [price, setprice] = useState('')
+
     return (
         <Modal
             {...props}
-            size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
+                    List Sale
             </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-            </p>
+                <Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Set Price</Form.Label>
+                        <Form.Control type="text" placeholder="Enter Price (CCH)" onChange={(e) => setprice(e.target.value)} required />
+                        <Form.Text className="text-muted">
+                            <p>{tokenId}</p>
+                            {/* We'll never share your email with anyone else. */}
+                        </Form.Text>
+                    </Form.Group>
+                </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <button className="mx-1" onClick={(e) => props.itemOnSale(tokenId, price)}>
+                    List on Sale
+					</button>
+                <button onClick={props.onHide}>Cancel</button>
             </Modal.Footer>
-        </Modal>
+        </Modal >
     );
 }
 

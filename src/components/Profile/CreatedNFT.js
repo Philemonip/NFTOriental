@@ -1,9 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import ListSaleModal from "./ListSaleModal";
 
 const CreatedNFT = (props) => {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
+	const [showListItemModal, setListItemModal] = useState(false);
+	const [currentID, setcurrentID] = useState(0)
 	let imgsrc;
 	let createdArr;
 
@@ -15,9 +19,18 @@ const CreatedNFT = (props) => {
 
 	const imgSource = (id) => {
 		let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
-		imgsrc = imgsrcArr[0].external_url;
-		return imgsrc;
+		if (imgsrcArr.length > 0) {
+			imgsrc = imgsrcArr[0].image;
+			return imgsrc;
+		} else {
+			return;
+		}
 	};
+
+	const modalHandler = (id) => {
+		setListItemModal(true);
+		setcurrentID(id);
+	}
 
 	return (
 		<div className="d-flex">
@@ -45,30 +58,23 @@ const CreatedNFT = (props) => {
 								</Card.Text>
 
 								<div className="d-flex">
-									{item.owner === currentUser ? (
-										<div>
-											{item.forSale === true ? (
-												<button
-													className="mx-1"
-													onClick={(e) => props.itemNotForSale(item.id)}
-												>
-													Not for Sale
-												</button>
-											) : (
-												<button
-													className="mx-1"
-													onClick={(e) => props.itemOnSale(item.id, 20)}
-												>
-													List on Sale
-												</button>
-											)}
-											{/* <Button variant="success">Approve</Button>
-                                    <Button variant="warning">Cancel Approve</Button> */}
-										</div>
+									{item.forSale === true ? (
+										<button
+											className="mx-1"
+											onClick={(e) => props.itemNotForSale(item.id)}
+										>
+											Not for Sale
+										</button>
 									) : (
-										<div></div>
+										<button
+											className="mx-1"
+											onClick={() => modalHandler(item.id)}
+										>
+											List Item
+										</button>
 									)}
-
+									{/* <Button variant="success">Approve</Button>
+                                <Button variant="warning">Cancel Approve</Button> */}
 									{item.owner === item.creator ? (
 										<div>
 											<button
@@ -86,6 +92,15 @@ const CreatedNFT = (props) => {
 						</Card>
 					);
 				})}
+			{createdArr &&
+				< ListSaleModal
+					show={showListItemModal}
+					onHide={() => setListItemModal(false)}
+					itemOnSale={props.itemOnSale}
+					dialogClassName="modal-20w"
+					tokenId={currentID}
+				/>
+			}
 		</div>
 	);
 };

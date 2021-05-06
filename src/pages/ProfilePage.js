@@ -32,9 +32,9 @@ function ProfilePage() {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
 	const contractNFT = useSelector((state) => state.detail.contract);
-	// const itemArr = useSelector((state) => state.browse.itemArr);
+	const itemArrBackend = useSelector((state) => state.browse.itemArr);
 	const userName = useSelector((state) => state.nft.name);
-	const [itemArr, setItemArr] = useState([]);
+	const [itemArr, setItemArr] = useState(itemArrBackend);
 	const {
 		file,
 		price,

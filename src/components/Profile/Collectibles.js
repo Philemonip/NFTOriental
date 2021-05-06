@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
 import { Button, Card } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
+import ListSaleModal from "./ListSaleModal";
 
 const Collectibles = (props) => {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
+	const [showListItemModal, setListItemModal] = useState(false);
+	const [currentID, setcurrentID] = useState(0)
+
 	let ownedArr;
 	let imgsrc;
 
@@ -16,9 +20,19 @@ const Collectibles = (props) => {
 
 	const imgSource = (id) => {
 		let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
-		imgsrc = imgsrcArr[0].image;
-		return imgsrc;
+		if (imgsrcArr.length > 0) {
+			imgsrc = imgsrcArr[0].image;
+			return imgsrc;
+		} else {
+			return;
+		}
 	};
+
+	const modalHandler = (id) => {
+		setListItemModal(true);
+		setcurrentID(id);
+	}
+
 
 	return (
 		<div className="d-flex Collectibles">
@@ -56,9 +70,9 @@ const Collectibles = (props) => {
 									) : (
 										<button
 											className="mx-1"
-											onClick={(e) => props.itemOnSale(item.id, 20)}
+											onClick={() => modalHandler(item.id)}
 										>
-											List on Sale
+											List Item
 										</button>
 									)}
 									{/* <Button variant="success">Approve</Button>
@@ -80,7 +94,16 @@ const Collectibles = (props) => {
 						</Card>
 					);
 				})}
-		</div>
+			{ownedArr &&
+				< ListSaleModal
+					show={showListItemModal}
+					onHide={() => setListItemModal(false)}
+					itemOnSale={props.itemOnSale}
+					dialogClassName="modal-20w"
+					tokenId={currentID}
+				/>
+			}
+		</div >
 	);
 };
 
