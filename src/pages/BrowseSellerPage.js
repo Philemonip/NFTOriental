@@ -5,48 +5,25 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
-import { browseActions } from "../redux/Marketplace/browseSlice";
-import axios from "axios";
 import {
   nftSliceActions,
   getTransactionThunk,
-  addNFTtransactionThunk,
+  addTransactionThunk,
   addmetadataThunk,
   updateItemThunk,
   deleteItemThunk,
-  getNameThunk,
 } from "../redux/NFT/nftSlice";
-import {
-  mintingSliceActions,
-  uploadToImgurThunk,
-  mintNFTThunk,
-} from "../redux/Minting/mintingSlice";
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
 import CreatedNFT from "../components/Profile/CreatedNFT";
-import Mint from "../components/Profile/Mint";
 import "./ProfilePage.css";
 
 function ProfilePage() {
   const currentUser = useSelector((state) => state.detail.currentUser);
   const items = useSelector((state) => state.detail.items);
   const contractNFT = useSelector((state) => state.detail.contract);
-  const itemArrBackend = useSelector((state) => state.browse.itemArr);
-  const userName = useSelector((state) => state.nft.name);
-  const [itemArr, setItemArr] = useState(itemArrBackend);
-  const {
-    file,
-    price,
-    name,
-    category,
-    image,
-    externalUrl,
-    description,
-  } = useSelector((state) => state.mint);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
   const [profileContent, setProfileContent] = useState("Collectibles");
   const dispatch = useDispatch();
 
@@ -54,24 +31,6 @@ function ProfilePage() {
     await loadWeb3();
     await loadBlockchainData();
   }, []);
-  useEffect(async () => {
-    let newItemArr = await axios.get(
-      `${process.env.REACT_APP_API_SERVER}/metadata/`
-    );
-    setItemArr(newItemArr.data);
-  }, []);
-
-  useEffect(async () => {
-    const fetchData = async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/metadata/`
-      );
-      dispatch(browseActions.getFiltered(data));
-      console.log("data from marketbrowse useeffect");
-      console.log(data);
-    };
-    fetchData();
-  }, [dispatch]);
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -104,7 +63,6 @@ function ProfilePage() {
       dispatch(detailSliceActions.updateItem(getItem));
       console.log(getItem);
       dispatch(getTransactionThunk(accounts[0]));
-      dispatch(getNameThunk(accounts[0]));
     } else {
       window.alert("Please use correct network and refresh the page.");
     }
@@ -156,113 +114,6 @@ function ProfilePage() {
       console.log("item not for sale error", err);
     }
   }
-
-  async function burnToken(tokenId) {
-    try {
-      await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
-      const getItem = await contractNFT.methods.getAllItems().call();
-      await dispatch(detailSliceActions.updateItem(getItem));
-      await dispatch(
-        deleteItemThunk({
-          token_id: tokenId,
-        })
-      );
-    } catch (err) {
-      console.log("burning token error", err);
-    }
-  }
-
-  // async function mint(itemName) {
-  // 	try {
-  // 		await contractNFT.methods.mint(itemName).send({ from: currentUser });
-  // 		const minting = await contractNFT.methods.getAllItems().call();
-  // 		await dispatch(detailSliceActions.updateItem(minting));
-  // 		const NFTitem = minting[minting.length - 1];
-  // 		const id = NFTitem.id;
-  // 		const name = NFTitem.itemName;
-  // 		const creator = NFTitem.creator;
-  // 		const owner = NFTitem.owner;
-  // 		const price = NFTitem.price;
-  // 		const forSale = NFTitem.forSale;
-
-  // 		await dispatch(
-  // 			addmetadataThunk({
-  // 				token_id: id,
-  // 				name: name,
-  // 				creator: creator,
-  // 				owner: owner,
-  // 				on_sale: forSale,
-  // 				current_price: price,
-  // 				collection: "shoes",
-  // 				asset_id: "260156",
-  // 				image:
-  // 					"https://sportshub.cbsistatic.com/i/r/2021/05/03/7c612065-314a-464b-b09c-e92777922087/thumbnail/1200x675/497827ef3c95b75e6c8b2235bf297cf9/lebron-james.jpg",
-  // 				description: "lebron",
-  // 				external_url: "cryptopunk.com",
-  // 			})
-  // 		);
-  // 	} catch (err) {
-  // 		console.log("minting error", err);
-  // 	}
-  // }
-
-  const handleMintingSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      handleShow();
-      await contractNFT.methods.mint(name).send({ from: currentUser });
-      //etherscan
-      const minting = await contractNFT.methods.getAllItems().call();
-      await dispatch(detailSliceActions.updateItem(minting));
-      const NFTitem = minting[minting.length - 1];
-      const id = NFTitem.id;
-      const bcName = NFTitem.itemName;
-      const creator = NFTitem.creator;
-      const owner = NFTitem.owner;
-      // const price = NFTitem.price;
-      const forSale = NFTitem.forSale;
-
-      const data = new FormData();
-      data.append("file", file);
-      console.log(0);
-      let imageUrl = await dispatch(uploadToImgurThunk(data));
-      await dispatch(
-        addmetadataThunk({
-          token_id: id,
-          name: bcName,
-          creator,
-          owner,
-          on_sale: forSale,
-          collection: "shoes",
-          asset_id: "260156",
-          image: imageUrl,
-          externalUrl,
-          description,
-        })
-      );
-
-      dispatch(mintingSliceActions.updateFile(null));
-      dispatch(mintingSliceActions.updateName(null));
-      dispatch(mintingSliceActions.updateCategory(null));
-      dispatch(mintingSliceActions.updateExternalUrl(null));
-      dispatch(mintingSliceActions.updateDescription(null));
-      console.log(1);
-      await handleClose();
-      console.log(2);
-
-      const newItemArr = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/metadata/`
-      );
-      setItemArr(newItemArr.data);
-      setProfileContent("Created");
-    } catch (err) {
-      console.log("mint err", err);
-      console.log(3);
-      await handleClose();
-      console.log(4);
-    }
-  };
-
   async function approveTo(buyer, tokenId) {
     try {
       await contractNFT.methods
@@ -282,11 +133,61 @@ function ProfilePage() {
       console.log("cancel approval error", err);
     }
   }
+
+  async function burnToken(tokenId) {
+    try {
+      await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
+      await dispatch(
+        deleteItemThunk({
+          token_id: tokenId,
+        })
+      );
+    } catch (err) {
+      console.log("burning token error", err);
+    }
+  }
+
+  async function mint(itemName) {
+    try {
+      await contractNFT.methods.mint(itemName).send({ from: currentUser });
+      const minting = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(minting));
+      const NFTitem = minting[minting.length - 1];
+      const id = NFTitem.id;
+      const name = NFTitem.itemName;
+      const creator = NFTitem.creator;
+      const owner = NFTitem.owner;
+      const price = NFTitem.price;
+      const forSale = NFTitem.forSale;
+
+      await dispatch(
+        addmetadataThunk({
+          token_id: id,
+          name: name,
+          creator: creator,
+          owner: owner,
+          on_sale: forSale,
+          current_price: price,
+          collection: "shoes",
+          asset_id: "260156",
+          image:
+            "https://sportshub.cbsistatic.com/i/r/2021/05/03/7c612065-314a-464b-b09c-e92777922087/thumbnail/1200x675/497827ef3c95b75e6c8b2235bf297cf9/lebron-james.jpg",
+          description: "lebron",
+          external_url: "cryptopunk.com",
+        })
+      );
+    } catch (err) {
+      console.log("minting error", err);
+    }
+  }
+
   return (
     <>
       <Navi />
       <Jumbotron className="jumbotron mb-1 p-5">
-        <h4>Hello, {userName}</h4>
+        <h4>Hello, Name </h4>
         <div xs={6} md={4} className="text-center">
           <Image
             className="profileImage"
@@ -296,11 +197,11 @@ function ProfilePage() {
       </Jumbotron>
       <div className="profileContent">
         <div className="text-center">
-          <h4>{userName}</h4>
+          <h4>Name</h4>
           <p>{currentUser}</p>
-          {/* <button className="mx-1" onClick={() => mint("item1")}>
-						Mint stuff
-					</button> */}
+          <button className="mx-1" onClick={() => mint("item1")}>
+            Mint stuff
+          </button>
         </div>
 
         <div className="px-4 buttonForChange">
@@ -325,9 +226,6 @@ function ProfilePage() {
           >
             Settings
           </button>
-          <button className="mx-1" onClick={() => setProfileContent("Mint")}>
-            Mint
-          </button>
           <hr></hr>
         </div>
 
@@ -337,25 +235,17 @@ function ProfilePage() {
               itemNotForSale={itemNotForSale}
               itemOnSale={itemOnSale}
               burnToken={burnToken}
-              itemArr={itemArr}
             />
           ) : profileContent === "Created" ? (
             <CreatedNFT
               itemNotForSale={itemNotForSale}
               itemOnSale={itemOnSale}
               burnToken={burnToken}
-              itemArr={itemArr}
             />
           ) : profileContent === "Transactions" ? (
             <NFTtransactions />
           ) : profileContent === "Settings" ? (
             <Settings />
-          ) : profileContent === "Mint" ? (
-            <Mint
-              handleMintingSubmit={handleMintingSubmit}
-              show={show}
-              setShow={setShow}
-            />
           ) : (
             <p>hi</p>
           )}
@@ -364,4 +254,5 @@ function ProfilePage() {
     </>
   );
 }
+
 export default ProfilePage;
