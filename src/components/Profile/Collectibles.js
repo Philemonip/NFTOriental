@@ -6,6 +6,7 @@ const Collectibles = (props) => {
     const currentUser = useSelector((state) => state.detail.currentUser);
     const items = useSelector((state) => state.detail.items);
     let ownedArr;
+    let imgsrc
 
     const ownerItems = (items, currentUser) => {
         ownedArr = items.filter((i) => i.owner === currentUser)
@@ -13,18 +14,24 @@ const Collectibles = (props) => {
     }
     ownerItems(items, currentUser)
 
+    const imgSource = (id) => {
+        let imgsrcArr = props.itemArr.filter((i) => i.token_id == id)
+        imgsrc = imgsrcArr[0].external_url
+        return imgsrc
+    }
+
     return (
         <div className="d-flex Collectibles">
             {ownedArr &&
                 ownedArr.map((item, index) => {
                     return (
                         <Card key={index} style={{ width: '18rem' }} className="mx-2">
-                            <Card.Img variant="top" src="https://via.placeholder.com/150" roundedCircle />
+                            <Card.Img variant="top" src={imgSource(item.id)} roundedCircle />
                             <Card.Body>
                                 <Card.Title className="text-center">{item.itemName}</Card.Title>
                                 <Card.Text>
-                                    <p className="m-1">Owner: <a href="/">{item.owner.substr(0, 18)}...</a></p>
-                                    <p className="m-1">Creator: <a href="/">{item.creator.substr(0, 18)}...</a></p>
+                                    <p className="m-1">Owner: <a href="/">{item.owner.substr(0, 16)}...</a></p>
+                                    <p className="m-1">Creator: <a href="/">{item.creator.substr(0, 16)}...</a></p>
                                     <p className="m-1">Id: {item.id}</p>
                                     <p className="m-1">Price {item.price}</p>
                                 </Card.Text>
