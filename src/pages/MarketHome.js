@@ -20,7 +20,7 @@ function MarketHome() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_API_SERVER}/metadata/home`,
+          `${process.env.REACT_APP_API_SERVER}/items/homepage`,
           {
             cancelToken: source.token,
           }

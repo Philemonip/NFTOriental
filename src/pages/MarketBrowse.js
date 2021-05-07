@@ -23,7 +23,7 @@ function MarketBrowse() {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/metadata/`
+        `${process.env.REACT_APP_API_SERVER}items/`
       );
       dispatch(browseActions.getFiltered(data));
       console.log("data from marketbrowse useeffect");
@@ -35,8 +35,8 @@ function MarketBrowse() {
   // useEffect(() => {
   //   dispatch(browseToggwleThunk("clear"));
   // }, [dispatch]);
-  console.log(statusfilter);
-  console.log(collectionfilter);
+  // console.log(statusfilter);
+  // console.log(collectionfilter);
   return (
     <div className={classes.page}>
       <Navi />
