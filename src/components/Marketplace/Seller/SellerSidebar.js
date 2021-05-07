@@ -4,7 +4,7 @@ import SidebarCollection from "../../Common/Sidebar/SidebarCollection";
 import SidebarSort from "../../Common/Sidebar/SidebarSort";
 import SidebarStatus from "../../Common/Sidebar/SidebarStatus";
 
-function BrowseSidebar() {
+function SellerSidebar() {
   const accordionArr = [
     {
       name: "Status",
@@ -33,4 +33,4 @@ function BrowseSidebar() {
     </Col>
   );
 }
-export default BrowseSidebar;
+export default SellerSidebar;

@@ -6,6 +6,7 @@ import classes from "./SidebarStatus.module.css";
 const BrowseSidebarStatus = ({ isSeller }) => {
   const dispatch = useDispatch();
   const selectedStatus = useSelector((state) => state.browse.statusfilter);
+  const sellerAddress = useSelector((state) => state.browse.sellerAddress);
   const statusValue = ["New", "Listed on Sale"];
 
   return (
@@ -19,7 +20,9 @@ const BrowseSidebarStatus = ({ isSeller }) => {
                   selectedStatus.indexOf(i) > -1 ? classes.activebutton : ""
                 }`}
                 onClick={() =>
-                  dispatch(browseToggleThunk("status", i, isSeller))
+                  dispatch(
+                    browseToggleThunk("status", i, isSeller, sellerAddress)
+                  )
                 }
               >
                 <p className={classes.ptext}>{i}</p>

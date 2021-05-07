@@ -8,11 +8,15 @@ const initialState = {
   itemArr: [],
   statusfilter: [],
   collectionfilter: [],
+  sellerAddress: "",
 };
 const browseSlice = createSlice({
   name: "browse",
   initialState: initialState,
   reducers: {
+    getSellerAddress(state, action) {
+      state.sellerAddress = action.payload;
+    },
     getFiltered(state, action) {
       state.itemArr = [];
       state.itemArr.push(...action.payload);
@@ -44,11 +48,18 @@ const browseSlice = createSlice({
       }
     },
 
-    clearFilter(state) {
+    softClear(state) {
+      state.itemArr = [];
+      state.statusfilter = [];
+      state.collectionfilter = [];
+    },
+
+    hardClear(state) {
       state.itemArr = [];
       state.statusfilter = [];
       state.collectionfilter = [];
       state.sortOption = "default";
+      state.sellerAddress = "";
     },
   },
 });
@@ -77,8 +88,11 @@ export const browseToggleThunk = (
       case "collection":
         await dispatch(browseActions.toggleCollectionFilter(data));
         break;
-      case "clear":
-        await dispatch(browseActions.clearFilter());
+      case "softclear":
+        await dispatch(browseActions.softClear());
+        break;
+      case "hardclear":
+        await dispatch(browseActions.hardClear());
         break;
       default:
         console.error(`Error: Switch Case not found`);
@@ -92,7 +106,7 @@ export const browseToggleThunk = (
       collection: state.browse.collectionfilter,
       sortoption: state.browse.sortOption,
       isSeller: isSeller,
-      sellerAddress: sellerAddress,
+      sellerAddress: state.browse.sellerAddress,
     });
     dispatch(browseActions.getFiltered(res.data));
   } catch (err) {

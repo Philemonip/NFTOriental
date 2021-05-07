@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-// import { browseActions } from "../redux/Marketplace/browseSlice";
-import { browseToggleThunk } from "../redux/Marketplace/browseSlice";
+import {
+  browseToggleThunk,
+  browseActions,
+} from "../redux/Marketplace/browseSlice";
 import { Jumbotron, Image, Col, Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
 import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
-import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
-import BrowseFilterbar from "../components/Marketplace/Browse/BrowseFilterbar";
+import SellerSidebar from "../components/Marketplace/Seller/SellerSidebar";
+import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
 import classes from "./MarketBrowse.module.css";
 import dotenv from "dotenv";
 dotenv.config();
@@ -16,33 +17,21 @@ dotenv.config();
 function SellerPage() {
   const dispatch = useDispatch();
   const params = useParams();
-  // const [selleritem, setSellerItems] = useState("");
   const { itemArr, statusfilter, collectionfilter } = useSelector(
     (state) => state.browse
   );
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { data } = await axios.post(
-  //       `${process.env.REACT_APP_API_SERVER}/profile/${params.walletAddress}`,
-  //       {
-  //         status: state.browse.statusfilter,
-  //         collection: state.browse.collectionfilter,
-  //         sortoption: state.browse.sortOption,
-  //         isSeller: isSeller,
-  //         sellerAddress: sellerAddress,
-  //       }
-  //     );
-  //     // dispatch(browseActions.getFiltered(data));
-  //     console.log("data from marketbrowse useeffect");
-  //     setItems(data);
-  //     console.log(data);
-  //   };
-  //   fetchData();
-  // }, [params.walletAddress]);
-
   useEffect(() => {
-    dispatch(browseToggleThunk("clear", "NIL", true, params.walletAddress));
+    const fetchData = async () => {
+      await dispatch(browseActions.getSellerAddress(params.walletAddress));
+      await dispatch(
+        browseToggleThunk("Status", "", true, params.walletAddress)
+      );
+    };
+    fetchData();
+    return function browseclearup() {
+      dispatch(browseActions.hardClear());
+    };
   }, [params.walletAddress, dispatch]);
 
   // console.log(statusfilter);
@@ -66,10 +55,10 @@ function SellerPage() {
       </Jumbotron>
       <Container fluid>
         <Row>
-          <BrowseSidebar />
+          <SellerSidebar />
           <Col className={classes.column}>
             {(statusfilter.length > 0 || collectionfilter.length > 0) && (
-              <BrowseFilterbar />
+              <SidebarFilterbar isSeller={true} />
             )}
             <BrowseItem items={itemArr} />
           </Col>
