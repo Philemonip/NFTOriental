@@ -23,7 +23,7 @@ function MarketBrowse() {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/metadata/`
+        `${process.env.REACT_APP_API_SERVER}items/`
       );
       dispatch(browseActions.getFiltered(data));
       console.log("data from marketbrowse useeffect");
