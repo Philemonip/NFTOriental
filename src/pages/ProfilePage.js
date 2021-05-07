@@ -1,5 +1,7 @@
 import Navi from "../components/Common/Navbar";
-import { Jumbotron, Image } from "react-bootstrap";
+import { IoIosCopy } from "react-icons/io";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Jumbotron, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
@@ -48,6 +50,7 @@ function ProfilePage() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [profileContent, setProfileContent] = useState("Collectibles");
+  const [isCopied, setCopied] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(async () => {
@@ -282,6 +285,13 @@ function ProfilePage() {
       console.log("cancel approval error", err);
     }
   }
+  function copyWalletAdress() {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1300);
+  }
+
   return (
     <>
       <Navi />
@@ -297,7 +307,15 @@ function ProfilePage() {
       <div className="profileContent">
         <div className="text-center">
           <h4>{userName}</h4>
-          <p>{currentUser}</p>
+          <p>
+            {currentUser}{" "}
+            <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
+              <Button>
+                <IoIosCopy />
+              </Button>
+            </CopyToClipboard>
+            {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
+          </p>
           {/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}

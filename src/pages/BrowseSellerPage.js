@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { IoIosCopy } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,7 +7,8 @@ import { browseActions } from "../redux/Marketplace/browseSlice";
 // import {
 //   browseToggleThunk,
 // } from "../redux/Marketplace/browseSlice";
-import { Jumbotron, Image, Col, Container, Row } from "react-bootstrap";
+import { Jumbotron, Image, Col, Container, Row, Button } from "react-bootstrap";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Navi from "../components/Common/Navbar";
 import SellerBrowseItem from "../components/Marketplace/SellerBrowse/SellerBrowseItem";
 import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
@@ -18,9 +20,18 @@ dotenv.config();
 function BrowseSellerPage() {
   const params = useParams();
   const [item, setItems] = useState("");
+  const [isCopied, setCopied] = useState(false);
+
   const { itemArr, statusfilter, collectionfilter } = useSelector(
     (state) => state.browse
   );
+
+  function copyWalletAdress() {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1300);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +67,18 @@ function BrowseSellerPage() {
         </Jumbotron>
         <div className="text-center">
           <h4>UserName</h4>
-          <p>{params.walletAddress}</p>
+          <p>
+            {params.walletAddress}
+            <CopyToClipboard
+              text={params.walletAddress}
+              onCopy={copyWalletAdress}
+            >
+              <Button>
+                <IoIosCopy />
+              </Button>
+            </CopyToClipboard>
+            {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
+          </p>
         </div>
         <Row>
           <BrowseSidebar />
