@@ -37,6 +37,8 @@ function ProfilePage() {
   const itemArrBackend = useSelector((state) => state.browse.itemArr);
   const userName = useSelector((state) => state.nft.name);
   const [itemArr, setItemArr] = useState(itemArrBackend);
+  const [isCopied, setCopied] = useState(false);
+  const [loginStatus, setLoginStatus] = useState(false);
   const {
     file,
     price,
@@ -50,12 +52,26 @@ function ProfilePage() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [profileContent, setProfileContent] = useState("Collectibles");
-  const [isCopied, setCopied] = useState(false);
   const dispatch = useDispatch();
 
+  // useEffect(async () => {
+  //   await loadWeb3();
+  //   await loadBlockchainData();
+  // }, []);
   useEffect(async () => {
-    await loadWeb3();
-    await loadBlockchainData();
+    if (window.ethereum) {
+      setLoginStatus(true);
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+      await loadBlockchainData();
+    } else if (window.web3) {
+      setLoginStatus(true);
+      window.web3 = new Web3(window.web3.currentProvider);
+      await loadBlockchainData();
+    } else {
+      setLoginStatus(false);
+      window.alert("Profile no login");
+    }
   }, []);
   useEffect(async () => {
     let newItemArr = await axios.get(
@@ -76,16 +92,16 @@ function ProfilePage() {
     fetchData();
   }, [dispatch]);
 
-  const loadWeb3 = async () => {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert("Please login with Metamask.");
-    }
-  };
+  // const loadWeb3 = async () => {
+  //   if (window.ethereum) {
+  //     window.web3 = new Web3(window.ethereum);
+  //     await window.ethereum.enable();
+  //   } else if (window.web3) {
+  //     window.web3 = new Web3(window.web3.currentProvider);
+  //   } else {
+  //     window.alert("Please login with Metamask.");
+  //   }
+  // };
 
   const loadBlockchainData = async () => {
     const web3 = window.web3;
@@ -175,40 +191,6 @@ function ProfilePage() {
     }
   }
 
-  // async function mint(itemName) {
-  // 	try {
-  // 		await contractNFT.methods.mint(itemName).send({ from: currentUser });
-  // 		const minting = await contractNFT.methods.getAllItems().call();
-  // 		await dispatch(detailSliceActions.updateItem(minting));
-  // 		const NFTitem = minting[minting.length - 1];
-  // 		const id = NFTitem.id;
-  // 		const name = NFTitem.itemName;
-  // 		const creator = NFTitem.creator;
-  // 		const owner = NFTitem.owner;
-  // 		const price = NFTitem.price;
-  // 		const forSale = NFTitem.forSale;
-
-  // 		await dispatch(
-  // 			addmetadataThunk({
-  // 				token_id: id,
-  // 				name: name,
-  // 				creator: creator,
-  // 				owner: owner,
-  // 				on_sale: forSale,
-  // 				current_price: price,
-  // 				collection: "shoes",
-  // 				asset_id: "260156",
-  // 				image:
-  // 					"https://sportshub.cbsistatic.com/i/r/2021/05/03/7c612065-314a-464b-b09c-e92777922087/thumbnail/1200x675/497827ef3c95b75e6c8b2235bf297cf9/lebron-james.jpg",
-  // 				description: "lebron",
-  // 				external_url: "cryptopunk.com",
-  // 			})
-  // 		);
-  // 	} catch (err) {
-  // 		console.log("minting error", err);
-  // 	}
-  // }
-
   const handleMintingSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -285,6 +267,7 @@ function ProfilePage() {
       console.log("cancel approval error", err);
     }
   }
+
   function copyWalletAdress() {
     setCopied(true);
     setTimeout(() => {
@@ -317,6 +300,22 @@ function ProfilePage() {
             {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
           </p>
           {/* <button className="mx-1" onClick={() => mint("item1")}>
+				<div xs={6} md={4} className="text-center">
+					<Image
+						className="profileImage"
+						src={
+							loginStatus
+								? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+								: "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
+						}
+					/>
+				</div>
+			</Jumbotron>
+			<div className="profileContent">
+				<div className="text-center">
+					<h4>{userName}</h4>
+					<p>{currentUser}</p>
+					{/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
         </div>
@@ -337,15 +336,23 @@ function ProfilePage() {
           >
             Transactions
           </button>
-          <button
-            className="mx-1"
-            onClick={() => setProfileContent("Settings")}
-          >
-            Settings
-          </button>
-          <button className="mx-1" onClick={() => setProfileContent("Mint")}>
-            Mint
-          </button>
+          {loginStatus && (
+            <>
+              <button
+                className="mx-1"
+                onClick={() => setProfileContent("Settings")}
+              >
+                Settings
+              </button>
+              <button
+                className="mx-1"
+                onClick={() => setProfileContent("Mint")}
+              >
+                Mint
+              </button>
+            </>
+          )}
+
           <hr></hr>
         </div>
 
