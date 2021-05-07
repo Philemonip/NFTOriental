@@ -32,7 +32,7 @@ const BrowseSidebarCollection = ({ isSeller }) => {
             <Col md={12} className="px-0" key={key}>
               <div
                 className={`${classes.collectionbutton} ${
-                  selectedCollection.indexOf(i) > -1 ? classes.activebutton : ""
+                  selectedCollection.indexOf(i) > -1 && classes.activebutton
                 }`}
                 onClick={() =>
                   dispatch(
