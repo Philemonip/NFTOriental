@@ -35,6 +35,7 @@ function ProfilePage() {
   const itemArrBackend = useSelector((state) => state.browse.itemArr);
   const userName = useSelector((state) => state.nft.name);
   const [itemArr, setItemArr] = useState(itemArrBackend);
+  const [loginStatus, setLoginStatus] = useState(false);
   const {
     file,
     price,
@@ -50,9 +51,24 @@ function ProfilePage() {
   const [profileContent, setProfileContent] = useState("Collectibles");
   const dispatch = useDispatch();
 
+  // useEffect(async () => {
+  //   await loadWeb3();
+  //   await loadBlockchainData();
+  // }, []);
   useEffect(async () => {
-    await loadWeb3();
-    await loadBlockchainData();
+    if (window.ethereum) {
+      setLoginStatus(true);
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+      await loadBlockchainData();
+    } else if (window.web3) {
+      setLoginStatus(true);
+      window.web3 = new Web3(window.web3.currentProvider);
+      await loadBlockchainData();
+    } else {
+      setLoginStatus(false);
+      window.alert("Profile no login");
+    }
   }, []);
   useEffect(async () => {
     let newItemArr = await axios.get(
@@ -73,16 +89,16 @@ function ProfilePage() {
     fetchData();
   }, [dispatch]);
 
-  const loadWeb3 = async () => {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert("Please login with Metamask.");
-    }
-  };
+  // const loadWeb3 = async () => {
+  //   if (window.ethereum) {
+  //     window.web3 = new Web3(window.ethereum);
+  //     await window.ethereum.enable();
+  //   } else if (window.web3) {
+  //     window.web3 = new Web3(window.web3.currentProvider);
+  //   } else {
+  //     window.alert("Please login with Metamask.");
+  //   }
+  // };
 
   const loadBlockchainData = async () => {
     const web3 = window.web3;
@@ -286,11 +302,16 @@ function ProfilePage() {
     <>
       <Navi />
       <Jumbotron className="jumbotron mb-1 p-5">
-        <h4>Hello, {userName}</h4>
+        {loginStatus ? <h4>Hello, {userName}</h4> : <h4>Hello, Anumnumnus</h4>}
+
         <div xs={6} md={4} className="text-center">
           <Image
             className="profileImage"
-            src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+            src={
+              loginStatus
+                ? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+                : "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
+            }
           />
         </div>
       </Jumbotron>
@@ -319,15 +340,23 @@ function ProfilePage() {
           >
             Transactions
           </button>
-          <button
-            className="mx-1"
-            onClick={() => setProfileContent("Settings")}
-          >
-            Settings
-          </button>
-          <button className="mx-1" onClick={() => setProfileContent("Mint")}>
-            Mint
-          </button>
+          {loginStatus && (
+            <>
+              <button
+                className="mx-1"
+                onClick={() => setProfileContent("Settings")}
+              >
+                Settings
+              </button>
+              <button
+                className="mx-1"
+                onClick={() => setProfileContent("Mint")}
+              >
+                Mint
+              </button>
+            </>
+          )}
+
           <hr></hr>
         </div>
 
