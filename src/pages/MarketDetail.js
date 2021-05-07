@@ -27,6 +27,7 @@ var banco;
 function MarketDetail() {
 	const params = useParams();
 	const [item, setItems] = useState("");
+	const [loginStatus, setLoginStatus] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -47,21 +48,37 @@ function MarketDetail() {
 
 	const dispatch = useDispatch();
 
-	useEffect(async () => {
-		await loadWeb3();
-		await loadBlockchainData();
-	}, []);
+	// useEffect(async () => {
+	// 	await loadWeb3();
+	// 	await loadBlockchainData();
+	// }, []);
 
-	const loadWeb3 = async () => {
+	// const loadWeb3 = async () => {
+	// 	if (window.ethereum) {
+	// 		window.web3 = new Web3(window.ethereum);
+	// 		await window.ethereum.enable();
+	// 	} else if (window.web3) {
+	// 		window.web3 = new Web3(window.web3.currentProvider);
+	// 	} else {
+	// 		window.alert("working here");
+	// 	}
+	// };
+
+	useEffect(async () => {
 		if (window.ethereum) {
+			setLoginStatus(true);
 			window.web3 = new Web3(window.ethereum);
 			await window.ethereum.enable();
+			await loadBlockchainData();
 		} else if (window.web3) {
+			setLoginStatus(true);
 			window.web3 = new Web3(window.web3.currentProvider);
+			await loadBlockchainData();
 		} else {
-			window.alert("Please login with Metamask.");
+			setLoginStatus(false);
+			window.alert("working here");
 		}
-	};
+	}, []);
 
 	const loadBlockchainData = async () => {
 		const web3 = window.web3;
@@ -174,20 +191,29 @@ function MarketDetail() {
 		<div>
 			<Navi />
 			<Container className={classes.containerstyle}>
-				{params.itemAddress && (
+				{params.itemAddress && currentUser ? (
 					<p>
 						You are in ItemDetail, address: {params.itemAddress}, you are
 						{currentUser}
 					</p>
+				) : (
+					<p>You are in ItemDetail, address: {params.itemAddress}</p>
 				)}
 				<Row>
-					<Col xl={5}>{item ? <DetailImgInfo itemdata={item[0]} /> : ""}</Col>
+					<Col xl={5}>
+						{item ? (
+							<DetailImgInfo itemdata={item[0]} loginStatus={loginStatus} />
+						) : (
+							""
+						)}
+					</Col>
 					<Col>
 						{item ? (
 							<DetailTitlePrice
 								itemdata={item[0]}
 								buyWithoutApprovalToken={buyWithoutApprovalToken}
 								token_id={params.itemAddress}
+								loginStatus={loginStatus}
 							/>
 						) : (
 							""
