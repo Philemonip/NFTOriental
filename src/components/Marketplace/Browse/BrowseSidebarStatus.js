@@ -17,7 +17,7 @@ const BrowseSidebarStatus = (props) => {
             <Col md={6} className="px-0" key={key}>
               <div
                 className={`${classes.statusbutton} ${
-                  selectedStatus.indexOf(i) > -1 ? classes.activebutton : ""
+                  selectedStatus.indexOf(i) > -1 && classes.activebutton
                 }`}
                 onClick={() => dispatch(browseToggleThunk("status", i))}
               >
