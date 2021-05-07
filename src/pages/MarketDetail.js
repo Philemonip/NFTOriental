@@ -15,7 +15,10 @@ import classes from "./MarketDetail.module.css";
 import dotenv from "dotenv";
 import Token from "../abi/Token.json";
 import Banco from "../abi/banco.json";
-import { bancoSliceActions } from "../redux/Banco/bancoSlice";
+import {
+  bancoSliceActions,
+  addTransactionThunk,
+} from "../redux/Banco/bancoSlice";
 dotenv.config();
 var web3;
 var cch;
@@ -25,6 +28,7 @@ var banco;
 function MarketDetail() {
   const params = useParams();
   const [item, setItems] = useState("");
+  const [loginStatus, setLoginStatus] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,21 +49,37 @@ function MarketDetail() {
 
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    await loadWeb3();
-    await loadBlockchainData();
-  }, []);
+  // useEffect(async () => {
+  // 	await loadWeb3();
+  // 	await loadBlockchainData();
+  // }, []);
 
-  const loadWeb3 = async () => {
+  // const loadWeb3 = async () => {
+  // 	if (window.ethereum) {
+  // 		window.web3 = new Web3(window.ethereum);
+  // 		await window.ethereum.enable();
+  // 	} else if (window.web3) {
+  // 		window.web3 = new Web3(window.web3.currentProvider);
+  // 	} else {
+  // 		window.alert("working here");
+  // 	}
+  // };
+
+  useEffect(async () => {
     if (window.ethereum) {
+      setLoginStatus(true);
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
+      await loadBlockchainData();
     } else if (window.web3) {
+      setLoginStatus(true);
       window.web3 = new Web3(window.web3.currentProvider);
+      await loadBlockchainData();
     } else {
-      window.alert("Please login with Metamask.");
+      setLoginStatus(false);
+      window.alert("working here");
     }
-  };
+  }, []);
 
   const loadBlockchainData = async () => {
     const web3 = window.web3;
@@ -86,6 +106,7 @@ function MarketDetail() {
       dispatch(detailSliceActions.updateOwner(itemOwner));
 
       console.log(itemOwner)
+      // console.log("getowner", await contract.methods.getOwner(0).call());
       // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
       // console.log("get uri", await contract.methods.getURI(0).call());
       // console.log("approve?", await contract.methods.isApproved(0).call());
@@ -159,26 +180,44 @@ function MarketDetail() {
     await cch.methods
       .transfer(targetAccount, `${amount}`)
       .send({ from: currentUser });
+    await dispatch(
+      addTransactionThunk({
+        fromAddress: currentUser,
+        toAddress: targetAccount,
+        amount: `${amount}`,
+        category: "Purchase NFT",
+        currency: "CCH",
+      })
+    );
   }
 
   return (
     <div>
       <Navi />
       <Container className={classes.containerstyle}>
-        {params.itemAddress && (
+        {params.itemAddress && currentUser ? (
           <p>
             You are in ItemDetail, address: {params.itemAddress}, you are
             {currentUser}
           </p>
+        ) : (
+          <p>You are in ItemDetail, address: {params.itemAddress}</p>
         )}
         <Row>
-          <Col xl={5}>{item ? <DetailImgInfo itemdata={item[0]} /> : ""}</Col>
+          <Col xl={5}>
+            {item ? (
+              <DetailImgInfo itemdata={item[0]} loginStatus={loginStatus} />
+            ) : (
+              ""
+            )}
+          </Col>
           <Col>
             {item ? (
               <DetailTitlePrice
                 itemdata={item[0]}
                 buyWithoutApprovalToken={buyWithoutApprovalToken}
                 token_id={params.itemAddress}
+                loginStatus={loginStatus}
               />
             ) : (
               ""

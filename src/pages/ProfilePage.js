@@ -56,7 +56,7 @@ function ProfilePage() {
 	}, []);
 	useEffect(async () => {
 		let newItemArr = await axios.get(
-			`${process.env.REACT_APP_API_SERVER}/metadata/`
+			`${process.env.REACT_APP_API_SERVER}/items/`
 		);
 		setItemArr(newItemArr.data);
 	}, []);
@@ -64,7 +64,7 @@ function ProfilePage() {
 	useEffect(async () => {
 		const fetchData = async () => {
 			const { data } = await axios.get(
-				`${process.env.REACT_APP_API_SERVER}/metadata/`
+				`${process.env.REACT_APP_API_SERVER}/items/`
 			);
 			dispatch(browseActions.getFiltered(data));
 			console.log("data from marketbrowse useeffect");
@@ -251,7 +251,7 @@ function ProfilePage() {
 			console.log(2);
 
 			const newItemArr = await axios.get(
-				`${process.env.REACT_APP_API_SERVER}/metadata/`
+				`${process.env.REACT_APP_API_SERVER}/items/`
 			);
 			setItemArr(newItemArr.data);
 			setProfileContent("Created");
@@ -309,25 +309,25 @@ function ProfilePage() {
 						onClick={() => setProfileContent("Collectibles")}
 					>
 						Collectibles
-					</button>
+          </button>
 					<button className="mx-1" onClick={() => setProfileContent("Created")}>
 						Created NFT
-					</button>
+          </button>
 					<button
 						className="mx-1"
 						onClick={() => setProfileContent("Transactions")}
 					>
 						Transactions
-					</button>
+          </button>
 					<button
 						className="mx-1"
 						onClick={() => setProfileContent("Settings")}
 					>
 						Settings
-					</button>
+          </button>
 					<button className="mx-1" onClick={() => setProfileContent("Mint")}>
 						Mint
-					</button>
+          </button>
 					<hr></hr>
 				</div>
 

@@ -33,7 +33,7 @@ function App() {
         <Route path="/profile">
           <ProfilePage />
         </Route>
-        <Route path="/profiles/:walletAddress">
+        <Route path="/profile/:walletAddress">
           <BrowseSellerPage />
         </Route>
         <Route path="/cincochicos">
