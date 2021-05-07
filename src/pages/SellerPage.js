@@ -21,12 +21,11 @@ function SellerPage() {
     (state) => state.browse
   );
 
+  //browseToggleThunk: (type, data, isSeller)
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(browseActions.getSellerAddress(params.walletAddress));
-      await dispatch(
-        browseToggleThunk("Status", "", true, params.walletAddress)
-      );
+      await dispatch(browseToggleThunk("init", "", true));
     };
     fetchData();
     return function browseclearup() {
