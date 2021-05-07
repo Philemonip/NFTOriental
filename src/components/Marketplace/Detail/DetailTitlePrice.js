@@ -31,6 +31,8 @@ function DetailTitlePrice({
   };
   item(items, token_id);
 
+  console.log(itemdata)
+
   return (
     <>
       <p className={classes.collection}>{itemdata.collection}</p>
@@ -65,9 +67,13 @@ function DetailTitlePrice({
               </div>
               :
               <div>
-                <Button variant="primary" onClick={() => setShowBuyModal(true)}>
-                  Buy Now
-                </Button>
+                {itemdata.on_sale == true ?
+                  <Button variant="primary" onClick={() => setShowBuyModal(true)}>
+                    Buy Now
+                  </Button>
+                  :
+                  <p>This item is not for sale.</p>
+                }
               </div>
             }
           </div>
@@ -77,11 +83,9 @@ function DetailTitlePrice({
           </div>
         )}
 
-        <p>{itemOwner}</p>
+        {/* <p>{itemOwner}</p>
         <p>{currentUser}</p>
-        <p>{token_id}</p>
-
-
+        <p>{token_id}</p> */}
 
         <DetailBuyModal
           itemdata={itemdata}

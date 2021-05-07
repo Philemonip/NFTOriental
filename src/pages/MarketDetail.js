@@ -33,7 +33,7 @@ function MarketDetail() {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/items/${params.itemAddress}`
+        `${process.env.REACT_APP_API_SERVER}/items/asset/${params.itemAddress}`
       );
       setItems(data);
     };
