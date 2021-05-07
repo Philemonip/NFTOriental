@@ -1,7 +1,7 @@
 import Navi from "../components/Common/Navbar";
 import { IoIosCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Jumbotron, Image, Button } from "react-bootstrap";
+import { Button, Jumbotron, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
@@ -31,28 +31,29 @@ import Mint from "../components/Profile/Mint";
 import "./ProfilePage.css";
 
 function ProfilePage() {
-  const currentUser = useSelector((state) => state.detail.currentUser);
-  const items = useSelector((state) => state.detail.items);
-  const contractNFT = useSelector((state) => state.detail.contract);
-  const itemArrBackend = useSelector((state) => state.browse.itemArr);
-  const userName = useSelector((state) => state.nft.name);
-  const [itemArr, setItemArr] = useState(itemArrBackend);
-  const [isCopied, setCopied] = useState(false);
-  const [loginStatus, setLoginStatus] = useState(false);
-  const {
-    file,
-    price,
-    name,
-    category,
-    image,
-    externalUrl,
-    description,
-  } = useSelector((state) => state.mint);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [profileContent, setProfileContent] = useState("Collectibles");
-  const dispatch = useDispatch();
+	const currentUser = useSelector((state) => state.detail.currentUser);
+	const items = useSelector((state) => state.detail.items);
+	const contractNFT = useSelector((state) => state.detail.contract);
+	const itemArrBackend = useSelector((state) => state.browse.itemArr);
+	const userName = useSelector((state) => state.nft.name);
+	const [itemArr, setItemArr] = useState(itemArrBackend);
+	const [loginStatus, setLoginStatus] = useState(false);
+	const [isCopied, setCopied] = useState(false);
+	const {
+		file,
+		price,
+		name,
+		category,
+		image,
+		externalUrl,
+		description,
+	} = useSelector((state) => state.mint);
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+	const [profileContent, setProfileContent] = useState("Collectibles");
+	const dispatch = useDispatch();
+
 
   // useEffect(async () => {
   //   await loadWeb3();
@@ -268,38 +269,19 @@ function ProfilePage() {
     }
   }
 
-  function copyWalletAdress() {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 1300);
-  }
+	function copyWalletAdress() {
+		setCopied(true);
+		setTimeout(() => {
+			setCopied(false);
+		}, 1300);
+	}
 
-  return (
-    <>
-      <Navi />
-      <Jumbotron className="jumbotron mb-1 p-5">
-        <h4>Hello, {userName}</h4>
-        <div xs={6} md={4} className="text-center">
-          <Image
-            className="profileImage"
-            src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
-          />
-        </div>
-      </Jumbotron>
-      <div className="profileContent">
-        <div className="text-center">
-          <h4>{userName}</h4>
-          <p>
-            {currentUser}{" "}
-            <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
-              <Button>
-                <IoIosCopy />
-              </Button>
-            </CopyToClipboard>
-            {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
-          </p>
-          {/* <button className="mx-1" onClick={() => mint("item1")}>
+	return (
+		<>
+			<Navi />
+			<Jumbotron className="jumbotron mb-1 p-5">
+				{loginStatus ? <h4>Hello, {userName}</h4> : <h4>Hello, Anumnumnus</h4>}
+
 				<div xs={6} md={4} className="text-center">
 					<Image
 						className="profileImage"
@@ -314,79 +296,190 @@ function ProfilePage() {
 			<div className="profileContent">
 				<div className="text-center">
 					<h4>{userName}</h4>
-					<p>{currentUser}</p>
+					<p>{currentUser}
+						<CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
+							<Button>
+								<IoIosCopy />
+							</Button>
+						</CopyToClipboard>
+						{isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
+					</p>
 					{/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
-        </div>
+				</div>
 
-        <div className="px-4 buttonForChange">
-          <button
-            className="mx-1"
-            onClick={() => setProfileContent("Collectibles")}
-          >
-            Collectibles
+				<div className="px-4 buttonForChange">
+					<button
+						className="mx-1"
+						onClick={() => setProfileContent("Collectibles")}
+					>
+						Collectibles
           </button>
-          <button className="mx-1" onClick={() => setProfileContent("Created")}>
-            Created NFT
+					<button className="mx-1" onClick={() => setProfileContent("Created")}>
+						Created NFT
           </button>
-          <button
-            className="mx-1"
-            onClick={() => setProfileContent("Transactions")}
-          >
-            Transactions
+					<button
+						className="mx-1"
+						onClick={() => setProfileContent("Transactions")}
+					>
+						Transactions
           </button>
-          {loginStatus && (
-            <>
-              <button
-                className="mx-1"
-                onClick={() => setProfileContent("Settings")}
-              >
-                Settings
+					{loginStatus && (
+						<>
+							<button
+								className="mx-1"
+								onClick={() => setProfileContent("Settings")}
+							>
+								Settings
               </button>
-              <button
-                className="mx-1"
-                onClick={() => setProfileContent("Mint")}
-              >
-                Mint
+							<button
+								className="mx-1"
+								onClick={() => setProfileContent("Mint")}
+							>
+								Mint
               </button>
-            </>
-          )}
+						</>
+					)}
 
-          <hr></hr>
-        </div>
+					<hr></hr>
+				</div>
 
-        <div className="px-4">
-          {profileContent === "Collectibles" ? (
-            <Collectibles
-              itemNotForSale={itemNotForSale}
-              itemOnSale={itemOnSale}
-              burnToken={burnToken}
-              itemArr={itemArr}
-            />
-          ) : profileContent === "Created" ? (
-            <CreatedNFT
-              itemNotForSale={itemNotForSale}
-              itemOnSale={itemOnSale}
-              burnToken={burnToken}
-              itemArr={itemArr}
-            />
-          ) : profileContent === "Transactions" ? (
-            <NFTtransactions />
-          ) : profileContent === "Settings" ? (
-            <Settings />
-          ) : profileContent === "Mint" ? (
-            <Mint
-              handleMintingSubmit={handleMintingSubmit}
-              show={show}
-              setShow={setShow}
-            />
-          ) : (
-            <p>hi</p>
-          )}
-        </div>
-      </div>
-    </>
-  );
+				<div className="px-4">
+					{profileContent === "Collectibles" ? (
+						<Collectibles
+							itemNotForSale={itemNotForSale}
+							itemOnSale={itemOnSale}
+							burnToken={burnToken}
+							itemArr={itemArr}
+						/>
+					) : profileContent === "Created" ? (
+						<CreatedNFT
+							itemNotForSale={itemNotForSale}
+							itemOnSale={itemOnSale}
+							burnToken={burnToken}
+							itemArr={itemArr}
+						/>
+					) : profileContent === "Transactions" ? (
+						<NFTtransactions />
+					) : profileContent === "Settings" ? (
+						<Settings />
+					) : profileContent === "Mint" ? (
+						<Mint
+							handleMintingSubmit={handleMintingSubmit}
+							show={show}
+							setShow={setShow}
+						/>
+					) : (
+						<p>hi</p>
+					)}
+				</div>
+			</div>
+		</>
+	);
+}
+export default ProfilePage;
+
+	return (
+		<>
+			<Navi />
+			<Jumbotron className="jumbotron mb-1 p-5">
+				{loginStatus ? <h4>Hello, {userName}</h4> : <h4>Hello, Anumnumnus</h4>}
+
+				<div xs={6} md={4} className="text-center">
+					<Image
+						className="profileImage"
+						src={
+							loginStatus
+								? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+								: "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
+						}
+					/>
+				</div>
+			</Jumbotron>
+			<div className="profileContent">
+				<div className="text-center">
+					<h4>{userName}</h4>
+					<p>{currentUser}
+						<CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
+							<Button>
+								<IoIosCopy />
+							</Button>
+						</CopyToClipboard>
+						{isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
+					</p>
+					{/* <button className="mx-1" onClick={() => mint("item1")}>
+						Mint stuff
+					</button> */}
+				</div>
+
+				<div className="px-4 buttonForChange">
+					<button
+						className="mx-1"
+						onClick={() => setProfileContent("Collectibles")}
+					>
+						Collectibles
+          </button>
+					<button className="mx-1" onClick={() => setProfileContent("Created")}>
+						Created NFT
+          </button>
+					<button
+						className="mx-1"
+						onClick={() => setProfileContent("Transactions")}
+					>
+						Transactions
+          </button>
+					{loginStatus && (
+						<>
+							<button
+								className="mx-1"
+								onClick={() => setProfileContent("Settings")}
+							>
+								Settings
+              </button>
+							<button
+								className="mx-1"
+								onClick={() => setProfileContent("Mint")}
+							>
+								Mint
+              </button>
+						</>
+					)}
+
+					<hr></hr>
+				</div>
+
+				<div className="px-4">
+					{profileContent === "Collectibles" ? (
+						<Collectibles
+							itemNotForSale={itemNotForSale}
+							itemOnSale={itemOnSale}
+							burnToken={burnToken}
+							itemArr={itemArr}
+						/>
+					) : profileContent === "Created" ? (
+						<CreatedNFT
+							itemNotForSale={itemNotForSale}
+							itemOnSale={itemOnSale}
+							burnToken={burnToken}
+							itemArr={itemArr}
+						/>
+					) : profileContent === "Transactions" ? (
+						<NFTtransactions />
+					) : profileContent === "Settings" ? (
+						<Settings />
+					) : profileContent === "Mint" ? (
+						<Mint
+							handleMintingSubmit={handleMintingSubmit}
+							show={show}
+							setShow={setShow}
+						/>
+					) : (
+						<p>hi</p>
+					)}
+				</div>
+			</div>
+		</>
+	);
 }
 export default ProfilePage;
