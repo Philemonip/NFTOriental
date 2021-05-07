@@ -1,5 +1,7 @@
 import Navi from "../components/Common/Navbar";
-import { Jumbotron, Image } from "react-bootstrap";
+import { IoIosCopy } from "react-icons/io";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Button, Jumbotron, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
@@ -36,6 +38,7 @@ function ProfilePage() {
 	const userName = useSelector((state) => state.nft.name);
 	const [itemArr, setItemArr] = useState(itemArrBackend);
 	const [loginStatus, setLoginStatus] = useState(false);
+	const [isCopied, setCopied] = useState(false);
 	const {
 		file,
 		price,
@@ -265,6 +268,13 @@ function ProfilePage() {
 		}
 	}
 
+	function copyWalletAdress() {
+		setCopied(true);
+		setTimeout(() => {
+			setCopied(false);
+		}, 1300);
+	}
+
 	return (
 		<>
 			<Navi />
@@ -285,7 +295,14 @@ function ProfilePage() {
 			<div className="profileContent">
 				<div className="text-center">
 					<h4>{userName}</h4>
-					<p>{currentUser}</p>
+					<p>{currentUser}
+						<CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
+							<Button>
+								<IoIosCopy />
+							</Button>
+						</CopyToClipboard>
+						{isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
+					</p>
 					{/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
