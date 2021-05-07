@@ -54,7 +54,6 @@ function ProfilePage() {
 	const [profileContent, setProfileContent] = useState("Collectibles");
 	const dispatch = useDispatch();
 
-
 	// useEffect(async () => {
 	//   await loadWeb3();
 	//   await loadBlockchainData();
@@ -296,7 +295,8 @@ function ProfilePage() {
 			<div className="profileContent">
 				<div className="text-center">
 					<h4>{userName}</h4>
-					<p>{currentUser}
+					<p>
+						{currentUser}
 						<CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
 							<Button>
 								<IoIosCopy />
@@ -364,14 +364,14 @@ function ProfilePage() {
 						<NFTtransactions />
 					) : profileContent === "Settings" ? (
 						<Settings />
-					) : profileContent === "Mint" ? (
-						<Mint
-							handleMintingSubmit={handleMintingSubmit}
-							show={show}
-							setShow={setShow}
-						/>
 					) : (
-						<p>hi</p>
+						profileContent === "Mint" && (
+							<Mint
+								handleMintingSubmit={handleMintingSubmit}
+								show={show}
+								setShow={setShow}
+							/>
+						)
 					)}
 				</div>
 			</div>
