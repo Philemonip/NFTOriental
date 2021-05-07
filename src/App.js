@@ -24,7 +24,7 @@ function App() {
         <Route path="/items" exact>
           <MarketBrowse />
         </Route>
-        <Route path="/items/:itemAddress">
+        <Route path="/items/asset/:itemAddress">
           <MarketDetail />
         </Route>
         {/* <Route path="/trial">
