@@ -25,7 +25,7 @@ function BrowseSellerPage() {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/profiles/${params.walletAddress}`
+        `${process.env.REACT_APP_API_SERVER}/profile/${params.walletAddress}`
       );
       // dispatch(browseActions.getFiltered(data));
       // console.log("data from marketbrowse useeffect");
