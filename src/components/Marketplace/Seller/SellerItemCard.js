@@ -1,5 +1,5 @@
 import { Card, Image, Row, Col } from "react-bootstrap";
-import classes from "./SellerBrowseItemCard.module.css";
+import classes from "./SellerItemCard.module.css";
 
 const BrowseItemCard = ({ item }) => {
   //Text shortener helper function

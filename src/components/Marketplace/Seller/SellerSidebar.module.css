@@ -1,0 +1,13 @@
+.sidebar {
+  width: 19rem;
+}
+
+.sidebarcolumn {
+  padding: 0px;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.card {
+  border-radius: 0px;
+}

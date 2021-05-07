@@ -1,10 +1,10 @@
-import classes from "./BrowseFilterbar.module.css";
+import classes from "./SidebarFilterbar.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { browseToggleThunk } from "../../../redux/Marketplace/browseSlice";
 import { FaTimes } from "react-icons/fa";
 
-function BrowseFilterbar() {
+function SidebarFilterbar({ isSeller }) {
   const dispatch = useDispatch();
   const selectedStatus = useSelector((state) => state.browse.statusfilter);
   const selectedCollection = useSelector(
@@ -22,7 +22,9 @@ function BrowseFilterbar() {
                   {i}
                   <FaTimes
                     className={classes.deletebutton}
-                    onClick={() => dispatch(browseToggleThunk("collection", i))}
+                    onClick={() =>
+                      dispatch(browseToggleThunk("collection", i, isSeller))
+                    }
                   />
                 </div>
               </div>
@@ -35,7 +37,9 @@ function BrowseFilterbar() {
                   {i}
                   <FaTimes
                     className={classes.deletebutton}
-                    onClick={() => dispatch(browseToggleThunk("status", i))}
+                    onClick={() =>
+                      dispatch(browseToggleThunk("status", i, isSeller))
+                    }
                   />
                 </div>
               </div>
@@ -44,7 +48,9 @@ function BrowseFilterbar() {
           <Col className={classes.clearallcol}>
             <div
               className={classes.clearall}
-              onClick={() => dispatch(browseToggleThunk("clear"))}
+              onClick={() =>
+                dispatch(browseToggleThunk("softclear", "", isSeller))
+              }
             >
               Clear All
             </div>
@@ -55,4 +61,4 @@ function BrowseFilterbar() {
   );
 }
 
-export default BrowseFilterbar;
+export default SidebarFilterbar;

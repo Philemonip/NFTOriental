@@ -9,7 +9,7 @@ import axios from "axios";
 import Navi from "../components/Common/Navbar";
 import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
 import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
-import BrowseFilterbar from "../components/Marketplace/Browse/BrowseFilterbar";
+import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
 import classes from "./MarketBrowse.module.css";
 import dotenv from "dotenv";
 dotenv.config();
@@ -17,11 +17,12 @@ dotenv.config();
 function MarketBrowse() {
   const dispatch = useDispatch();
   const { itemArr, statusfilter, collectionfilter } = useSelector(
-    state => state.browse
+    (state) => state.browse
   );
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("First load Marketbrowse");
       const { data } = await axios.get(
         `${process.env.REACT_APP_API_SERVER}/items/`
       );
@@ -30,13 +31,11 @@ function MarketBrowse() {
       console.log(data);
     };
     fetchData();
+    return function browseclearup() {
+      dispatch(browseActions.hardClear());
+    };
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(browseToggwleThunk("clear"));
-  // }, [dispatch]);
-  // console.log(statusfilter);
-  // console.log(collectionfilter);
   return (
     <div className={classes.page}>
       <Navi />
@@ -45,9 +44,8 @@ function MarketBrowse() {
           <BrowseSidebar />
           <Col className={classes.column}>
             {(statusfilter.length > 0 || collectionfilter.length > 0) && (
-              <BrowseFilterbar />
+              <SidebarFilterbar isSeller={false} />
             )}
-            {/* <BrowseFilterbar /> */}
             <BrowseItem items={itemArr} />
           </Col>
         </Row>
