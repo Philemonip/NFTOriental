@@ -30,7 +30,7 @@ function App() {
         {/* <Route path="/trial">
           <TrialApp />
         </Route> */}
-        <Route path="/profile">
+        <Route path="/profile" exact>
           <ProfilePage />
         </Route>
         <Route path="/profile/:walletAddress">

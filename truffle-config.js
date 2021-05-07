@@ -58,8 +58,8 @@ module.exports = {
         return new HDWalletProvider(MNEMONIC, RINKEBY_URL);
       },
       network_id: 4,
-      gas: 4500000,
-      gasPrice: 10000000000, //Fill in the `network_id` for the Rinkeby network.
+      // gas: 4500000,
+      gasPrice: 0x01, //Fill in the `network_id` for the Rinkeby network.
     },
     // Another network with more advanced options...
     // advanced: {
