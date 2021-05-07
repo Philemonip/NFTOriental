@@ -14,7 +14,7 @@ const BrowseItemCard = ({ item }) => {
   };
 
   return (
-    <a href={"/items/" + item.token_id}>
+    <a href={"/items/asset/" + item.token_id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
           {/* <Image className={classes.image} src={dummypic} /> */}

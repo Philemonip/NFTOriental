@@ -44,7 +44,7 @@ export const nftSliceActions = nftSlice.actions;
 export const getTransactionThunk = (address) => async (dispatch) => {
   console.log("GET TRANSACTION thunk");
   const getTransactionRequest = async () => {
-    return await axios.get(`http://localhost:8000/profile`, {
+    return await axios.get(`http://localhost:8000/nfttransaction/profile`, {
       params: { address },
     });
   };
@@ -62,7 +62,7 @@ export const addNFTtransactionThunk = (newTransactionData) => async (
 ) => {
   console.log("add Transaction Thunk", newTransactionData);
   const addNFTtransactionRequest = async () => {
-    return await axios.post(`http://localhost:8000/items`, newTransactionData);
+    return await axios.post(`http://localhost:8000/nfttransaction/items`, newTransactionData);
   };
   try {
     await addNFTtransactionRequest();
@@ -113,7 +113,7 @@ export const deleteItemThunk = (deleteData) => async (dispatch) => {
 export const addNameThunk = (name) => async (dispatch) => {
   console.log("updating name");
   const addName = async () => {
-    return await axios.post(`http://localhost:8000/profile/displayname`, name);
+    return await axios.post(`http://localhost:8000/displayname`, name);
   };
   try {
     let res = await addName();
@@ -128,7 +128,7 @@ export const getNameThunk = (address) => async (dispatch) => {
   console.log("getting name");
   console.log(address);
   const getName = async () => {
-    return await axios.get(`http://localhost:8000/profile/displayname`, {
+    return await axios.get(`http://localhost:8000/displayname`, {
       params: { address },
     });
   };

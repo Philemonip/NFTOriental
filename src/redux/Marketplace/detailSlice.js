@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     web3: "undefined",
-    owner: "",
+    currentUser: "",
     contract: null,
     items: [],
     token: [],
+    owner: "",
 };
 
 const detailSlice = createSlice({
@@ -26,6 +27,9 @@ const detailSlice = createSlice({
         },
         updateToken(state, action) {
             state.token = action.payload;
+        },
+        updateOwner(state, action) {
+            state.owner = action.payload;
         },
     }
 });
