@@ -21,6 +21,7 @@ var web3;
 var cch;
 var banco;
 
+
 function MarketDetail() {
   const params = useParams();
   const [item, setItems] = useState("");
@@ -79,10 +80,12 @@ function MarketDetail() {
       const getItem = await contract.methods.getAllItems().call();
       dispatch(detailSliceActions.updateItem(getItem));
       console.log(getItem);
-      const getToken = await contract.methods.getToken(0).call();
-      console.log("get token", getToken);
+      const getToken = await contract.methods.getToken(params.itemAddress).call();
       dispatch(detailSliceActions.updateToken(getToken));
-      // console.log("getowner", await contract.methods.getOwner(0).call());
+      const itemOwner = await contract.methods.getOwner(params.itemAddress).call();
+      dispatch(detailSliceActions.updateOwner(itemOwner));
+
+      console.log(itemOwner)
       // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
       // console.log("get uri", await contract.methods.getURI(0).call());
       // console.log("approve?", await contract.methods.isApproved(0).call());
