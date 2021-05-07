@@ -17,13 +17,13 @@ dotenv.config();
 function MarketBrowse() {
   const dispatch = useDispatch();
   const { itemArr, statusfilter, collectionfilter } = useSelector(
-    (state) => state.browse
+    state => state.browse
   );
 
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}items/`
+        `${process.env.REACT_APP_API_SERVER}/items/`
       );
       dispatch(browseActions.getFiltered(data));
       console.log("data from marketbrowse useeffect");
