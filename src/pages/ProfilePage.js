@@ -172,40 +172,6 @@ function ProfilePage() {
 		}
 	}
 
-	// async function mint(itemName) {
-	// 	try {
-	// 		await contractNFT.methods.mint(itemName).send({ from: currentUser });
-	// 		const minting = await contractNFT.methods.getAllItems().call();
-	// 		await dispatch(detailSliceActions.updateItem(minting));
-	// 		const NFTitem = minting[minting.length - 1];
-	// 		const id = NFTitem.id;
-	// 		const name = NFTitem.itemName;
-	// 		const creator = NFTitem.creator;
-	// 		const owner = NFTitem.owner;
-	// 		const price = NFTitem.price;
-	// 		const forSale = NFTitem.forSale;
-
-	// 		await dispatch(
-	// 			addmetadataThunk({
-	// 				token_id: id,
-	// 				name: name,
-	// 				creator: creator,
-	// 				owner: owner,
-	// 				on_sale: forSale,
-	// 				current_price: price,
-	// 				collection: "shoes",
-	// 				asset_id: "260156",
-	// 				image:
-	// 					"https://sportshub.cbsistatic.com/i/r/2021/05/03/7c612065-314a-464b-b09c-e92777922087/thumbnail/1200x675/497827ef3c95b75e6c8b2235bf297cf9/lebron-james.jpg",
-	// 				description: "lebron",
-	// 				external_url: "cryptopunk.com",
-	// 			})
-	// 		);
-	// 	} catch (err) {
-	// 		console.log("minting error", err);
-	// 	}
-	// }
-
 	const handleMintingSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -309,25 +275,25 @@ function ProfilePage() {
 						onClick={() => setProfileContent("Collectibles")}
 					>
 						Collectibles
-          </button>
+					</button>
 					<button className="mx-1" onClick={() => setProfileContent("Created")}>
 						Created NFT
-          </button>
+					</button>
 					<button
 						className="mx-1"
 						onClick={() => setProfileContent("Transactions")}
 					>
 						Transactions
-          </button>
+					</button>
 					<button
 						className="mx-1"
 						onClick={() => setProfileContent("Settings")}
 					>
 						Settings
-          </button>
+					</button>
 					<button className="mx-1" onClick={() => setProfileContent("Mint")}>
 						Mint
-          </button>
+					</button>
 					<hr></hr>
 				</div>
 

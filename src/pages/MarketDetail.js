@@ -49,22 +49,6 @@ function MarketDetail() {
 
   const dispatch = useDispatch();
 
-  // useEffect(async () => {
-  // 	await loadWeb3();
-  // 	await loadBlockchainData();
-  // }, []);
-
-  // const loadWeb3 = async () => {
-  // 	if (window.ethereum) {
-  // 		window.web3 = new Web3(window.ethereum);
-  // 		await window.ethereum.enable();
-  // 	} else if (window.web3) {
-  // 		window.web3 = new Web3(window.web3.currentProvider);
-  // 	} else {
-  // 		window.alert("working here");
-  // 	}
-  // };
-
   useEffect(async () => {
     if (window.ethereum) {
       setLoginStatus(true);
@@ -191,6 +175,53 @@ function MarketDetail() {
     );
   }
 
+  async function itemOnSale(tokenId, price) {
+    try {
+      await contractNFT.methods
+        .tokenOnSale(tokenId, price)
+        .send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
+      const NFTitem = getItem.filter((i) => i.id === tokenId);
+      const owner = NFTitem[0].owner;
+      const forSale = NFTitem[0].forSale;
+
+      await dispatch(
+        updateItemThunk({
+          token_id: tokenId,
+          owner: owner,
+          current_price: price,
+          on_sale: forSale,
+        })
+      );
+    } catch (err) {
+      console.log("item on sale error", err);
+    }
+  }
+
+  async function itemNotForSale(tokenId) {
+    try {
+      await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
+      const getItem = await contractNFT.methods.getAllItems().call();
+      await dispatch(detailSliceActions.updateItem(getItem));
+      const NFTitem = getItem.filter((i) => i.id === tokenId);
+      const owner = NFTitem[0].owner;
+      const forSale = NFTitem[0].forSale;
+      const price = NFTitem[0].price;
+
+      await dispatch(
+        updateItemThunk({
+          token_id: tokenId,
+          owner: owner,
+          current_price: price,
+          on_sale: forSale,
+        })
+      );
+    } catch (err) {
+      console.log("item not for sale error", err);
+    }
+  }
+
   return (
     <div>
       <Navi />
@@ -218,6 +249,8 @@ function MarketDetail() {
                 buyWithoutApprovalToken={buyWithoutApprovalToken}
                 token_id={params.itemAddress}
                 loginStatus={loginStatus}
+                itemNotForSale={itemNotForSale}
+                itemOnSale={itemOnSale}
               />
             ) : (
               ""

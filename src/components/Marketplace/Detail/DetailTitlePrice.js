@@ -5,19 +5,32 @@ import { Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailTitlePrice.module.css";
 import DetailBuyModal from "./DetailBuyModal";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import ListSaleModal from "../../Profile/ListSaleModal";
 
 function DetailTitlePrice({
   itemdata,
   buyWithoutApprovalToken,
   token_id,
   loginStatus,
+  itemNotForSale,
+  itemOnSale,
 }) {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const currentUser = useSelector((state) => state.detail.currentUser);
   const itemOwner = useSelector((state) => state.detail.owner);
   const token = useSelector((state) => state.detail.token);
-  // const token = useSelector((state) => state.detail.token);
+  const items = useSelector((state) => state.detail.items);
+  const [showListItemModal, setListItemModal] = useState(false);
+
+  let itemDetail;
+
+  const item = (items, tokenId) => {
+    itemDetail = items.filter((i) => i.id === tokenId && i.itemName === itemdata.name);
+    console.log("this is the item", itemDetail[0]);
+  };
+  item(items, token_id);
+
   return (
     <>
       <p className={classes.collection}>{itemdata.collection}</p>
@@ -30,41 +43,44 @@ function DetailTitlePrice({
         <p>Current Price</p>
         <p className={classes.title}>ETH {itemdata.current_price}</p>
         {loginStatus == true ? (
-          <Button variant="primary" onClick={() => setShowBuyModal(true)}>
-            Buy Now
-          </Button>
+          <div>
+            { currentUser && currentUser === itemOwner ?
+              <div>
+                {itemDetail[0].forSale == false ?
+                  <Button variant="danger" onClick={() => setListItemModal(true)}>
+                    List Item
+                  </Button>
+                  :
+                  <Button variant="danger" onClick={() => itemNotForSale(token_id)}>
+                    Cancel Listing
+                  </Button>
+                }
+                < ListSaleModal
+                  show={showListItemModal}
+                  onHide={() => setListItemModal(false)}
+                  itemOnSale={itemOnSale}
+                  dialogClassName="modal-20w"
+                  tokenId={token_id}
+                />
+              </div>
+              :
+              <div>
+                <Button variant="primary" onClick={() => setShowBuyModal(true)}>
+                  Buy Now
+                </Button>
+              </div>
+            }
+          </div>
         ) : (
           <div>
             <p>Please Login Metamask to see price/purchase</p>
           </div>
         )}
 
-        {currentUser && currentUser === itemOwner ?
-
-          <div>
-            {itemOwner.forSale == false ?
-              <Button variant="danger" onClick={() => setShowBuyModal(true)}>
-                List Item
-</Button>
-              :
-              <Button variant="danger" onClick={() => setShowBuyModal(true)}>
-                Cancel Listing
-</Button>
-            }
-          </div>
-          : <div>
-            <Button variant="primary" onClick={() => setShowBuyModal(true)}>
-              Buy Now
-  </Button>
-          </div>
-        }
-
-
-        {/* <p>{props.getOwner(props.token_id)}</p> */}
         <p>{itemOwner}</p>
         <p>{currentUser}</p>
         <p>{token_id}</p>
-        <p>{token.forSale}</p>
+
 
 
         <DetailBuyModal
