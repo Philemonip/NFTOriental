@@ -5,7 +5,7 @@ import MarketBrowse from "./pages/MarketBrowse";
 import MarketDetail from "./pages/MarketDetail";
 import BancoHome from "./pages/BancoHome";
 import ProfilePage from "./pages/ProfilePage";
-import BrowseSellerPage from "./pages/BrowseSellerPage";
+import SellerPage from "./pages/SellerPage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Setting from "./components/Profile/Setting";
@@ -30,11 +30,11 @@ function App() {
         {/* <Route path="/trial">
           <TrialApp />
         </Route> */}
-        <Route path="/profile">
+        <Route path="/profile" exact>
           <ProfilePage />
         </Route>
         <Route path="/profile/:walletAddress">
-          <BrowseSellerPage />
+          <SellerPage />
         </Route>
         <Route path="/cincochicos">
           <BancoHome />

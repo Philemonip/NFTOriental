@@ -1,12 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { browseToggleThunk } from "../../../redux/Marketplace/browseSlice";
 import { Container, Row, Col } from "react-bootstrap";
-import classes from "./BrowseSidebarStatus.module.css";
+import classes from "./SidebarStatus.module.css";
 
-const BrowseSidebarStatus = (props) => {
+const BrowseSidebarStatus = ({ isSeller }) => {
   const dispatch = useDispatch();
   const selectedStatus = useSelector((state) => state.browse.statusfilter);
-  // const statusValue = ["New", "Listed on Sale", "Featured", "Buy Now"];
   const statusValue = ["New", "Listed on Sale"];
 
   return (
@@ -19,7 +18,9 @@ const BrowseSidebarStatus = (props) => {
                 className={`${classes.statusbutton} ${
                   selectedStatus.indexOf(i) > -1 ? classes.activebutton : ""
                 }`}
-                onClick={() => dispatch(browseToggleThunk("status", i))}
+                onClick={() =>
+                  dispatch(browseToggleThunk("status", i, isSeller))
+                }
               >
                 <p className={classes.ptext}>{i}</p>
               </div>

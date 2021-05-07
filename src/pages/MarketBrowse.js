@@ -22,6 +22,7 @@ function MarketBrowse() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("First load Marketbrowse");
       const { data } = await axios.get(
         `${process.env.REACT_APP_API_SERVER}/items/`
       );
@@ -30,6 +31,9 @@ function MarketBrowse() {
       console.log(data);
     };
     fetchData();
+    return function browseclearup() {
+      dispatch(browseActions.clearFilter());
+    };
   }, [dispatch]);
 
   // useEffect(() => {

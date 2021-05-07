@@ -45,6 +45,7 @@ const browseSlice = createSlice({
     },
 
     clearFilter(state) {
+      state.itemArr = [];
       state.statusfilter = [];
       state.collectionfilter = [];
       state.sortOption = "default";
@@ -56,7 +57,13 @@ const browseSlice = createSlice({
 // 1. dispatch: update status/collec. state
 // 2. process query string and submit getReq
 // 3. dispatch: update output with res.data
-export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
+export const browseToggleThunk = (
+  type,
+  data,
+  isSeller,
+  sellerAddress
+) => async (dispatch, getState) => {
+  // console.log(isSeller, "isSeller");
   // console.log("status thunk");
   // console.log(type, data);
   try {
@@ -84,6 +91,8 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
       status: state.browse.statusfilter,
       collection: state.browse.collectionfilter,
       sortoption: state.browse.sortOption,
+      isSeller: isSeller,
+      sellerAddress: sellerAddress,
     });
     dispatch(browseActions.getFiltered(res.data));
   } catch (err) {

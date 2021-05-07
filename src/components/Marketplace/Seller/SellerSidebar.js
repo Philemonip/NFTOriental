@@ -1,5 +1,5 @@
 import { Accordion, Card, Col } from "react-bootstrap";
-import classes from "./BrowseSidebar.module.css";
+import classes from "./SellerSidebar.module.css";
 import SidebarCollection from "../../Common/Sidebar/SidebarCollection";
 import SidebarSort from "../../Common/Sidebar/SidebarSort";
 import SidebarStatus from "../../Common/Sidebar/SidebarStatus";
@@ -8,10 +8,10 @@ function BrowseSidebar() {
   const accordionArr = [
     {
       name: "Status",
-      component: <SidebarStatus isSeller="false" />,
+      component: <SidebarStatus isSeller={true} />,
     },
-    { name: "Sort by", component: <SidebarSort isSeller="false" /> },
-    { name: "Collections", component: <SidebarCollection isSeller={false} /> },
+    { name: "Sort by", component: <SidebarSort isSeller={true} /> },
+    { name: "Collections", component: <SidebarCollection isSeller={true} /> },
   ];
 
   return (
