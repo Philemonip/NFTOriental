@@ -38,7 +38,7 @@ function DetailTitlePrice({
       <p className={classes.collection}>{itemdata.collection}</p>
       <p className={classes.title}>{itemdata.name}</p>
       <LinkContainer to="/">
-        <button className="btn">Owned by {itemdata.owner}</button>
+        <button className="btn">Owned by {itemOwner}</button>
       </LinkContainer>
 
       <div className={classes.pricediv}>

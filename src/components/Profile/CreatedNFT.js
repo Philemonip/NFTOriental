@@ -57,23 +57,25 @@ const CreatedNFT = (props) => {
 									<p className="m-1">Price {item.price}</p>
 									{item.forSale === true ? <p className="m-1">Listing </p> : <p className="m-1">Not Listing </p>}
 								</Card.Text>
-
 								<div className="d-flex">
-									{item.forSale === true ? (
-										<button
-											className="mx-1"
-											onClick={(e) => props.itemNotForSale(item.id)}
-										>
-											Cancel Listing
-										</button>
-									) : (
-										<button
-											className="mx-1"
-											onClick={() => modalHandler(item.id)}
-										>
-											List Item
-										</button>
-									)}
+									{item.owner === currentUser ?
+										item.forSale === true ? (
+											<button
+												className="mx-1"
+												onClick={(e) => props.itemNotForSale(item.id)}
+											>
+												Cancel Listing
+											</button>
+										) : (
+											<button
+												className="mx-1"
+												onClick={() => modalHandler(item.id)}
+											>
+												List Item
+											</button>
+										)
+										: <div></div>
+									}
 									{/* <Button variant="success">Approve</Button>
                                 <Button variant="warning">Cancel Approve</Button> */}
 									{item.owner === item.creator ? (
