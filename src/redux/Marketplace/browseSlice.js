@@ -80,14 +80,11 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
     // console.log("browseslice");
     // console.log(state.browse.statusfilter);
     // console.log(state.browse.collectionfilter);
-    let res = await axios.post(
-      `${process.env.REACT_APP_API_SERVER}/metadata/`,
-      {
-        status: state.browse.statusfilter,
-        collection: state.browse.collectionfilter,
-        sortoption: state.browse.sortOption,
-      }
-    );
+    let res = await axios.post(`${process.env.REACT_APP_API_SERVER}/items/`, {
+      status: state.browse.statusfilter,
+      collection: state.browse.collectionfilter,
+      sortoption: state.browse.sortOption,
+    });
     dispatch(browseActions.getFiltered(res.data));
   } catch (err) {
     console.log("Get Filtered Item Failed", err);
