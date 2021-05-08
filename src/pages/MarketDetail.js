@@ -49,81 +49,90 @@ function MarketDetail() {
 
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    if (window.ethereum) {
-      setLoginStatus(true);
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-      await loadBlockchainData();
-    } else if (window.web3) {
-      setLoginStatus(true);
-      window.web3 = new Web3(window.web3.currentProvider);
-      await loadBlockchainData();
-    } else {
-      setLoginStatus(false);
-      window.alert("working here");
-    }
-  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      //Declare laodBlockchainData
+      const loadBlockchainData = async () => {
+        web3 = window.web3;
+        const accounts = await web3.eth.getAccounts();
+        const networkId = await web3.eth.net.getId();
+        // dispatch(detailSliceActions.updateWeb3(web3));
+        dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
+        console.log("current user:", accounts[0]);
 
-  const loadBlockchainData = async () => {
-    web3 = window.web3;
-    const accounts = await web3.eth.getAccounts();
-    const networkId = await web3.eth.net.getId();
-    // dispatch(detailSliceActions.updateWeb3(web3));
-    dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
-    console.log("current user:", accounts[0]);
+        //load contract
+        const networkData = CloseSeaNFT.networks[networkId];
 
-    //load contract
-    const networkData = CloseSeaNFT.networks[networkId];
+        if (networkData) {
+          const abi = CloseSeaNFT.abi;
+          const address = networkData.address;
+          contractNFT = new web3.eth.Contract(abi, address);
+          // dispatch(detailSliceActions.updateContract(contract));
+          const getItem = await contractNFT.methods.getAllItems().call();
+          dispatch(detailSliceActions.updateItem(getItem));
+          console.log(getItem);
+          const getToken = await contractNFT.methods
+            .getToken(params.itemAddress)
+            .call();
+          dispatch(detailSliceActions.updateToken(getToken));
+          const itemOwner = await contractNFT.methods
+            .getOwner(params.itemAddress)
+            .call();
+          dispatch(detailSliceActions.updateOwner(itemOwner));
 
-    if (networkData) {
-      const abi = CloseSeaNFT.abi;
-      const address = networkData.address;
-      contractNFT = new web3.eth.Contract(abi, address);
-      // dispatch(detailSliceActions.updateContract(contract));
-      const getItem = await contractNFT.methods.getAllItems().call();
-      dispatch(detailSliceActions.updateItem(getItem));
-      console.log(getItem);
-      const getToken = await contractNFT.methods
-        .getToken(params.itemAddress)
-        .call();
-      dispatch(detailSliceActions.updateToken(getToken));
-      const itemOwner = await contractNFT.methods
-        .getOwner(params.itemAddress)
-        .call();
-      dispatch(detailSliceActions.updateOwner(itemOwner));
-
-      console.log(itemOwner);
-      // console.log("getowner", await contract.methods.getOwner(0).call());
-      // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
-      // console.log("get uri", await contract.methods.getURI(0).call());
-      // console.log("approve?", await contract.methods.isApproved(0).call());
-      cch = new web3.eth.Contract(Token.abi, Token.networks[networkId].address);
-      banco = new web3.eth.Contract(
-        Banco.abi,
-        Banco.networks[networkId].address
-      );
-      const cchBalanceInWei = await cch.methods.balanceOf(accounts[0]).call();
-      dispatch(
-        bancoSliceActions.updateCchBalance(
-          web3.utils.fromWei(`${cchBalanceInWei}`)
-        )
-      );
-    } else {
-      window.alert("Please use correct network and refresh the page.");
-    }
-  };
+          console.log(itemOwner);
+          // console.log("getowner", await contract.methods.getOwner(0).call());
+          // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
+          // console.log("get uri", await contract.methods.getURI(0).call());
+          // console.log("approve?", await contract.methods.isApproved(0).call());
+          cch = new web3.eth.Contract(
+            Token.abi,
+            Token.networks[networkId].address
+          );
+          banco = new web3.eth.Contract(
+            Banco.abi,
+            Banco.networks[networkId].address
+          );
+          const cchBalanceInWei = await cch.methods
+            .balanceOf(accounts[0])
+            .call();
+          dispatch(
+            bancoSliceActions.updateCchBalance(
+              web3.utils.fromWei(`${cchBalanceInWei}`)
+            )
+          );
+        } else {
+          window.alert("Please use correct network and refresh the page.");
+        }
+      };
+      //Check for metamask status
+      if (window.ethereum) {
+        setLoginStatus(true);
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+        await loadBlockchainData();
+      } else if (window.web3) {
+        setLoginStatus(true);
+        window.web3 = new Web3(window.web3.currentProvider);
+        await loadBlockchainData();
+      } else {
+        setLoginStatus(false);
+        window.alert("working here");
+      }
+    };
+    fetchData();
+  }, [dispatch, params.itemAddress]);
 
   //marketplace
-  async function buyApprovalToken(tokenId) {
-    try {
-      await contractNFT.methods
-        .buyingWithApproval(tokenId)
-        .send({ from: currentUser });
-    } catch (err) {
-      console.log("buying error", err);
-    }
-  }
+  // async function buyApprovalToken(tokenId) {
+  //   try {
+  //     await contractNFT.methods
+  //       .buyingWithApproval(tokenId)
+  //       .send({ from: currentUser });
+  //   } catch (err) {
+  //     console.log("buying error", err);
+  //   }
+  // }
 
   async function buyWithoutApprovalToken(tokenId, NFTprice) {
     if (NFTprice * 1e18 > 0.01 * 1e18) {
