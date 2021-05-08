@@ -90,7 +90,7 @@ require("chai").use(require("chai-as-promised")).should();
 
 contract("Banco", ([deployer, user]) => {
   let banco, token;
-  const interestPerSecond = 1e16;
+  const interestPerSecond = 0.01;
   beforeEach(async () => {
     token = await Token.new();
     banco = await Banco.new(token.address);
@@ -186,8 +186,8 @@ contract("Banco", ([deployer, user]) => {
       it("user should receive proper amount of interest", async () => {
         balance = Number(await token.balanceOf(user));
         expect(balance).to.be.above(0);
-        expect(balance % interestPerSecond).to.eq(0);
-        expect(balance).to.be.below(interestPerSecond * 4);
+        expect((interestPerSecond * 1e16) % 2).to.eq(0);
+        expect(balance).to.be.below(interestPerSecond * 1e16 * 4);
       });
 
       it("depositer data should be reseted", async () => {

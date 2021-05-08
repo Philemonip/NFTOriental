@@ -1,6 +1,6 @@
-import SellerBrowseItemCard from "../SellerBrowse/SellerBrowseItemCard";
+import SellerBrowseItemCard from "./SellerItemCard";
 import { Container, Row, Col } from "react-bootstrap";
-import classes from "./SellerBrowseItem.module.css";
+import classes from "./SellerItem.module.css";
 import dotenv from "dotenv";
 dotenv.config();
 

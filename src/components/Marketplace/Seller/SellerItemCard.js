@@ -1,5 +1,5 @@
 import { Card, Image, Row, Col } from "react-bootstrap";
-import classes from "./SellerBrowseItemCard.module.css";
+import classes from "./SellerItemCard.module.css";
 
 const BrowseItemCard = ({ item }) => {
   //Text shortener helper function
@@ -18,7 +18,7 @@ const BrowseItemCard = ({ item }) => {
       <Card className={classes.card}>
         <div className={classes.imagediv}>
           {/* <Image className={classes.image} src={dummypic} /> */}
-          <Image className={classes.image} src={item.external_url} />
+          <Image className={classes.image} src={item.image} />
         </div>
         <Card.Body className={classes.cardbody}>
           <Row>

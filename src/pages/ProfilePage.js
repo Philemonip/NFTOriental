@@ -132,7 +132,7 @@ function ProfilePage() {
 	async function itemOnSale(tokenId, price) {
 		try {
 			await contractNFT.methods
-				.tokenOnSale(tokenId, price)
+				.tokenOnSale(tokenId, `${price * 1e18}`)
 				.send({ from: currentUser });
 			const getItem = await contractNFT.methods.getAllItems().call();
 			await dispatch(detailSliceActions.updateItem(getItem));
