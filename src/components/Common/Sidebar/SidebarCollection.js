@@ -1,13 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import { browseToggleThunk } from "../../../redux/Marketplace/browseSlice";
 import { Container, Row, Col } from "react-bootstrap";
-import classes from "./BrowseSidebarCollection.module.css";
+import classes from "./SidebarCollection.module.css";
 
-const BrowseSidebarCollection = (props) => {
+const BrowseSidebarCollection = ({ isSeller }) => {
   const dispatch = useDispatch();
   const selectedCollection = useSelector(
     (state) => state.browse.collectionfilter
   );
+  const sellerAddress = useSelector((state) => state.browse.sellerAddress);
+
+  //TODO: Get this from
   const collectionValue = [
     "art",
     "clothing",
@@ -31,7 +34,11 @@ const BrowseSidebarCollection = (props) => {
                 className={`${classes.collectionbutton} ${
                   selectedCollection.indexOf(i) > -1 && classes.activebutton
                 }`}
-                onClick={() => dispatch(browseToggleThunk("collection", i))}
+                onClick={() =>
+                  dispatch(
+                    browseToggleThunk("collection", i, isSeller, sellerAddress)
+                  )
+                }
               >
                 <p className={classes.ptext}>{i}</p>
               </div>

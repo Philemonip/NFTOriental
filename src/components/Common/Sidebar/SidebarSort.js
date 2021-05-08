@@ -2,18 +2,21 @@ import { useSelector, useDispatch } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { browseToggleThunk } from "../../../redux/Marketplace/browseSlice";
 import { Form } from "react-bootstrap";
-import classes from "./BrowseSidebarSort.module.css";
+import classes from "./SidebarSort.module.css";
 
-const BrowseSidebarCollection = (props) => {
+const BrowseSidebarCollection = ({ isSeller }) => {
   const dispatch = useDispatch();
   const sortOption = useSelector((state) => state.browse.sortOption);
+  const sellerAddress = useSelector((state) => state.browse.sellerAddress);
 
   return (
     <Form inline>
       <Form.Control
         onChange={(e) => {
           //   console.log(e.target.value);
-          dispatch(browseToggleThunk("sort", e.target.value));
+          dispatch(
+            browseToggleThunk("sort", e.target.value, isSeller, sellerAddress)
+          );
         }}
         as="select"
         className={classes.select}

@@ -8,11 +8,15 @@ const initialState = {
   itemArr: [],
   statusfilter: [],
   collectionfilter: [],
+  sellerAddress: "",
 };
 const browseSlice = createSlice({
   name: "browse",
   initialState: initialState,
   reducers: {
+    getSellerAddress(state, action) {
+      state.sellerAddress = action.payload;
+    },
     getFiltered(state, action) {
       state.itemArr = [];
       state.itemArr.push(...action.payload);
@@ -44,10 +48,18 @@ const browseSlice = createSlice({
       }
     },
 
-    clearFilter(state) {
+    softClear(state) {
+      state.itemArr = [];
+      state.statusfilter = [];
+      state.collectionfilter = [];
+    },
+
+    hardClear(state) {
+      state.itemArr = [];
       state.statusfilter = [];
       state.collectionfilter = [];
       state.sortOption = "default";
+      state.sellerAddress = "";
     },
   },
 });
@@ -56,7 +68,13 @@ const browseSlice = createSlice({
 // 1. dispatch: update status/collec. state
 // 2. process query string and submit getReq
 // 3. dispatch: update output with res.data
-export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
+export const browseToggleThunk = (
+  type,
+  data,
+  isSeller,
+  sellerAddress
+) => async (dispatch, getState) => {
+  // console.log(isSeller, "isSeller");
   // console.log("status thunk");
   // console.log(type, data);
   try {
@@ -70,8 +88,11 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
       case "collection":
         await dispatch(browseActions.toggleCollectionFilter(data));
         break;
-      case "clear":
-        await dispatch(browseActions.clearFilter());
+      case "softclear":
+        await dispatch(browseActions.softClear());
+        break;
+      case "hardclear":
+        await dispatch(browseActions.hardClear());
         break;
       default:
         console.error(`Error: Switch Case not found`);
@@ -84,6 +105,8 @@ export const browseToggleThunk = (type, data) => async (dispatch, getState) => {
       status: state.browse.statusfilter,
       collection: state.browse.collectionfilter,
       sortoption: state.browse.sortOption,
+      isSeller: isSeller,
+      sellerAddress: state.browse.sellerAddress,
     });
     dispatch(browseActions.getFiltered(res.data));
   } catch (err) {
