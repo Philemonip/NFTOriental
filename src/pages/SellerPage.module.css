@@ -1,0 +1,8 @@
+.page {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.column {
+  padding: 0px;
+}

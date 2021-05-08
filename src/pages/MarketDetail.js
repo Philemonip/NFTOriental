@@ -124,8 +124,8 @@ function MarketDetail() {
     }
   }
 
-  async function buyWithoutApprovalToken(tokenId, cchBalance) {
-    if (cchBalance * 1e18 > 0.01 * 1e18) {
+  async function buyWithoutApprovalToken(tokenId, NFTprice) {
+    if (NFTprice * 1e18 > 0.01 * 1e18) {
       try {
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
         transferCCH(targetAccount, 0.01 * 1e18);
@@ -150,7 +150,7 @@ function MarketDetail() {
             token_id: tokenId,
             from_address: targetAccount,
             to_address: currentUser,
-            price: 20,
+            price: NFTprice,
             owner: owner,
             current_price: price,
             on_sale: forSale,
@@ -246,7 +246,7 @@ function MarketDetail() {
             )}
           </Col>
           <Col>
-            {item ? (
+            {item && (
               <DetailTitlePrice
                 itemdata={item[0]}
                 buyWithoutApprovalToken={buyWithoutApprovalToken}
@@ -255,8 +255,6 @@ function MarketDetail() {
                 itemNotForSale={itemNotForSale}
                 itemOnSale={itemOnSale}
               />
-            ) : (
-              ""
             )}
           </Col>
         </Row>

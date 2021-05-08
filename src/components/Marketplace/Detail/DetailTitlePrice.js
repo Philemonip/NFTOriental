@@ -26,19 +26,21 @@ function DetailTitlePrice({
   let itemDetail;
 
   const item = (items, tokenId) => {
-    itemDetail = items.filter((i) => i.id === tokenId && i.itemName === itemdata.name);
+    itemDetail = items.filter(
+      (i) => i.id === tokenId && i.itemName === itemdata.name
+    );
     console.log("this is the item", itemDetail[0]);
   };
   item(items, token_id);
 
-  console.log(itemdata)
+  console.log(itemdata);
 
   return (
     <>
       <p className={classes.collection}>{itemdata.collection}</p>
       <p className={classes.title}>{itemdata.name}</p>
-      <LinkContainer to="/">
-        <button className="btn">Owned by {itemdata.owner}</button>
+      <LinkContainer to={`/profile/${itemOwner}`}>
+        <button className="btn">Owned by {itemOwner}</button>
       </LinkContainer>
 
       <div className={classes.pricediv}>
@@ -46,18 +48,24 @@ function DetailTitlePrice({
         <p className={classes.title}>ETH {itemdata.current_price}</p>
         {loginStatus == true ? (
           <div>
-            { currentUser && currentUser === itemOwner ?
+            {currentUser && currentUser === itemOwner ? (
               <div>
-                {itemDetail[0].forSale == false ?
-                  <Button variant="danger" onClick={() => setListItemModal(true)}>
+                {itemDetail[0].forSale == false ? (
+                  <Button
+                    variant="danger"
+                    onClick={() => setListItemModal(true)}
+                  >
                     List Item
                   </Button>
-                  :
-                  <Button variant="danger" onClick={() => itemNotForSale(token_id)}>
+                ) : (
+                  <Button
+                    variant="danger"
+                    onClick={() => itemNotForSale(token_id)}
+                  >
                     Cancel Listing
                   </Button>
-                }
-                < ListSaleModal
+                )}
+                <ListSaleModal
                   show={showListItemModal}
                   onHide={() => setListItemModal(false)}
                   itemOnSale={itemOnSale}
@@ -65,17 +73,20 @@ function DetailTitlePrice({
                   tokenId={token_id}
                 />
               </div>
-              :
+            ) : (
               <div>
-                {itemdata.on_sale == true ?
-                  <Button variant="primary" onClick={() => setShowBuyModal(true)}>
+                {itemdata.on_sale == true ? (
+                  <Button
+                    variant="primary"
+                    onClick={() => setShowBuyModal(true)}
+                  >
                     Buy Now
                   </Button>
-                  :
+                ) : (
                   <p>This item is not for sale.</p>
-                }
+                )}
               </div>
-            }
+            )}
           </div>
         ) : (
           <div>

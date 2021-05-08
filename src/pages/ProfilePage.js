@@ -1,7 +1,7 @@
 import Navi from "../components/Common/Navbar";
 import { IoIosCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Jumbotron, Image, Button } from "react-bootstrap";
+import { Button, Jumbotron, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
@@ -37,8 +37,8 @@ function ProfilePage() {
   const itemArrBackend = useSelector((state) => state.browse.itemArr);
   const userName = useSelector((state) => state.nft.name);
   const [itemArr, setItemArr] = useState(itemArrBackend);
-  const [isCopied, setCopied] = useState(false);
   const [loginStatus, setLoginStatus] = useState(false);
+  const [isCopied, setCopied] = useState(false);
   const {
     file,
     price,
@@ -132,7 +132,7 @@ function ProfilePage() {
   async function itemOnSale(tokenId, price) {
     try {
       await contractNFT.methods
-        .tokenOnSale(tokenId, price)
+        .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
@@ -279,11 +279,16 @@ function ProfilePage() {
     <>
       <Navi />
       <Jumbotron className="jumbotron mb-1 p-5">
-        <h4>Hello, {userName}</h4>
+        {loginStatus ? <h4>Hello, {userName}</h4> : <h4>Hello, Anumnumnus</h4>}
+
         <div xs={6} md={4} className="text-center">
           <Image
             className="profileImage"
-            src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+            src={
+              loginStatus
+                ? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+                : "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
+            }
           />
         </div>
       </Jumbotron>
@@ -291,7 +296,7 @@ function ProfilePage() {
         <div className="text-center">
           <h4>{userName}</h4>
           <p>
-            {currentUser}{" "}
+            {currentUser}
             <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
               <Button>
                 <IoIosCopy />
@@ -300,22 +305,6 @@ function ProfilePage() {
             {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
           </p>
           {/* <button className="mx-1" onClick={() => mint("item1")}>
-				<div xs={6} md={4} className="text-center">
-					<Image
-						className="profileImage"
-						src={
-							loginStatus
-								? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
-								: "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
-						}
-					/>
-				</div>
-			</Jumbotron>
-			<div className="profileContent">
-				<div className="text-center">
-					<h4>{userName}</h4>
-					<p>{currentUser}</p>
-					{/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
         </div>
@@ -375,14 +364,14 @@ function ProfilePage() {
             <NFTtransactions />
           ) : profileContent === "Settings" ? (
             <Settings />
-          ) : profileContent === "Mint" ? (
-            <Mint
-              handleMintingSubmit={handleMintingSubmit}
-              show={show}
-              setShow={setShow}
-            />
           ) : (
-            <p>hi</p>
+            profileContent === "Mint" && (
+              <Mint
+                handleMintingSubmit={handleMintingSubmit}
+                show={show}
+                setShow={setShow}
+              />
+            )
           )}
         </div>
       </div>
