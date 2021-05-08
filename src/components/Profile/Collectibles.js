@@ -53,10 +53,16 @@ const Collectibles = (props) => {
 
                 <Card.Text>
                   <p className="m-1">
-                    Owner: <a href="/">{item.owner.substr(0, 16)}...</a>
+                    Owner:{" "}
+                    <a href={`/profile/${item.owner}`}>
+                      {item.owner.substr(0, 16)}...
+                    </a>
                   </p>
                   <p className="m-1">
-                    Creator: <a href="/">{item.creator.substr(0, 16)}...</a>
+                    Creator:{" "}
+                    <a href={`/profile/${item.creator}`}>
+                      {item.creator.substr(0, 16)}...
+                    </a>
                   </p>
                   <p className="m-1">Id: {item.id}</p>
                   <p className="m-1">Price {item.price}</p>
