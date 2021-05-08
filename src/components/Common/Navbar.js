@@ -8,18 +8,21 @@ import classes from "./Navbar.module.css";
 const Navi = (props) => {
   const [loginStatus, setLoginStatus] = useState(false);
 
-  useEffect(async () => {
-    if (window.ethereum) {
-      setLoginStatus(true);
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      setLoginStatus(true);
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      setLoginStatus(false);
-      // window.alert("working here");
-    }
+  useEffect(() => {
+    const metamaskCheck = async () => {
+      if (window.ethereum) {
+        setLoginStatus(true);
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+      } else if (window.web3) {
+        setLoginStatus(true);
+        window.web3 = new Web3(window.web3.currentProvider);
+      } else {
+        setLoginStatus(false);
+        // window.alert("working here");
+      }
+    };
+    metamaskCheck();
   }, []);
   return (
     <Navbar className={classes.navbar} variant="dark" sticky="top">

@@ -67,14 +67,14 @@ function MarketHome() {
         <HomeFeatureCard />
         <div className={classes.title}>
           <h5>
-            <b>Trending Items</b>
+            <b>Newly Minted</b>
           </h5>
         </div>
         {/* <Trending Items /> */}
         <HomeNewlyMinted items={homeItem[0]} />
         <div className={classes.title}>
           <h5>
-            <b>Newly Minted</b>
+            <b>Trending Items</b>
           </h5>
         </div>
         {/* <Newly Minted /> */}

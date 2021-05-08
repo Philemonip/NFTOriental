@@ -40,7 +40,8 @@ function App() {
           <NoMatch />
         </Route>
       </Switch>
-      <Footer />
+      {/* Browsepage and Sellerpage dont need footer ar */}
+      {/* <Footer /> */}
     </Provider>
     // </Layout>
   );
