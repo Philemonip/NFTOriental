@@ -13,7 +13,7 @@ const HomeItemCard = ({ item }) => {
   };
 
   return (
-    <a href={"/items/" + item.token_id}>
+    <a href={"/items/asset/" + item.token_id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
           <Image fluid className={classes.image} src={item.image} />
