@@ -1,4 +1,4 @@
-import { Modal, Button, Row, Col, Image, Form } from "react-bootstrap";
+import { Modal, Form } from "react-bootstrap";
 import { useState } from "react";
 
 function ListSaleModal(props) {

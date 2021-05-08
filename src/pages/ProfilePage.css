@@ -1,4 +1,4 @@
-.jumbotron {
+.jumbotronProfile {
   background-image: linear-gradient(
     to bottom right,
     rgba(143, 224, 111, 0.829),
@@ -7,7 +7,7 @@
   height: 28vh;
 }
 
-.jumbotron .profileImage {
+.jumbotronProfile .profileImage {
   width: 170px;
   height: 170px;
   object-fit: cover;
