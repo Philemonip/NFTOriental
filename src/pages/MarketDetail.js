@@ -23,6 +23,7 @@ dotenv.config();
 var web3;
 var cch;
 var banco;
+var contractNFT;
 
 function MarketDetail() {
   const params = useParams();
@@ -41,7 +42,7 @@ function MarketDetail() {
 
   // const web3 = useSelector((state) => state.detail.web3);
   const currentUser = useSelector((state) => state.detail.currentUser);
-  const contractNFT = useSelector((state) => state.detail.contract);
+  // const contractNFT = useSelector((state) => state.detail.contract);
   // const items = useSelector((state) => state.detail.items);
   // const token = useSelector((state) => state.detail.token);
   // const cchBalance = useSelector((state) => state.banco.cchBalance);
@@ -65,10 +66,10 @@ function MarketDetail() {
   }, []);
 
   const loadBlockchainData = async () => {
-    const web3 = window.web3;
+    web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
     const networkId = await web3.eth.net.getId();
-    dispatch(detailSliceActions.updateWeb3(web3));
+    // dispatch(detailSliceActions.updateWeb3(web3));
     dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
     console.log("current user:", accounts[0]);
 
@@ -78,16 +79,16 @@ function MarketDetail() {
     if (networkData) {
       const abi = CloseSeaNFT.abi;
       const address = networkData.address;
-      const contract = new web3.eth.Contract(abi, address);
-      dispatch(detailSliceActions.updateContract(contract));
-      const getItem = await contract.methods.getAllItems().call();
+      contractNFT = new web3.eth.Contract(abi, address);
+      // dispatch(detailSliceActions.updateContract(contract));
+      const getItem = await contractNFT.methods.getAllItems().call();
       dispatch(detailSliceActions.updateItem(getItem));
       console.log(getItem);
-      const getToken = await contract.methods
+      const getToken = await contractNFT.methods
         .getToken(params.itemAddress)
         .call();
       dispatch(detailSliceActions.updateToken(getToken));
-      const itemOwner = await contract.methods
+      const itemOwner = await contractNFT.methods
         .getOwner(params.itemAddress)
         .call();
       dispatch(detailSliceActions.updateOwner(itemOwner));
@@ -128,7 +129,7 @@ function MarketDetail() {
     if (NFTprice * 1e18 > 0.01 * 1e18) {
       try {
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
-        transferCCH(targetAccount, 0.01 * 1e18);
+        transferCCH(targetAccount, NFTprice * 1e18);
         //need another dispatch here
 
         console.log("hi", targetAccount);
@@ -181,7 +182,7 @@ function MarketDetail() {
   async function itemOnSale(tokenId, price) {
     try {
       await contractNFT.methods
-        .tokenOnSale(tokenId, price)
+        .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));

@@ -1,179 +1,179 @@
 .cchHome {
-	background-color: #282c34;
-	color: white;
-	height: 100vh;
+  background-color: #282c34;
+  color: white;
+  height: 100vh;
 }
 .bancoTitle {
-	white-space: nowrap;
-	width: 100%;
-	color: white;
-	overflow: hidden;
-	animation-fill-mode: forwards;
-	animation: animate 8s linear;
+  white-space: nowrap;
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  animation-fill-mode: forwards;
+  animation: animate 8s linear;
 }
 @keyframes animate {
-	0%,
-	75% {
-		width: 0;
-	}
-	100% {
-		width: 100%;
-	}
+  0%,
+  75% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 .bancoNav {
-	height: 10vh;
+  height: 10vh;
 }
 
 .bancoNavToggle {
-	height: 10vh;
-	display: none;
+  height: 10vh;
+  display: none;
 }
 
 .bancoMain {
-	height: 90vh;
-	opacity: 1;
-	animation-name: changeOpacity;
-	animation-duration: 6s;
-	animation-fill-mode: forwards;
+  height: 90vh;
+  opacity: 1;
+  animation-name: changeOpacity;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
 }
 
 .bancoContent {
-	height: 90vh;
-	background-color: green;
+  height: 90vh;
+  background-color: rgb(94, 244, 255);
 }
 
 .bancoSide {
-	background-color: brown;
-	height: 90vh;
+  background-color: brown;
+  height: 90vh;
 }
 
 @media screen and (max-width: 767px) {
-	.bancoSide {
-		background-color: lightgreen;
-		height: auto;
-	}
-	.bancoNavToggle {
-		display: flex;
-		height: auto;
-		align-items: center;
-		justify-self: flex-end;
-	}
+  .bancoSide {
+    background-color: lightgreen;
+    height: auto;
+  }
+  .bancoNavToggle {
+    display: flex;
+    height: auto;
+    align-items: center;
+    justify-self: flex-end;
+  }
 }
 
 .bancoProfile {
-	background-color: blue;
+  background-color: blue;
 }
 
 .bancoAction {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: orange;
-	height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+  height: 90vh;
 }
 
 .tabDetail {
-	background-color: red;
-	height: 35vh;
-	/* display: flex;
+  background-color: red;
+  height: 35vh;
+  /* display: flex;
 	align-items: center;
 	justify-content: center; */
 }
 /* Inactive tab */
 .bancoActionTabs > a {
-	background-color: #282c34;
-	color: white;
+  background-color: #282c34;
+  color: white;
 }
 
 /* logo */
 .logo {
-	color: aqua;
-	/* width: 10vh; */
-	height: 10vh;
-	position: relative;
-	animation-name: midToTop;
-	animation-duration: 6s;
-	animation-fill-mode: forwards;
-	z-index: 10;
+  color: aqua;
+  /* width: 10vh; */
+  height: 10vh;
+  position: relative;
+  animation-name: midToTop;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+  z-index: 10;
 }
 @keyframes midToTop {
-	0%,
-	33% {
-		left: calc(50vw - 5vh);
-		top: calc(50vh - 5vh);
-		/* width: 10vh; */
-		height: 10vh;
-		/* transform: translateZ(-100px); */
-	}
+  0%,
+  33% {
+    left: calc(50vw - 5vh);
+    top: calc(50vh - 5vh);
+    /* width: 10vh; */
+    height: 10vh;
+    /* transform: translateZ(-100px); */
+  }
 
-	100% {
-		left: 0px;
-		top: 0px;
-		/* width: 10vh; */
-		height: 10vh;
-		/* transform: translateZ(-230px) rotateY(230deg) rotateX(240deg); */
-	}
+  100% {
+    left: 0px;
+    top: 0px;
+    /* width: 10vh; */
+    height: 10vh;
+    /* transform: translateZ(-230px) rotateY(230deg) rotateX(240deg); */
+  }
 }
 
 @keyframes changeOpacity {
-	0% {
-		opacity: 0;
-	}
-	50% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* logo cube */
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 .scene {
-	width: 10vh;
-	height: 10vh;
-	/* border: 1px solid #ccc; */
-	perspective: 20vh;
+  width: 10vh;
+  height: 10vh;
+  /* border: 1px solid #ccc; */
+  perspective: 20vh;
 }
 
 .cube {
-	width: 10vh;
-	height: 10vh;
-	position: relative;
-	transform-style: preserve-3d;
-	animation-name: spining;
-	animation-duration: 6s;
-	animation-fill-mode: forwards;
-	/* transform: translateZ(-230px) rotateY(230deg) rotateX(240deg); */
-	transform: translateZ(-100px);
-	transition: transform 2s;
+  width: 10vh;
+  height: 10vh;
+  position: relative;
+  transform-style: preserve-3d;
+  animation-name: spining;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+  /* transform: translateZ(-230px) rotateY(230deg) rotateX(240deg); */
+  transform: translateZ(-100px);
+  transition: transform 2s;
 }
 
 @keyframes spining {
-	0% {
-		transform: translateZ(-100px);
-	}
-	50%,
-	100% {
-		/* transform: translateZ(-50px) rotateY(230deg) rotateX(240deg); */
-		transform: translateZ(-230px) rotateY(230deg) rotateX(240deg);
-	}
+  0% {
+    transform: translateZ(-100px);
+  }
+  50%,
+  100% {
+    /* transform: translateZ(-50px) rotateY(230deg) rotateX(240deg); */
+    transform: translateZ(-230px) rotateY(230deg) rotateX(240deg);
+  }
 }
 
 .cube__face {
-	position: absolute;
-	width: 10vh;
-	height: 10vh;
-	border: 3px solid #282c34;
-	/* line-height: 10vh;
+  position: absolute;
+  width: 10vh;
+  height: 10vh;
+  border: 3px solid #282c34;
+  /* line-height: 10vh;
 	font-size: 40px;
 	font-weight: bold;
 	color: white;
@@ -181,183 +181,183 @@ body {
 }
 
 .cube__face--front {
-	background: hsla(192, 67%, 51%, 0.7);
+  background: hsla(192, 67%, 51%, 0.7);
 }
 .cube__face--right {
-	background: hsla(199, 71%, 56%, 0.7);
-	/* background-image: url("https://i.kym-cdn.com/photos/images/newsfeed/000/993/875/084.png");
+  background: hsla(199, 71%, 56%, 0.7);
+  /* background-image: url("https://i.kym-cdn.com/photos/images/newsfeed/000/993/875/084.png");
 	background-repeat: no-repeat;
 	background-size: 10vh 10vh; */
 }
 .cube__face--back {
-	background: hsla(216, 65%, 54%, 0.7);
+  background: hsla(216, 65%, 54%, 0.7);
 }
 .cube__face--left {
-	background: hsla(231, 46%, 54%, 0.7);
+  background: hsla(231, 46%, 54%, 0.7);
 }
 .cube__face--top {
-	background: hsla(240, 51%, 35%, 0.7);
+  background: hsla(240, 51%, 35%, 0.7);
 }
 .cube__face--bottom {
-	background: hsla(239, 89%, 25%, 0.7);
+  background: hsla(239, 89%, 25%, 0.7);
 }
 
 .cube__face--front {
-	transform: rotateY(0deg) translateZ(5vh);
-	animation-name: largeSmall--front;
-	animation-duration: 8s;
-	animation-fill-mode: forwards;
+  transform: rotateY(0deg) translateZ(5vh);
+  animation-name: largeSmall--front;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
 }
 .cube__face--right {
-	transform: rotateY(90deg) translateZ(5vh);
-	animation-name: largeSmall--right;
-	animation-duration: 8s;
-	animation-fill-mode: forwards;
+  transform: rotateY(90deg) translateZ(5vh);
+  animation-name: largeSmall--right;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
 }
 .cube__face--back {
-	transform: rotateY(180deg) translateZ(5vh);
-	animation-name: largeSmall--back;
-	animation-duration: 8s;
-	animation-fill-mode: forwards;
+  transform: rotateY(180deg) translateZ(5vh);
+  animation-name: largeSmall--back;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
 }
 .cube__face--left {
-	transform: rotateY(-90deg) translateZ(5vh);
-	animation-name: largeSmall--left;
-	animation-duration: 8s;
-	animation-fill-mode: forwards;
+  transform: rotateY(-90deg) translateZ(5vh);
+  animation-name: largeSmall--left;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
 }
 .cube__face--top {
-	transform: rotateX(90deg) translateZ(5vh);
-	animation-name: largeSmall--top;
-	animation-duration: 8s;
-	animation-fill-mode: forwards;
+  transform: rotateX(90deg) translateZ(5vh);
+  animation-name: largeSmall--top;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
 }
 .cube__face--bottom {
-	transform: rotateX(-90deg) translateZ(5vh);
-	animation-name: largeSmall--bottom;
-	animation-duration: 8s;
-	animation-fill-mode: forwards;
+  transform: rotateX(-90deg) translateZ(5vh);
+  animation-name: largeSmall--bottom;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes largeSmall--front {
-	0% {
-		transform: rotateY(0deg) translateZ(5vh);
-	}
-	18.75% {
-		transform: rotateY(0deg) translateZ(10vh);
-	}
-	37.5%,
-	75%,
-	81%,
-	87.5%,
-	93.5%,
-	100% {
-		transform: rotateY(0deg) translateZ(5.5vh);
-	}
-	78%,
-	90.5% {
-		transform: rotateY(0deg) translateZ(6vh);
-	}
+  0% {
+    transform: rotateY(0deg) translateZ(5vh);
+  }
+  18.75% {
+    transform: rotateY(0deg) translateZ(10vh);
+  }
+  37.5%,
+  75%,
+  81%,
+  87.5%,
+  93.5%,
+  100% {
+    transform: rotateY(0deg) translateZ(5.5vh);
+  }
+  78%,
+  90.5% {
+    transform: rotateY(0deg) translateZ(6vh);
+  }
 }
 
 @keyframes largeSmall--right {
-	0% {
-		transform: rotateY(90deg) translateZ(5vh);
-	}
-	18.75% {
-		transform: rotateY(90deg) translateZ(10vh);
-	}
-	37.5%,
-	75%,
-	81%,
-	87.5%,
-	93.5%,
-	100% {
-		transform: rotateY(90deg) translateZ(5.5vh);
-	}
-	78%,
-	90.5% {
-		transform: rotateY(90deg) translateZ(6vh);
-	}
+  0% {
+    transform: rotateY(90deg) translateZ(5vh);
+  }
+  18.75% {
+    transform: rotateY(90deg) translateZ(10vh);
+  }
+  37.5%,
+  75%,
+  81%,
+  87.5%,
+  93.5%,
+  100% {
+    transform: rotateY(90deg) translateZ(5.5vh);
+  }
+  78%,
+  90.5% {
+    transform: rotateY(90deg) translateZ(6vh);
+  }
 }
 @keyframes largeSmall--back {
-	0% {
-		transform: rotateY(180deg) translateZ(5vh);
-	}
-	18.75% {
-		transform: rotateY(180deg) translateZ(10vh);
-	}
-	37.5%,
-	75%,
-	81%,
-	87.5%,
-	93.5%,
-	100% {
-		transform: rotateY(180deg) translateZ(5.5vh);
-	}
-	78%,
-	90.5% {
-		transform: rotateY(180deg) translateZ(6vh);
-	}
+  0% {
+    transform: rotateY(180deg) translateZ(5vh);
+  }
+  18.75% {
+    transform: rotateY(180deg) translateZ(10vh);
+  }
+  37.5%,
+  75%,
+  81%,
+  87.5%,
+  93.5%,
+  100% {
+    transform: rotateY(180deg) translateZ(5.5vh);
+  }
+  78%,
+  90.5% {
+    transform: rotateY(180deg) translateZ(6vh);
+  }
 }
 @keyframes largeSmall--left {
-	0% {
-		transform: rotateY(-90deg) translateZ(5vh);
-	}
-	18.75% {
-		transform: rotateY(-90deg) translateZ(10vh);
-	}
-	37.5%,
-	75%,
-	81%,
-	87.5%,
-	93.5%,
-	100% {
-		transform: rotateY(-90deg) translateZ(5.5vh);
-	}
-	78%,
-	90.5% {
-		transform: rotateY(-90deg) translateZ(6vh);
-	}
+  0% {
+    transform: rotateY(-90deg) translateZ(5vh);
+  }
+  18.75% {
+    transform: rotateY(-90deg) translateZ(10vh);
+  }
+  37.5%,
+  75%,
+  81%,
+  87.5%,
+  93.5%,
+  100% {
+    transform: rotateY(-90deg) translateZ(5.5vh);
+  }
+  78%,
+  90.5% {
+    transform: rotateY(-90deg) translateZ(6vh);
+  }
 }
 @keyframes largeSmall--top {
-	0% {
-		transform: rotateX(90deg) translateZ(5vh);
-	}
-	18.75% {
-		transform: rotateX(90deg) translateZ(10vh);
-	}
-	37.5%,
-	75%,
-	81%,
-	87.5%,
-	93.5%,
-	100% {
-		transform: rotateX(90deg) translateZ(5.5vh);
-	}
-	78%,
-	90.5% {
-		transform: rotateX(90deg) translateZ(6vh);
-	}
+  0% {
+    transform: rotateX(90deg) translateZ(5vh);
+  }
+  18.75% {
+    transform: rotateX(90deg) translateZ(10vh);
+  }
+  37.5%,
+  75%,
+  81%,
+  87.5%,
+  93.5%,
+  100% {
+    transform: rotateX(90deg) translateZ(5.5vh);
+  }
+  78%,
+  90.5% {
+    transform: rotateX(90deg) translateZ(6vh);
+  }
 }
 @keyframes largeSmall--bottom {
-	0% {
-		transform: rotateX(-90deg) translateZ(5vh);
-	}
-	18.75% {
-		transform: rotateX(-90deg) translateZ(10vh);
-	}
-	37.5%,
-	75%,
-	81%,
-	87.5%,
-	93.5%,
-	100% {
-		transform: rotateX(-90deg) translateZ(5.5vh);
-	}
-	78%,
-	90.5% {
-		transform: rotateX(-90deg) translateZ(6vh);
-	}
+  0% {
+    transform: rotateX(-90deg) translateZ(5vh);
+  }
+  18.75% {
+    transform: rotateX(-90deg) translateZ(10vh);
+  }
+  37.5%,
+  75%,
+  81%,
+  87.5%,
+  93.5%,
+  100% {
+    transform: rotateX(-90deg) translateZ(5.5vh);
+  }
+  78%,
+  90.5% {
+    transform: rotateX(-90deg) translateZ(6vh);
+  }
 }
 /* logo cube */

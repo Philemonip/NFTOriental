@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { browseActions } from "../redux/Marketplace/browseSlice";
-// import {
-//   browseToggleThunk,
-// } from "../redux/Marketplace/browseSlice";
+import { browseToggleThunk } from "../redux/Marketplace/browseSlice";
 import { Col, Container, Row } from "react-bootstrap";
-import axios from "axios";
 import Navi from "../components/Common/Navbar";
 import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
 import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
@@ -20,15 +17,12 @@ function MarketBrowse() {
     (state) => state.browse
   );
 
+  //browseToggleThunk: (type, data, isSellers)
   useEffect(() => {
     const fetchData = async () => {
       console.log("First load Marketbrowse");
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/items/`
-      );
-      dispatch(browseActions.getFiltered(data));
-      console.log("data from marketbrowse useeffect");
-      console.log(data);
+      await dispatch(browseToggleThunk("init", "", false));
+      // console.log("data from marketbrowse useeffect");
     };
     fetchData();
     return function browseclearup() {

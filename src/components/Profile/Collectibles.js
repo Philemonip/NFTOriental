@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import React, { useState } from "react";
 import ListSaleModal from "./ListSaleModal";
 import { LinkContainer } from "react-router-bootstrap";
@@ -65,7 +65,7 @@ const Collectibles = (props) => {
                     </a>
                   </p>
                   <p className="m-1">Id: {item.id}</p>
-                  <p className="m-1">Price {item.price}</p>
+                  <p className="m-1">Price {item.price / 1e18}</p>
                   {item.forSale === true ? (
                     <p className="m-1">Listing </p>
                   ) : (

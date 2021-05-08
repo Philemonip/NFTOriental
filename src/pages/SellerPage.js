@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { IoIosCopy } from "react-icons/io";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useSelector, useDispatch } from "react-redux";
 import {
   browseToggleThunk,
   browseActions,
 } from "../redux/Marketplace/browseSlice";
-import { Jumbotron, Image, Col, Container, Row } from "react-bootstrap";
+import { Jumbotron, Image, Col, Container, Row, Button } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
 import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
 import SellerSidebar from "../components/Marketplace/Seller/SellerSidebar";
 import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
-import classes from "./MarketBrowse.module.css";
+import classes from "./SellerPage.module.css";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -20,13 +22,13 @@ function SellerPage() {
   const { itemArr, statusfilter, collectionfilter } = useSelector(
     (state) => state.browse
   );
+  const [isCopied, setCopied] = useState(false);
 
+  //browseToggleThunk: (type, data, isSeller)
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(browseActions.getSellerAddress(params.walletAddress));
-      await dispatch(
-        browseToggleThunk("Status", "", true, params.walletAddress)
-      );
+      await dispatch(browseToggleThunk("init", "", true));
     };
     fetchData();
     return function browseclearup() {
@@ -36,6 +38,12 @@ function SellerPage() {
 
   // console.log(statusfilter);
   // console.log(collectionfilter);
+  function copyWalletAdress() {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1300);
+  }
 
   return (
     <div className={classes.page}>
@@ -49,8 +57,19 @@ function SellerPage() {
           />
         </div>
         <div className="mt-3 text-center">
-          <h4>Display UserName Here</h4>
-          <p>{params.walletAddress}</p>
+          <h4>{itemArr.length > 0 && itemArr[0].alias}</h4>
+          <p>
+            {params.walletAddress}
+            <CopyToClipboard
+              text={params.walletAddress}
+              onCopy={copyWalletAdress}
+            >
+              <Button>
+                <IoIosCopy />
+              </Button>
+            </CopyToClipboard>
+            {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
+          </p>
         </div>
       </Jumbotron>
       <Container fluid>

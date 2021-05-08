@@ -10,6 +10,7 @@ const initialState = {
   collectionfilter: [],
   sellerAddress: "",
 };
+
 const browseSlice = createSlice({
   name: "browse",
   initialState: initialState,
@@ -17,6 +18,7 @@ const browseSlice = createSlice({
     getSellerAddress(state, action) {
       state.sellerAddress = action.payload;
     },
+
     getFiltered(state, action) {
       state.itemArr = [];
       state.itemArr.push(...action.payload);
@@ -68,17 +70,18 @@ const browseSlice = createSlice({
 // 1. dispatch: update status/collec. state
 // 2. process query string and submit getReq
 // 3. dispatch: update output with res.data
-export const browseToggleThunk = (
-  type,
-  data,
-  isSeller,
-  sellerAddress
-) => async (dispatch, getState) => {
+export const browseToggleThunk = (type, data, isSeller) => async (
+  dispatch,
+  getState
+) => {
   // console.log(isSeller, "isSeller");
   // console.log("status thunk");
   // console.log(type, data);
   try {
     switch (type) {
+      case "init":
+        console.log("Init Data browseslice");
+        break;
       case "sort":
         await dispatch(browseActions.sortOption(data));
         break;

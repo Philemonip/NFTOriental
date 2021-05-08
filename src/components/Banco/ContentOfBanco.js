@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MarketOfBanco from "./MarketOfBanco";
+import { Container, Row, Col, Jumbotron } from "react-bootstrap";
+import "./ContentOfBanco.css";
 
 const ContentOfBanco = () => {
 	const [coins, setCoins] = useState([]);
@@ -15,7 +17,21 @@ const ContentOfBanco = () => {
 			.catch((error) => console.log(error));
 	}, []);
 	return (
-		<div className="col  bancoContent">
+		<div className="col bancoContent p-0">
+			<Jumbotron fluid className="bancoJumbotron">
+				<Container>
+					<h4>Deposit and Withdraw coins in minutes</h4>
+					<h5>Join the world's largest DeFI Bank</h5>
+				</Container>
+			</Jumbotron>
+			<Container>
+				<Row>
+					<Col xs>Name</Col>
+					<Col xs={{ order: 12 }}>Last Price</Col>
+					<Col xs={{ order: 1 }}>Change</Col>
+					<Col xs={{ order: 1 }}>Market Capitalisation</Col>
+				</Row>
+			</Container>
 			{/* d-flex align-items-center justify-content-center */}
 			{/* <h1>FUCK YOU CSS</h1> */}
 			{coins.map((coin) => {

@@ -19,7 +19,7 @@ function DetailTitlePrice({
   const [showBuyModal, setShowBuyModal] = useState(false);
   const currentUser = useSelector((state) => state.detail.currentUser);
   const itemOwner = useSelector((state) => state.detail.owner);
-  const token = useSelector((state) => state.detail.token);
+  // const token = useSelector((state) => state.detail.token);
   const items = useSelector((state) => state.detail.items);
   const [showListItemModal, setListItemModal] = useState(false);
 
@@ -46,11 +46,11 @@ function DetailTitlePrice({
       <div className={classes.pricediv}>
         <p>Current Price</p>
         <p className={classes.title}>ETH {itemdata.current_price}</p>
-        {loginStatus == true ? (
+        {loginStatus === true ? (
           <div>
             {currentUser && currentUser === itemOwner ? (
               <div>
-                {itemDetail[0].forSale == false ? (
+                {itemDetail[0].forSale === false ? (
                   <Button
                     variant="danger"
                     onClick={() => setListItemModal(true)}
@@ -75,7 +75,7 @@ function DetailTitlePrice({
               </div>
             ) : (
               <div>
-                {itemdata.on_sale == true ? (
+                {itemdata.on_sale === true ? (
                   <Button
                     variant="primary"
                     onClick={() => setShowBuyModal(true)}
