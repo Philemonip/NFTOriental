@@ -128,7 +128,7 @@ function MarketDetail() {
     if (NFTprice * 1e18 > 0.01 * 1e18) {
       try {
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
-        transferCCH(targetAccount, 0.01 * 1e18);
+        transferCCH(targetAccount, NFTprice * 1e18);
         //need another dispatch here
 
         console.log("hi", targetAccount);
