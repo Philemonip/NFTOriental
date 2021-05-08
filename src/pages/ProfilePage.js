@@ -29,11 +29,13 @@ import Collectibles from "../components/Profile/Collectibles";
 import CreatedNFT from "../components/Profile/CreatedNFT";
 import Mint from "../components/Profile/Mint";
 import "./ProfilePage.css";
+var web3;
+var contractNFT;
 
 function ProfilePage() {
 	const currentUser = useSelector((state) => state.detail.currentUser);
 	const items = useSelector((state) => state.detail.items);
-	const contractNFT = useSelector((state) => state.detail.contract);
+	// const contractNFT = useSelector((state) => state.detail.contract);
 	const itemArrBackend = useSelector((state) => state.browse.itemArr);
 	const userName = useSelector((state) => state.nft.name);
 	const [itemArr, setItemArr] = useState(itemArrBackend);
@@ -53,6 +55,7 @@ function ProfilePage() {
 	const handleShow = () => setShow(true);
 	const [profileContent, setProfileContent] = useState("Collectibles");
 	const dispatch = useDispatch();
+
 
 	// useEffect(async () => {
 	//   await loadWeb3();
@@ -104,10 +107,10 @@ function ProfilePage() {
 	// };
 
 	const loadBlockchainData = async () => {
-		const web3 = window.web3;
+		web3 = window.web3;
 		const accounts = await web3.eth.getAccounts();
 		const networkId = await web3.eth.net.getId();
-		dispatch(detailSliceActions.updateWeb3(web3));
+		// dispatch(detailSliceActions.updateWeb3(web3));
 		dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
 		console.log("current user:", accounts[0]);
 
@@ -117,9 +120,9 @@ function ProfilePage() {
 		if (networkData) {
 			const abi = CloseSeaNFT.abi;
 			const address = networkData.address;
-			const contract = new web3.eth.Contract(abi, address);
-			dispatch(detailSliceActions.updateContract(contract));
-			const getItem = await contract.methods.getAllItems().call();
+			contractNFT = new web3.eth.Contract(abi, address);
+			// dispatch(detailSliceActions.updateContract(contract));
+			const getItem = await contractNFT.methods.getAllItems().call();
 			dispatch(detailSliceActions.updateItem(getItem));
 			console.log(getItem);
 			dispatch(getTransactionThunk(accounts[0]));
@@ -278,7 +281,7 @@ function ProfilePage() {
 	return (
 		<>
 			<Navi />
-			<Jumbotron className="jumbotron mb-1 p-5">
+			<Jumbotron className="jumbotronProfile mb-1 p-5">
 				{loginStatus ? <h4>Hello, {userName}</h4> : <h4>Hello, Anumnumnus</h4>}
 
 				<div xs={6} md={4} className="text-center">

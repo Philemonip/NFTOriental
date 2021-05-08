@@ -13,20 +13,11 @@ const MarketOfBanco = ({
 		<div className="coin-container row">
 			<div className="coin-info col row d-flex align-items-center justify-content-left text-center">
 				<img src={image} alt="crypto" />
-				<p>
-					{name} {symbol.toUpperCase()} ${price}
-				</p>
+				<p>{name} {symbol.toUpperCase()} ${price}</p>
 				<p className=""></p>
 				<p className="red">{priceChange.toFixed(2)}%</p>
-			</div>
-			<div className="coin-data col d-flex align-items-center justify-content-left text-left">
-				<p className="col ">
-					Volume:<br></br>${volume.toLocaleString()}
-				</p>
-
-				<p className="col ">
-					Market Cap:<br></br>${marketcap.toLocaleString()}
-				</p>
+				<p className="col ">Volume:<br></br>${volume.toLocaleString()}</p>
+				<p className="col ">Market Cap:<br></br>${marketcap.toLocaleString()}</p>
 			</div>
 		</div>
 	);

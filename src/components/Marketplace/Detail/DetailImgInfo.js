@@ -34,7 +34,7 @@ function DetailImgInfo({ itemdata, loginStatus }) {
           <Accordion.Toggle as={Card.Header} eventKey="0">
             Chain Info
           </Accordion.Toggle>
-          {loginStatus == true ? (
+          {loginStatus === true ? (
             <Accordion.Collapse eventKey="0">
               <Card.Body>
                 <p>Contract Address: {token.owner}</p>
