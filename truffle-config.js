@@ -19,7 +19,7 @@
  */
 
 require("dotenv").config();
-const HDWalletProvider = require("truffle-hdwallet-provider");
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 const MNEMONIC = process.env.MNEMONIC;
 const RINKEBY_URL = process.env.RINKEBY_URL;
 // const infuraKey = "fj4jll3k.....";
@@ -58,8 +58,9 @@ module.exports = {
         return new HDWalletProvider(MNEMONIC, RINKEBY_URL);
       },
       network_id: 4,
-      // gas: 4500000,
-      gasPrice: 0x01, //Fill in the `network_id` for the Rinkeby network.
+      gas: 9000000,
+      gasPrice: 45000000000, //Fill in the `network_id` for the Rinkeby network.
+      networkCheckTimeout: 90000,
     },
     // Another network with more advanced options...
     // advanced: {

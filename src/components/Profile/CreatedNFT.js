@@ -57,7 +57,7 @@ const CreatedNFT = (props) => {
                     Creator: <a href="/">{item.creator.substr(0, 16)}...</a>
                   </p>
                   <p className="m-1">Id: {item.id}</p>
-                  <p className="m-1">Price {item.price}</p>
+                  <p className="m-1">Price {item.price / 1e18}</p>
                   {item.forSale === true ? (
                     <p className="m-1">Listing </p>
                   ) : (
