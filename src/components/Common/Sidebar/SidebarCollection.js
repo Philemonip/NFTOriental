@@ -8,7 +8,6 @@ const BrowseSidebarCollection = ({ isSeller }) => {
   const selectedCollection = useSelector(
     (state) => state.browse.collectionfilter
   );
-  const sellerAddress = useSelector((state) => state.browse.sellerAddress);
 
   //TODO: Get this from
   const collectionValue = [
@@ -35,9 +34,7 @@ const BrowseSidebarCollection = ({ isSeller }) => {
                   selectedCollection.indexOf(i) > -1 && classes.activebutton
                 }`}
                 onClick={() =>
-                  dispatch(
-                    browseToggleThunk("collection", i, isSeller, sellerAddress)
-                  )
+                  dispatch(browseToggleThunk("collection", i, isSeller))
                 }
               >
                 <p className={classes.ptext}>{i}</p>

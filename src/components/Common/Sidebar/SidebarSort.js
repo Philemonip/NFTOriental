@@ -7,16 +7,13 @@ import classes from "./SidebarSort.module.css";
 const BrowseSidebarCollection = ({ isSeller }) => {
   const dispatch = useDispatch();
   const sortOption = useSelector((state) => state.browse.sortOption);
-  const sellerAddress = useSelector((state) => state.browse.sellerAddress);
 
   return (
     <Form inline>
       <Form.Control
         onChange={(e) => {
           //   console.log(e.target.value);
-          dispatch(
-            browseToggleThunk("sort", e.target.value, isSeller, sellerAddress)
-          );
+          dispatch(browseToggleThunk("sort", e.target.value, isSeller));
         }}
         as="select"
         className={classes.select}
