@@ -8,7 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import BrowseSellerPage from "./pages/BrowseSellerPage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import Setting from "./components/Profile/Setting";
+import Footer from "./components/Common/Footer";
 
 function App() {
   return (
@@ -27,9 +27,6 @@ function App() {
         <Route path="/items/asset/:itemAddress">
           <MarketDetail />
         </Route>
-        {/* <Route path="/trial">
-          <TrialApp />
-        </Route> */}
         <Route path="/profile" exact>
           <ProfilePage />
         </Route>
@@ -39,13 +36,11 @@ function App() {
         <Route path="/cincochicos">
           <BancoHome />
         </Route>
-        <Route path="/setting">
-          <Setting />
-        </Route>
         <Route path="*">
           <NoMatch />
         </Route>
       </Switch>
+      <Footer />
     </Provider>
     // </Layout>
   );
