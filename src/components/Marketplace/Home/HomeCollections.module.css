@@ -1,0 +1,24 @@
+.button {
+  display: flex;
+  border-radius: 5px;
+  /* border: 2px solid rgb(214, 214, 214); */
+  background-color: rgb(214, 214, 214);
+  justify-content: center;
+  box-shadow: none;
+  padding: 10px;
+  margin: 8px;
+  user-select: none;
+  cursor: pointer;
+  height: 10rem;
+}
+
+.button:hover {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.2s box-shadow;
+}
+
+.ptext {
+  position: relative;
+  top: 50%;
+  transform: translateY(-5%);
+}

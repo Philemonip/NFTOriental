@@ -1,8 +1,8 @@
 import { Container } from "react-bootstrap";
-import classes from "./HomeNewlyMinted.module.css";
+import classes from "./HomeItemRow.module.css";
 import HomeItemCard from "./HomeItemCard"; //TODO: make card an individual component
 
-function HomeNewlyMinted({ items }) {
+function HomeItemRow({ items }) {
   return (
     <>
       <Container fluid className={classes.container}>
@@ -19,4 +19,4 @@ function HomeNewlyMinted({ items }) {
   );
 }
 
-export default HomeNewlyMinted;
+export default HomeItemRow;
