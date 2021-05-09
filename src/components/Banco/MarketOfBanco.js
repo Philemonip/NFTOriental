@@ -10,16 +10,20 @@ const MarketOfBanco = ({
 	priceChange,
 }) => {
 	return (
-		<div className="coin-container row">
-			<div className="coin-info col row d-flex align-items-center justify-content-left text-center">
-				<img src={image} alt="crypto" />
-				<p>{name} {symbol.toUpperCase()} ${price}</p>
-				<p className=""></p>
-				<p className="red">{priceChange.toFixed(2)}%</p>
-				<p className="col ">Volume:<br></br>${volume.toLocaleString()}</p>
-				<p className="col ">Market Cap:<br></br>${marketcap.toLocaleString()}</p>
-			</div>
-		</div>
+
+		// <div className="coin-container row">
+		// 	<div className="coin-info col row d-flex align-items-center justify-content-left text-center">
+
+		<tr>
+			<td><img className="coin-info" src={image} alt="crypto" /></td>
+			<td>{name} {symbol.toUpperCase()}</td>
+			<td >${price}</td>
+			<td>{priceChange.toFixed(2)}%</td>
+			<td >${volume.toLocaleString()}</td>
+			<td >${marketcap.toLocaleString()}</td>
+		</tr>
+		// 	{/* </div>
+		// </div> */}
 	);
 };
 

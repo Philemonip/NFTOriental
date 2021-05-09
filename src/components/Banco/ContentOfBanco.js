@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MarketOfBanco from "./MarketOfBanco";
-import { Container, Row, Col, Jumbotron } from "react-bootstrap";
+import { Container, Row, Col, Jumbotron, Table } from "react-bootstrap";
 import "./ContentOfBanco.css";
 
 const ContentOfBanco = () => {
@@ -25,29 +25,43 @@ const ContentOfBanco = () => {
 				</Container>
 			</Jumbotron>
 			<Container>
-				<Row>
-					<Col xs>Name</Col>
-					<Col xs={{ order: 12 }}>Last Price</Col>
-					<Col xs={{ order: 1 }}>Change</Col>
-					<Col xs={{ order: 1 }}>Market Capitalisation</Col>
-				</Row>
+				<Table responsive variant="primary">
+					<thead>
+						<tr>
+							<th>Logo</th>
+							<th>Name</th>
+							<th>Last Price</th>
+							<th>Change</th>
+							<th>Volume</th>
+							<th>Market Capital</th>
+						</tr>
+
+						{/* <Row>
+						<Col xs>Name</Col>
+						<Col xs>Last Price</Col>
+						<Col xs>Change</Col>
+						<Col xs>Volume</Col>
+						<Col xs>Market Capitalisation</Col>
+					</Row> */}
+					</thead>
+					<tbody>
+						{coins.map((coin) => {
+							return (
+								<MarketOfBanco
+									key={coin.id}
+									name={coin.name}
+									price={coin.current_price}
+									symbol={coin.symbol}
+									marketcap={coin.total_volume}
+									volume={coin.market_cap}
+									image={coin.image}
+									priceChange={coin.price_change_percentage_24h}
+								/>
+							);
+						})}
+					</tbody>
+				</Table>
 			</Container>
-			{/* d-flex align-items-center justify-content-center */}
-			{/* <h1>FUCK YOU CSS</h1> */}
-			{coins.map((coin) => {
-				return (
-					<MarketOfBanco
-						key={coin.id}
-						name={coin.name}
-						price={coin.current_price}
-						symbol={coin.symbol}
-						marketcap={coin.total_volume}
-						volume={coin.market_cap}
-						image={coin.image}
-						priceChange={coin.price_change_percentage_24h}
-					/>
-				);
-			})}
 		</div>
 	);
 };

@@ -1,18 +1,18 @@
 .coin-container p {
-	margin: 0;
+  margin: 0;
 }
 
-.coin-info img {
-	padding: 10px;
-	height: 100%;
-	width: 100%;
-	max-width: 80px;
-	max-height: 80px;
+.coin-info {
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  max-width: 80px;
+  max-height: 80px;
 }
 .red {
-	color: #f00606;
+  color: #f00606;
 }
 
 .green {
-	color: #11d811;
+  color: #11d811;
 }
