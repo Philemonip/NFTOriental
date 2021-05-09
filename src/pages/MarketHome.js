@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navi from "../components/Common/Navbar";
-import HomeNewlyMinted from "../components/Marketplace/Home/HomeNewlyMinted";
+import HomeItemRow from "../components/Marketplace/Home/HomeItemRow";
 import classes from "./MarketHome.module.css";
 import "../App.css";
 import HomeFeatureCard from "../components/Marketplace/Home/HomeFeatureCard";
+import HomeCollections from "../components/Marketplace/Home/HomeCollections";
 import { Container, Row, Col } from "react-bootstrap";
 import dotenv from "dotenv";
 dotenv.config();
 
 function MarketHome() {
-  // const [trendItem, setTrendItem] = useState([]);
-  // const [newItem, setNewItem] = useState([]);
   const [homeItem, setHomeItem] = useState([]);
 
   useEffect(() => {
@@ -45,9 +44,6 @@ function MarketHome() {
   return (
     <>
       <Navi />
-      {/* <Trending Collection /> */}
-      {/* <Maybe a Carousel for collection/> */}
-
       <div className={classes.markethome}>
         <Container fluid>
           <div className={classes.title}>
@@ -70,15 +66,19 @@ function MarketHome() {
             <b>Newly Minted</b>
           </h5>
         </div>
-        {/* <Trending Items /> */}
-        <HomeNewlyMinted items={homeItem[0]} />
+        <HomeItemRow items={homeItem[0]} />
         <div className={classes.title}>
           <h5>
             <b>Trending Items</b>
           </h5>
         </div>
-        {/* <Newly Minted /> */}
-        <HomeNewlyMinted items={homeItem[1]} />
+        <HomeItemRow items={homeItem[1]} />
+        <div className={classes.title}>
+          <h5>
+            <b>Collections</b>
+          </h5>
+        </div>
+        <HomeCollections />
       </div>
     </>
   );

@@ -236,11 +236,7 @@ function ProfilePage() {
         })
       );
 
-      dispatch(mintingSliceActions.updateFile(null));
-      dispatch(mintingSliceActions.updateName(null));
-      dispatch(mintingSliceActions.updateCategory(null));
-      dispatch(mintingSliceActions.updateExternalUrl(null));
-      dispatch(mintingSliceActions.updateDescription(null));
+      dispatch(mintingSliceActions.postUploadCleanup());
       console.log(1);
       await handleClose();
       console.log(2);
