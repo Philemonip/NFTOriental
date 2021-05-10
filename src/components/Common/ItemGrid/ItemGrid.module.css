@@ -1,0 +1,21 @@
+.browseitem {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.row::after {
+  content: "";
+  flex: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
+  grid-gap: 1rem;
+  justify-content: space-between;
+
+  /* boring properties */
+  padding: 1rem;
+  /* width: 80vw; */
+  margin: 0 auto;
+}

@@ -1,9 +1,9 @@
 // import Spinner from "../../Common/Spinner";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
-import classes from "./BrowseItemCard.module.css";
+import classes from "./ItemGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const BrowseItemCard = ({ item }) => {
+const ItemGridCard = ({ item }) => {
   //Text shortener helper function
   const shortText = (longtext) => {
     const TEXT_LIMIT = 20;
@@ -56,4 +56,4 @@ const BrowseItemCard = ({ item }) => {
   );
 };
 
-export default BrowseItemCard;
+export default ItemGridCard;
