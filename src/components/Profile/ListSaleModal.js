@@ -58,7 +58,7 @@ function ListSaleModal(props) {
             List on Sale
           </button>
           <button
-            onClick={() => dispatch(detailSliceActions.updateListLoad(false))}
+            onClick={() => dispatch(detailSliceActions.updateListModal(false))}
           >
             Cancel
           </button>
