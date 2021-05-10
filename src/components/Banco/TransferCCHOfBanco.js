@@ -6,11 +6,11 @@ const TransferCCHOfBanco = ({ transferCCH }) => {
   const dispatch = useDispatch();
   return (
     <div>
+
+      <h4 className="pt-5 mx-5"> Transfer CCH to other addresses</h4>
+
       <br></br>
-      Transfer CCH to other address
-      <br></br>
-      <br></br>
-      <div>
+      <div className="TransferCCH">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -19,8 +19,8 @@ const TransferCCHOfBanco = ({ transferCCH }) => {
             transferCCH(targetAccount, amount);
           }}
         >
-          <div className="form-group mr-sm-2">
-            <br></br>
+          <div className="form-group px-4">
+            <h6 className="text-left"> &nbsp;Recipient Address</h6>
             <input
               id="targetAddress"
               type="text"
@@ -29,12 +29,13 @@ const TransferCCHOfBanco = ({ transferCCH }) => {
                 dispatch(bancoSliceActions.updateTargetAccount(e.target.value))
               }
               className="form-control form-control-md"
-              placeholder="target account..."
+              placeholder="Target account"
               required
             />
           </div>
-          <div className="form-group mr-sm-2">
-            <br></br>
+          <div className="form-group px-4">
+            <h6 className="text-left">&nbsp;CCH:</h6>
+
             <input
               id="transferAmount"
               step="0.01"
@@ -48,8 +49,8 @@ const TransferCCHOfBanco = ({ transferCCH }) => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Trasnfer
+          <button type="submit" className="btn btn-primary px-4 my-4">
+            Transfer
           </button>
         </form>
       </div>
