@@ -1,10 +1,19 @@
 import { Modal, Button, Row, Col, Image } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailBuyModal.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
 
 function DetailBuyModal(props) {
   const cchBalance = useSelector((state) => state.banco.cchBalance);
-  let tokenId = props.token_id
+
+  const dispatch = useDispatch();
+  let tokenId = props.token_id;
+
+  const handleBuy = () => {
+    dispatch(detailSliceActions.updateBuyModal(false));
+    props.buyWithoutApprovalToken(tokenId, props.itemdata.current_price);
+  };
 
   return (
     <Modal
@@ -14,7 +23,7 @@ function DetailBuyModal(props) {
       centered
       animation={false}
     >
-      <Modal.Header closeButton className={classes.modalheader}></Modal.Header>
+      <Modal.Header className={classes.modalheader}></Modal.Header>
       <Modal.Body className={classes.modalbody}>
         <Row className="mb-3 d-flex justify-content-center align-items-center">
           <h4>
@@ -48,7 +57,7 @@ function DetailBuyModal(props) {
             </Row>
           </Col>
           <Col className="d-flex align-items-center justify-content-end">
-            <h5>ETH {props.itemdata.current_price}</h5>
+            <h5>CCH {props.itemdata.current_price}</h5>
           </Col>
         </Row>
         <Row className={classes.totalrow}>
@@ -56,22 +65,26 @@ function DetailBuyModal(props) {
             <h5>Total</h5>
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5>ETH {props.itemdata.current_price}</h5>
+            <h5>CCH {props.itemdata.current_price}</h5>
           </Col>
         </Row>
         <Row className="d-flex mt-5 justify-content-center">
-          <Button
-            className={classes.button}
-            onClick={(e) => props.buyWithoutApprovalToken(tokenId, props.itemdata.current_price)}
-          >
+          <Button className={classes.button} onClick={handleBuy}>
             <b>Checkout, {cchBalance}</b>
           </Button>
-          <Button className={`${classes.button} ml-4`}>
-            <b>Add Funds</b>
-          </Button>
+          <LinkContainer to="/cincochicos">
+            <Button
+              className={`${classes.button} ml-4`}
+              onClick={() => {
+                dispatch(detailSliceActions.updateBuyModal(false));
+              }}
+            >
+              <b>Add Funds</b>
+            </Button>
+          </LinkContainer>
         </Row>
       </Modal.Body>
-    </Modal >
+    </Modal>
   );
 }
 

@@ -3,12 +3,14 @@ import { Button, Card } from "react-bootstrap";
 import React, { useState } from "react";
 import ListSaleModal from "./ListSaleModal";
 import { LinkContainer } from "react-router-bootstrap";
+import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 
 const CreatedNFT = (props) => {
-  const currentUser = useSelector((state) => state.detail.currentUser);
-  const items = useSelector((state) => state.detail.items);
-  const [showListItemModal, setListItemModal] = useState(false);
+  const { currentUser, items, listModal } = useSelector(
+    (state) => state.detail
+  );
   const [currentID, setcurrentID] = useState(0);
+  const dispatch = useDispatch();
   let imgsrc;
   let createdArr;
 
@@ -29,8 +31,8 @@ const CreatedNFT = (props) => {
   };
 
   const modalHandler = (id) => {
-    setListItemModal(true);
     setcurrentID(id);
+    dispatch(detailSliceActions.updateListModal(true));
   };
 
   return (
@@ -111,8 +113,8 @@ const CreatedNFT = (props) => {
         })}
       {createdArr && (
         <ListSaleModal
-          show={showListItemModal}
-          onHide={() => setListItemModal(false)}
+          show={listModal}
+          // onHide={() => setListItemModal(false)}
           itemOnSale={props.itemOnSale}
           dialogClassName="modal-20w"
           tokenId={currentID}
