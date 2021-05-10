@@ -11,16 +11,12 @@ const BrowseSidebarCollection = ({ isSeller }) => {
 
   //TODO: Get this from
   const collectionValue = [
-    "art",
-    "clothing",
-    "festivals",
-    "shoes",
-    "Collection 5",
-    "Collection 6",
-    "Collection 7",
-    "Collection 8",
-    "Collection 9",
-    "Collection 10",
+    "Art",
+    "Avatars",
+    "Exclusive Events",
+    "Sports",
+    "Trading Cards",
+    "Virtual Worlds",
   ];
 
   return (
