@@ -1,4 +1,5 @@
 .bancoJumbotron {
-  background-color: rgb(56, 56, 56);
-  background-image: none;
+  /* background-color: rgb(51, 51, 51); */
+  background-image: linear-gradient(rgb(31, 31, 31), rgb(85, 85, 85));
+  /* background-image: none; */
 }
