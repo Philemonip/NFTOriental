@@ -1,11 +1,19 @@
 import { Modal, Button, Row, Col, Image } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailBuyModal.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
 
 function DetailBuyModal(props) {
   const cchBalance = useSelector((state) => state.banco.cchBalance);
+
+  const dispatch = useDispatch();
   let tokenId = props.token_id;
+
+  const handleBuy = () => {
+    dispatch(detailSliceActions.updateBuyModal(false));
+    props.buyWithoutApprovalToken(tokenId, props.itemdata.current_price);
+  };
 
   return (
     <Modal
@@ -15,7 +23,7 @@ function DetailBuyModal(props) {
       centered
       animation={false}
     >
-      <Modal.Header closeButton className={classes.modalheader}></Modal.Header>
+      <Modal.Header className={classes.modalheader}></Modal.Header>
       <Modal.Body className={classes.modalbody}>
         <Row className="mb-3 d-flex justify-content-center align-items-center">
           <h4>
@@ -61,19 +69,16 @@ function DetailBuyModal(props) {
           </Col>
         </Row>
         <Row className="d-flex mt-5 justify-content-center">
-          <Button
-            className={classes.button}
-            onClick={(e) =>
-              props.buyWithoutApprovalToken(
-                tokenId,
-                props.itemdata.current_price
-              )
-            }
-          >
+          <Button className={classes.button} onClick={handleBuy}>
             <b>Checkout, {cchBalance}</b>
           </Button>
           <LinkContainer to="/cincochicos">
-            <Button className={`${classes.button} ml-4`}>
+            <Button
+              className={`${classes.button} ml-4`}
+              onClick={() => {
+                dispatch(detailSliceActions.updateBuyModal(false));
+              }}
+            >
               <b>Add Funds</b>
             </Button>
           </LinkContainer>

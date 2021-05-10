@@ -7,6 +7,9 @@ const initialState = {
   items: [],
   token: [],
   owner: "",
+  listModal: false,
+  buyModal: false,
+  etherscanLoad: false,
 };
 
 const detailSlice = createSlice({
@@ -30,6 +33,15 @@ const detailSlice = createSlice({
     },
     updateOwner(state, action) {
       state.owner = action.payload;
+    },
+    updateEtherscanLoad(state, action) {
+      state.etherscanLoad = action.payload;
+    },
+    updateListModal(state, action) {
+      state.listModal = action.payload;
+    },
+    updateBuyModal(state, action) {
+      state.buyModal = action.payload;
     },
   },
 });

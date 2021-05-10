@@ -1,9 +1,10 @@
 import { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import dotenv from "dotenv";
 import { Button, Container, Form } from "react-bootstrap";
 import { mintingSliceActions } from "../../redux/Minting/mintingSlice";
+import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 import LoadModal from "../Common/LoadModal";
 dotenv.config();
 
@@ -14,6 +15,8 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
   const [externalUrl, setExternalUrl] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useDispatch();
+
+  const etherscanLoad = useSelector((state) => state.detail.etherscanLoad);
 
   return (
     <div>
@@ -138,7 +141,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
           </Form.Group>
         </Form>
       </Container>
-      <LoadModal show={show} setShow={setShow} />
+      <LoadModal show={etherscanLoad} title="minting" />
     </div>
   );
 };

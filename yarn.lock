@@ -3,6 +3,8 @@
 
 
 "@apollo/client@^3.1.5":
+  "integrity" "sha512-EPTiNpmiU6/vvxpl4lXWQDqS3YddweC1sh/ewCuVP9IK0+xlVGb5vR1yhM/7T3PIJqwz52dGpZyJskmbTfENfQ=="
+  "resolved" "https://registry.npmjs.org/@apollo/client/-/client-3.3.16.tgz"
   "version" "3.3.16"
   dependencies:
     "@graphql-typed-document-node/core" "^3.0.0"
@@ -20,6 +22,8 @@
     "zen-observable" "^0.8.14"
 
 "@apollo/protobufjs@1.2.2":
+  "integrity" "sha512-vF+zxhPiLtkwxONs6YanSt1EpwpGilThpneExUN5K3tCymuxNnVq2yojTvnpRjv2QfsEIt/n7ozPIIzBLwGIDQ=="
+  "resolved" "https://registry.npmjs.org/@apollo/protobufjs/-/protobufjs-1.2.2.tgz"
   "version" "1.2.2"
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
@@ -37,6 +41,8 @@
     "long" "^4.0.0"
 
 "@apollographql/apollo-tools@^0.5.0":
+  "integrity" "sha512-7IOZHVaKjBq44StXFJEITl4rxgZCsZFSWogAvIErKR9DYV20rt9bJ2mY5lCn+zghfGrweykjLb9g4TDxLg750w=="
+  "resolved" "https://registry.npmjs.org/@apollographql/apollo-tools/-/apollo-tools-0.5.0.tgz"
   "version" "0.5.0"
   dependencies:
     "apollo-env" "^0.10.0"
@@ -1490,6 +1496,32 @@
     "@ethersproject/properties" "^5.1.0"
     "@ethersproject/strings" "^5.1.0"
 
+"@fortawesome/fontawesome-common-types@^0.2.35":
+  "integrity" "sha512-IHUfxSEDS9dDGqYwIW7wTN6tn/O8E0n5PcAHz9cAaBoZw6UpG20IG/YM3NNLaGPwPqgjBAFjIURzqoQs3rrtuw=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.35.tgz"
+  "version" "0.2.35"
+
+"@fortawesome/fontawesome-svg-core@^1.2.32", "@fortawesome/fontawesome-svg-core@^1.2.35":
+  "integrity" "sha512-uLEXifXIL7hnh2sNZQrIJWNol7cTVIzwI+4qcBIq9QWaZqUblm0IDrtSqbNg+3SQf8SMGHkiSigD++rHmCHjBg=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.35.tgz"
+  "version" "1.2.35"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
+
+"@fortawesome/free-solid-svg-icons@^5.15.3":
+  "integrity" "sha512-XPeeu1IlGYqz4VWGRAT5ukNMd4VHUEEJ7ysZ7pSSgaEtNvSo+FLurybGJVmiqkQdK50OkSja2bfZXOeyMGRD8Q=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.3.tgz"
+  "version" "5.15.3"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
+
+"@fortawesome/react-fontawesome@^0.1.14":
+  "integrity" "sha512-4wqNb0gRLVaBm/h+lGe8UfPPivcbuJ6ecI4hIgW0LjI7kzpYB9FkN0L9apbVzg+lsBdcTf0AlBtODjcSX5mmKA=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.14.tgz"
+  "version" "0.1.14"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "@graphql-tools/batch-delegate@^6.2.4", "@graphql-tools/batch-delegate@^6.2.6":
   "integrity" "sha512-QUoE9pQtkdNPFdJHSnBhZtUfr3M7pIRoXoMR+TG7DK2Y62ISKbT/bKtZEUU1/2v5uqd5WVIvw9dF8gHDSJAsSA=="
   "resolved" "https://registry.npmjs.org/@graphql-tools/batch-delegate/-/batch-delegate-6.2.6.tgz"
@@ -1583,6 +1615,8 @@
     "tslib" "~2.1.0"
 
 "@graphql-tools/import@^6.2.4", "@graphql-tools/import@^6.2.6":
+  "integrity" "sha512-1szR19JI6WPibjYurMLdadHKZoG9C//8I/FZ0Dt4vJSbrMdVNp8WFxg4QnZrDeMG4MzZc90etsyF5ofKjcC+jw=="
+  "resolved" "https://registry.npmjs.org/@graphql-tools/import/-/import-6.3.1.tgz"
   "version" "6.3.1"
   dependencies:
     "resolve-from" "5.0.0"
@@ -1669,6 +1703,8 @@
     "tslib" "~2.0.1"
 
 "@graphql-tools/resolvers-composition@^6.2.4":
+  "integrity" "sha512-PmvPYAYSHdLSlnXRnozhmSSagI/x7LT3FdU68nX0zXjo1utolJdNwe+9x/+xSbauJNQH5PXgzRoWj5uYm2oaFA=="
+  "resolved" "https://registry.npmjs.org/@graphql-tools/resolvers-composition/-/resolvers-composition-6.2.7.tgz"
   "version" "6.2.7"
   dependencies:
     "@graphql-tools/utils" "^7.0.0"
@@ -1716,6 +1752,8 @@
     "tslib" "~2.0.1"
 
 "@graphql-tools/url-loader@^6.2.4":
+  "integrity" "sha512-42BrGYv6JgPQ9qBy7DOA2RftXaTv60idpjB3zi5gxTD2YIxEZk21pnliPbZpSb18rrd7JnqQ/TfBS54j8nyNww=="
+  "resolved" "https://registry.npmjs.org/@graphql-tools/url-loader/-/url-loader-6.9.0.tgz"
   "version" "6.9.0"
   dependencies:
     "@graphql-tools/delegate" "^7.0.1"
@@ -9032,6 +9070,11 @@
   "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.0.tgz"
   "version" "1.14.0"
 
+"font-awesome@^4.7.0":
+  "integrity" "sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM="
+  "resolved" "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz"
+  "version" "4.7.0"
+
 "for-in@^1.0.1", "for-in@^1.0.2":
   "integrity" "sha1-gQaNKVqBQuwKxybG4iAMMPttXoA="
   "resolved" "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz"
@@ -16117,7 +16160,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^17.0.2", "react@>= 16", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16.0.0", "react@>=16.3.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^17.0.2", "react@>= 16", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16.0.0", "react@>=16.3.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@>=16.x", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

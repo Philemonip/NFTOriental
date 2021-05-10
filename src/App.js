@@ -41,7 +41,7 @@ function App() {
         </Route>
       </Switch>
       {/* Browsepage and Sellerpage dont need footer ar */}
-      {/* <Footer /> */}
+      <Footer />
     </Provider>
     // </Layout>
   );
