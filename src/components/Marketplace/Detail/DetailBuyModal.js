@@ -1,4 +1,5 @@
 import { Modal, Button, Row, Col, Image } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailBuyModal.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
@@ -71,14 +72,16 @@ function DetailBuyModal(props) {
           <Button className={classes.button} onClick={handleBuy}>
             <b>Checkout, {cchBalance}</b>
           </Button>
-          <Button
-            className={`${classes.button} ml-4`}
-            onClick={() => {
-              dispatch(detailSliceActions.updateBuyModal(false));
-            }}
-          >
-            <b>Add Funds</b>
-          </Button>
+          <LinkContainer to="/cincochicos">
+            <Button
+              className={`${classes.button} ml-4`}
+              onClick={() => {
+                dispatch(detailSliceActions.updateBuyModal(false));
+              }}
+            >
+              <b>Add Funds</b>
+            </Button>
+          </LinkContainer>
         </Row>
       </Modal.Body>
     </Modal>
