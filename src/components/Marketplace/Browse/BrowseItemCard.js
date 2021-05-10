@@ -38,7 +38,7 @@ const BrowseItemCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <b>ETH</b> {item.current_price}
+                <b>CCH</b> {item.current_price}
               </Card.Text>
             </Col>
           </Row>
