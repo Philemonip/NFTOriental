@@ -28,12 +28,13 @@ import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
 import CreatedNFT from "../components/Profile/CreatedNFT";
 import Mint from "../components/Profile/Mint";
+import LoadModal from "../components/Common/LoadModal";
 import "./ProfilePage.css";
 var web3;
 var contractNFT;
 
 function ProfilePage() {
-  const currentUser = useSelector((state) => state.detail.currentUser);
+  const { currentUser, etherscanLoad } = useSelector((state) => state.detail);
   //   const items = useSelector((state) => state.detail.items);
   // const contractNFT = useSelector((state) => state.detail.contract);
   const itemArrBackend = useSelector((state) => state.browse.itemArr);
@@ -50,12 +51,11 @@ function ProfilePage() {
     externalUrl,
     description,
   } = useSelector((state) => state.mint);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
   const [profileContent, setProfileContent] = useState("Collectibles");
   const dispatch = useDispatch();
-
   // useEffect(async () => {
   //   await loadWeb3();
   //   await loadBlockchainData();
@@ -165,6 +165,7 @@ function ProfilePage() {
 
   async function itemNotForSale(tokenId) {
     try {
+      dispatch(detailSliceActions.updateEtherscanLoad(true));
       await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
@@ -181,13 +182,16 @@ function ProfilePage() {
           on_sale: forSale,
         })
       );
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     } catch (err) {
       console.log("item not for sale error", err);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     }
   }
 
   async function burnToken(tokenId) {
     try {
+      dispatch(detailSliceActions.updateEtherscanLoad(true));
       await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
@@ -196,15 +200,17 @@ function ProfilePage() {
           token_id: tokenId,
         })
       );
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     } catch (err) {
       console.log("burning token error", err);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     }
   }
 
   const handleMintingSubmit = async (e) => {
     e.preventDefault();
     try {
-      handleShow();
+      dispatch(detailSliceActions.updateEtherscanLoad(true));
       await contractNFT.methods.mint(name).send({ from: currentUser });
       //etherscan
       const minting = await contractNFT.methods.getAllItems().call();
@@ -238,7 +244,7 @@ function ProfilePage() {
 
       dispatch(mintingSliceActions.postUploadCleanup());
       console.log(1);
-      await handleClose();
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
       console.log(2);
 
       const newItemArr = await axios.get(
@@ -249,7 +255,7 @@ function ProfilePage() {
     } catch (err) {
       console.log("mint err", err);
       console.log(3);
-      await handleClose();
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
       console.log(4);
     }
   };
@@ -372,15 +378,12 @@ function ProfilePage() {
             <Settings />
           ) : (
             profileContent === "Mint" && (
-              <Mint
-                handleMintingSubmit={handleMintingSubmit}
-                show={show}
-                setShow={setShow}
-              />
+              <Mint handleMintingSubmit={handleMintingSubmit} />
             )
           )}
         </div>
       </div>
+      <LoadModal show={etherscanLoad} />
     </>
   );
 }

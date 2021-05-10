@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { bancoSliceActions } from "../../redux/Banco/bancoSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const NavBanco = () => {
   const { windowWidth, sideDisplay } = useSelector((state) => state.banco);
@@ -17,17 +19,17 @@ const NavBanco = () => {
             <div class="cube__face cube__face--bottom"></div>
           </div>
         </div>
-        <div className="bancoTitle text-left d-flex align-items-center">
-          {windowWidth >= 767 ? <h1>banco de cinco chicos</h1> : <h1>BdeCC</h1>}
+        <div className="bancoTitle text-left d-flex align-items-center mx-2">
+          {windowWidth >= 767 ? <h2>Banco de Cinco Chicos</h2> : <h2>BCC</h2>}
         </div>
       </div>
       <div className="bancoNavToggle">
-        <button
+        <button className="btn btn-dark"
           onClick={() => {
             dispatch(bancoSliceActions.sideDisplay(!sideDisplay));
           }}
         >
-          三
+          <div><FontAwesomeIcon icon={faBars} /></div>
         </button>
       </div>
     </div>

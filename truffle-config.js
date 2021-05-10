@@ -19,7 +19,8 @@
  */
 
 require("dotenv").config();
-const HDWalletProvider = require("@truffle/hdwallet-provider");
+// const HDWalletProvider = require("@truffle/hdwallet-provider");
+const HDWalletProvider = require("truffle-hdwallet-provider");
 const MNEMONIC = process.env.MNEMONIC;
 const RINKEBY_URL = process.env.RINKEBY_URL;
 // const infuraKey = "fj4jll3k.....";

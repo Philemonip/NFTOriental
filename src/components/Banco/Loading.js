@@ -8,9 +8,9 @@ const Loading = () => {
 			<Spinner
 				className="loadingSpinner"
 				animation="border"
-				variant="primary"
+				variant="dark"
 			/>
-			<h1>im loading</h1>
+			<h1 className="p-3">Loading</h1>
 		</div>
 	);
 };

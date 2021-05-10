@@ -1,5 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { bancoSliceActions } from "../../redux/Banco/bancoSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoins } from '@fortawesome/free-solid-svg-icons'
+
 const TransactionHistory = () => {
   const { transaction, showTransactionHistory } = useSelector(
     (state) => state.banco
@@ -7,13 +10,15 @@ const TransactionHistory = () => {
   const dispatch = useDispatch();
   return showTransactionHistory ? (
     <div>
+      <hr></hr>
       <button
-        className="btn"
+        className="btn m-2 text-white"
         onClick={() => dispatch(bancoSliceActions.toggleTransactionHistory())}
       >
-        Hide Transaction History
+        <FontAwesomeIcon icon={faCoins} size="2x" />
+        &nbsp; Show less
       </button>
-      <h3 className="text-center">transaction history</h3>
+      <h3 className="text-center">Transaction History</h3>
       <div className="row mr-auto ml-auto">
         <div className="col-lg-6 d-flex justify-content-center align-items-center">
           <p>Accounts</p>
@@ -56,10 +61,11 @@ const TransactionHistory = () => {
     </div>
   ) : (
     <button
-      className="btn"
+      className="btn m-2 text-white"
       onClick={() => dispatch(bancoSliceActions.toggleTransactionHistory())}
     >
-      Show Transaction History
+      <FontAwesomeIcon icon={faCoins} size="2x" />
+      &nbsp; Show more
     </button>
   );
 };
