@@ -28,7 +28,9 @@ function BrowseSidebar() {
                 {i.name}
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="0">
-                <Card.Body>{i.component}</Card.Body>
+                <Card.Body className={classes.cardbody}>
+                  {i.component}
+                </Card.Body>
               </Accordion.Collapse>
             </Card>
           </Accordion>

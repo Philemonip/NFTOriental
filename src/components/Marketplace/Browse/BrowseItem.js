@@ -1,4 +1,5 @@
 import BrowseItemCard from "./BrowseItemCard";
+// import Spinner from "../../Common/Spinner";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./BrowseItem.module.css";
 import dotenv from "dotenv";
@@ -12,8 +13,6 @@ const BrowseItem = (props) => {
           {props.items &&
             props.items.map((item, index) => {
               return (
-                //TODO: finalize this
-                // <Col className="mt-4 d-flex justify-content-center" key={index} xs={12} sm={6} md={4} lg={4} xl={3} >
                 <Col className="mt-4 d-flex justify-content-center" key={index}>
                   <BrowseItemCard item={item} />
                 </Col>
