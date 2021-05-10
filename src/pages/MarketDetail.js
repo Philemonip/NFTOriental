@@ -11,6 +11,7 @@ import Navi from "../components/Common/Navbar";
 import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
 import DetailTitlePrice from "../components/Marketplace/Detail/DetailTitlePrice";
 import DetailTradingHistory from "../components/Marketplace/Detail/DetailTradingHistory";
+import LoadModal from "../components/Common/LoadModal";
 import classes from "./MarketDetail.module.css";
 import dotenv from "dotenv";
 import Token from "../abi/Token.json";
@@ -29,7 +30,7 @@ function MarketDetail() {
   const params = useParams();
   const [item, setItems] = useState("");
   const [loginStatus, setLoginStatus] = useState(false);
-
+  const etherscanLoad = useSelector((state) => state.detail.etherscanLoad);
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
@@ -137,6 +138,7 @@ function MarketDetail() {
   async function buyWithoutApprovalToken(tokenId, NFTprice) {
     if (NFTprice * 1e18 > 0.01 * 1e18) {
       try {
+        dispatch(detailSliceActions.updateEtherscanLoad(true));
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
         transferCCH(targetAccount, NFTprice * 1e18);
         //need another dispatch here
@@ -166,8 +168,10 @@ function MarketDetail() {
             on_sale: forSale,
           })
         );
+        dispatch(detailSliceActions.updateEtherscanLoad(false));
       } catch (err) {
         console.log("buying error", err);
+        dispatch(detailSliceActions.updateEtherscanLoad(false));
       }
     }
   }
@@ -198,7 +202,6 @@ function MarketDetail() {
       const NFTitem = getItem.filter((i) => i.id === tokenId);
       const owner = NFTitem[0].owner;
       const forSale = NFTitem[0].forSale;
-
       await dispatch(
         updateItemThunk({
           token_id: tokenId,
@@ -207,6 +210,7 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
+      await console.log(5);
     } catch (err) {
       console.log("item on sale error", err);
     }
@@ -214,6 +218,7 @@ function MarketDetail() {
 
   async function itemNotForSale(tokenId) {
     try {
+      dispatch(detailSliceActions.updateEtherscanLoad(true));
       await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
@@ -230,8 +235,10 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     } catch (err) {
       console.log("item not for sale error", err);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     }
   }
 
@@ -272,6 +279,7 @@ function MarketDetail() {
           {item ? <DetailTradingHistory itemdata={item} /> : ""}
         </Row>
       </Container>
+      <LoadModal show={etherscanLoad} />
     </div>
   );
 }

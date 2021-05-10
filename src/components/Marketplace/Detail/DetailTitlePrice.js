@@ -1,12 +1,11 @@
-// import { useSelector, useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailTitlePrice.module.css";
 import DetailBuyModal from "./DetailBuyModal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ListSaleModal from "../../Profile/ListSaleModal";
+import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
 
 function DetailTitlePrice({
   itemdata,
@@ -16,13 +15,16 @@ function DetailTitlePrice({
   itemNotForSale,
   itemOnSale,
 }) {
-  const [showBuyModal, setShowBuyModal] = useState(false);
-  const currentUser = useSelector((state) => state.detail.currentUser);
-  const itemOwner = useSelector((state) => state.detail.owner);
-  // const token = useSelector((state) => state.detail.token);
-  const items = useSelector((state) => state.detail.items);
-  const [showListItemModal, setListItemModal] = useState(false);
-
+  // const [showBuyModal, setShowBuyModal] = useState(false);
+  // const currentUser = useSelector((state) => state.detail.currentUser);
+  // const itemOwner = useSelector((state) => state.detail.owner);
+  // const listModal = useSelector((state) => state.detail.listModal);
+  // const items = useSelector((state) => state.detail.items);
+  const { currentUser, owner, listModal, buyModal, items } = useSelector(
+    (state) => state.detail
+  );
+  // const [showListItemModal, setListItemModal] = useState(false);
+  const dispatch = useDispatch();
   let itemDetail;
 
   const item = (items, tokenId) => {
@@ -39,21 +41,23 @@ function DetailTitlePrice({
     <>
       <p className={classes.collection}>{itemdata.collection}</p>
       <p className={classes.title}>{itemdata.name}</p>
-      <LinkContainer to={`/profile/${itemOwner}`}>
-        <button className="btn">Owned by {itemOwner}</button>
+      <LinkContainer to={`/profile/${owner}`}>
+        <button className="btn">Owned by {owner}</button>
       </LinkContainer>
 
       <div className={classes.pricediv}>
         <p>Current Price</p>
-        <p className={classes.title}>ETH {itemdata.current_price}</p>
+        <p className={classes.title}>CCH {itemdata.current_price}</p>
         {loginStatus === true ? (
           <div>
-            {currentUser && currentUser === itemOwner ? (
+            {currentUser && currentUser === owner ? (
               <div>
                 {itemDetail[0].forSale === false ? (
                   <Button
                     variant="danger"
-                    onClick={() => setListItemModal(true)}
+                    onClick={() =>
+                      dispatch(detailSliceActions.updateListModal(true))
+                    }
                   >
                     List Item
                   </Button>
@@ -66,8 +70,8 @@ function DetailTitlePrice({
                   </Button>
                 )}
                 <ListSaleModal
-                  show={showListItemModal}
-                  onHide={() => setListItemModal(false)}
+                  show={listModal}
+                  // setListItemModal={setListItemModal}
                   itemOnSale={itemOnSale}
                   dialogClassName="modal-20w"
                   tokenId={token_id}
@@ -78,7 +82,9 @@ function DetailTitlePrice({
                 {itemdata.on_sale === true ? (
                   <Button
                     variant="primary"
-                    onClick={() => setShowBuyModal(true)}
+                    onClick={() => {
+                      dispatch(detailSliceActions.updateBuyModal(true));
+                    }}
                   >
                     Buy Now
                   </Button>
@@ -100,10 +106,10 @@ function DetailTitlePrice({
 
         <DetailBuyModal
           itemdata={itemdata}
-          show={showBuyModal}
+          show={buyModal}
           buyWithoutApprovalToken={buyWithoutApprovalToken}
           token_id={token_id}
-          onHide={() => setShowBuyModal(false)}
+          // onHide={() => setShowBuyModal(false)}
         />
       </div>
     </>

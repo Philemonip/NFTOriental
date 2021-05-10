@@ -1,14 +1,16 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
 import React, { useState } from "react";
 import ListSaleModal from "./ListSaleModal";
 import { LinkContainer } from "react-router-bootstrap";
+import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 
 const Collectibles = (props) => {
-  const currentUser = useSelector((state) => state.detail.currentUser);
-  const items = useSelector((state) => state.detail.items);
-  const [showListItemModal, setListItemModal] = useState(false);
+  const { currentUser, items, listModal } = useSelector(
+    (state) => state.detail
+  );
   const [currentID, setcurrentID] = useState(0);
+  const dispatch = useDispatch();
 
   let ownedArr;
   let imgsrc;
@@ -30,8 +32,8 @@ const Collectibles = (props) => {
   };
 
   const modalHandler = (id) => {
-    setListItemModal(true);
     setcurrentID(id);
+    dispatch(detailSliceActions.updateListModal(true));
   };
 
   return (
@@ -108,8 +110,8 @@ const Collectibles = (props) => {
         })}
       {ownedArr && (
         <ListSaleModal
-          show={showListItemModal}
-          onHide={() => setListItemModal(false)}
+          show={listModal}
+          // onHide={() => setListItemModal(false)}
           itemOnSale={props.itemOnSale}
           dialogClassName="modal-20w"
           tokenId={currentID}
