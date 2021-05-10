@@ -3,11 +3,10 @@
 }
 
 .coin-info {
-  padding: 10px;
   height: 100%;
   width: 100%;
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 30px;
+  max-height: 30px;
 }
 .red {
   color: #f00606;

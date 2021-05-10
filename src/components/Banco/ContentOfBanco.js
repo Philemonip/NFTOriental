@@ -9,7 +9,7 @@ const ContentOfBanco = () => {
 	useEffect(() => {
 		axios
 			.get(
-				"https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2C%20ethereum&order=market_cap_desc&per_page=2&page=1&sparkline=false"
+				"https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false"
 			)
 			.then((res) => {
 				setCoins(res.data);
@@ -20,20 +20,20 @@ const ContentOfBanco = () => {
 		<div className="col bancoContent p-0">
 			<Jumbotron fluid className="bancoJumbotron">
 				<Container>
-					<h4>Deposit and Withdraw coins in minutes</h4>
-					<h5>Join the world's largest DeFI Bank</h5>
+					<h4>Deposit ETH and earn CCH interest in minutes</h4>
+					<h5>Join the world's largest DeFI Bank.</h5>
 				</Container>
 			</Jumbotron>
 			<Container>
-				<Table responsive variant="primary">
+				<Table striped responsive hover>
 					<thead>
 						<tr>
 							<th>Logo</th>
 							<th>Name</th>
 							<th>Last Price</th>
 							<th>Change</th>
+							<th>Market Cap.</th>
 							<th>Volume</th>
-							<th>Market Capital</th>
 						</tr>
 
 						{/* <Row>

@@ -1,5 +1,5 @@
 .cchHome {
-  background-color: #282c34;
+  background-color: rgb(27, 27, 27);
   color: white;
   height: 100vh;
 }
@@ -9,7 +9,7 @@
   color: white;
   overflow: hidden;
   animation-fill-mode: forwards;
-  animation: animate 8s linear;
+  animation: animate 7s linear;
 }
 @keyframes animate {
   0%,
@@ -39,17 +39,28 @@
 
 .bancoContent {
   height: 90vh;
-  background-color: rgb(94, 244, 255);
+  background-color: rgb(250, 250, 250);
+  overflow-y: scroll;
 }
 
 .bancoSide {
-  background-color: rgb(22, 22, 22);
+  background-color: rgb(42, 42, 42);
   height: 90vh;
 }
 
-@media screen and (max-width: 767px) {
+.bancoSide button {
+  color: white;
+  background-color: Transparent;
+}
+
+.bancoSide button:hover {
+  color: rgb(189, 189, 189);
+  background-color: Transparent;
+}
+
+@media screen and (max-width: 1200px) {
   .bancoSide {
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
     height: auto;
   }
   .bancoNavToggle {
@@ -61,28 +72,59 @@
 }
 
 .bancoProfile {
-  background-color: blue;
+  background-color: rgb(112, 112, 161);
+  background-image: linear-gradient(rgb(29, 29, 29), rgb(51, 51, 51));
+  overflow-y: scroll;
 }
 
 .bancoAction {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: orange;
+  background-color: rgb(34, 34, 34);
   height: 90vh;
 }
 
+.transactionHistory button:hover {
+  background-color: rgb(75, 75, 75);
+}
+
 .tabDetail {
-  background-color: red;
-  height: 35vh;
+  background-color: rgb(99, 88, 88);
+  height: 50%;
+  width: 100%;
+  border-radius: 5%;
   /* display: flex;
-	align-items: center;
-	justify-content: center; */
+  align-items: center;
+  justify-content: center; */
 }
 /* Inactive tab */
 .bancoActionTabs > a {
-  background-color: #282c34;
+  background-color: #3a4761;
   color: white;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.bancoAction .nav {
+  justify-content: center;
+}
+
+.bancoAction .nav-tabs {
+  border-bottom: none;
+}
+
+.bancoDeposit .form-group .minimum {
+  font-size: 14px;
+  padding-top: 5px;
+}
+
+.BancoWithdraw h2 {
+  margin: 0px 4rem;
+}
+
+.TransferCCH button {
+  font-size: 1.2rem;
 }
 
 /* logo */
@@ -150,7 +192,7 @@ body {
   position: relative;
   transform-style: preserve-3d;
   animation-name: spining;
-  animation-duration: 6s;
+  animation-duration: 5s;
   animation-fill-mode: forwards;
   /* transform: translateZ(-230px) rotateY(230deg) rotateX(240deg); */
   transform: translateZ(-100px);
@@ -164,7 +206,7 @@ body {
   50%,
   100% {
     /* transform: translateZ(-50px) rotateY(230deg) rotateX(240deg); */
-    transform: translateZ(-230px) rotateY(230deg) rotateX(240deg);
+    transform: translateZ(-400px) rotateY(230deg) rotateX(240deg);
   }
 }
 
@@ -205,37 +247,37 @@ body {
 .cube__face--front {
   transform: rotateY(0deg) translateZ(5vh);
   animation-name: largeSmall--front;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-fill-mode: forwards;
 }
 .cube__face--right {
   transform: rotateY(90deg) translateZ(5vh);
   animation-name: largeSmall--right;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-fill-mode: forwards;
 }
 .cube__face--back {
   transform: rotateY(180deg) translateZ(5vh);
   animation-name: largeSmall--back;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-fill-mode: forwards;
 }
 .cube__face--left {
   transform: rotateY(-90deg) translateZ(5vh);
   animation-name: largeSmall--left;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-fill-mode: forwards;
 }
 .cube__face--top {
   transform: rotateX(90deg) translateZ(5vh);
   animation-name: largeSmall--top;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-fill-mode: forwards;
 }
 .cube__face--bottom {
   transform: rotateX(-90deg) translateZ(5vh);
   animation-name: largeSmall--bottom;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-fill-mode: forwards;
 }
 

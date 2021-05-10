@@ -11,18 +11,16 @@ const DepositOfBanco = ({ deposit }) => {
       {isDeposited ? (
         <div>youve already made a deposit</div>
       ) : (
-        <div>
+        <div className="bancoDeposit">
+          <h5 className="pt-4">Earn CCH interest by depositing your ETH.</h5>
+          <div className="text-left mx-4">
+            <br></br>
+          1. Make ONE deposit at a time.
           <br></br>
-          How much do you want to deposit?
+          2. CCH Interest grows with deposit time.
           <br></br>
-          More and longer you deposit
-          <br></br>
-          more interest you get as CCH!
-          <br></br>
-          min. amount is 0.01 ETH
-          <br></br>
-          you can only make 1 deposit at a time
-          <br></br>
+          3. Withdraw ETH with CCH interest to buy NFTs at CloseSea!
+          </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -31,9 +29,11 @@ const DepositOfBanco = ({ deposit }) => {
               deposit(amount);
               dispatch(bancoSliceActions.updateDepositAmount(0));
             }}
+            className="p-4"
           >
-            <div className="form-group mr-sm-2">
+            <div className="form-group px-3">
               <br></br>
+              <p>Deposit Amount (ETH):</p>
               <input
                 id="depositAmount"
                 step="0.01"
@@ -48,8 +48,9 @@ const DepositOfBanco = ({ deposit }) => {
                 placeholder="amount..."
                 required
               />
+              <p className="text-right minimum">*Min. Amount is 0.01 ETH</p>
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-success mt-2 px-4">
               DEPOSIT
             </button>
           </form>

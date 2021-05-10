@@ -17,8 +17,8 @@ const NavBanco = () => {
             <div class="cube__face cube__face--bottom"></div>
           </div>
         </div>
-        <div className="bancoTitle text-left d-flex align-items-center">
-          {windowWidth >= 767 ? <h1>banco de cinco chicos</h1> : <h1>BdeCC</h1>}
+        <div className="bancoTitle text-left d-flex align-items-center mx-2">
+          {windowWidth >= 767 ? <h2>Banco de Cinco Chicos</h2> : <h2>BCC</h2>}
         </div>
       </div>
       <div className="bancoNavToggle">

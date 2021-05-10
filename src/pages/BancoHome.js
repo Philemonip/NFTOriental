@@ -89,7 +89,7 @@ const BancoHome = () => {
 	useEffect(() => {
 		function handleResize() {
 			dispatch(bancoSliceActions.resizeWindowWidth(window.innerWidth));
-			window.innerWidth >= 767
+			window.innerWidth >= 1200
 				? dispatch(bancoSliceActions.sideDisplay(true))
 				: dispatch(bancoSliceActions.sideDisplay(false));
 		}
@@ -197,7 +197,7 @@ const BancoHome = () => {
 							<NavBanco />
 							<div className="row bancoMain">
 								<SideBanco />
-								<div className="col-md-11">
+								<div className="col-xl-11">
 									<div className="row">
 										{bancoContent === "Home" ? (
 											<ContentOfBanco />
