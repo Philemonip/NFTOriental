@@ -45,7 +45,7 @@ function DetailTitlePrice({
 
       <div className={classes.pricediv}>
         <p>Current Price</p>
-        <p className={classes.title}>ETH {itemdata.current_price}</p>
+        <p className={classes.title}>CCH {itemdata.current_price}</p>
         {loginStatus === true ? (
           <div>
             {currentUser && currentUser === itemOwner ? (

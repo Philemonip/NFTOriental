@@ -1,10 +1,11 @@
 import { Modal, Button, Row, Col, Image } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailBuyModal.module.css";
 import { useSelector } from "react-redux";
 
 function DetailBuyModal(props) {
   const cchBalance = useSelector((state) => state.banco.cchBalance);
-  let tokenId = props.token_id
+  let tokenId = props.token_id;
 
   return (
     <Modal
@@ -48,7 +49,7 @@ function DetailBuyModal(props) {
             </Row>
           </Col>
           <Col className="d-flex align-items-center justify-content-end">
-            <h5>ETH {props.itemdata.current_price}</h5>
+            <h5>CCH {props.itemdata.current_price}</h5>
           </Col>
         </Row>
         <Row className={classes.totalrow}>
@@ -56,22 +57,29 @@ function DetailBuyModal(props) {
             <h5>Total</h5>
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5>ETH {props.itemdata.current_price}</h5>
+            <h5>CCH {props.itemdata.current_price}</h5>
           </Col>
         </Row>
         <Row className="d-flex mt-5 justify-content-center">
           <Button
             className={classes.button}
-            onClick={(e) => props.buyWithoutApprovalToken(tokenId, props.itemdata.current_price)}
+            onClick={(e) =>
+              props.buyWithoutApprovalToken(
+                tokenId,
+                props.itemdata.current_price
+              )
+            }
           >
             <b>Checkout, {cchBalance}</b>
           </Button>
-          <Button className={`${classes.button} ml-4`}>
-            <b>Add Funds</b>
-          </Button>
+          <LinkContainer to="/cincochicos">
+            <Button className={`${classes.button} ml-4`}>
+              <b>Add Funds</b>
+            </Button>
+          </LinkContainer>
         </Row>
       </Modal.Body>
-    </Modal >
+    </Modal>
   );
 }
 

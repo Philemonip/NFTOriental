@@ -19,6 +19,7 @@ import {
   bancoSliceActions,
   addTransactionThunk,
 } from "../redux/Banco/bancoSlice";
+import { FaWindows } from "react-icons/fa";
 dotenv.config();
 var web3;
 var cch;
@@ -135,7 +136,8 @@ function MarketDetail() {
   // }
 
   async function buyWithoutApprovalToken(tokenId, NFTprice) {
-    if (NFTprice * 1e18 > 0.01 * 1e18) {
+    const cchBalance = await cch.methods.balanceOf(currentUser).call();
+    if (cchBalance > NFTprice * 1e18) {
       try {
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
         transferCCH(targetAccount, NFTprice * 1e18);
@@ -162,13 +164,17 @@ function MarketDetail() {
             to_address: currentUser,
             price: NFTprice,
             owner: owner,
-            current_price: price,
-            on_sale: forSale,
+            current_price: 0,
+            on_sale: false,
           })
         );
       } catch (err) {
         console.log("buying error", err);
       }
+    } else {
+      window.alert(
+        "Not enough funds! Please top up your CCH balance to purchase the NFT."
+      );
     }
   }
 
@@ -190,9 +196,15 @@ function MarketDetail() {
 
   async function itemOnSale(tokenId, price) {
     try {
-      await contractNFT.methods
+      const result = await contractNFT.methods
         .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser });
+      //   .on("transactionHash", function (hash) {
+      //     console.log(hash);
+      //   });
+
+      // console.log(result);
+
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
       const NFTitem = getItem.filter((i) => i.id === tokenId);

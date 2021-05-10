@@ -39,7 +39,7 @@ function DetailImgInfo({ itemdata, loginStatus }) {
               <Card.Body>
                 <p>Contract Address: {token.owner}</p>
                 <p>Token ID: {itemdata.token_id}</p>
-                <p>Blockchain: Ethereum</p>
+                <p>Blockchain: Rinkeby</p>
               </Card.Body>
             </Accordion.Collapse>
           ) : (
