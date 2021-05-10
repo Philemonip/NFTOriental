@@ -1,5 +1,6 @@
-import { Card, Image, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./SellerItemCard.module.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const BrowseItemCard = ({ item }) => {
   //Text shortener helper function
@@ -17,8 +18,14 @@ const BrowseItemCard = ({ item }) => {
     <a href={"/items/asset/" + item.token_id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
-          {/* <Image className={classes.image} src={dummypic} /> */}
-          <Image className={classes.image} src={item.image} />
+          {/* <Image className={classes.image} src={item.image} /> */}
+          <LazyLoadImage
+            alt="Products"
+            src={<Spinner animation="grow" variant="success" />}
+            // src="https://gateway.pinata.cloud/ipfs/QmSTMzMGpJvLC9K2ahaDtsvSaswsWfGDZdYnL7TPQktFZM"
+            className={classes.image}
+            placeholder={<Spinner animation="grow" variant="success" />}
+          />
         </div>
         <Card.Body className={classes.cardbody}>
           <Row>
