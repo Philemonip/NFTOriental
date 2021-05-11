@@ -7,7 +7,7 @@ const initialState = {
   file: null,
   price: null,
   name: null,
-  category: null,
+  collection: null,
   image: null,
   externalUrl: null,
   description: null,
@@ -26,8 +26,8 @@ const mintingSlice = createSlice({
     updateName(state, action) {
       state.name = action.payload;
     },
-    updateCategory(state, action) {
-      state.category = action.payload;
+    updateCollection(state, action) {
+      state.collection = action.payload;
     },
     updateImage(state, action) {
       state.image = action.payload;

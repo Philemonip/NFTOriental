@@ -1,42 +1,33 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import classes from "./CollectiblesGrid.module.css";
 import React, { useState } from "react";
 import ListSaleModal from "./ListSaleModal";
-import { LinkContainer } from "react-router-bootstrap";
+// import { LinkContainer } from "react-router-bootstrap";
 import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
+
 import CollectiblesGridCard from "./CollectiblesGridCard";
 
 const Collectibles = (props) => {
   const { currentUser, items, listModal } = useSelector(
     (state) => state.detail
   );
-  const [currentID, setcurrentID] = useState(0);
+  const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
 
   let ownedArr;
   let imgsrc;
+
+  const modalHandler = (id) => {
+    setCurrentId(id);
+    dispatch(detailSliceActions.updateListModal(true));
+  };
 
   const ownerItems = (items, currentUser) => {
     ownedArr = items.filter((i) => i.owner === currentUser);
     console.log("this owner owns", ownedArr);
   };
   ownerItems(items, currentUser);
-
-  const imgSource = (id) => {
-    let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
-    if (imgsrcArr.length > 0) {
-      imgsrc = imgsrcArr[0].image;
-      return imgsrc;
-    } else {
-      return;
-    }
-  };
-
-  const modalHandler = (id) => {
-    setcurrentID(id);
-    dispatch(detailSliceActions.updateListModal(true));
-  };
 
   return (
     <Container fluid className={classes.browseitem}>
@@ -54,7 +45,6 @@ const Collectibles = (props) => {
                   itemOnSale={props.itemOnSale}
                   burnToken={props.burnToken}
                   listModal={props.listModal}
-                  imgSource={imgSource}
                   item={item}
                   key={index}
                 />
@@ -62,6 +52,13 @@ const Collectibles = (props) => {
             );
           })}
       </Row>
+      <ListSaleModal
+        show={listModal}
+        // onHide={() => setListItemModal(false)}
+        itemOnSale={props.itemOnSale}
+        dialogClassName="modal-20w"
+        tokenId={currentId}
+      />
     </Container>
     // <div className="d-flexw Collectibles row">
     // {ownedArr &&

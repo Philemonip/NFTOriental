@@ -1,7 +1,6 @@
 import { Modal, Form } from "react-bootstrap";
 import { useState } from "react";
-import LoadModal from "../Common/LoadModal";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTags } from '@fortawesome/free-solid-svg-icons';
@@ -9,9 +8,6 @@ import { faTags } from '@fortawesome/free-solid-svg-icons';
 function ListSaleModal(props) {
   let tokenId = props.tokenId;
   const [price, setprice] = useState("");
-  //   const [listLoad, setListLoad] = useState(false);
-  const etherscanLoad = useSelector((state) => state.detail.etherscanLoad);
-  //   const listModal = useSelector((state) => state.detail.listModal);
   const dispatch = useDispatch();
 
   const handleList = async () => {

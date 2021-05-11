@@ -1,8 +1,12 @@
 // import Spinner from "../../Common/Spinner";
+import { useState } from "react";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./CollectiblesGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ListSaleModal from "./ListSaleModal";
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 const CollectiblesGridCard = ({
   item,
@@ -10,25 +14,32 @@ const CollectiblesGridCard = ({
   itemNotForSale,
   itemOnSale,
   burnToken,
-  listModal,
-  imgSource,
 }) => {
   console.log(item);
+  // const { listModal } = useSelector((state) => state.detail);
   //Text shortener helper function
+  const [imageSrc, setImageSrc] = useState(null);
+  const getImageUrl = async (id) => {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_SERVER}/items/asset/${id}`
+    );
+    setImageSrc(data[0].image);
+  };
+  getImageUrl(item.id);
 
   return (
     <div className={classes.profileHover}>
       <a href={"/items/asset/" + item.id}>
         <Card className={classes.card}>
           <div className={classes.imagediv}>
-            {/* <img className={classes.image} src={item.image} alt="Product" /> */}
-            <LazyLoadImage
-              alt="Products"
-              src={imgSource(item.id)}
-              // src="https://gateway.pinata.cloud/ipfs/QmSTMzMGpJvLC9K2ahaDtsvSaswsWfGDZdYnL7TPQktFZM"
-              className={classes.image}
-              placeholder={<Spinner animation="grow" variant="success" />}
-            />
+            {imageSrc && (
+              <LazyLoadImage
+                alt="Products"
+                src={imageSrc}
+                className={classes.image}
+                placeholder={<Spinner animation="grow" variant="success" />}
+              />
+            )}
           </div>
           <Card.Body className={classes.cardbody}>
             <Row>
@@ -93,7 +104,7 @@ const CollectiblesGridCard = ({
             </div>
           )}
         </div>
-        {item && (
+        {/* {item && (
           <ListSaleModal
             show={listModal}
             // onHide={() => setListItemModal(false)}
@@ -101,7 +112,7 @@ const CollectiblesGridCard = ({
             dialogClassName="modal-20w"
             tokenId={item.id}
           />
-        )}
+        )} */}
       </div>
     </div>
   );
