@@ -1,7 +1,6 @@
 .button {
   display: flex;
   border-radius: 5px;
-  /* border: 2px solid rgb(214, 214, 214); */
   background-color: rgb(214, 214, 214);
   justify-content: center;
   box-shadow: none;
@@ -10,6 +9,7 @@
   user-select: none;
   cursor: pointer;
   height: 10rem;
+  text-align: center;
 }
 
 .button:hover {

@@ -20,6 +20,11 @@
   color: #6c757d;
 }
 
+.row {
+  display: flex;
+  justify-content: center;
+}
+
 .column {
-  margin: 25px 40px;
+  padding: 25px 40px;
 }
