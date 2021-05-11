@@ -7,20 +7,22 @@
   padding: 0px;
 }
 
-.jumbotron {
-  background-image: linear-gradient(
-    to bottom right,
-    rgba(143, 224, 111, 0.829),
-    rgba(69, 214, 240, 0.671)
-  );
-  height: 28vh;
-}
-
-.jumbotron .profileImage {
+.jumbotronProfile .profileImage {
   width: 170px;
   height: 170px;
   object-fit: cover;
   border-radius: 50%;
-  /* margin-top: 7%; */
   border: 5px solid white;
+}
+
+.page button:hover {
+  background-color: #afe6f0;
+}
+
+.page button:active {
+  background-color: #a0cdd4;
+}
+
+.page button:focus {
+  box-shadow: none;
 }
