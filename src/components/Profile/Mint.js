@@ -20,7 +20,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
 
   return (
     <div>
-      <Container>
+      <Container className="MintPage">
         <Form
           className="m-3"
           id="confirm-form"
@@ -28,7 +28,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
           onSubmit={handleMintingSubmit}
         >
           <Form.Group>
-            <Form.Label>Upload File</Form.Label>
+            <Form.Label><h4 className="font-weight-bold">Upload Your NFT</h4></Form.Label>
             <Form.Control
               name="uploadImg"
               type="file"
@@ -38,7 +38,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
               }
               required
             />
-            <Form.Text className="text-muted">Upload a file</Form.Text>
+            <Form.Text className="text-muted">Upload your file</Form.Text>
           </Form.Group>
           {/* <Form.Group>
             <Form.Label>Price</Form.Label>
@@ -72,10 +72,10 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
               }
               required
             />
-            <Form.Text className="text-muted">Product Name</Form.Text>
+            <Form.Text className="text-muted">* Enter your product name</Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Categoies</Form.Label>
+            <Form.Label>Collection</Form.Label>
             <Form.Control
               onChange={(e) => {
                 //   console.log(e.target.value);
@@ -84,7 +84,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
               as="select"
               id="inlineFormCustomSelectPref"
               custom
-              size="lg"
+              size="md"
             >
               <option value="Art">Art</option>
               <option value="Avatars">Avatars</option>
@@ -102,25 +102,25 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
                 dispatch(mintingSliceActions.updateCategory(e.target.value))
               }
             /> */}
-            <Form.Text className="text-muted">Categoies</Form.Text>
+            <Form.Text className="text-muted">* Set item collection</Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>External Url</Form.Label>
+            <Form.Label>External URL</Form.Label>
             <Form.Control
               name="externalUrl"
               type="text"
               id="externalUrl"
-              placeholder="External Url"
+              placeholder="External URL"
               value={externalUrl}
               onChange={(e) => setExternalUrl(e.target.value)}
               onBlur={(e) =>
                 dispatch(mintingSliceActions.updateExternalUrl(e.target.value))
               }
             />
-            <Form.Text className="text-muted">External Url</Form.Text>
+            <Form.Text className="text-muted">* Input external URL for your item </Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Description</Form.Label>
+            <Form.Label>Item description</Form.Label>
             <Form.Control
               name="description"
               type="text"
@@ -132,11 +132,11 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
                 dispatch(mintingSliceActions.updateDescription(e.target.value))
               }
             />
-            <Form.Text className="text-muted">Max char: 255</Form.Text>
+            <Form.Text className="text-muted">Max. characters: 255</Form.Text>
           </Form.Group>
           <Form.Group className="d-flex justify-content-center">
-            <Button type="submit" className="btn btn-primary" value="upload">
-              Mint
+            <Button type="submit" className="btn btn-warning" value="upload">
+              Mint Product
             </Button>
           </Form.Group>
         </Form>

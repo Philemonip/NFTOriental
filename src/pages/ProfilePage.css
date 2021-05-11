@@ -48,3 +48,10 @@
   color: rgb(44, 44, 44);
   border-bottom: 2px solid rgb(44, 44, 44);
 }
+
+.MintPage .btn {
+  width: 12rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 2rem;
+}

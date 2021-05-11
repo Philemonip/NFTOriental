@@ -4,7 +4,7 @@ import { browseActions } from "../redux/Marketplace/browseSlice";
 import { browseToggleThunk } from "../redux/Marketplace/browseSlice";
 import { Col, Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
-import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
+import ItemGrid from "../components/Common/ItemGrid/ItemGrid";
 import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
 import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
 import classes from "./MarketBrowse.module.css";
@@ -40,7 +40,7 @@ function MarketBrowse() {
             {(statusfilter.length > 0 || collectionfilter.length > 0) && (
               <SidebarFilterbar isSeller={false} />
             )}
-            <BrowseItem items={itemArr} />
+            <ItemGrid items={itemArr} />
           </Col>
         </Row>
       </Container>

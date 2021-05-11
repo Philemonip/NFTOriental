@@ -32,9 +32,7 @@ const HomeCollections = () => {
                 className={`${classes.button} `}
                 onClick={() => clickHandler(i)}
               >
-                <p className={classes.ptext}>
-                  <b>{i}</b>
-                </p>
+                <p className={classes.ptext}>{i}</p>
               </div>
             </Col>
           ))}

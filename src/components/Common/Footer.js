@@ -1,11 +1,10 @@
-import React from "react";
-import "./Footer.css";
+import classes from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <footer>
-      <h1>i am footer</h1>
-    </footer>
+    <div>
+      <h1 className={classes.h1}>i am footer</h1>
+    </div>
   );
 };
 
