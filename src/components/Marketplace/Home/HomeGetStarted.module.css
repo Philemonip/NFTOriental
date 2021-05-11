@@ -1,12 +1,55 @@
 .title {
-  /* position: relative;
-  top: 50%;
-  transform: translateY(-20%); */
-  font-size: 30px;
+  font-size: 22px;
   text-align: center;
+  font-weight: 600;
 }
 
 .ptext {
-  font-size: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(25%);
+  font-size: 22px;
   text-align: center;
+  /* color: #6c757d; */
+  color: white;
+  font-weight: 600;
+}
+
+.buttonrow {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+.contentrow {
+  margin-bottom: 40px;
+}
+
+.column {
+  margin: 25px 40px;
+}
+
+.infobutton {
+  display: flex;
+  border-radius: 360px;
+  /* background-color: rgb(214, 214, 214); */
+  background-color: #23659b;
+  justify-content: center;
+  box-shadow: none;
+  padding: 4px;
+  margin: 4px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.infobutton:hover {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.2s box-shadow;
+}
+
+.activebutton {
+  background-color: #008cff;
 }

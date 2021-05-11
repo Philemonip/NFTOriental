@@ -16,11 +16,11 @@ const ProfileOfBanco = () => {
       <div className="container-fluid profileAsset">
         <h3 className="font-weight-bold">Asset :</h3>
         <div className="row">
-          <div className="col">
+          <div className="col-lg-6 col-md-3">
             <h5>Available ETH :</h5>
             <h3>{ethBalance}</h3>
           </div>
-          <div className="col">
+          <div className="col-lg-6 col-md-3">
             <h5>Available CCH : </h5>
             <h3>{cchBalance}</h3>
           </div>

@@ -18,13 +18,15 @@ const ItemGridCard = ({ item }) => {
     <a href={"/items/asset/" + item.token_id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
-          {/* <img className={classes.image} src={item.image} alt="Product" /> */}
           <LazyLoadImage
             alt="Products"
             src={item.image}
             // src="https://gateway.pinata.cloud/ipfs/QmSTMzMGpJvLC9K2ahaDtsvSaswsWfGDZdYnL7TPQktFZM"
             className={classes.image}
-            placeholder={<Spinner animation="grow" variant="success" />}
+            placeholder={
+              <Spinner animation="border" variant="info" size="lg" />
+            }
+            // placeholder={<h1>HI</h1>}
           />
         </div>
         <Card.Body className={classes.cardbody}>
