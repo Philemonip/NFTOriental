@@ -37,75 +37,76 @@ const Collectibles = (props) => {
   };
 
   return (
-    <div className="d-flex Collectibles">
+    <div className="d-flexw Collectibles row">
       {ownedArr &&
         ownedArr.map((item, index) => {
           return (
-            <Card key={index} style={{ width: "18rem" }} className="mx-2">
-              <Card.Img
-                variant="top"
-                src={imgSource(item.id)}
-                alt={item.id}
-                roundedCircle
-              />
-              <Card.Body>
-                <LinkContainer to={`/items/asset/${item.id}`}>
-                  <button className="text-center">{item.itemName}</button>
-                </LinkContainer>
-
-                <Card.Text>
-                  <p className="m-1">
-                    Owner:{" "}
-                    <a href={`/profile/${item.owner}`}>
-                      {item.owner.substr(0, 16)}...
+            <div className="col-lg-3 col-sm-6">
+              <Card key={index} className="mx-2">
+                <Card.Img
+                  variant="top"
+                  src={imgSource(item.id)}
+                  alt={item.id}
+                  roundedCircle
+                />
+                <Card.Body>
+                  <LinkContainer to={`/items/asset/${item.id}`}>
+                    <button className="btn text-center">{item.itemName}</button>
+                  </LinkContainer>
+                  <Card.Text>
+                    <h6 className="m-1">
+                      Owner:{" "}
+                      <a href={`/profile/${item.owner}`}>
+                        {item.owner.substr(0, 16)}...
                     </a>
-                  </p>
-                  <p className="m-1">
-                    Creator:{" "}
-                    <a href={`/profile/${item.creator}`}>
-                      {item.creator.substr(0, 16)}...
+                    </h6>
+                    <h6 className="m-1">
+                      Creator:{" "}
+                      <a href={`/profile/${item.creator}`}>
+                        {item.creator.substr(0, 16)}...
                     </a>
-                  </p>
-                  <p className="m-1">Id: {item.id}</p>
-                  <p className="m-1">Price {item.price / 1e18}</p>
-                  {item.forSale === true ? (
-                    <p className="m-1">Listing </p>
-                  ) : (
-                    <p className="m-1">Not Listing </p>
-                  )}
-                </Card.Text>
+                    </h6>
+                    <h6 className="m-1">Id: {item.id}</h6>
+                    <h6 className="m-1">Price {item.price / 1e18}</h6>
+                    {item.forSale === true ? (
+                      <h6 className="m-1">Status: Listing </h6>
+                    ) : (
+                      <h6 className="m-1">Status: Not Listing </h6>
+                    )}
+                  </Card.Text>
 
-                <div className="d-flex">
-                  {item.forSale === true ? (
-                    <button
-                      className="mx-1"
-                      onClick={(e) => props.itemNotForSale(item.id)}
-                    >
-                      Cancel Listing
-                    </button>
-                  ) : (
-                    <button
-                      className="mx-1"
-                      onClick={() => modalHandler(item.id)}
-                    >
-                      List Item
-                    </button>
-                  )}
-                  {/* <Button variant="success">Approve</Button>
-                                <Button variant="warning">Cancel Approve</Button> */}
-                  {item.owner === item.creator && (
-                    <div>
+                  <div className="d-flex">
+                    {item.forSale === true ? (
                       <button
-                        className="mx-1"
-                        onClick={(e) => props.burnToken(item.id)}
+                        className="mx-1 btn btn-info"
+                        onClick={(e) => props.itemNotForSale(item.id)}
                       >
-                        Burn Token
+                        Cancel Listing
                       </button>
-                    </div>
-                  )}
-                </div>
-              </Card.Body>
-            </Card>
+                    ) : (
+                      <button
+                        className="mx-1 btn btn-info"
+                        onClick={() => modalHandler(item.id)}
+                      >
+                        List Item
+                      </button>
+                    )}
+                    {/* <Button variant="success">Approve</Button>
+                                <Button variant="warning">Cancel Approve</Button> */}
+                    {item.owner === item.creator && (
+                      <div>
+                        <button
+                          className="mx-1 btn btn-info"
+                          onClick={(e) => props.burnToken(item.id)}
+                        >
+                          Burn Token
+                      </button>
+                      </div>
+                    )}
+                  </div>
+                </Card.Body>
+              </Card>
+            </div>
           );
         })}
       {ownedArr && (
