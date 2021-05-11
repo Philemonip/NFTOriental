@@ -43,7 +43,6 @@ const Navi = (props) => {
         {loginStatus && (
           <>
             <LinkContainer to="/profile">
-              {/* change to icon for click later */}
               <Nav.Link>Profile</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/cincochicos">

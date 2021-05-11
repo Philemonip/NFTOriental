@@ -16,7 +16,7 @@ const ItemGrid = (props) => {
                 // <Col className="mt-4 d-flex justify-content-center" key={index}>
                 //   <BrowseItemCard item={item} />
                 // </Col>
-                <div className={classes.grid}>
+                <div className={classes.grid} key={index}>
                   <ItemGridCard item={item} />
                 </div>
               );
