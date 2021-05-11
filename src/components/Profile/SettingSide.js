@@ -4,7 +4,7 @@ const SettingSide = ({ setContent }) => {
 	return (
 		<div>
 			<div>
-				<button
+				<button className="btn font-weight-bold text-left"
 					onClick={() => {
 						setContent("General");
 					}}
@@ -14,16 +14,16 @@ const SettingSide = ({ setContent }) => {
 			</div>
 
 			<div>
-				<button
+				<button className="btn font-weight-bold text-left"
 					onClick={() => {
 						setContent("Hi");
 					}}
 				>
-					Our Team
+					Development Team
 				</button>
 			</div>
 			<div>
-				<button
+				<button className="btn font-weight-bold text-left"
 					onClick={() => {
 						setContent("Join Us");
 					}}

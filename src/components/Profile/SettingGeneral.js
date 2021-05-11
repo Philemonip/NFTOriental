@@ -25,9 +25,10 @@ const SettingGeneral = () => {
 			<Form className="m-3" onSubmit={handleSubmit}>
 				<Form.Group>
 					<Form.Label>Edit Username</Form.Label>
+					<hr className="mt-0 mb-3"></hr>
 					<Form.Control
 						type="text"
-						placeholder="desire username"
+						placeholder="Username"
 						value={desireName}
 						onChange={(e) => setDesireName(e.target.value)}
 						required

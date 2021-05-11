@@ -13,10 +13,10 @@ const Setting = () => {
 
 	return (
 		<div className="row">
-			<div className="col-3">
+			<div className="col-lg-2 col-sm-4 Setting">
 				<SettingSide setContent={setContent} />
 			</div>
-			<div className="col">
+			<div className="col-lg-10 col-sm-8">
 				{settingContent === "General" ? (
 					<SettingGeneral />
 				) : settingContent === "Hi" ? (
