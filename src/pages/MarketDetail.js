@@ -217,9 +217,14 @@ function MarketDetail() {
 
   async function itemOnSale(tokenId, price) {
     try {
+      dispatch(detailSliceActions.updateEtherscanLoad(true));
       const result = await contractNFT.methods
         .tokenOnSale(tokenId, `${price * 1e18}`)
-        .send({ from: currentUser });
+        .send({ from: currentUser })
+        .on("transactionHash", function (hash) {
+          console.log("hash on(transactionHash nft " + hash);
+          dispatch(detailSliceActions.updateNftHash(hash));
+        });
       //   .on("transactionHash", function (hash) {
       //     console.log(hash);
       //   });
@@ -239,16 +244,25 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
-      await console.log(5);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     } catch (err) {
       console.log("item on sale error", err);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     }
   }
 
   async function itemNotForSale(tokenId) {
     try {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
-      await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
+      await contractNFT.methods
+        .notForSale(tokenId)
+        .send({ from: currentUser })
+        .on("transactionHash", function (hash) {
+          console.log("hash on(transactionHash nft " + hash);
+          dispatch(detailSliceActions.updateNftHash(hash));
+        });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
       const NFTitem = getItem.filter((i) => i.id === tokenId);
@@ -265,9 +279,11 @@ function MarketDetail() {
         })
       );
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     } catch (err) {
       console.log("item not for sale error", err);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     }
   }
 

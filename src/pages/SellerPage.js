@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IoIosCopy } from "react-icons/io";
+import { IoMdCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,6 +14,7 @@ import SellerSidebar from "../components/Marketplace/Browse_Seller/SellerSidebar
 import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
 import classes from "./SellerPage.module.css";
 import dotenv from "dotenv";
+import "./ProfilePage.css";
 dotenv.config();
 
 function SellerPage() {
@@ -42,36 +43,34 @@ function SellerPage() {
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
-    }, 1300);
+    }, 800);
   }
 
   return (
     <div className={classes.page}>
       <Navi />
-
-      <Jumbotron className="jumbotron mb-1 p-5">
+      <Jumbotron className="jumbotronProfile mb-2 pb-1">
         <div className="text-center">
           <Image
             className="profileImage"
             src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
           />
         </div>
-        <div className="mt-3 text-center">
-          <h4>{itemArr.length > 0 && itemArr[0].alias}</h4>
-          <p>
-            {params.walletAddress}
-            <CopyToClipboard
-              text={params.walletAddress}
-              onCopy={copyWalletAdress}
-            >
-              <Button>
-                <IoIosCopy />
-              </Button>
-            </CopyToClipboard>
-            {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
-          </p>
-        </div>
       </Jumbotron>
+      <div className="mt-3 text-center">
+        <h4>{itemArr.length > 0 && itemArr[0].alias}</h4>
+        <span className="mx-2">{params.walletAddress}</span>
+        <CopyToClipboard
+          text={params.walletAddress}
+          onCopy={copyWalletAdress}
+        >
+          <button className="btn">
+            <IoMdCopy size={20} />
+          </button>
+        </CopyToClipboard>
+        {isCopied ? <p style={{ color: "grey" }}>Copied!</p> : null}
+      </div>
+
       <Container fluid>
         <Row>
           <SellerSidebar />

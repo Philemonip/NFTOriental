@@ -12,6 +12,7 @@ const initialState = {
   etherscanLoad: false,
   cchHash: null,
   nftHash: null,
+  ethHash: null,
 };
 
 const detailSlice = createSlice({
@@ -50,6 +51,9 @@ const detailSlice = createSlice({
     },
     updateNftHash(state, action) {
       state.nftHash = action.payload;
+    },
+    updateEthHash(state, action) {
+      state.ethHash = action.payload;
     },
   },
 });
