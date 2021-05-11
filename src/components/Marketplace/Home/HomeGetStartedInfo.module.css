@@ -15,11 +15,16 @@
 }
 
 .ptext {
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   color: #6c757d;
 }
 
+.row {
+  display: flex;
+  justify-content: center;
+}
+
 .column {
-  margin: 25px 40px;
+  padding: 25px 25px;
 }
