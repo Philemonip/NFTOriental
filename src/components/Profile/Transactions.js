@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +16,7 @@ const TransactionHistory = () => {
   console.log(transactionDateArr);
 
   return (
-    <Table responsive striped bordered hover variant="dark" >
+    <Table responsive striped bordered hover variant="dark">
       <thead>
         <tr>
           <th>Date</th>
@@ -36,6 +35,7 @@ const TransactionHistory = () => {
                 <a
                   href={"https://rinkeby.etherscan.io/tx/" + item.hash}
                   target="_blank"
+                  rel="noreferrer"
                 >
                   {item.createdDate} {item.createdTime}{" "}
                   <FontAwesomeIcon icon={faExternalLinkAlt} />

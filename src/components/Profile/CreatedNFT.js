@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import React, { useState } from "react";
 import ListSaleModal from "./ListSaleModal";
 import { LinkContainer } from "react-router-bootstrap";
@@ -21,7 +21,7 @@ const CreatedNFT = (props) => {
   creatorItems(items, currentUser);
 
   const imgSource = (id) => {
-    let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
+    let imgsrcArr = props.itemArr.filter((i) => i.token_id === id);
     if (imgsrcArr.length > 0) {
       imgsrc = imgsrcArr[0].image;
       return imgsrc;

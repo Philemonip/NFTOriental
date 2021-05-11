@@ -1,12 +1,9 @@
-import { Modal, Button, Row, Col, Image } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 
 import React from "react";
 
 const LoadModal = ({ show, title }) => {
-  //   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
   const { cchHash, nftHash, ethHash } = useSelector((state) => state.detail);
 
   return (
@@ -23,6 +20,7 @@ const LoadModal = ({ show, title }) => {
             <a
               href={`https://rinkeby.etherscan.io/tx/${cchHash}`}
               target="_blank"
+              rel="noreferrer"
             >
               {" "}
               here
@@ -36,6 +34,7 @@ const LoadModal = ({ show, title }) => {
             <a
               href={`https://rinkeby.etherscan.io/tx/${nftHash}`}
               target="_blank"
+              rel="noreferrer"
             >
               {" "}
               here
@@ -49,17 +48,14 @@ const LoadModal = ({ show, title }) => {
             <a
               href={`https://rinkeby.etherscan.io/tx/${ethHash}`}
               target="_blank"
+              rel="noreferrer"
             >
               {" "}
               here
             </a>
           </Modal.Body>
         )}
-        <Modal.Footer>
-          {/* <Button variant="primary" onClick={handleClose}>
-            Understood
-          </Button> */}
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </>
   );

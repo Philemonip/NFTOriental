@@ -22,7 +22,7 @@ const Collectibles = (props) => {
   ownerItems(items, currentUser);
 
   const imgSource = (id) => {
-    let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
+    let imgsrcArr = props.itemArr.filter((i) => i.token_id === id);
     if (imgsrcArr.length > 0) {
       imgsrc = imgsrcArr[0].image;
       return imgsrc;

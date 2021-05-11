@@ -1,18 +1,16 @@
 import Navi from "../components/Common/Navbar";
 import { IoMdCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Button, Jumbotron, Image, Container } from "react-bootstrap";
+import { Jumbotron, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
-// import { browseActions } from "../redux/Marketplace/browseSlice";
 import axios from "axios";
 import {
-  //   nftSliceActions,
   getTransactionThunk,
-  //   addNFTtransactionThunk,
   addmetadataThunk,
   updateItemThunk,
   deleteItemThunk,
@@ -21,7 +19,6 @@ import {
 import {
   mintingSliceActions,
   uploadToImgurThunk,
-  //   mintNFTThunk,
 } from "../redux/Minting/mintingSlice";
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
@@ -35,31 +32,17 @@ var contractNFT;
 
 function ProfilePage() {
   const { currentUser, etherscanLoad } = useSelector((state) => state.detail);
-  //   const items = useSelector((state) => state.detail.items);
-  // const contractNFT = useSelector((state) => state.detail.contract);
   const itemArrBackend = useSelector((state) => state.browse.itemArr);
   const userName = useSelector((state) => state.nft.name);
   const [itemArr, setItemArr] = useState(itemArrBackend);
-  const [loginStatus, setLoginStatus] = useState(false);
+  const [loginStatus, setLoginStatus] = useState(true);
   const [isCopied, setCopied] = useState(false);
-  const {
-    file,
-    price,
-    name,
-    category,
-    image,
-    externalUrl,
-    description,
-  } = useSelector((state) => state.mint);
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  const { file, name, collection, externalUrl, description } = useSelector(
+    (state) => state.mint
+  );
   const [profileContent, setProfileContent] = useState("Collectibles");
   const dispatch = useDispatch();
-  // useEffect(async () => {
-  //   await loadWeb3();
-  //   await loadBlockchainData();
-  // }, []);
+
   useEffect(() => {
     const metamaskCheck = async () => {
       //Declare loadBlockchain
@@ -115,29 +98,6 @@ function ProfilePage() {
     };
     fetchData();
   }, []);
-
-  //   useEffect(async () => {
-  //     const fetchData = async () => {
-  //       const { data } = await axios.get(
-  //         `${process.env.REACT_APP_API_SERVER}/items/`
-  //       );
-  //       dispatch(browseActions.getFiltered(data));
-  //       console.log("data from marketbrowse useeffect");
-  //       console.log(data);
-  //     };
-  //     fetchData();
-  //   }, [dispatch]);
-
-  // const loadWeb3 = async () => {
-  //   if (window.ethereum) {
-  //     window.web3 = new Web3(window.ethereum);
-  //     await window.ethereum.enable();
-  //   } else if (window.web3) {
-  //     window.web3 = new Web3(window.web3.currentProvider);
-  //   } else {
-  //     window.alert("Please login with Metamask.");
-  //   }
-  // };
 
   async function itemOnSale(tokenId, price) {
     try {
@@ -251,7 +211,7 @@ function ProfilePage() {
           creator,
           owner,
           on_sale: forSale,
-          collection: "shoes",
+          collection,
           asset_id: "260156",
           image: imageUrl,
           externalUrl,
@@ -260,9 +220,6 @@ function ProfilePage() {
       );
 
       dispatch(mintingSliceActions.postUploadCleanup());
-      console.log(1);
-
-      console.log(2);
 
       const newItemArr = await axios.get(
         `${process.env.REACT_APP_API_SERVER}/items/`
@@ -272,31 +229,9 @@ function ProfilePage() {
       setProfileContent("Created");
     } catch (err) {
       console.log("mint err", err);
-      console.log(3);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
-      console.log(4);
     }
   };
-
-  //   async function approveTo(buyer, tokenId) {
-  //     try {
-  //       await contractNFT.methods
-  //         .approvalTo(buyer, tokenId)
-  //         .send({ from: currentUser });
-  //     } catch (err) {
-  //       console.log("approving to buyer error", err);
-  //     }
-  //   }
-
-  //   async function cancelApproval(tokenId) {
-  //     try {
-  //       await contractNFT.methods
-  //         .cancelApproval(tokenId)
-  //         .send({ from: currentUser });
-  //     } catch (err) {
-  //       console.log("cancel approval error", err);
-  //     }
-  //   }
 
   function copyWalletAdress() {
     setCopied(true);
@@ -315,18 +250,14 @@ function ProfilePage() {
               <i>Hello, {userName}</i>{" "}
             </h3>
           ) : (
-            <h3 className="font-weight-bold text-dark">
-              <i>Hello, Anonymous</i>
-            </h3>
+            <Redirect to="/" />
           )}
 
           <div xs={6} md={4} className="text-center">
             <Image
               className="profileImage"
               src={
-                loginStatus
-                  ? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
-                  : "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
+                "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
               }
             />
           </div>

@@ -45,6 +45,7 @@ function DetailTradingHistory({ itemdata }) {
                               "https://rinkeby.etherscan.io/tx/" + item.hash
                             }
                             target="_blank"
+                            rel="noreferrer"
                           >
                             {item.createdDate} {item.createdTime}{" "}
                             <FontAwesomeIcon icon={faExternalLinkAlt} />

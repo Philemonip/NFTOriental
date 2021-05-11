@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useDispatch } from "react-redux";
 import dotenv from "dotenv";
 import { Button, Container, Form } from "react-bootstrap";
 import { mintingSliceActions } from "../../redux/Minting/mintingSlice";
-import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
+
 import LoadModal from "../Common/LoadModal";
 dotenv.config();
 
 const Mint = ({ handleMintingSubmit, show, setShow }) => {
-  // const [price, setPrice] = useState("");
   const [name, setName] = useState("");
-  //Categories use dropdown, no need cotrolled
   const [externalUrl, setExternalUrl] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useDispatch();
@@ -28,7 +25,9 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
           onSubmit={handleMintingSubmit}
         >
           <Form.Group>
-            <Form.Label><h4 className="font-weight-bold">Upload Your NFT</h4></Form.Label>
+            <Form.Label>
+              <h4 className="font-weight-bold">Upload Your NFT</h4>
+            </Form.Label>
             <Form.Control
               name="uploadImg"
               type="file"
@@ -72,19 +71,22 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
               }
               required
             />
-            <Form.Text className="text-muted">* Enter your product name</Form.Text>
+            <Form.Text className="text-muted">
+              * Enter your product name
+            </Form.Text>
           </Form.Group>
           <Form.Group>
             <Form.Label>Collection</Form.Label>
             <Form.Control
               onChange={(e) => {
                 //   console.log(e.target.value);
-                dispatch(mintingSliceActions.updateCategory(e.target.value));
+                dispatch(mintingSliceActions.updateCollection(e.target.value));
               }}
               as="select"
               id="inlineFormCustomSelectPref"
               custom
               size="md"
+              required
             >
               <option value="Art">Art</option>
               <option value="Avatars">Avatars</option>
@@ -105,6 +107,22 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
             <Form.Text className="text-muted">* Set item collection</Form.Text>
           </Form.Group>
           <Form.Group>
+            <Form.Label>Item Description</Form.Label>
+            <Form.Control
+              name="description"
+              type="text"
+              id="description"
+              placeholder="Description"
+              description={description}
+              onChange={(e) => setDescription(e.target.value)}
+              onBlur={(e) =>
+                dispatch(mintingSliceActions.updateDescription(e.target.value))
+              }
+              required
+            />
+            <Form.Text className="text-muted">Max. characters: 255</Form.Text>
+          </Form.Group>
+          <Form.Group>
             <Form.Label>External URL</Form.Label>
             <Form.Control
               name="externalUrl"
@@ -117,22 +135,9 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
                 dispatch(mintingSliceActions.updateExternalUrl(e.target.value))
               }
             />
-            <Form.Text className="text-muted">* Input external URL for your item </Form.Text>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Item Description</Form.Label>
-            <Form.Control
-              name="description"
-              type="text"
-              id="description"
-              placeholder="Description"
-              description={description}
-              onChange={(e) => setDescription(e.target.value)}
-              onBlur={(e) =>
-                dispatch(mintingSliceActions.updateDescription(e.target.value))
-              }
-            />
-            <Form.Text className="text-muted">Max. characters: 255</Form.Text>
+            <Form.Text className="text-muted">
+              * Input external URL for your item{" "}
+            </Form.Text>
           </Form.Group>
           <Form.Group className="d-flex justify-content-center">
             <Button type="submit" className="btn btn-warning" value="upload">
