@@ -5,7 +5,7 @@ import { browseToggleThunk } from "../redux/Marketplace/browseSlice";
 import { Col, Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
 import ItemGrid from "../components/Common/ItemGrid/ItemGrid";
-import BrowseSidebar from "../components/Marketplace/Browse/BrowseSidebar";
+import BrowseSidebar from "../components/Marketplace/Browse_Seller/BrowseSidebar";
 import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
 import classes from "./MarketBrowse.module.css";
 import dotenv from "dotenv";
