@@ -109,12 +109,18 @@ const BancoHome = () => {
         dispatch(detailSliceActions.updateEtherscanLoad(true));
         await banco.methods
           .deposit()
-          .send({ value: amount.toString(), from: account });
+          .send({ value: amount.toString(), from: account })
+          .on("transactionHash", function (hash) {
+            console.log("hash on(transactionHash eth " + hash);
+            dispatch(detailSliceActions.updateEthHash(hash));
+          });
         await showBalance();
         dispatch(detailSliceActions.updateEtherscanLoad(false));
         // dispatch(bancoSliceActions.toggleDeposit());
+        dispatch(detailSliceActions.updateEthHash(null));
       } catch (e) {
         dispatch(detailSliceActions.updateEtherscanLoad(false));
+        dispatch(detailSliceActions.updateEthHash(null));
         console.log("Error, deposit: ", e);
       }
     }
@@ -128,7 +134,13 @@ const BancoHome = () => {
         const cchBalanceInWeiBefore = await token.methods
           .balanceOf(account)
           .call();
-        await banco.methods.withdraw().send({ from: account });
+        await banco.methods
+          .withdraw()
+          .send({ from: account })
+          .on("transactionHash", function (hash) {
+            console.log("hash on(transactionHash eth " + hash);
+            dispatch(detailSliceActions.updateEthHash(hash));
+          });
         await showBalance();
         const cchBalanceInWeiAfter = await token.methods
           .balanceOf(account)
@@ -150,10 +162,12 @@ const BancoHome = () => {
         await dispatch(getTransactionThunk(account));
         dispatch(bancoSliceActions.toggleTransactionLoading(false));
         dispatch(detailSliceActions.updateEtherscanLoad(false));
+        dispatch(detailSliceActions.updateEthHash(null));
       } catch (e) {
         console.log("Error, withdraw: ", e);
         dispatch(bancoSliceActions.toggleTransactionLoading(false));
         dispatch(detailSliceActions.updateEtherscanLoad(false));
+        dispatch(detailSliceActions.updateEthHash(null));
       }
     }
   }
@@ -177,7 +191,11 @@ const BancoHome = () => {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
       await token.methods
         .transfer(targetAccount, `${amount}`)
-        .send({ from: account });
+        .send({ from: account })
+        .on("transactionHash", function (hash) {
+          console.log("hash on(transactionHash cch " + hash);
+          dispatch(detailSliceActions.updateCchHash(hash));
+        });
       await dispatch(
         addTransactionThunk({
           fromAddress: account,
@@ -192,6 +210,7 @@ const BancoHome = () => {
       dispatch(bancoSliceActions.toggleTransactionLoading(false));
       await showBalance();
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateCchHash(null));
       //current cch balance/ac ac from to to bkend cat = transfer
     }
   };
