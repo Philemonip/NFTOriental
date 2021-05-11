@@ -19,22 +19,23 @@ const TransactionHistory = () => {
         &nbsp; Show less
       </button>
       <h3 className="text-center">Transaction History</h3>
+      <hr></hr>
       <div className="row mr-auto ml-auto">
-        <div className="col-lg-6 d-flex justify-content-center align-items-center">
-          <p>Accounts</p>
+        <div className="col-lg-6 col-md-3 d-flex justify-content-center align-items-center">
+          <h5>Accounts</h5>
         </div>
-        <div className="col d-flex justify-content-center align-items-center">
-          <p>Amount</p>
+        <div className="col-md-3 d-flex justify-content-center align-items-center">
+          <h5>Amount</h5>
         </div>
-        <div className="col d-flex justify-content-center align-items-center ">
-          <p>Category</p>
+        <div className="col-md-3 d-flex justify-content-center align-items-center ">
+          <h5>Category</h5>
         </div>
       </div>
       <hr style={{ backgroundColor: "white" }}></hr>
       {transaction.map((t, key) => (
         <div key={key} className="row">
-          <div className="col-lg-6 justify-contents-center ">
-            <div className="fromAddress">
+          <div className="col-lg-6 col-md-3 justify-contents-center ">
+            <div className="pl-5 fromAddress">
               {t.from_address === "Banco" ? (
                 <p>From: {t.from_address}</p>
               ) : (
@@ -42,7 +43,7 @@ const TransactionHistory = () => {
                 // <p>{t.from_address.substr(0, 9)}...</p>
               )}
             </div>
-            <div className="toAddress">
+            <div className=" pl-5 toAddress">
               <p>To: {t.to_address}</p>
               {/* <p>{t.to_address.substr(0, 9)}...</p> */}
             </div>

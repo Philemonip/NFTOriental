@@ -377,7 +377,7 @@ function ProfilePage() {
                   className="mx-1"
                   onClick={() => setProfileContent("Mint")}
                 >
-                  Mint
+                  Create NFT
                 </button>
               </>
             )}

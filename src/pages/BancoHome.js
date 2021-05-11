@@ -92,7 +92,7 @@ const BancoHome = () => {
   useEffect(() => {
     function handleResize() {
       dispatch(bancoSliceActions.resizeWindowWidth(window.innerWidth));
-      window.innerWidth >= 1200
+      window.innerWidth >= 1204
         ? dispatch(bancoSliceActions.sideDisplay(true))
         : dispatch(bancoSliceActions.sideDisplay(false));
     }

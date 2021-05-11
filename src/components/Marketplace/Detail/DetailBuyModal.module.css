@@ -6,6 +6,8 @@
 .modalheader {
   border-bottom: none;
   height: 45px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .modalbody {
@@ -40,10 +42,5 @@
   padding: 15px 35px;
   border: 1px solid #ffa31a;
   background-color: #ffa31a;
-}
-
-.button {
-  padding: 15px 35px;
-  border: 1px solid #ffa31a;
-  background-color: #ffa31a;
+  border-radius: 35px;
 }
