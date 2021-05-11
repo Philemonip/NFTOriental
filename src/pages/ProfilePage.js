@@ -1,7 +1,7 @@
 import Navi from "../components/Common/Navbar";
-import { IoIosCopy } from "react-icons/io";
+import { IoMdCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Button, Jumbotron, Image } from "react-bootstrap";
+import { Button, Jumbotron, Image, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
@@ -287,106 +287,106 @@ function ProfilePage() {
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
-    }, 1300);
+    }, 800);
   }
 
   return (
     <>
       <Navi />
-      <Jumbotron className="jumbotronProfile mb-1 p-5">
-        {loginStatus ? <h4>Hello, {userName}</h4> : <h4>Hello, Anumnumnus</h4>}
+      <div className="profile">
+        <Jumbotron className="jumbotronProfile mb-1 pb-3">
+          {loginStatus ? <h3 className="font-weight-bold text-dark"><i>Hello, {userName}</i> </h3> : <h3 className="font-weight-bold text-dark"><i>Hello, Anonymous</i></h3>}
 
-        <div xs={6} md={4} className="text-center">
-          <Image
-            className="profileImage"
-            src={
-              loginStatus
-                ? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
-                : "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
-            }
-          />
-        </div>
-      </Jumbotron>
-      <div className="profileContent">
-        <div className="text-center">
-          <h4>{userName}</h4>
-          <p>
-            {currentUser}
+          <div xs={6} md={4} className="text-center">
+            <Image
+              className="profileImage"
+              src={
+                loginStatus
+                  ? "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
+                  : "https://i02.appmifile.com/images/2019/07/27/1f0b9ee0-5117-4dac-89db-bd2972b1c7b4.jpg"
+              }
+            />
+          </div>
+        </Jumbotron>
+        <div className="profileContent">
+          <div className="text-center UserClipboard">
+            <h4 className="font-weight-bold">{userName}</h4>
+            <span className="mx-2">{currentUser}</span>
             <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
-              <Button>
-                <IoIosCopy />
-              </Button>
+              <button className="btn">
+                <IoMdCopy size={20} />
+              </button>
             </CopyToClipboard>
-            {isCopied ? <span style={{ color: "red" }}>Copied!</span> : null}
-          </p>
-          {/* <button className="mx-1" onClick={() => mint("item1")}>
+            {isCopied ? <p style={{ color: "grey" }}>Copied!</p> : null}
+            {/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
-        </div>
+          </div>
 
-        <div className="px-4 buttonForChange">
-          <button
-            className="mx-1"
-            onClick={() => setProfileContent("Collectibles")}
-          >
-            Collectibles
+          <div className="px-4 buttonForChange">
+            <button
+              className="mx-1"
+              onClick={() => setProfileContent("Collectibles")}
+            >
+              Collectibles
           </button>
-          <button className="mx-1" onClick={() => setProfileContent("Created")}>
-            Created NFT
+            <button className="mx-1" onClick={() => setProfileContent("Created")}>
+              Created NFT
           </button>
-          <button
-            className="mx-1"
-            onClick={() => setProfileContent("Transactions")}
-          >
-            Transactions
+            <button
+              className="mx-1"
+              onClick={() => setProfileContent("Transactions")}
+            >
+              Transactions
           </button>
-          {loginStatus && (
-            <>
-              <button
-                className="mx-1"
-                onClick={() => setProfileContent("Settings")}
-              >
-                Settings
+            {loginStatus && (
+              <>
+                <button
+                  className="mx-1"
+                  onClick={() => setProfileContent("Settings")}
+                >
+                  Settings
               </button>
-              <button
-                className="mx-1"
-                onClick={() => setProfileContent("Mint")}
-              >
-                Mint
+                <button
+                  className="mx-1"
+                  onClick={() => setProfileContent("Mint")}
+                >
+                  Mint
               </button>
-            </>
-          )}
+              </>
+            )}
 
-          <hr></hr>
-        </div>
+            <hr></hr>
+          </div>
 
-        <div className="px-4">
-          {profileContent === "Collectibles" ? (
-            <Collectibles
-              itemNotForSale={itemNotForSale}
-              itemOnSale={itemOnSale}
-              burnToken={burnToken}
-              itemArr={itemArr}
-            />
-          ) : profileContent === "Created" ? (
-            <CreatedNFT
-              itemNotForSale={itemNotForSale}
-              itemOnSale={itemOnSale}
-              burnToken={burnToken}
-              itemArr={itemArr}
-            />
-          ) : profileContent === "Transactions" ? (
-            <NFTtransactions />
-          ) : profileContent === "Settings" ? (
-            <Settings />
-          ) : (
-            profileContent === "Mint" && (
-              <Mint handleMintingSubmit={handleMintingSubmit} />
-            )
-          )}
+          <div className="px-4">
+            {profileContent === "Collectibles" ? (
+              <Collectibles
+                itemNotForSale={itemNotForSale}
+                itemOnSale={itemOnSale}
+                burnToken={burnToken}
+                itemArr={itemArr}
+              />
+            ) : profileContent === "Created" ? (
+              <CreatedNFT
+                itemNotForSale={itemNotForSale}
+                itemOnSale={itemOnSale}
+                burnToken={burnToken}
+                itemArr={itemArr}
+              />
+            ) : profileContent === "Transactions" ? (
+              <NFTtransactions />
+            ) : profileContent === "Settings" ? (
+              <Settings />
+            ) : (
+              profileContent === "Mint" && (
+                <Mint handleMintingSubmit={handleMintingSubmit} />
+              )
+            )}
+          </div>
         </div>
+        <LoadModal show={etherscanLoad} />
       </div>
-      <LoadModal show={etherscanLoad} />
     </>
   );
 }

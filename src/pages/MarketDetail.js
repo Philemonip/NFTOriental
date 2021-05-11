@@ -5,7 +5,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
-import { detailSliceActions } from "../redux/Marketplace/detailSlice";
+import detailSlice, {
+  detailSliceActions,
+} from "../redux/Marketplace/detailSlice";
 import { addNFTtransactionThunk, updateItemThunk } from "../redux/NFT/nftSlice";
 import Navi from "../components/Common/Navbar";
 import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
@@ -146,9 +148,13 @@ function MarketDetail() {
         //need another dispatch here
 
         console.log("hi", targetAccount);
-        await contractNFT.methods
+        const transaction = await contractNFT.methods
           .buyingWithoutApproval(tokenId)
-          .send({ from: currentUser });
+          .send({ from: currentUser })
+          .on("transactionHash", function (hash) {
+            console.log("hash on(transactionHash nft " + hash);
+            dispatch(detailSliceActions.updateNftHash(hash));
+          });
 
         const getItem = await contractNFT.methods.getAllItems().call();
         await dispatch(detailSliceActions.updateItem(getItem));
@@ -156,8 +162,8 @@ function MarketDetail() {
         const NFTitem = getItem.filter((i) => i.id == tokenId);
         console.log(NFTitem);
         const owner = NFTitem[0].owner;
-        const forSale = NFTitem[0].forSale;
-        const price = NFTitem[0].price;
+        const NFThash = transaction.transactionHash;
+        console.log(NFThash);
 
         await dispatch(
           addNFTtransactionThunk({
@@ -165,15 +171,22 @@ function MarketDetail() {
             from_address: targetAccount,
             to_address: currentUser,
             price: NFTprice,
+            hash: NFThash,
             owner: owner,
             current_price: 0,
             on_sale: false,
           })
         );
         dispatch(detailSliceActions.updateEtherscanLoad(false));
+        //null cch nft
+        dispatch(detailSliceActions.updateCchHash(null));
+        dispatch(detailSliceActions.updateNftHash(null));
       } catch (err) {
         console.log("buying error", err);
         dispatch(detailSliceActions.updateEtherscanLoad(false));
+        //null cch nft
+        dispatch(detailSliceActions.updateCchHash(null));
+        dispatch(detailSliceActions.updateNftHash(null));
       }
     } else {
       window.alert(
@@ -186,7 +199,11 @@ function MarketDetail() {
   async function transferCCH(targetAccount, amount) {
     await cch.methods
       .transfer(targetAccount, `${amount}`)
-      .send({ from: currentUser });
+      .send({ from: currentUser })
+      .on("transactionHash", function (hash) {
+        console.log("hash on(transactionHash cch " + hash);
+        dispatch(detailSliceActions.updateCchHash(hash));
+      });
     await dispatch(
       addTransactionThunk({
         fromAddress: currentUser,

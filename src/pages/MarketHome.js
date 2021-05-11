@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navi from "../components/Common/Navbar";
+import Footer from "../components/Common/Footer";
 import HomeItemRow from "../components/Marketplace/Home/HomeItemRow";
 import classes from "./MarketHome.module.css";
 import "../App.css";
 import HomeFeatureCard from "../components/Marketplace/Home/HomeFeatureCard";
 import HomeCollections from "../components/Marketplace/Home/HomeCollections";
+import HomeGetStarted from "../components/Marketplace/Home/HomeGetStarted";
 import { Container, Row, Col } from "react-bootstrap";
 import dotenv from "dotenv";
 dotenv.config();
@@ -79,7 +81,14 @@ function MarketHome() {
           </h5>
         </div>
         <HomeCollections />
+        <div className={classes.title}>
+          <h5>
+            <b>Get started creating & selling your NFTs</b>
+          </h5>
+        </div>
+        <HomeGetStarted />
       </div>
+      <Footer />
     </>
   );
 }

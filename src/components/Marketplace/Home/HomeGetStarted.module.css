@@ -1,0 +1,12 @@
+.title {
+  /* position: relative;
+  top: 50%;
+  transform: translateY(-20%); */
+  font-size: 30px;
+  text-align: center;
+}
+
+.ptext {
+  font-size: 20px;
+  text-align: center;
+}

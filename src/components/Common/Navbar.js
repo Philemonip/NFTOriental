@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Web3 from "web3";
-import logo from "../../asset/hedge.png";
+import logo from "../../asset/nftsealogo.png";
 import classes from "./Navbar.module.css";
 
 const Navi = (props) => {
@@ -29,7 +29,7 @@ const Navi = (props) => {
       <LinkContainer to="/">
         <Navbar.Brand>
           <img className="ml-4 mr-3" width="30px" src={logo} alt="logo" />
-          CloseSea
+          OceanNFT
         </Navbar.Brand>
       </LinkContainer>
       <Nav className="ml-auto pr-4">
@@ -38,9 +38,6 @@ const Navi = (props) => {
         </LinkContainer>
         <LinkContainer to="/">
           <Nav.Link>How to Buy</Nav.Link>
-        </LinkContainer>
-        <LinkContainer to="/">
-          <Nav.Link>Create</Nav.Link>
         </LinkContainer>
 
         {loginStatus && (

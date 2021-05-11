@@ -9,8 +9,8 @@ import {
 } from "../redux/Marketplace/browseSlice";
 import { Jumbotron, Image, Col, Container, Row, Button } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
-import BrowseItem from "../components/Marketplace/Browse/BrowseItem";
-import SellerSidebar from "../components/Marketplace/Seller/SellerSidebar";
+import ItemGrid from "../components/Common/ItemGrid/ItemGrid";
+import SellerSidebar from "../components/Marketplace/Browse_Seller/SellerSidebar";
 import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
 import classes from "./SellerPage.module.css";
 import dotenv from "dotenv";
@@ -79,7 +79,7 @@ function SellerPage() {
             {(statusfilter.length > 0 || collectionfilter.length > 0) && (
               <SidebarFilterbar isSeller={true} />
             )}
-            <BrowseItem items={itemArr} />
+            <ItemGrid items={itemArr} />
           </Col>
         </Row>
       </Container>
