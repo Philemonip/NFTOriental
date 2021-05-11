@@ -10,6 +10,8 @@ const initialState = {
   listModal: false,
   buyModal: false,
   etherscanLoad: false,
+  cchHash: null,
+  nftHash: null,
 };
 
 const detailSlice = createSlice({
@@ -42,6 +44,12 @@ const detailSlice = createSlice({
     },
     updateBuyModal(state, action) {
       state.buyModal = action.payload;
+    },
+    updateCchHash(state, action) {
+      state.cchHash = action.payload;
+    },
+    updateNftHash(state, action) {
+      state.nftHash = action.payload;
     },
   },
 });
