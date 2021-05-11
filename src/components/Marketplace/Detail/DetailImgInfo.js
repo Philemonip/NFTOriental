@@ -5,7 +5,8 @@ import { LinkContainer } from "react-router-bootstrap";
 // import { useSelector, useDispatch } from "react-redux";
 // import classes from "./DetailImgInfo.module.css";
 
-function DetailImgInfo({ itemdata, loginStatus }) {
+function DetailImgInfo({ itemdata, loginStatus, NFTaddress }) {
+  console.log(NFTaddress);
   const token = useSelector((state) => state.detail.token);
   // const dispatch = useDispatch();
 
@@ -37,7 +38,7 @@ function DetailImgInfo({ itemdata, loginStatus }) {
           {loginStatus === true ? (
             <Accordion.Collapse eventKey="0">
               <Card.Body>
-                <p>Contract Address: {token.owner}</p>
+                <p>Contract Address: {NFTaddress}</p>
                 <p>Token ID: {itemdata.token_id}</p>
                 <p>Blockchain: Rinkeby</p>
               </Card.Body>
