@@ -141,6 +141,7 @@ function ProfilePage() {
 
   async function itemOnSale(tokenId, price) {
     try {
+      dispatch(detailSliceActions.updateEtherscanLoad(true));
       await contractNFT.methods
         .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser });
@@ -158,8 +159,10 @@ function ProfilePage() {
           on_sale: forSale,
         })
       );
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     } catch (err) {
       console.log("item on sale error", err);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     }
   }
 

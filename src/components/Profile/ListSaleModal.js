@@ -13,15 +13,8 @@ function ListSaleModal(props) {
   const dispatch = useDispatch();
 
   const handleList = async () => {
-    // await dispatch(detailSliceActions.updateEtherscanLoad(false));
-    // await dispatch(detailSliceActions.updateListLoad(true));
-    // await props.itemOnSale(tokenId, price);
-    // await dispatch(detailSliceActions.updateListLoad(false));
-
     await dispatch(detailSliceActions.updateListModal(false));
-    await dispatch(detailSliceActions.updateEtherscanLoad(true));
     await props.itemOnSale(tokenId, price);
-    await dispatch(detailSliceActions.updateEtherscanLoad(false));
   };
 
   return (

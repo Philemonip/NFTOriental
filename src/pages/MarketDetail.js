@@ -200,6 +200,7 @@ function MarketDetail() {
 
   async function itemOnSale(tokenId, price) {
     try {
+      dispatch(detailSliceActions.updateEtherscanLoad(true));
       const result = await contractNFT.methods
         .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser });
@@ -222,9 +223,10 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
-      await console.log(5);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     } catch (err) {
       console.log("item on sale error", err);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
     }
   }
 
