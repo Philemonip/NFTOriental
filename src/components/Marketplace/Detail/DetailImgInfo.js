@@ -1,13 +1,13 @@
 import classes from "./DetailImgInfo.module.css";
 import { Accordion, Card, Image } from "react-bootstrap";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 // import { useSelector, useDispatch } from "react-redux";
 // import classes from "./DetailImgInfo.module.css";
 
 function DetailImgInfo({ itemdata, loginStatus, NFTaddress }) {
   console.log(NFTaddress);
-  const token = useSelector((state) => state.detail.token);
+  // const token = useSelector((state) => state.detail.token);
   // const dispatch = useDispatch();
 
   return (
