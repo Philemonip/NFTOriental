@@ -1,10 +1,10 @@
 .jumbotronProfile {
   background-image: linear-gradient(
     to bottom right,
-    rgba(143, 224, 111, 0.829),
-    rgba(69, 214, 240, 0.671)
+    rgba(88, 86, 206, 0.829),
+    rgb(118, 166, 177)
   );
-  height: 28vh;
+  height: 30%;
 }
 
 .jumbotronProfile .profileImage {
@@ -12,12 +12,11 @@
   height: 170px;
   object-fit: cover;
   border-radius: 50%;
-  /* margin-top: 7%; */
   border: 5px solid white;
 }
 
 .profileContent {
-  margin-top: 6%;
+  margin-top: 2%;
 }
 
 .profileContent a {
@@ -27,6 +26,18 @@
 .profileContent a:hover {
   color: #474652;
   text-decoration: underline;
+}
+
+.profileContent .UserClipboard button:hover {
+  background-color: #afe6f0;
+}
+
+.profileContent .UserClipboard button:active {
+  background-color: #a0cdd4;
+}
+
+.profileContent .UserClipboard button:focus {
+  box-shadow: none;
 }
 
 .buttonForChange button {
@@ -54,4 +65,16 @@
   font-size: 1.2rem;
   font-weight: 600;
   border-radius: 2rem;
+}
+
+.Setting button:hover {
+  background-color: #0069646b;
+}
+
+.Setting button:active {
+  background-color: #013835a8;
+}
+
+.Setting button:focus {
+  box-shadow: none;
 }

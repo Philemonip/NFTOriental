@@ -120,7 +120,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
             <Form.Text className="text-muted">* Input external URL for your item </Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Item description</Form.Label>
+            <Form.Label>Item Description</Form.Label>
             <Form.Control
               name="description"
               type="text"
