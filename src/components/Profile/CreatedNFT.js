@@ -1,16 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import classes from "./CollectiblesGrid.module.css";
 import React, { useState } from "react";
-import ListSaleModal from "./ListSaleModal";
-import { LinkContainer } from "react-router-bootstrap";
+// import ListSaleModal from "./ListSaleModal";
+// import { LinkContainer } from "react-router-bootstrap";
 import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 import CollectiblesGridCard from "./CollectiblesGridCard";
 
 const CreatedNFT = (props) => {
-  const { currentUser, items, listModal } = useSelector(
-    (state) => state.detail
-  );
+  const { currentUser, items } = useSelector((state) => state.detail);
   const [currentID, setcurrentID] = useState(0);
   const dispatch = useDispatch();
   let imgsrc;
@@ -23,9 +21,10 @@ const CreatedNFT = (props) => {
   creatorItems(items, currentUser);
 
   const imgSource = (id) => {
-    let imgsrcArr = props.itemArr.filter((i) => i.token_id == id);
+    let imgsrcArr = props.itemArr.filter((i) => i.token_id === id);
     if (imgsrcArr.length > 0) {
       imgsrc = imgsrcArr[0].image;
+      console.log(30624700, imgsrc);
       return imgsrc;
     } else {
       return;
