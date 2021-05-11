@@ -3,6 +3,8 @@ import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailBuyModal.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 function DetailBuyModal(props) {
   const cchBalance = useSelector((state) => state.banco.cchBalance);
@@ -23,7 +25,12 @@ function DetailBuyModal(props) {
       centered
       animation={false}
     >
-      <Modal.Header className={classes.modalheader}></Modal.Header>
+      <Modal.Header className={classes.modalheader}>
+        <button className="btn btn-light" onClick={() => {
+          dispatch(detailSliceActions.updateBuyModal(false));
+        }}><FontAwesomeIcon icon={faTimes} /></button>
+
+      </Modal.Header>
       <Modal.Body className={classes.modalbody}>
         <Row className="mb-3 d-flex justify-content-center align-items-center">
           <h4>
@@ -57,7 +64,7 @@ function DetailBuyModal(props) {
             </Row>
           </Col>
           <Col className="d-flex align-items-center justify-content-end">
-            <h5>CCH {props.itemdata.current_price}</h5>
+            <h5>{props.itemdata.current_price} CCH</h5>
           </Col>
         </Row>
         <Row className={classes.totalrow}>
@@ -65,7 +72,7 @@ function DetailBuyModal(props) {
             <h5>Total</h5>
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5>CCH {props.itemdata.current_price}</h5>
+            <h5>{props.itemdata.current_price} CCH</h5>
           </Col>
         </Row>
         <Row className="d-flex mt-5 justify-content-center">

@@ -13,7 +13,7 @@ const SideBanco = () => {
     <div
       className="col-xl-1 bancoSide"
       style={
-        windowWidth >= 1200
+        windowWidth >= 1204
           ? { display: "block" }
           : sideDisplay
             ? { display: "block" }
@@ -51,11 +51,11 @@ const SideBanco = () => {
           Action
         </button>
       </div>
-      <div >
+      <div className="col">
         <LinkContainer to="/">
-          <button className="btn">
+          <button className="btn pl-2">
             <div><FontAwesomeIcon icon={faGifts} /></div>
-            Closesea
+            Oriental NFT
           </button>
         </LinkContainer>
       </div>
