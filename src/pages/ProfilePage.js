@@ -144,7 +144,11 @@ function ProfilePage() {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
       await contractNFT.methods
         .tokenOnSale(tokenId, `${price * 1e18}`)
-        .send({ from: currentUser });
+        .send({ from: currentUser })
+        .on("transactionHash", function (hash) {
+          console.log("hash on(transactionHash nft " + hash);
+          dispatch(detailSliceActions.updateNftHash(hash));
+        });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
       const NFTitem = getItem.filter((i) => i.id === tokenId);
@@ -160,16 +164,24 @@ function ProfilePage() {
         })
       );
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     } catch (err) {
       console.log("item on sale error", err);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     }
   }
 
   async function itemNotForSale(tokenId) {
     try {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
-      await contractNFT.methods.notForSale(tokenId).send({ from: currentUser });
+      await contractNFT.methods
+        .notForSale(tokenId)
+        .send({ from: currentUser })
+        .on("transactionHash", function (hash) {
+          console.log("hash on(transactionHash nft " + hash);
+          dispatch(detailSliceActions.updateNftHash(hash));
+        });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
       const NFTitem = getItem.filter((i) => i.id === tokenId);
@@ -186,9 +198,11 @@ function ProfilePage() {
         })
       );
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     } catch (err) {
       console.log("item not for sale error", err);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     }
   }
 
@@ -247,13 +261,14 @@ function ProfilePage() {
 
       dispatch(mintingSliceActions.postUploadCleanup());
       console.log(1);
-      dispatch(detailSliceActions.updateEtherscanLoad(false));
+
       console.log(2);
 
       const newItemArr = await axios.get(
         `${process.env.REACT_APP_API_SERVER}/items/`
       );
       setItemArr(newItemArr.data);
+      dispatch(detailSliceActions.updateEtherscanLoad(false));
       setProfileContent("Created");
     } catch (err) {
       console.log("mint err", err);
@@ -295,7 +310,15 @@ function ProfilePage() {
       <Navi />
       <div className="profile">
         <Jumbotron className="jumbotronProfile mb-1 pb-3">
-          {loginStatus ? <h3 className="font-weight-bold text-dark"><i>Hello, {userName}</i> </h3> : <h3 className="font-weight-bold text-dark"><i>Hello, Anonymous</i></h3>}
+          {loginStatus ? (
+            <h3 className="font-weight-bold text-dark">
+              <i>Hello, {userName}</i>{" "}
+            </h3>
+          ) : (
+            <h3 className="font-weight-bold text-dark">
+              <i>Hello, Anonymous</i>
+            </h3>
+          )}
 
           <div xs={6} md={4} className="text-center">
             <Image
@@ -329,16 +352,19 @@ function ProfilePage() {
               onClick={() => setProfileContent("Collectibles")}
             >
               Collectibles
-          </button>
-            <button className="mx-1" onClick={() => setProfileContent("Created")}>
+            </button>
+            <button
+              className="mx-1"
+              onClick={() => setProfileContent("Created")}
+            >
               Created NFT
-          </button>
+            </button>
             <button
               className="mx-1"
               onClick={() => setProfileContent("Transactions")}
             >
               Transactions
-          </button>
+            </button>
             {loginStatus && (
               <>
                 <button
@@ -346,13 +372,13 @@ function ProfilePage() {
                   onClick={() => setProfileContent("Settings")}
                 >
                   Settings
-              </button>
+                </button>
                 <button
                   className="mx-1"
                   onClick={() => setProfileContent("Mint")}
                 >
                   Mint
-              </button>
+                </button>
               </>
             )}
 
