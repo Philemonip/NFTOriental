@@ -1,5 +1,7 @@
 import { Accordion, Card, Table } from "react-bootstrap";
 import classes from "./DetailTradingHistory.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
 function DetailTradingHistory({ itemdata }) {
   //   className={classes.card}
@@ -9,8 +11,8 @@ function DetailTradingHistory({ itemdata }) {
   if (itemdata[1]) {
     transactionDateArr = itemdata[1].map((i) => ({
       ...i,
-      createdDate: new Date(i.created_at).toLocaleDateString("en-US"),
-      createdTime: new Date(i.created_at).toLocaleTimeString("en-US"),
+      createdDate: new Date(i.created_at).toLocaleDateString("en-GB"),
+      createdTime: new Date(i.created_at).toLocaleTimeString("en-GB"),
     }));
     console.log(transactionDateArr);
   }
@@ -37,7 +39,16 @@ function DetailTradingHistory({ itemdata }) {
                     transactionDateArr.map((item, key) => (
                       <tr key={key}>
                         <td>
-                          {item.createdDate} {item.createdTime}
+                          <a
+                            class={classes.link}
+                            href={
+                              "https://rinkeby.etherscan.io/tx/" + item.hash
+                            }
+                            target="_blank"
+                          >
+                            {item.createdDate} {item.createdTime}{" "}
+                            <FontAwesomeIcon icon={faExternalLinkAlt} />
+                          </a>
                         </td>
                         <td>{item.from_address}</td>
                         <td>{item.to_address}</td>
