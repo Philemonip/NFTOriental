@@ -2,6 +2,7 @@
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./ItemGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import coin_tiny from "../../../asset/coin_tiny.png";
 
 const ItemGridCard = ({ item }) => {
   //Text shortener helper function
@@ -48,7 +49,12 @@ const ItemGridCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <b>CCH</b> {item.current_price}
+                <img
+                  src={coin_tiny}
+                  alt="coinicon"
+                  className={classes.coinicon}
+                />
+                {item.current_price}
               </Card.Text>
             </Col>
           </Row>

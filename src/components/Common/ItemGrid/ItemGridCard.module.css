@@ -50,3 +50,9 @@
 .cardbody {
   padding: 0 15px 1rem 15px;
 }
+
+.coinicon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 3px;
+}
