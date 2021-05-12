@@ -16227,6 +16227,11 @@
   "resolved" "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   "version" "3.0.4"
 
+"react-multi-carousel@^2.6.2":
+  "integrity" "sha512-qSrupBGazqYS/LVQAUCWiEAPhCrO0QufP5PcpDCA6Klig3egdNMwIdkkoU6Xlm9zEQ/hFp57bNr7F4sd0ANLyA=="
+  "resolved" "https://registry.npmjs.org/react-multi-carousel/-/react-multi-carousel-2.6.2.tgz"
+  "version" "2.6.2"
+
 "react-overlays@^5.0.0":
   "integrity" "sha512-plwUJieTBbLSrgvQ4OkkbTD/deXgxiJdNuKzo6n1RWE3OVnQIU5hffCGS/nvIuu6LpXFs2majbzaXY8rcUVdWA=="
   "resolved" "https://registry.npmjs.org/react-overlays/-/react-overlays-5.0.1.tgz"
@@ -16277,13 +16282,6 @@
     "react-router" "5.2.0"
     "tiny-invariant" "^1.0.2"
     "tiny-warning" "^1.0.0"
-
-"react-router-hash-link@^2.4.1":
-  "integrity" "sha512-ac71RVRhGzr2DXHPDYW+DE7oH/jkbMefF3giSlAzF286EAHVc1t4wwr4sFNOYj9b2Flfq+FCv184Qi9MBP0KXw=="
-  "resolved" "https://registry.npmjs.org/react-router-hash-link/-/react-router-hash-link-2.4.1.tgz"
-  "version" "2.4.1"
-  dependencies:
-    "prop-types" "^15.7.2"
 
 "react-router@5.2.0":
   "integrity" "sha512-smz1DUuFHRKdcJC0jobGo8cVbhO3x50tCL4icacOlcwDOEQPq4TMqwx3sY1TP+DvtTgz4nm3thuo7A+BK2U0Dw=="
