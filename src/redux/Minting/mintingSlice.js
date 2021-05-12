@@ -7,7 +7,7 @@ const initialState = {
   file: null,
   price: null,
   name: null,
-  collection: null,
+  collection: "Art",
   image: null,
   externalUrl: null,
   description: null,
@@ -42,7 +42,7 @@ const mintingSlice = createSlice({
       state.file = null;
       state.price = null;
       state.name = null;
-      state.category = null;
+      state.collection = "Art";
       state.image = null;
       state.externalUrl = null;
       state.description = null;
