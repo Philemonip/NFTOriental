@@ -8,7 +8,7 @@ import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 
 import CollectiblesGridCard from "./CollectiblesGridCard";
 
-const Collectibles = (props) => {
+const Collectibles = ({ itemNotForSale, itemOnSale, burnToken }) => {
   const { currentUser, items, listModal } = useSelector(
     (state) => state.detail
   );
@@ -41,10 +41,8 @@ const Collectibles = (props) => {
               <div className={classes.grid}>
                 <CollectiblesGridCard
                   modalHandler={modalHandler}
-                  itemNotForSale={props.itemNotForSale}
-                  itemOnSale={props.itemOnSale}
-                  burnToken={props.burnToken}
-                  listModal={props.listModal}
+                  itemNotForSale={itemNotForSale}
+                  burnToken={burnToken}
                   item={item}
                   key={index}
                 />
@@ -54,8 +52,7 @@ const Collectibles = (props) => {
       </Row>
       <ListSaleModal
         show={listModal}
-        // onHide={() => setListItemModal(false)}
-        itemOnSale={props.itemOnSale}
+        itemOnSale={itemOnSale}
         dialogClassName="modal-20w"
         tokenId={currentId}
       />

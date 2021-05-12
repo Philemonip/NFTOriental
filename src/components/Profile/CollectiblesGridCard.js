@@ -104,15 +104,6 @@ const CollectiblesGridCard = ({
             </div>
           )}
         </div>
-        {/* {item && (
-          <ListSaleModal
-            show={listModal}
-            // onHide={() => setListItemModal(false)}
-            itemOnSale={itemOnSale}
-            dialogClassName="modal-20w"
-            tokenId={item.id}
-          />
-        )} */}
       </div>
     </div>
   );
