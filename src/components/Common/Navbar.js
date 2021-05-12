@@ -46,7 +46,7 @@ const Navi = (props) => {
               <Nav.Link>Profile</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/cincochicos">
-              <Nav.Link>Defi Bank</Nav.Link>
+              <Nav.Link>Bank</Nav.Link>
             </LinkContainer>
           </>
         )}

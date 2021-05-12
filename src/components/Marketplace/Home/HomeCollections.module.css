@@ -25,7 +25,9 @@
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 28px;
+  font-size: 26px;
   color: white;
   height: max-content;
+  font-weight: 800;
+  letter-spacing: 2px;
 }

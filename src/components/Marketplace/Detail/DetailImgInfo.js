@@ -3,7 +3,6 @@ import { Accordion, Card } from "react-bootstrap";
 // import { useSelector } from "react-redux";
 // import { useSelector, useDispatch } from "react-redux";
 
-
 function DetailImgInfo({ itemdata, loginStatus, NFTaddress }) {
   console.log(NFTaddress);
   // const token = useSelector((state) => state.detail.token);
@@ -41,13 +40,12 @@ function DetailImgInfo({ itemdata, loginStatus, NFTaddress }) {
             <Accordion.Collapse eventKey="0">
               <Card.Body>
                 <h6 className={classes.title}>Contract Address:</h6>
-                //May need to hardcode
+                {/* May need to hardcode */}
                 <p> {NFTaddress} </p>
                 <h6 className={classes.title}>Token ID:</h6>
                 <p> {itemdata.token_id}</p>
                 <h6 className={classes.title}>Blockchain:</h6>
                 <p> Rinkeby</p>
-
               </Card.Body>
             </Accordion.Collapse>
           ) : (
