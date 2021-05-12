@@ -7,6 +7,7 @@ import avatars from "../../../asset/homecollections//avatars.png";
 import tradingcards from "../../../asset/homecollections/tradingcards.png";
 import sports from "../../../asset/homecollections/sports.png";
 import virtual from "../../../asset/homecollections/virtualworlds.png";
+import events from "../../../asset/homecollections/events.png";
 
 const HomeCollections = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const HomeCollections = () => {
   const collectionValue = [
     { text: "Art", bg: avatars },
     { text: "Avatars", bg: avatars },
-    { text: "Exclusive Events", bg: avatars },
+    { text: "Exclusive Events", bg: events },
     { text: "Sports", bg: sports },
     { text: "Trading Cards", bg: tradingcards },
     { text: "Virtual Worlds", bg: virtual },
