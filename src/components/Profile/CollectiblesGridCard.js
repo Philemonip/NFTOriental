@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./CollectiblesGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import ListSaleModal from "./ListSaleModal";
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
@@ -12,11 +11,9 @@ const CollectiblesGridCard = ({
   item,
   modalHandler,
   itemNotForSale,
-  itemOnSale,
   burnToken,
 }) => {
   console.log(item);
-  // const { listModal } = useSelector((state) => state.detail);
   //Text shortener helper function
   const [imageSrc, setImageSrc] = useState(null);
   const getImageUrl = async (id) => {
@@ -104,15 +101,6 @@ const CollectiblesGridCard = ({
             </div>
           )}
         </div>
-        {/* {item && (
-          <ListSaleModal
-            show={listModal}
-            // onHide={() => setListItemModal(false)}
-            itemOnSale={itemOnSale}
-            dialogClassName="modal-20w"
-            tokenId={item.id}
-          />
-        )} */}
       </div>
     </div>
   );

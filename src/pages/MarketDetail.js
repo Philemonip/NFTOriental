@@ -276,14 +276,14 @@ function MarketDetail() {
     <div>
       <Navi />
       <Container className={classes.containerstyle}>
-        {params.itemAddress && currentUser ? (
+        {/* {params.itemAddress && currentUser ? (
           <p>
             You are in ItemDetail, address: {params.itemAddress}, you are
             {currentUser}
           </p>
         ) : (
           <p>You are in ItemDetail, address: {params.itemAddress}</p>
-        )}
+        )} */}
         <Row>
           <Col xl={5}>
             {item ? (

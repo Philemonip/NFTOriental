@@ -247,7 +247,9 @@ function ProfilePage() {
         <Jumbotron className="jumbotronProfile mb-1 pb-3">
           {loginStatus ? (
             <h3 className="font-weight-bold text-dark">
-              <i>Hello, {userName}</i>{" "}
+              {userName &&
+                <i>Hello, {userName}</i>
+              }
             </h3>
           ) : (
             <Redirect to="/" />

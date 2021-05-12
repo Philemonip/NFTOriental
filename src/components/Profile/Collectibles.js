@@ -8,7 +8,7 @@ import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
 
 import CollectiblesGridCard from "./CollectiblesGridCard";
 
-const Collectibles = (props) => {
+const Collectibles = ({ itemNotForSale, itemOnSale, burnToken }) => {
   const { currentUser, items, listModal } = useSelector(
     (state) => state.detail
   );
@@ -16,7 +16,6 @@ const Collectibles = (props) => {
   const dispatch = useDispatch();
 
   let ownedArr;
-  let imgsrc;
 
   const modalHandler = (id) => {
     setCurrentId(id);
@@ -32,7 +31,7 @@ const Collectibles = (props) => {
   return (
     <Container fluid className={classes.browseitem}>
       <Row className={classes.row}>
-        {ownedArr &&
+        {ownedArr.length > 0 ?
           ownedArr.map((item, index) => {
             return (
               // <Col className="mt-4 d-flex justify-content-center" key={index}>
@@ -41,21 +40,25 @@ const Collectibles = (props) => {
               <div className={classes.grid}>
                 <CollectiblesGridCard
                   modalHandler={modalHandler}
-                  itemNotForSale={props.itemNotForSale}
-                  itemOnSale={props.itemOnSale}
-                  burnToken={props.burnToken}
-                  listModal={props.listModal}
+                  itemNotForSale={itemNotForSale}
+                  burnToken={burnToken}
                   item={item}
                   key={index}
                 />
               </div>
             );
-          })}
+          })
+          :
+          <div className={classes.divWidth}>
+            <div className={classes.noMatch}>
+              <h4 className={`p-5 text-dark ${classes.notice}`}>You don't have any collectibles</h4>
+            </div>
+          </div>
+        }
       </Row>
       <ListSaleModal
         show={listModal}
-        // onHide={() => setListItemModal(false)}
-        itemOnSale={props.itemOnSale}
+        itemOnSale={itemOnSale}
         dialogClassName="modal-20w"
         tokenId={currentId}
       />

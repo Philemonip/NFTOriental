@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IoMdCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -7,15 +7,13 @@ import {
   browseToggleThunk,
   browseActions,
 } from "../redux/Marketplace/browseSlice";
-import { Jumbotron, Image, Col, Container, Row, Button } from "react-bootstrap";
+import { Jumbotron, Image, Col, Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
 import ItemGrid from "../components/Common/ItemGrid/ItemGrid";
 import SellerSidebar from "../components/Marketplace/Browse_Seller/SellerSidebar";
 import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
 import classes from "./SellerPage.module.css";
-import dotenv from "dotenv";
 import "./ProfilePage.css";
-dotenv.config();
 
 function SellerPage() {
   const dispatch = useDispatch();
@@ -60,10 +58,7 @@ function SellerPage() {
       <div className="mt-3 text-center">
         <h4>{itemArr.length > 0 && itemArr[0].alias}</h4>
         <span className="mx-2">{params.walletAddress}</span>
-        <CopyToClipboard
-          text={params.walletAddress}
-          onCopy={copyWalletAdress}
-        >
+        <CopyToClipboard text={params.walletAddress} onCopy={copyWalletAdress}>
           <button className="btn">
             <IoMdCopy size={20} />
           </button>
