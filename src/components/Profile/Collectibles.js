@@ -31,7 +31,7 @@ const Collectibles = ({ itemNotForSale, itemOnSale, burnToken }) => {
   return (
     <Container fluid className={classes.browseitem}>
       <Row className={classes.row}>
-        {ownedArr &&
+        {ownedArr.length > 0 ?
           ownedArr.map((item, index) => {
             return (
               // <Col className="mt-4 d-flex justify-content-center" key={index}>
@@ -47,7 +47,14 @@ const Collectibles = ({ itemNotForSale, itemOnSale, burnToken }) => {
                 />
               </div>
             );
-          })}
+          })
+          :
+          <div className={classes.divWidth}>
+            <div className={classes.noMatch}>
+              <h4 className={`p-5 text-dark ${classes.notice}`}>You don't have any collectibles</h4>
+            </div>
+          </div>
+        }
       </Row>
       <ListSaleModal
         show={listModal}

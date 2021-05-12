@@ -78,6 +78,25 @@
   overflow-y: scroll;
 }
 
+@media (max-width: 576px) {
+  .bancoProfile .savingsTitle {
+    font-size: 1rem;
+  }
+
+  .bancoProfile .savingsAccount {
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 577px) {
+  .bancoProfile .fromAddress {
+    padding-left: 4rem;
+  }
+  .bancoProfile .toAddress {
+    padding-left: 4rem;
+  }
+}
+
 .bancoAction {
   display: flex;
   justify-content: center;

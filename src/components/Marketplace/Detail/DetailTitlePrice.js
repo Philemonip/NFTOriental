@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import classes from "./DetailTitlePrice.module.css";
 import DetailBuyModal from "./DetailBuyModal";
 import { useSelector, useDispatch } from "react-redux";
@@ -40,16 +39,17 @@ function DetailTitlePrice({
 
   return (
     <>
-      <p className={classes.collection}>{itemdata.collection}</p>
-      <p className={classes.title}>{itemdata.name}</p>
-      {itemDetailLoaded && (
-        <LinkContainer to={`/profile/${itemDetailLoaded.owner}`}>
-          <button className="btn">Owned by {itemDetailLoaded.owner}</button>
-        </LinkContainer>
-      )}
+      <div className={`${classes.imagediv} mt-2`}>
+        <Image className={classes.image} src={itemdata.image} />
+      </div>
+      <div className="ml-2 my-2">
+        <span className={`${classes.title}`}>{itemdata.name} </span>
+        <span className={classes.collection}>{itemdata.collection}</span>
+      </div>
 
       <div className={classes.pricediv}>
-        <p>Current Price</p>
+        <h5>Current Price</h5>
+        <hr className="my-2"></hr>
         {itemDetailLoaded && (
           <p className={classes.title}>CCH {itemDetailLoaded.price / 1e18}</p>
         )}
@@ -62,7 +62,7 @@ function DetailTitlePrice({
               <div>
                 {itemDetailLoaded.forSale === false ? (
                   <Button
-                    variant="danger"
+                    className={classes.buttonOnList}
                     onClick={() =>
                       dispatch(detailSliceActions.updateListModal(true))
                     }
@@ -71,6 +71,7 @@ function DetailTitlePrice({
                   </Button>
                 ) : (
                   <Button
+                    className={classes.buttonDeList}
                     variant="danger"
                     onClick={() => itemNotForSale(token_id)}
                   >
@@ -89,6 +90,7 @@ function DetailTitlePrice({
               <div>
                 {itemdata.on_sale === true ? (
                   <Button
+                    className={classes.buttonBuy}
                     variant="primary"
                     onClick={() => {
                       dispatch(detailSliceActions.updateBuyModal(true));

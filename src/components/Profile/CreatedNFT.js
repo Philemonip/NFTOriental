@@ -30,7 +30,7 @@ const CreatedNFT = ({ itemNotForSale, itemOnSale, burnToken }) => {
   return (
     <Container fluid className={classes.browseitem}>
       <Row className={classes.row}>
-        {createdArr &&
+        {createdArr.length > 0 ?
           createdArr.map((item, index) => {
             return (
               // <Col className="mt-4 d-flex justify-content-center" key={index}>
@@ -46,7 +46,14 @@ const CreatedNFT = ({ itemNotForSale, itemOnSale, burnToken }) => {
                 />
               </div>
             );
-          })}
+          })
+          :
+          <div className={classes.divWidth}>
+            <div className={classes.noMatch}>
+              <h4 className={`p-5 text-dark ${classes.notice}`}>You haven't created any items</h4>
+            </div>
+          </div>
+        }
       </Row>
       <ListSaleModal
         show={listModal}

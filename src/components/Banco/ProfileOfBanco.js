@@ -9,20 +9,20 @@ const ProfileOfBanco = () => {
   return (
     <div className="col text-left bancoProfile">
       <div className="container-fluid profileAccount py-2">
-        <h3 className="font-weight-bold">Savings Account : </h3>
-        <h4>{account}</h4>
+        <h4 className="font-weight-bold savingsTitle">Savings Account : </h4>
+        <h5 className="savingsAccount">{account}</h5>
       </div>
       <hr></hr>
       <div className="container-fluid profileAsset">
-        <h3 className="font-weight-bold">Asset :</h3>
+        <h4 className="font-weight-bold savingsTitle">Asset :</h4>
         <div className="row">
           <div className="col-lg-6 col-md-3">
-            <h5>Available ETH :</h5>
-            <h3>{ethBalance}</h3>
+            <h5 className="savingsTitle">Available ETH :</h5>
+            <h4>{ethBalance}</h4>
           </div>
           <div className="col-lg-6 col-md-3">
-            <h5>Available CCH : </h5>
-            <h3>{cchBalance}</h3>
+            <h5 className="savingsTitle">Available CCH : </h5>
+            <h4>{cchBalance}</h4>
           </div>
         </div>
       </div>

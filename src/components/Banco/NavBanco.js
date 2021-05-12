@@ -7,7 +7,7 @@ const NavBanco = () => {
   const { windowWidth, sideDisplay } = useSelector((state) => state.banco);
   const dispatch = useDispatch();
   return (
-    <div className="container-fluid bancoNav d-flex justify-content-between">
+    <div className="bancoNav d-flex justify-content-between">
       <div className="logo d-flex">
         <div class="scene">
           <div class="cube">

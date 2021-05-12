@@ -43,10 +43,10 @@ const Navi = (props) => {
         {loginStatus && (
           <>
             <LinkContainer to="/profile">
-              <Nav.Link>Profile</Nav.Link>
+              <Nav.Link className={classes.navitems}>Profile</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/cincochicos">
-              <Nav.Link>Defi Bank</Nav.Link>
+              <Nav.Link>Bank</Nav.Link>
             </LinkContainer>
           </>
         )}

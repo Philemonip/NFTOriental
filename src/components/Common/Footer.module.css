@@ -1,7 +1,23 @@
-.h1 {
+.footerDiv {
+  background-color: #043850;
+  height: 6.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p {
   /* height: 100px; */
-  background-color: purple;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 0px;
+  color: rgb(182, 182, 182);
+  font-size: 1rem;
+}
+
+@media (max-width: 576px) {
+  .p {
+    font-size: 0.8rem;
+  }
 }
