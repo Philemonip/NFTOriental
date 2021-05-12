@@ -34,19 +34,19 @@ const Navi = (props) => {
       </LinkContainer>
       <Nav className="ml-auto pr-4">
         <LinkContainer to="/items">
-          <Nav.Link>Browse</Nav.Link>
+          <Nav.Link className={classes.navlink}>Browse</Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/">
-          <Nav.Link>How to Buy</Nav.Link>
-        </LinkContainer>
+        {/* <LinkContainer to="/">
+          <Nav.Link className={classes.navlink}>How to Buy</Nav.Link>
+        </LinkContainer> */}
 
         {loginStatus && (
           <>
             <LinkContainer to="/profile">
-              <Nav.Link className={classes.navitems}>Profile</Nav.Link>
+              <Nav.Link className={classes.navlink}>Profile</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/cincochicos">
-              <Nav.Link>Bank</Nav.Link>
+              <Nav.Link className={classes.navlink}>Bank</Nav.Link>
             </LinkContainer>
           </>
         )}

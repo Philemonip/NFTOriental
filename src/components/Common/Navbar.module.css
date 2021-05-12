@@ -3,8 +3,12 @@
   background-color: #043850;
   color: white;
   height: 4.8rem;
+  padding-right: 3rem;
 }
 
-.navitems {
-  padding-right: 30px;
+.navlink {
+  margin-right: 1.5rem !important;
+  border: 2px white solid;
+  padding: 10px 30px !important;
+  border-radius: 360px;
 }
