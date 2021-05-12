@@ -26,7 +26,7 @@ const CollectiblesGridCard = ({
 
   return (
     <div className={classes.profileHover}>
-      <a href={"/items/asset/" + item.id}>
+      <a className={classes.aTag} href={"/items/asset/" + item.id}>
         <Card className={classes.card}>
           <div className={classes.imagediv}>
             {imageSrc && (
@@ -49,9 +49,9 @@ const CollectiblesGridCard = ({
                 </Card.Text>
                 <Card.Text>
                   {item.forSale === true ? (
-                    <h6 className="">Status: Listing </h6>
+                    <h6 className="text-dark">Status: Listing </h6>
                   ) : (
-                    <h6 className="mar">Status: Not Listing </h6>
+                    <h6 className="text-dark">Status: Not Listing </h6>
                   )}
                 </Card.Text>
               </Col>

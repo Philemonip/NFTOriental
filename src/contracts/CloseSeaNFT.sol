@@ -23,7 +23,7 @@ struct Item{
     uint id;
     address owner;
     address creator;
-    uint64 price;
+    uint price;
     bool forSale;
     string tokenURI;
 }
@@ -64,7 +64,7 @@ function mint(string memory _itemName) external{
     tokenId.increment();
 }
 
-function tokenOnSale (uint _tokenId, uint64 price) external onlyOwnerOf(_tokenId){
+function tokenOnSale (uint _tokenId, uint price) external onlyOwnerOf(_tokenId){
     Item storage _item = items[_tokenId];
     require(_item.forSale == false);
     _item.price = price;
@@ -143,7 +143,7 @@ function isApproved (uint _tokenId) external view returns (address){
     return _tokenApprovals[_tokenId];
 }
 
-function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, address creator, uint64 price, bool forSale, string memory tokenURI){
+function getToken(uint _tokenId) external view returns (string memory name, uint id, address owner, address creator, uint price, bool forSale, string memory tokenURI){
     Item storage _item = items[_tokenId];
     name = _item.itemName;
     id = _item.id;
