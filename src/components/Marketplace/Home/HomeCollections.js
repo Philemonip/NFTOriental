@@ -3,18 +3,22 @@ import { browseActions } from "../../../redux/Marketplace/browseSlice";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./HomeCollections.module.css";
 import { useHistory } from "react-router-dom";
+import avatars from "../../../asset/homecollections//avatars.png";
+import tradingcards from "../../../asset/homecollections/tradingcards.png";
+import sports from "../../../asset/homecollections/sports.png";
+import virtual from "../../../asset/homecollections/virtualworlds.png";
 
 const HomeCollections = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const collectionValue = [
-    "Art",
-    "Avatars",
-    "Exclusive Events",
-    "Sports",
-    "Trading Cards",
-    "Virtual Worlds",
+    { text: "Art", bg: avatars },
+    { text: "Avatars", bg: avatars },
+    { text: "Exclusive Events", bg: avatars },
+    { text: "Sports", bg: sports },
+    { text: "Trading Cards", bg: tradingcards },
+    { text: "Virtual Worlds", bg: virtual },
   ];
 
   const clickHandler = (clickedColl) => {
@@ -27,12 +31,13 @@ const HomeCollections = () => {
       <Container fluid>
         <Row>
           {collectionValue.map((i, key) => (
-            <Col md={4} className="px-0" key={key}>
+            <Col sm={4} className="px-0" key={key}>
               <div
+                style={{ backgroundImage: `url(${i.bg})` }}
                 className={`${classes.button} `}
-                onClick={() => clickHandler(i)}
+                onClick={() => clickHandler(i.text)}
               >
-                <p className={classes.ptext}>{i}</p>
+                <p className={classes.ptext}>{i.text}</p>
               </div>
             </Col>
           ))}

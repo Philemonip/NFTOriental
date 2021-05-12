@@ -1,42 +1,92 @@
+import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./HomeGetStarted.module.css";
+import HomeGetStartedInfo from "./HomeGetStartedInfo";
+import {
+  FaTags,
+  FaWallet,
+  FaCloudUploadAlt,
+  FaShoppingCart,
+  FaCoins,
+} from "react-icons/fa";
+
+const SellerItems = [
+  {
+    logo: <FaWallet />,
+    title: "Connect to Metamask",
+    body:
+      "OceanNFT is powered by Metamask on Ethereum Rinkeby Network. Connect to OceanNFT with your Metamask account to access all the functions we offer including receiving Cinco Chicos Coin (CCH) at our De-Fi bank and making NFT transactions.",
+  },
+  {
+    logo: <FaCloudUploadAlt />,
+    title: "Create your own NFT",
+    body:
+      "Once connected to your Metamask account, click on the Create NFT tab on your profile page, upload your work (JEPG, PNG or GIF file), add a title and description. We will create a brand new NFT for your work on the Ethereum blockchain",
+  },
+  {
+    logo: <FaTags />,
+    title: "List NFTs for sale",
+    body:
+      "Choose the price you wish to sell for your NFTs, which is traded in Cinco Chicos Coin (CCH). Other users on OceanNFT will be able to purchase your NFTs once your NFT is listed on sale.",
+  },
+];
+
+const BuyerItems = [
+  {
+    logo: <FaWallet />,
+    title: "Connect to Metamask",
+    body:
+      "OceanNFT is powered by Metamask on Ethereum Rinkeby Network. Connect to OceanNFT with your Metamask account to access all the functions we offer including receiving Cinco Chicos Coin (CCH) at our De-Fi bank and making NFT transactions.",
+  },
+  {
+    logo: <FaCoins />,
+    title: "Earn CCH",
+    body:
+      "Our NFTs are traded in ERC-20 compliant Cinco Chicos Coin (CCH), you can earn CCH as interest by depositing Ethereum (ETH) into our De-Fi bank. the amount of CCH you earn is based on the amount of ETH you have deposited and the duration of deposit.",
+  },
+  {
+    logo: <FaShoppingCart />,
+    title: "Buy your Favourite NFT",
+    body:
+      "Browse and purchase your favourite NFTs from one of our 6 unique collections. After your purchase, you can list them on sale again to trade with other users on OceanNFT.",
+  },
+];
 
 const HomeGetStarted = () => {
-  const getStartedItems = [
-    {
-      title: "Set up your wallet",
-      body:
-        "Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support.",
-    },
-    {
-      title: "Create your NFTs",
-      body:
-        "Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support.",
-    },
-    {
-      title: "List them for sale",
-      body:
-        "Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support.",
-    },
-  ];
+  const [isBuyer, setIsBuyer] = useState(false);
+  const buy = isBuyer ? classes.activebutton : "";
+  const sell = isBuyer ? "" : classes.activebutton;
 
   return (
-    <Col className="px-0">
-      <Container fluid>
-        <Row>
-          {getStartedItems.map((i, key) => (
-            <Col md={4} className="px-0" key={key}>
-              <div>
-                <p className={classes.title}>{i.title}</p>
-              </div>
-              <div>
-                <p className={classes.ptext}>{i.body}</p>
-              </div>
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </Col>
+    <Container fluid className={classes.container}>
+      <Row className={classes.buttonrow}>
+        <Col className="px-0">
+          <div
+            className={`mr-3 ${classes.infobutton} ${sell}`}
+            onClick={() => setIsBuyer(false)}
+          >
+            <p className={classes.ptext}>Seller</p>
+          </div>
+        </Col>
+        <Col className="px-0">
+          <div
+            className={`ml-3 ${classes.infobutton} ${buy}`}
+            onClick={() => setIsBuyer(true)}
+          >
+            <p className={classes.ptext}>Buyer</p>
+          </div>
+        </Col>
+      </Row>
+      <Row className={classes.contentrow}>
+        {isBuyer ? (
+          <HomeGetStartedInfo Items={BuyerItems} />
+        ) : (
+          <HomeGetStartedInfo Items={SellerItems} />
+        )}
+        {/* <HomeGetStartedInfo Items={BuyerItems} /> */}
+        {/* <HomeGetStartedInfo Items={SellerItems} /> */}
+      </Row>
+    </Container>
   );
 };
 

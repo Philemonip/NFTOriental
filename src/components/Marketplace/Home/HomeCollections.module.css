@@ -1,15 +1,19 @@
 .button {
   display: flex;
-  border-radius: 5px;
-  /* border: 2px solid rgb(214, 214, 214); */
-  background-color: rgb(214, 214, 214);
+  border-radius: 10px;
+  /* background-color: rgb(214, 214, 214); */
+  background-color: rgb(0, 0, 0);
   justify-content: center;
   box-shadow: none;
-  padding: 10px;
+  padding: 0px;
   margin: 8px;
   user-select: none;
   cursor: pointer;
   height: 10rem;
+  text-align: center;
+  align-content: center;
+  background-position: center;
+  background-size: cover;
 }
 
 .button:hover {
@@ -20,6 +24,8 @@
 .ptext {
   position: relative;
   top: 50%;
-  transform: translateY(-20%);
-  font-size: 35px;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: white;
+  height: max-content;
 }

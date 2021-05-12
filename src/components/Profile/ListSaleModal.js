@@ -1,17 +1,13 @@
 import { Modal, Form } from "react-bootstrap";
 import { useState } from "react";
-import LoadModal from "../Common/LoadModal";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTags } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTags } from "@fortawesome/free-solid-svg-icons";
 
 function ListSaleModal(props) {
   let tokenId = props.tokenId;
   const [price, setprice] = useState("");
-  //   const [listLoad, setListLoad] = useState(false);
-  const etherscanLoad = useSelector((state) => state.detail.etherscanLoad);
-  //   const listModal = useSelector((state) => state.detail.listModal);
   const dispatch = useDispatch();
 
   const handleList = async () => {
@@ -28,13 +24,18 @@ function ListSaleModal(props) {
       >
         <Modal.Header className="bg-warning pb-1">
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3 className="listing"> <FontAwesomeIcon icon={faTags} /> List NFT On Sale</h3>
+            <h3 className="listing">
+              {" "}
+              <FontAwesomeIcon icon={faTags} /> List NFT On Sale
+            </h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label><h5>Set Price</h5></Form.Label>
+              <Form.Label>
+                <h5>Set Price</h5>
+              </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Price (CCH)"
@@ -53,7 +54,8 @@ function ListSaleModal(props) {
           <button className="mx-1 btn btn-light" onClick={handleList}>
             List on Sale
           </button>
-          <button className="mx-1 btn btn-light"
+          <button
+            className="mx-1 btn btn-light"
             onClick={() => dispatch(detailSliceActions.updateListModal(false))}
           >
             Cancel

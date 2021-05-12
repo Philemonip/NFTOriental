@@ -1,35 +1,43 @@
 // import Spinner from "../../Common/Spinner";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./CollectiblesGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import ListSaleModal from "./ListSaleModal";
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 const CollectiblesGridCard = ({
   item,
   modalHandler,
   itemNotForSale,
-  itemOnSale,
   burnToken,
-  imgSource,
 }) => {
   console.log(item);
   //Text shortener helper function
-  const { listModal } = useSelector((state) => state.detail);
+  const [imageSrc, setImageSrc] = useState(null);
+  const getImageUrl = async (id) => {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_SERVER}/items/asset/${id}`
+    );
+    console.log(123123123, data[0]);
+    setImageSrc(data[0].image);
+  };
+  getImageUrl(item.id);
 
   return (
     <div className={classes.profileHover}>
       <a href={"/items/asset/" + item.id}>
         <Card className={classes.card}>
           <div className={classes.imagediv}>
-            {/* <img className={classes.image} src={item.image} alt="Product" /> */}
-            <LazyLoadImage
-              alt="Products"
-              src={imgSource(item.id)}
-              // src="https://gateway.pinata.cloud/ipfs/QmSTMzMGpJvLC9K2ahaDtsvSaswsWfGDZdYnL7TPQktFZM"
-              className={classes.image}
-              placeholder={<Spinner animation="grow" variant="success" />}
-            />
+            {imageSrc && (
+              <LazyLoadImage
+                alt="Products"
+                src={imageSrc}
+                className={classes.image}
+                placeholder={<Spinner animation="grow" variant="success" />}
+              />
+            )}
           </div>
           <Card.Body className={classes.cardbody}>
             <Row>
@@ -94,15 +102,6 @@ const CollectiblesGridCard = ({
             </div>
           )}
         </div>
-        {item && (
-          <ListSaleModal
-            show={listModal}
-            // onHide={() => setListItemModal(false)}
-            itemOnSale={itemOnSale}
-            dialogClassName="modal-20w"
-            tokenId={item.id}
-          />
-        )}
       </div>
     </div>
   );

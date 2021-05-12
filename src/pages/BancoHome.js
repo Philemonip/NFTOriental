@@ -1,6 +1,7 @@
 import Banco from "../abi/banco.json";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Token from "../abi/Token.json";
 import Web3 from "web3";
 import {
@@ -12,7 +13,6 @@ import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import ActionOfBanco from "../components/Banco/ActionOfBanco";
 import Loading from "../components/Banco/Loading";
 import "./BancoHome.css";
-// import Navi from "../components/Common/Navbar";
 import ProfileOfBanco from "../components/Banco/ProfileOfBanco";
 import NavBanco from "../components/Banco/NavBanco";
 import SideBanco from "../components/Banco/SideBanco";
@@ -26,23 +26,20 @@ const BancoHome = () => {
   const { account, loading, bancoContent } = useSelector(
     (state) => state.banco
   );
+  const [loginStatus, setLoginStatus] = useState(true);
   const etherscanLoad = useSelector((state) => state.detail.etherscanLoad);
   const dispatch = useDispatch();
   useEffect(() => {
     const loadBlockchainData = async () => {
       dispatch(bancoSliceActions.toggleLoading(true));
-      console.log("hi");
       if (typeof window.ethereum !== "undefined") {
+        setLoginStatus(true);
         web3 = new Web3(window.ethereum);
         const netId = await web3.eth.net.getId();
         const accounts = await web3.eth.getAccounts();
-        // dispatch(bancoSliceActions.updateWeb3(web3));
-        //load balance
         if (typeof accounts[0] !== "undefined") {
           const ethBalanceInWei = await web3.eth.getBalance(accounts[0]);
           dispatch(bancoSliceActions.updateAccount(accounts[0]));
-          console.log("testing, ", account);
-          // setEthBalance(web3.utils.fromWei(ethBalanceInWei));
           dispatch(
             bancoSliceActions.updateEthBalance(
               web3.utils.fromWei(ethBalanceInWei)
@@ -51,6 +48,7 @@ const BancoHome = () => {
         } else {
           dispatch(bancoSliceActions.toggleLoading(false));
           window.alert("Please login with MetaMask");
+          setLoginStatus(false);
         }
 
         //load contracts
@@ -99,10 +97,6 @@ const BancoHome = () => {
     window.addEventListener("resize", handleResize);
   }, [dispatch]);
 
-  // useEffect(() => {
-  // 	console.log("useeffect", transaction);
-  // }, [transaction]);
-
   async function deposit(amount) {
     if (banco !== "undefined") {
       try {
@@ -116,7 +110,6 @@ const BancoHome = () => {
           });
         await showBalance();
         dispatch(detailSliceActions.updateEtherscanLoad(false));
-        // dispatch(bancoSliceActions.toggleDeposit());
         dispatch(detailSliceActions.updateEthHash(null));
       } catch (e) {
         dispatch(detailSliceActions.updateEtherscanLoad(false));
@@ -157,7 +150,6 @@ const BancoHome = () => {
             currency: "CCH",
           })
         );
-        // dispatch(bancoSliceActions.toggleDeposit());
         dispatch(bancoSliceActions.toggleTransactionLoading(true));
         await dispatch(getTransactionThunk(account));
         dispatch(bancoSliceActions.toggleTransactionLoading(false));
@@ -172,8 +164,6 @@ const BancoHome = () => {
     }
   }
   async function showBalance() {
-    // setEthBalanceInWei(ethBalanceInWei);
-    // setEthBalance(web3.utils.fromWei(ethBalanceInWei));
     const ethBalanceInWei = await web3.eth.getBalance(account);
     dispatch(
       bancoSliceActions.updateEthBalance(web3.utils.fromWei(ethBalanceInWei))
@@ -216,39 +206,44 @@ const BancoHome = () => {
   };
 
   return (
-    <div>
-      {/* <Navi /> */}
-      <div className="cchHome">
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className="BancoLanding">
-            <div className="container-fluid text-center">
-              <NavBanco />
-              <div className="row bancoMain">
-                <SideBanco />
-                <div className="col-xl-11">
-                  <div className="row">
-                    {bancoContent === "Home" ? (
-                      <ContentOfBanco />
-                    ) : bancoContent === "Profile" ? (
-                      <ProfileOfBanco />
-                    ) : (
-                      <ActionOfBanco
-                        deposit={deposit}
-                        withdraw={withdraw}
-                        transferCCH={transferCCH}
-                      />
-                    )}
+    <>
+      {loginStatus ? (
+        <div>
+          <div className="cchHome">
+            {loading ? (
+              <Loading />
+            ) : (
+              <div className="BancoLanding">
+                <div className="container-fluid text-center">
+                  <NavBanco />
+                  <div className="row bancoMain">
+                    <SideBanco />
+                    <div className="col-xl-11">
+                      <div className="row">
+                        {bancoContent === "Home" ? (
+                          <ContentOfBanco />
+                        ) : bancoContent === "Profile" ? (
+                          <ProfileOfBanco />
+                        ) : (
+                          <ActionOfBanco
+                            deposit={deposit}
+                            withdraw={withdraw}
+                            transferCCH={transferCCH}
+                          />
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
-        )}
-      </div>
-      <LoadModal show={etherscanLoad} />
-    </div>
+          <LoadModal show={etherscanLoad} />
+        </div>
+      ) : (
+        <Redirect to="/" />
+      )}
+    </>
   );
 };
 

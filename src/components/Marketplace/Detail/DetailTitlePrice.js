@@ -15,23 +15,24 @@ function DetailTitlePrice({
   itemNotForSale,
   itemOnSale,
 }) {
-  // const [showBuyModal, setShowBuyModal] = useState(false);
+  const [itemDetailLoaded, setItemDetailLoaded] = useState(0);
   // const currentUser = useSelector((state) => state.detail.currentUser);
   // const itemOwner = useSelector((state) => state.detail.owner);
   // const listModal = useSelector((state) => state.detail.listModal);
   // const items = useSelector((state) => state.detail.items);
-  const { currentUser, owner, listModal, buyModal, items } = useSelector(
+  const { currentUser, listModal, buyModal, items } = useSelector(
     (state) => state.detail
   );
   // const [showListItemModal, setListItemModal] = useState(false);
   const dispatch = useDispatch();
   let itemDetail;
 
-  const item = (items, tokenId) => {
-    itemDetail = items.filter(
+  const item = async (items, tokenId) => {
+    itemDetail = await items.filter(
       (i) => i.id === tokenId && i.itemName === itemdata.name
     );
     console.log("this is the item", itemDetail[0]);
+    setItemDetailLoaded(itemDetail[0]);
   };
   item(items, token_id);
 
@@ -41,18 +42,25 @@ function DetailTitlePrice({
     <>
       <p className={classes.collection}>{itemdata.collection}</p>
       <p className={classes.title}>{itemdata.name}</p>
-      <LinkContainer to={`/profile/${owner}`}>
-        <button className="btn">Owned by {owner}</button>
-      </LinkContainer>
+      {itemDetailLoaded && (
+        <LinkContainer to={`/profile/${itemDetailLoaded.owner}`}>
+          <button className="btn">Owned by {itemDetailLoaded.owner}</button>
+        </LinkContainer>
+      )}
 
       <div className={classes.pricediv}>
         <p>Current Price</p>
-        <p className={classes.title}>CCH {itemdata.current_price}</p>
+        {itemDetailLoaded && (
+          <p className={classes.title}>CCH {itemDetailLoaded.price / 1e18}</p>
+        )}
+
         {loginStatus === true ? (
           <div>
-            {currentUser && currentUser === owner ? (
+            {itemDetailLoaded &&
+            currentUser &&
+            currentUser === itemDetailLoaded.owner ? (
               <div>
-                {itemDetail[0].forSale === false ? (
+                {itemDetailLoaded.forSale === false ? (
                   <Button
                     variant="danger"
                     onClick={() =>

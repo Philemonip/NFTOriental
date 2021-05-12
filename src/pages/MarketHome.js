@@ -8,6 +8,7 @@ import "../App.css";
 import HomeFeatureCard from "../components/Marketplace/Home/HomeFeatureCard";
 import HomeCollections from "../components/Marketplace/Home/HomeCollections";
 import HomeGetStarted from "../components/Marketplace/Home/HomeGetStarted";
+
 import { Container, Row, Col } from "react-bootstrap";
 import dotenv from "dotenv";
 dotenv.config();
@@ -48,11 +49,11 @@ function MarketHome() {
       <Navi />
       <div className={classes.markethome}>
         <Container fluid>
-          <div className={classes.title}>
+          {/* <div className={classes.lefttitle}>
             <h5>
               <b>Featuring Items</b>
             </h5>
-          </div>
+          </div> */}
           <Row>
             <Col className="pl-0">
               <HomeFeatureCard />
@@ -63,28 +64,26 @@ function MarketHome() {
           </Row>
         </Container>
         <HomeFeatureCard />
-        <div className={classes.title}>
+        <div className={classes.lefttitle}>
           <h5>
             <b>Newly Minted</b>
           </h5>
         </div>
         <HomeItemRow items={homeItem[0]} />
-        <div className={classes.title}>
+        <div className={classes.lefttitle}>
           <h5>
             <b>Trending Items</b>
           </h5>
         </div>
         <HomeItemRow items={homeItem[1]} />
-        <div className={classes.title}>
-          <h5>
-            <b>Collections</b>
-          </h5>
+        <div className={classes.centertitlediv}>
+          <p className={classes.centertitle}>Browse by collections</p>
         </div>
         <HomeCollections />
-        <div className={classes.title}>
-          <h5>
-            <b>Get started creating & selling your NFTs</b>
-          </h5>
+        <div className={classes.centertitlediv}>
+          <p className={classes.centertitle}>
+            Get started creating & selling your NFTs
+          </p>
         </div>
         <HomeGetStarted />
       </div>

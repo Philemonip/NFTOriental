@@ -5,9 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import Web3 from "web3";
 import CloseSeaNFT from "../abi/CloseSeaNFT.json";
-import detailSlice, {
-  detailSliceActions,
-} from "../redux/Marketplace/detailSlice";
+import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import { addNFTtransactionThunk, updateItemThunk } from "../redux/NFT/nftSlice";
 import Navi from "../components/Common/Navbar";
 import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
@@ -17,16 +15,13 @@ import LoadModal from "../components/Common/LoadModal";
 import classes from "./MarketDetail.module.css";
 import dotenv from "dotenv";
 import Token from "../abi/Token.json";
-import Banco from "../abi/banco.json";
 import {
   bancoSliceActions,
   addTransactionThunk,
 } from "../redux/Banco/bancoSlice";
-import { FaWindows } from "react-icons/fa";
 dotenv.config();
 var web3;
 var cch;
-var banco;
 var contractNFT;
 
 function MarketDetail() {
@@ -85,17 +80,10 @@ function MarketDetail() {
           dispatch(detailSliceActions.updateOwner(itemOwner));
 
           console.log(itemOwner);
-          // console.log("getowner", await contract.methods.getOwner(0).call());
-          // console.log("getowner2", await contract.methods.getOwnertwo(0).call());
-          // console.log("get uri", await contract.methods.getURI(0).call());
-          // console.log("approve?", await contract.methods.isApproved(0).call());
+
           cch = new web3.eth.Contract(
             Token.abi,
             Token.networks[networkId].address
-          );
-          banco = new web3.eth.Contract(
-            Banco.abi,
-            Banco.networks[networkId].address
           );
           const cchBalanceInWei = await cch.methods
             .balanceOf(accounts[0])
@@ -159,7 +147,7 @@ function MarketDetail() {
         const getItem = await contractNFT.methods.getAllItems().call();
         await dispatch(detailSliceActions.updateItem(getItem));
         console.log(getItem, "please get this item");
-        const NFTitem = getItem.filter((i) => i.id == tokenId);
+        const NFTitem = getItem.filter((i) => i.id === tokenId);
         console.log(NFTitem);
         const owner = NFTitem[0].owner;
         const NFThash = transaction.transactionHash;
@@ -181,6 +169,7 @@ function MarketDetail() {
         //null cch nft
         dispatch(detailSliceActions.updateCchHash(null));
         dispatch(detailSliceActions.updateNftHash(null));
+        // window.location.reload();
       } catch (err) {
         console.log("buying error", err);
         dispatch(detailSliceActions.updateEtherscanLoad(false));
@@ -218,19 +207,13 @@ function MarketDetail() {
   async function itemOnSale(tokenId, price) {
     try {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
-      const result = await contractNFT.methods
+      await contractNFT.methods
         .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser })
         .on("transactionHash", function (hash) {
           console.log("hash on(transactionHash nft " + hash);
           dispatch(detailSliceActions.updateNftHash(hash));
         });
-      //   .on("transactionHash", function (hash) {
-      //     console.log(hash);
-      //   });
-
-      // console.log(result);
-
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
       const NFTitem = getItem.filter((i) => i.id === tokenId);
@@ -246,6 +229,7 @@ function MarketDetail() {
       );
       dispatch(detailSliceActions.updateEtherscanLoad(false));
       dispatch(detailSliceActions.updateNftHash(null));
+      // window.location.reload();
     } catch (err) {
       console.log("item on sale error", err);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
@@ -280,6 +264,7 @@ function MarketDetail() {
       );
       dispatch(detailSliceActions.updateEtherscanLoad(false));
       dispatch(detailSliceActions.updateNftHash(null));
+      // window.location.reload();
     } catch (err) {
       console.log("item not for sale error", err);
       dispatch(detailSliceActions.updateEtherscanLoad(false));

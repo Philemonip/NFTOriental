@@ -3,9 +3,19 @@
   padding-right: 10%;
 }
 
-.title {
+.lefttitle {
   margin-top: 25px;
   margin-bottom: 25px;
   padding-bottom: 5px;
   border-bottom: 2px solid #ffa31a;
+}
+
+.centertitlediv {
+  text-align: center;
+  margin: 50px 0px;
+}
+
+.centertitle {
+  font-weight: 600;
+  font-size: 26px;
 }
