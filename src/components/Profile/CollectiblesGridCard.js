@@ -1,4 +1,5 @@
 // import Spinner from "../../Common/Spinner";
+import { useSelector } from "react-redux";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./CollectiblesGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -10,11 +11,11 @@ const CollectiblesGridCard = ({
   itemNotForSale,
   itemOnSale,
   burnToken,
-  listModal,
   imgSource,
 }) => {
   console.log(item);
   //Text shortener helper function
+  const { listModal } = useSelector((state) => state.detail);
 
   return (
     <div className={classes.profileHover}>

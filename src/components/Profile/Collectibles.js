@@ -53,7 +53,6 @@ const Collectibles = (props) => {
                   itemNotForSale={props.itemNotForSale}
                   itemOnSale={props.itemOnSale}
                   burnToken={props.burnToken}
-                  listModal={props.listModal}
                   imgSource={imgSource}
                   item={item}
                   key={index}
