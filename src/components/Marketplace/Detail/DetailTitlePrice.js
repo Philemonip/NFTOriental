@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import ListSaleModal from "../../Profile/ListSaleModal";
 import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
 
-
 function DetailTitlePrice({
   itemdata,
   buyWithoutApprovalToken,
@@ -41,7 +40,7 @@ function DetailTitlePrice({
   return (
     <>
       <div className={`${classes.imagediv} mt-2`}>
-        <Image fluid src={itemdata.image} />
+        <Image className={classes.image} src={itemdata.image} />
       </div>
       <div className="ml-2 my-2">
         <span className={`${classes.title}`}>{itemdata.name} </span>
@@ -58,8 +57,8 @@ function DetailTitlePrice({
         {loginStatus === true ? (
           <div>
             {itemDetailLoaded &&
-              currentUser &&
-              currentUser === itemDetailLoaded.owner ? (
+            currentUser &&
+            currentUser === itemDetailLoaded.owner ? (
               <div>
                 {itemDetailLoaded.forSale === false ? (
                   <Button
@@ -120,7 +119,7 @@ function DetailTitlePrice({
           show={buyModal}
           buyWithoutApprovalToken={buyWithoutApprovalToken}
           token_id={token_id}
-        // onHide={() => setShowBuyModal(false)}
+          // onHide={() => setShowBuyModal(false)}
         />
       </div>
     </>
