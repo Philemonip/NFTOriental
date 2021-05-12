@@ -25,32 +25,40 @@ const Navi = (props) => {
     metamaskCheck();
   }, []);
   return (
-    <Navbar className={classes.navbar} variant="dark" sticky="top">
+    <Navbar className={classes.navbar} variant="dark" sticky="top" expand="md">
       <LinkContainer to="/">
-        <Navbar.Brand>
-          <img className="ml-4 mr-3" width="30px" src={logo} alt="logo" />
+        <Navbar.Brand className={classes.brand}>
+          <img
+            className={`ml-4 mr-2 ${classes.logo}`}
+            width="30px"
+            src={logo}
+            alt="logo"
+          />
           OceanNFT
         </Navbar.Brand>
       </LinkContainer>
-      <Nav className="ml-auto pr-4">
-        <LinkContainer to="/items">
-          <Nav.Link className={classes.navlink}>Browse</Nav.Link>
-        </LinkContainer>
-        {/* <LinkContainer to="/">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="ml-auto pr-4">
+          <LinkContainer to="/items">
+            <Nav.Link className={classes.navlink}>Browse</Nav.Link>
+          </LinkContainer>
+          {/* <LinkContainer to="/">
           <Nav.Link className={classes.navlink}>How to Buy</Nav.Link>
         </LinkContainer> */}
 
-        {loginStatus && (
-          <>
-            <LinkContainer to="/profile">
-              <Nav.Link className={classes.navlink}>Profile</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/cincochicos">
-              <Nav.Link className={classes.navlink}>Bank</Nav.Link>
-            </LinkContainer>
-          </>
-        )}
-      </Nav>
+          {loginStatus && (
+            <>
+              <LinkContainer to="/profile">
+                <Nav.Link className={classes.navlink}>Profile</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/cincochicos">
+                <Nav.Link className={classes.navlink}>Bank</Nav.Link>
+              </LinkContainer>
+            </>
+          )}
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 };
