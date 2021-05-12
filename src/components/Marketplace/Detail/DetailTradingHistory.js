@@ -57,7 +57,7 @@ function DetailTradingHistory({ itemdata }) {
                       </tr>
                     ))
                   ) : (
-                    <p>No Trading History</p>
+                    <p className="mt-2 ml-1">No Trading History</p>
                   )}
                 </tbody>
               </Table>

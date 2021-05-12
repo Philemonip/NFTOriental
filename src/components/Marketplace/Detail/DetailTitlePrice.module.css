@@ -1,6 +1,6 @@
 .pricediv {
   border-radius: 10px;
-  background-color: aquamarine;
+  background-color: rgb(147, 205, 241);
   padding: 15px;
 }
 
@@ -11,4 +11,43 @@
 .title {
   font-weight: 600;
   font-size: 26px;
+}
+
+.imagediv {
+  border: 2px solid #e5e8eb;
+  border-radius: 5px;
+  max-height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.image {
+  min-height: 22rem;
+  min-width: 22rem;
+  max-width: auto;
+  max-height: auto;
+}
+.buttonOnList {
+  width: 12rem;
+  border-radius: 20px;
+  background-color: rgb(25, 50, 165);
+  padding: 0.6rem 0;
+  font-weight: 600;
+}
+
+.buttonDeList {
+  width: 12rem;
+  border-radius: 20px;
+  border-color: none;
+  padding: 0.6rem 0;
+  font-weight: 600;
+}
+
+.buttonBuy {
+  width: 12rem;
+  border-radius: 20px;
+  background-color: rgb(25, 50, 165);
+  padding: 0.6rem 0;
+  font-weight: 600;
 }
