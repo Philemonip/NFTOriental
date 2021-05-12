@@ -1,11 +1,16 @@
+import { useState } from "react";
 import ItemGridCard from "./ItemGridCard";
-// import Spinner from "../../Common/Spinner";
 import { Container, Row, Col } from "react-bootstrap";
+import { BiError } from "react-icons/bi";
 import classes from "./ItemGrid.module.css";
 import dotenv from "dotenv";
 dotenv.config();
 
 const ItemGrid = (props) => {
+  const [timeOut, setTiemOut] = useState(false);
+
+  setTimeout(() => setTiemOut(true), 4000);
+
   return (
     <Col className="px-0">
       <Container fluid className={classes.browseitem}>
@@ -21,6 +26,16 @@ const ItemGrid = (props) => {
                 </div>
               );
             })}
+          {/* Something went wrong display */}
+          {props.items.length < 1 && timeOut && (
+            <div className={classes.wentwrong}>
+              <div>
+                <BiError className={classes.icon} />
+                <h1 className={classes.h1}>OOPS!</h1>
+                <h3 className={classes.h3}>Something went wrong</h3>
+              </div>
+            </div>
+          )}
         </Row>
       </Container>
     </Col>

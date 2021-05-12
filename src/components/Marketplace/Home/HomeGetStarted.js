@@ -77,8 +77,6 @@ const HomeGetStarted = () => {
         ) : (
           <HomeGetStartedInfo Items={SellerItems} />
         )}
-        {/* <HomeGetStartedInfo Items={BuyerItems} /> */}
-        {/* <HomeGetStartedInfo Items={SellerItems} /> */}
       </Row>
     </Container>
   );

@@ -1,0 +1,16 @@
+.carouselimg {
+  width: 100%;
+  height: 300px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.carouselitem {
+  padding: 0px 15px;
+  border-radius: 20px;
+}
+
+.react-multi-carousel-dot-list {
+  margin-top: 30px !important;
+  top: 52%;
+}
