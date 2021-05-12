@@ -16,7 +16,6 @@ const Collectibles = ({ itemNotForSale, itemOnSale, burnToken }) => {
   const dispatch = useDispatch();
 
   let ownedArr;
-  let imgsrc;
 
   const modalHandler = (id) => {
     setCurrentId(id);

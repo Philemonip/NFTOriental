@@ -13,7 +13,7 @@ const CreatedNFT = ({ itemNotForSale, itemOnSale, burnToken }) => {
   );
   const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
-  let imgsrc;
+
   let createdArr;
 
   const creatorItems = (items, currentUser) => {
