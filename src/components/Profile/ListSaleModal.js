@@ -11,9 +11,26 @@ function ListSaleModal(props) {
   const dispatch = useDispatch();
 
   const handleList = async () => {
-    await dispatch(detailSliceActions.updateListModal(false));
-    await props.itemOnSale(tokenId, price);
+    if (!isNaN(parseFloat(price)) && isFinite(price)) {
+      await dispatch(detailSliceActions.updateListModal(false));
+      await props.itemOnSale(tokenId, price);
+      setprice(0)
+    } else {
+      window.alert('Please enter price as numeric number')
+    }
   };
+
+  const handleCancel = async () => {
+    await dispatch(detailSliceActions.updateListModal(false));
+    setprice(0)
+  }
+
+  // if (!isNaN(parseFloat(price)) && isFinite(price)) {
+  //   await dispatch(detailSliceActions.updateListModal(false));
+  //   await props.itemOnSale(tokenId, price);
+  // } else {
+  //   window.alert('Please enter price as numeric number')
+  // }
 
   return (
     <>
@@ -39,6 +56,7 @@ function ListSaleModal(props) {
               <Form.Control
                 type="text"
                 placeholder="Enter Price (CCH)"
+                value={price}
                 onChange={(e) => setprice(e.target.value)}
                 required
               />
@@ -56,7 +74,7 @@ function ListSaleModal(props) {
           </button>
           <button
             className="mx-1 btn btn-light"
-            onClick={() => dispatch(detailSliceActions.updateListModal(false))}
+            onClick={handleCancel}
           >
             Cancel
           </button>
