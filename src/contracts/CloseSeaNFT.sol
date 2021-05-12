@@ -12,7 +12,7 @@ using Counters for Counters.Counter;
 Counters.Counter private tokenId;
 
 bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-string private _internalBaseURI = "http://orientalpalmspring.club/items/asset";
+string private _internalBaseURI = "https://orientalpalmspring.club/items/asset";
 
 constructor() ERC721('BitEth NFT','BTE') {
     _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);

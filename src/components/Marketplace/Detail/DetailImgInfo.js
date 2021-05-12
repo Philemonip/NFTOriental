@@ -41,7 +41,7 @@ function DetailImgInfo({ itemdata, loginStatus, NFTaddress }) {
             <Accordion.Collapse eventKey="0">
               <Card.Body>
                 <h6 className={classes.title}>Contract Address:</h6>
-                //May need to hardcode
+                {/* //May need to hardcode */}
                 <p> {NFTaddress} </p>
                 <h6 className={classes.title}>Token ID:</h6>
                 <p> {itemdata.token_id}</p>

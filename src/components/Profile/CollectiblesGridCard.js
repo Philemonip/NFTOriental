@@ -38,7 +38,7 @@ const CollectiblesGridCard = ({
               />
             )}
           </div>
-          <Card.Body className={classes.cardbody}>
+          <Card.Body>
             <Row>
               <Col lg={8} className="pl-3 pr-0">
                 {/* <Card.Text className={classes.cardtitle}>
@@ -49,9 +49,9 @@ const CollectiblesGridCard = ({
                 </Card.Text>
                 <Card.Text>
                   {item.forSale === true ? (
-                    <h6 className="m-1">Status: Listing </h6>
+                    <h6 className="">Status: Listing </h6>
                   ) : (
-                    <h6 className="m-1">Status: Not Listing </h6>
+                    <h6 className="mar">Status: Not Listing </h6>
                   )}
                 </Card.Text>
               </Col>
@@ -75,14 +75,14 @@ const CollectiblesGridCard = ({
         <div className={`${classes.buttons} py-2`}>
           {item.forSale === true ? (
             <button
-              className="mx-1 px-4 btn btn-info"
+              className={`mx-1 px-4 btn ${classes.collectiblesButton}`}
               onClick={(e) => itemNotForSale(item.id)}
             >
               Cancel Listing
             </button>
           ) : (
             <button
-              className="mx-1 px-4 btn btn-info"
+              className={`mx-1 px-4 btn ${classes.collectiblesButton}`}
               onClick={() => modalHandler(item.id)}
             >
               List Item
@@ -93,7 +93,7 @@ const CollectiblesGridCard = ({
           {item.owner === item.creator && (
             <div>
               <button
-                className="mx-1 btn btn-info"
+                className="mx-1 btn btn-danger"
                 onClick={(e) => burnToken(item.id)}
               >
                 Burn Token
