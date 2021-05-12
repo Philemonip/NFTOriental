@@ -18,33 +18,33 @@ const TransactionHistory = () => {
         <FontAwesomeIcon icon={faCoins} size="2x" />
         &nbsp; Show less
       </button>
-      <h3 className="text-center">Transaction History</h3>
+      <h3 className="text-center savingsTitle">Transaction History</h3>
       <hr></hr>
       <div className="row mr-auto ml-auto">
         <div className="col-lg-6 col-md-3 d-flex justify-content-center align-items-center">
-          <h5>Accounts</h5>
+          <h5 className="savingsTitle">Accounts</h5>
         </div>
         <div className="col-md-3 d-flex justify-content-center align-items-center">
-          <h5>Amount</h5>
+          <h5 className="savingsTitle">Amount</h5>
         </div>
         <div className="col-md-3 d-flex justify-content-center align-items-center ">
-          <h5>Category</h5>
+          <h5 className="savingsTitle">Category</h5>
         </div>
       </div>
       <hr style={{ backgroundColor: "white" }}></hr>
       {transaction.map((t, key) => (
         <div key={key} className="row">
-          <div className="col-lg-6 col-md-3 justify-contents-center ">
-            <div className="pl-5 fromAddress">
+          <div className="col-lg-6 col-md-12 justify-contents-center ">
+            <div className="fromAddress">
               {t.from_address === "Banco" ? (
-                <p>From: {t.from_address}</p>
+                <p className="savingsAccount">From: {t.from_address}</p>
               ) : (
-                <p>From: {t.from_address}</p>
+                <p className="savingsAccount">From: {t.from_address}</p>
                 // <p>{t.from_address.substr(0, 9)}...</p>
               )}
             </div>
-            <div className=" pl-5 toAddress">
-              <p>To: {t.to_address}</p>
+            <div className=" toAddress">
+              <p className="savingsAccount">To: {t.to_address}</p>
               {/* <p>{t.to_address.substr(0, 9)}...</p> */}
             </div>
           </div>
