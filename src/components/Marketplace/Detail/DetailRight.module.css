@@ -1,0 +1,16 @@
+.title {
+  font-weight: bold;
+}
+
+.item {
+  font-size: 0.95em;
+}
+
+.item:hover {
+  color: rgb(71, 122, 151);
+}
+
+.atag {
+  color: #00acee;
+  text-decoration: underline;
+}

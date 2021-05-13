@@ -17,7 +17,8 @@
 }
 
 .activebutton {
-  background-color: greenyellow;
+  background-color: #00acee;
+  box-shadow: none;
 }
 
 .ptext {

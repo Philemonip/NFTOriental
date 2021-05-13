@@ -20,7 +20,7 @@ const BrowseSidebarCollection = ({ isSeller }) => {
   ];
 
   return (
-    <Col className="px-0">
+    <Col className="px-0 mb-5 pb-5">
       <Container fluid>
         <Row>
           {collectionValue.map((i, key) => (
