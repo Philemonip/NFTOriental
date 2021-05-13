@@ -1,13 +1,13 @@
 import { Modal, Button, Row, Col, Image } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailBuyModal.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function DetailBuyModal(props) {
-  const cchBalance = useSelector((state) => state.banco.cchBalance);
+  // const cchBalance = useSelector((state) => state.banco.cchBalance);
 
   const dispatch = useDispatch();
   let tokenId = props.token_id;
@@ -84,7 +84,7 @@ function DetailBuyModal(props) {
         </Row>
         <Row className="d-flex mt-5 justify-content-center">
           <Button className={classes.button} onClick={handleBuy}>
-            <b>Checkout, {cchBalance}</b>
+            <b>Checkout</b>
           </Button>
           <LinkContainer to="/cincochicos">
             <Button
