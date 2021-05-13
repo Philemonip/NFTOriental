@@ -35,6 +35,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
               onChange={(e) =>
                 dispatch(mintingSliceActions.updateFile(e.target.files[0]))
               }
+              accept="image/x-png,image/gif,image/jpeg"
               required
             />
             <Form.Text className="text-muted">Upload your file</Form.Text>

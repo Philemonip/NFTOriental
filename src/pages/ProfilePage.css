@@ -20,12 +20,12 @@
   margin-top: 2%;
 }
 
-.profileContent a {
+.profileContent .transaction a {
   color: #007bff;
 }
 
-.profileContent a:hover {
-  color: #474652;
+.profileContent .transaction a:hover {
+  color: rgb(68, 196, 255);
   text-decoration: underline;
 }
 

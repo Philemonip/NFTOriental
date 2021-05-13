@@ -8,6 +8,7 @@ import "../App.css";
 import HomeFeatureCard from "../components/Marketplace/Home/HomeFeatureCard";
 import HomeCollections from "../components/Marketplace/Home/HomeCollections";
 import HomeGetStarted from "../components/Marketplace/Home/HomeGetStarted";
+import HomeCarousel from "../components/Marketplace/Home/HomeCarousel";
 
 import { Container, Row, Col } from "react-bootstrap";
 import dotenv from "dotenv";
@@ -47,6 +48,9 @@ function MarketHome() {
   return (
     <>
       <Navi />
+      <div className={classes.carouseldiv}>
+        <HomeCarousel />
+      </div>
       <div className={classes.markethome}>
         <Container fluid>
           {/* <div className={classes.lefttitle}>
@@ -63,7 +67,7 @@ function MarketHome() {
             </Col>
           </Row>
         </Container>
-        <HomeFeatureCard />
+        {/* <HomeCarousel /> */}
         <div className={classes.lefttitle}>
           <h5>
             <b>Newly Minted</b>

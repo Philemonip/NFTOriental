@@ -16,3 +16,29 @@
   padding: 1rem;
   margin: 0 10px;
 }
+
+.wentwrong {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.icon {
+  font-size: 72px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.h1 {
+  font-size: 60px;
+  color: gray;
+}
+
+.h3 {
+  color: gray;
+}

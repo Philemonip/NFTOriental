@@ -16,7 +16,7 @@ const TransactionHistory = () => {
   console.log(transactionDateArr);
 
   return (
-    <Table responsive striped bordered hover variant="dark">
+    <Table responsive striped bordered hover variant="dark" className="transaction">
       <thead>
         <tr>
           <th>Date</th>

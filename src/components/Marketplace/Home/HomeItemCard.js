@@ -1,6 +1,7 @@
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import classes from "./HomeItemCard.module.css";
+import coin_tiny from "../../../asset/coin_tiny.png";
 
 const HomeItemCard = ({ item }) => {
   //Text shortener helper function
@@ -45,7 +46,12 @@ const HomeItemCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <b>ETH</b> {item.current_price}
+                <img
+                  src={coin_tiny}
+                  alt="coinicon"
+                  className={classes.coinicon}
+                />
+                {item.current_price}
               </Card.Text>
             </Col>
           </Row>

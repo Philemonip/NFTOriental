@@ -5,3 +5,7 @@
 .item {
   font-size: 0.95em;
 }
+
+.item:hover {
+  color: rgb(71, 122, 151);
+}

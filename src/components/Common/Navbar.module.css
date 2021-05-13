@@ -1,6 +1,30 @@
 .navbar {
-  /* background-color: #23659b; */
   background-color: #043850;
   color: white;
-  height: 4.8rem;
+  /* min-height: 4.9rem; */
+}
+
+.navlink {
+  margin-right: 1.5rem !important;
+  border: 1px white solid;
+  padding: 10px 30px !important;
+  border-radius: 360px;
+  /* color: rgb(209, 209, 209) !important; */
+  color: whitesmoke !important;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 8px 0px;
+}
+
+.navlink:hover {
+  background-color: #03293b;
+}
+
+.brand {
+  font-size: 1.4rem !important;
+}
+
+.logo {
+  height: 35px;
+  width: auto;
 }

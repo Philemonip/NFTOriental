@@ -19,7 +19,7 @@ const HomeCollections = () => {
     { display: "EXCLUSIVE EVENTS", value: "Exclusive Events", bg: events },
     { display: "SPORTS", value: "Sports", bg: sports },
     { display: "TRADING CARDS", value: "Trading Cards", bg: tradingcards },
-    { display: "VIRTUAL WORLDS", value: "Virtual Worlds", bg: virtual },
+    { display: "VIRTUAL WORLD", value: "Virtual Worlds", bg: virtual },
   ];
 
   const clickHandler = (clickedColl) => {

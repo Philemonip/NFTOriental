@@ -8,5 +8,10 @@
 }
 
 .link {
-  color: #0000ff;
+  color: #1818ff;
+}
+
+.link:hover {
+  color: #005bc4;
+  text-decoration: underline;
 }
