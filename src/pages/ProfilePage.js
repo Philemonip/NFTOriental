@@ -26,6 +26,7 @@ import Collectibles from "../components/Profile/Collectibles";
 import CreatedNFT from "../components/Profile/CreatedNFT";
 import Mint from "../components/Profile/Mint";
 import LoadModal from "../components/Common/LoadModal";
+import ProfilePicSwitch from "../components/Common/ProfilePicSwitch";
 import "./ProfilePage.css";
 var web3;
 var contractNFT;
@@ -283,6 +284,7 @@ function ProfilePage() {
                 "https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
               }
             />
+            <ProfilePicSwitch address={currentUser} />
           </div>
         </Jumbotron>
         <div className="profileContent">
