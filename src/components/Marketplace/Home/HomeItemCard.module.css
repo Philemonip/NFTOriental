@@ -9,6 +9,7 @@
   margin-top: 5px;
   margin: 5px 0px;
   margin-right: 17px;
+  /* border: 1px #1c75bc solid; */
 }
 
 .card:hover {
@@ -27,7 +28,6 @@
 .image {
   padding: 15px;
   border-radius: 20px;
-  /* object-fit: contain; */
   width: auto;
   height: auto;
   max-width: 100%;

@@ -3,7 +3,8 @@ import { browseActions } from "../../../redux/Marketplace/browseSlice";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./HomeCollections.module.css";
 import { useHistory } from "react-router-dom";
-import avatars from "../../../asset/homecollections//avatars.png";
+import art from "../../../asset/homecollections/art.png";
+import avatars from "../../../asset/homecollections/avatars.png";
 import tradingcards from "../../../asset/homecollections/tradingcards.png";
 import sports from "../../../asset/homecollections/sports.png";
 import virtual from "../../../asset/homecollections/virtualworlds.png";
@@ -14,7 +15,7 @@ const HomeCollections = () => {
   const history = useHistory();
 
   const collectionValue = [
-    { display: "ART", value: "Art", bg: avatars },
+    { display: "ART", value: "Art", bg: art },
     { display: "AVATARS", value: "Avatars", bg: avatars },
     { display: "EXCLUSIVE EVENTS", value: "Exclusive Events", bg: events },
     { display: "SPORTS", value: "Sports", bg: sports },

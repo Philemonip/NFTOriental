@@ -34,7 +34,7 @@ const Navi = (props) => {
             src={logo}
             alt="logo"
           />
-          OceanNFT
+          OrientalNFT
         </Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

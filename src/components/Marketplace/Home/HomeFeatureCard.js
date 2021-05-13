@@ -1,39 +1,42 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import classes from "./HomeFeatureCard.module.css";
-import one from "../../../asset/features/1.jpg";
-import two from "../../../asset/features/2.jpg";
-// import four from "../../../asset/features/4.jpg";
-// import dotenv from "dotenv";
-// dotenv.config();
+import beeple from "../../../asset/features/beeple.jpg";
 
 function HomeFeatureCard() {
   return (
     <>
       <Container fluid>
-        <Row>
-          <Col>
-            <Row className={`mx-1 ${classes.card}`}>
-              <Col>
-                <p>Hello</p>
-              </Col>
-              <Col>
-                <div className={classes.imagediv}>
-                  <img src={two} alt="A Product" className={classes.image} />
-                </div>
-              </Col>
-            </Row>
+        <Row className={classes.row}>
+          <Col lg={6}>
+            <Card className={classes.card}>
+              <img
+                // variant="top"
+                className={classes.image}
+                src={beeple}
+                alt="Features"
+              />
+              <Card.Body className={classes.cardbody}>
+                <Card.Text>
+                  <b>Sunset Behind Waves</b>
+                  <br />
+                  Created by Mitchellflautt
+                </Card.Text>
+              </Card.Body>
+            </Card>
           </Col>
-          <Col>
-            <Row className={`mx-1 ${classes.card}`}>
-              <Col>
-                <p>Hello</p>
-              </Col>
-              <Col>
-                <div className={classes.imagediv}>
-                  <img src={one} alt="A Product" className={classes.image} />
-                </div>
-              </Col>
-            </Row>
+          <Col lg={4} className={classes.rightcol}>
+            <div className={classes.textdiv}>
+              <h2 className={classes.title}>
+                Create, buy & sell <br />
+                your very own NFTs
+              </h2>
+              <p className={classes.ptext}>
+                NFT Marketplace powered by the Ethereum Network
+              </p>
+              <Button className={classes.button} href="/items">
+                Discover
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>
