@@ -24,7 +24,7 @@ const HomeItemCard = ({ item }) => {
             src={item.image}
             // src="https://gateway.pinata.cloud/ipfs/QmSTMzMGpJvLC9K2ahaDtsvSaswsWfGDZdYnL7TPQktFZM"
             className={classes.image}
-            placeholder={<Spinner animation="grow" variant="success" />}
+            placeholder={<Spinner animation="grow" variant="primary" />}
           />
         </div>
         <Card.Body className={classes.cardbody}>
