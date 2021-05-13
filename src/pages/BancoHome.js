@@ -146,7 +146,7 @@ const BancoHome = () => {
             fromAddress: "Banco",
             toAddress: account,
             amount: `${amount}`,
-            category: "interest",
+            category: "Interest",
             currency: "CCH",
           })
         );

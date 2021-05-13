@@ -47,7 +47,7 @@ function SellerPage() {
   return (
     <div className={classes.page}>
       <Navi />
-      <Jumbotron className="jumbotronProfile mb-2 pb-1">
+      <Jumbotron className="jumbotronProfile mb-2 pb-1 pt-5">
         <div className="text-center">
           <Image
             className="profileImage"

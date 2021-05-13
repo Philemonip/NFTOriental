@@ -90,7 +90,9 @@ export const bancoSliceActions = bancoSlice.actions;
 export const getTransactionThunk = (address) => async (dispatch) => {
   console.log("getlinkthunk");
   const getTransactionRequest = async () => {
-    return await axios.get(`http://localhost:8000/transaction/${address}`);
+    return await axios.get(
+      `${process.env.REACT_APP_API_SERVER}/transaction/${address}`
+    );
   };
   try {
     let res = await getTransactionRequest();
@@ -104,7 +106,7 @@ export const addTransactionThunk = (newTransactionData) => async (dispatch) => {
   console.log("am i here?", newTransactionData);
   const addTransactionRequest = async () => {
     return await axios.post(
-      `http://localhost:8000/transaction`,
+      `${process.env.REACT_APP_API_SERVER}/transaction`,
       newTransactionData
     );
   };

@@ -127,55 +127,18 @@ function MarketDetail() {
   // }
 
   async function buyWithoutApprovalToken(tokenId, NFTprice) {
+    //transfer cch
+
     const cchBalance = await cch.methods.balanceOf(currentUser).call();
     if (cchBalance > NFTprice * 1e18) {
       try {
         dispatch(detailSliceActions.updateEtherscanLoad(true));
         const targetAccount = await contractNFT.methods.ownerOf(tokenId).call();
-        transferCCH(targetAccount, NFTprice * 1e18);
+        transferCCHNFT(targetAccount, NFTprice * 1e18, tokenId, NFTprice);
         //need another dispatch here
-
-        console.log("hi", targetAccount);
-        const transaction = await contractNFT.methods
-          .buyingWithoutApproval(tokenId)
-          .send({ from: currentUser })
-          .on("transactionHash", function (hash) {
-            console.log("hash on(transactionHash nft " + hash);
-            dispatch(detailSliceActions.updateNftHash(hash));
-          });
-
-        const getItem = await contractNFT.methods.getAllItems().call();
-        await dispatch(detailSliceActions.updateItem(getItem));
-        console.log(getItem, "please get this item");
-        const NFTitem = getItem.filter((i) => i.id === tokenId);
-        console.log(NFTitem);
-        const owner = NFTitem[0].owner;
-        const NFThash = transaction.transactionHash;
-        console.log(NFThash);
-
-        await dispatch(
-          addNFTtransactionThunk({
-            token_id: tokenId,
-            from_address: targetAccount,
-            to_address: currentUser,
-            price: NFTprice,
-            hash: NFThash,
-            owner: owner,
-            current_price: 0,
-            on_sale: false,
-          })
-        );
-        dispatch(detailSliceActions.updateEtherscanLoad(false));
-        //null cch nft
-        dispatch(detailSliceActions.updateCchHash(null));
-        dispatch(detailSliceActions.updateNftHash(null));
-        // window.location.reload();
       } catch (err) {
         console.log("buying error", err);
-        dispatch(detailSliceActions.updateEtherscanLoad(false));
-        //null cch nft
-        dispatch(detailSliceActions.updateCchHash(null));
-        dispatch(detailSliceActions.updateNftHash(null));
+        closeModelClearHash();
       }
     } else {
       window.alert(
@@ -184,25 +147,87 @@ function MarketDetail() {
     }
   }
 
-  //transfer cch
-  async function transferCCH(targetAccount, amount) {
+  async function transferCCHNFT(targetAccount, amount, tokenId, NFTprice) {
     await cch.methods
       .transfer(targetAccount, `${amount}`)
       .send({ from: currentUser })
-      .on("transactionHash", function (hash) {
+      .on("transactionHash", async function (hash) {
         console.log("hash on(transactionHash cch " + hash);
         dispatch(detailSliceActions.updateCchHash(hash));
-      });
-    await dispatch(
-      addTransactionThunk({
-        fromAddress: currentUser,
-        toAddress: targetAccount,
-        amount: `${amount}`,
-        category: "Purchase NFT",
-        currency: "CCH",
+        await dispatch(
+          addTransactionThunk({
+            fromAddress: currentUser,
+            toAddress: targetAccount,
+            amount: `${amount}`,
+            category: "Purchase NFT",
+            currency: "CCH",
+          })
+        );
+        console.log("hi", targetAccount);
+        await contractNFT.methods
+          .buyingWithoutApproval(tokenId)
+          .send({ from: currentUser })
+          .on("transactionHash", async function (hash) {
+            console.log("hash on(transactionHash nft " + hash);
+            dispatch(detailSliceActions.updateNftHash(hash));
+          })
+          .then(async () => {
+            const getItem = await contractNFT.methods.getAllItems().call();
+            await dispatch(detailSliceActions.updateItem(getItem));
+            console.log(getItem, "please get this item");
+            const NFTitem = getItem.filter((i) => i.id === tokenId);
+            console.log(NFTitem);
+            const owner = NFTitem[0].owner;
+            // const NFThash = transaction.transactionHash;
+            console.log(hash);
+            await dispatch(
+              addNFTtransactionThunk({
+                token_id: tokenId,
+                from_address: targetAccount,
+                to_address: currentUser,
+                price: NFTprice,
+                hash: hash,
+                owner: owner,
+                current_price: 0,
+                on_sale: false,
+              })
+            );
+            closeModelClearHash();
+          })
+          .catch(() => {
+            window.alert("");
+            closeModelClearHash();
+          });
       })
-    );
+      .catch(() => {
+        closeModelClearHash();
+      });
   }
+  async function closeModelClearHash() {
+    dispatch(detailSliceActions.updateEtherscanLoad(false));
+    dispatch(detailSliceActions.updateCchHash(null));
+    dispatch(detailSliceActions.updateNftHash(null));
+  }
+
+  // //transfer cch
+  // async function transferCCH(targetAccount, amount) {
+  //   await cch.methods
+  //     .transfer(targetAccount, `${amount}`)
+  //     .send({ from: currentUser })
+  //     .on("transactionHash", function (hash) {
+  //       console.log("hash on(transactionHash cch " + hash);
+  //       dispatch(detailSliceActions.updateCchHash(hash));
+  //     });
+  //   await dispatch(
+  //     addTransactionThunk({
+  //       fromAddress: currentUser,
+  //       toAddress: targetAccount,
+  //       amount: `${amount}`,
+  //       category: "Purchase NFT",
+  //       currency: "CCH",
+  //     })
+  //   );
+  // }
 
   async function itemOnSale(tokenId, price) {
     try {
@@ -227,13 +252,11 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
-      dispatch(detailSliceActions.updateEtherscanLoad(false));
-      dispatch(detailSliceActions.updateNftHash(null));
+      closeModelClearHash();
       // window.location.reload();
     } catch (err) {
       console.log("item on sale error", err);
-      dispatch(detailSliceActions.updateEtherscanLoad(false));
-      dispatch(detailSliceActions.updateNftHash(null));
+      closeModelClearHash();
     }
   }
 
@@ -262,13 +285,10 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
-      dispatch(detailSliceActions.updateEtherscanLoad(false));
-      dispatch(detailSliceActions.updateNftHash(null));
-      // window.location.reload();
+      closeModelClearHash();
     } catch (err) {
       console.log("item not for sale error", err);
-      dispatch(detailSliceActions.updateEtherscanLoad(false));
-      dispatch(detailSliceActions.updateNftHash(null));
+      closeModelClearHash();
     }
   }
   /////////////////////////////////////////////////////////////////////////

@@ -14,17 +14,20 @@ const SellerItems = [
   {
     logo: <FaWallet />,
     title: "Connect to Metamask",
-    body: "OceanNFT is powered by Metamask on Ethereum Rinkeby Network, connect OceanNFT with Metamask to access all the functions we offer including Cinco Chicos Coin (CCH) earning and NFT item transactions.",
+    body:
+      "OceanNFT is powered by Metamask on Ethereum Rinkeby Network. Connect to OceanNFT with your Metamask account to access all the functions we offer including receiving Cinco Chicos Coin (CCH) at our De-Fi bank and making NFT transactions.",
   },
   {
     logo: <FaCloudUploadAlt />,
-    title: "Add your NFTs",
-    body: "While connected to Metamask, open the Create NFT tab in your profile page, upload your work (JEPG, PNG or GIF), add a title and description. We will create a brand new NFT for you on the Ethereum blockchain",
+    title: "Create your own NFT",
+    body:
+      "Once connected to your Metamask account, click on the Create NFT tab on your profile page, upload your work (JEPG, PNG or GIF file), add a title and description. We will create a brand new NFT for your work on the Ethereum blockchain",
   },
   {
     logo: <FaTags />,
     title: "List NFTs for sale",
-    body: "Pick the perfect price for your NFTs, our NFTs are traded in Cinco Chicos Coin (CCH). You choose how you want to sell your NFTs, and we help you sell them!",
+    body:
+      "Choose the price you wish to sell for your NFTs, which is traded in Cinco Chicos Coin (CCH). Other users on OceanNFT will be able to purchase your NFTs once your NFT is listed on sale.",
   },
 ];
 
@@ -32,17 +35,20 @@ const BuyerItems = [
   {
     logo: <FaWallet />,
     title: "Connect to Metamask",
-    body: "OceanNFT is powered by Metamask on Ethereum Rinkeby Network, connect OceanNFT with Metamask to access all the functions we offer including Cinco Chicos Coin (CCH) earning and NFT item transactions.",
+    body:
+      "OceanNFT is powered by Metamask on Ethereum Rinkeby Network. Connect to OceanNFT with your Metamask account to access all the functions we offer including receiving Cinco Chicos Coin (CCH) at our De-Fi bank and making NFT transactions.",
   },
   {
     logo: <FaCoins />,
     title: "Earn CCH",
-    body: "Our NFTs are traded in Cinco Chicos Coin (CCH), you can earn CCH by depositing Ethereum (ETH) into our De-Fi bank, and earn intested based on the amount and duration your have deposited your ETH.",
+    body:
+      "Our NFTs are traded in ERC-20 compliant Cinco Chicos Coin (CCH), you can earn CCH as interest by depositing Ethereum (ETH) into our De-Fi bank. the amount of CCH you earn is based on the amount of ETH you have deposited and the duration of deposit.",
   },
   {
     logo: <FaShoppingCart />,
-    title: "Get your Favourite NFTs",
-    body: "Pick your favourite NFTs from one of our 6 unique collections. After purchase, You can list them on sale again later to trade with other users, or list your NFTs with ",
+    title: "Buy your Favourite NFT",
+    body:
+      "Browse and purchase your favourite NFTs from one of our 6 unique collections. After your purchase, you can list them on sale again to trade with other users on OceanNFT.",
   },
 ];
 
