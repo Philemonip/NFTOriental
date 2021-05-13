@@ -169,7 +169,13 @@ function ProfilePage() {
   async function burnToken(tokenId) {
     try {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
-      await contractNFT.methods.burnToken(tokenId).send({ from: currentUser });
+      await contractNFT.methods
+        .burnToken(tokenId)
+        .send({ from: currentUser })
+        .on("transactionHash", function (hash) {
+          console.log("hash on(transactionHash nft " + hash);
+          dispatch(detailSliceActions.updateNftHash(hash));
+        });
       const getItem = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(getItem));
       await dispatch(
@@ -178,9 +184,11 @@ function ProfilePage() {
         })
       );
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     } catch (err) {
       console.log("burning token error", err);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     }
   }
 
@@ -188,7 +196,13 @@ function ProfilePage() {
     e.preventDefault();
     try {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
-      await contractNFT.methods.mint(name).send({ from: currentUser });
+      await contractNFT.methods
+        .mint(name)
+        .send({ from: currentUser })
+        .on("transactionHash", function (hash) {
+          console.log("hash on(transactionHash nft " + hash);
+          dispatch(detailSliceActions.updateNftHash(hash));
+        });
       //etherscan
       const minting = await contractNFT.methods.getAllItems().call();
       await dispatch(detailSliceActions.updateItem(minting));
@@ -226,10 +240,12 @@ function ProfilePage() {
       );
       setItemArr(newItemArr.data);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
       setProfileContent("Created");
     } catch (err) {
       console.log("mint err", err);
       dispatch(detailSliceActions.updateEtherscanLoad(false));
+      dispatch(detailSliceActions.updateNftHash(null));
     }
   };
 
@@ -244,7 +260,7 @@ function ProfilePage() {
     <>
       <Navi />
       <div className="profile">
-        <Jumbotron className="jumbotronProfile mb-1 pb-3">
+        <Jumbotron className="jumbotronProfile mb-1 pb-3 pt-5">
           {loginStatus ? (
             <h3 className="font-weight-bold text-dark">
               {userName &&
