@@ -140,7 +140,7 @@ function MarketDetail() {
         //need another dispatch here
       } catch (err) {
         console.log("buying error", err);
-        closeModelClearHash()
+        closeModelClearHash();
       }
     } else {
       window.alert(
@@ -172,7 +172,8 @@ function MarketDetail() {
           .on("transactionHash", async function (hash) {
             console.log("hash on(transactionHash nft " + hash);
             dispatch(detailSliceActions.updateNftHash(hash));
-          }).then(async () => {
+          })
+          .then(async () => {
             const getItem = await contractNFT.methods.getAllItems().call();
             await dispatch(detailSliceActions.updateItem(getItem));
             console.log(getItem, "please get this item");
@@ -193,13 +194,15 @@ function MarketDetail() {
                 on_sale: false,
               })
             );
-            closeModelClearHash()
-          }).catch(() => {
-            window.alert("")
-            closeModelClearHash()
+            closeModelClearHash();
+          })
+          .catch(() => {
+            window.alert("");
+            closeModelClearHash();
           });
-      }).catch(() => {
-        closeModelClearHash()
+      })
+      .catch(() => {
+        closeModelClearHash();
       });
   }
   async function closeModelClearHash() {
@@ -251,11 +254,11 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
-      closeModelClearHash()
+      closeModelClearHash();
       // window.location.reload();
     } catch (err) {
       console.log("item on sale error", err);
-      closeModelClearHash()
+      closeModelClearHash();
     }
   }
 
@@ -284,10 +287,10 @@ function MarketDetail() {
           on_sale: forSale,
         })
       );
-      closeModelClearHash()
+      closeModelClearHash();
     } catch (err) {
       console.log("item not for sale error", err);
-      closeModelClearHash()
+      closeModelClearHash();
     }
   }
   /////////////////////////////////////////////////////////////////////////
