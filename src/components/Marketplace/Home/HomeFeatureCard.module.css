@@ -1,20 +1,62 @@
 .card {
-  height: 20rem;
+  /* height: 30rem; */
   border-radius: 15px;
-  margin-top: 10px;
-  /* background-color: rgba(137, 43, 226, 0.219); */
-  background-color: #00acee;
-  text-align: right;
+  border: #3c3b4d 1px solid;
+}
+
+.row {
+  margin-top: 50px;
+}
+
+.rightcol {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  flex-direction: column;
+  width: max-content;
+}
+
+.textdiv {
+  /* margin-left: 60px; */
+  width: max-content;
 }
 
 .imagediv {
-  padding: 2rem;
+  padding: 1.3rem;
   height: 20rem;
+  display: flex;
+  align-items: center;
 }
 
 .image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  border-radius: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  object-fit: cover;
+}
+
+.title {
+  /* color: white; */
+  text-align: left;
+  color: #043850;
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.ptext {
+  /* color: white; */
+  text-align: left;
+  color: #757d85;
+  font-size: 25px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.button {
+  border-radius: 360px;
+  font-size: 30px;
+  font-weight: 600;
+  padding: 10px;
 }

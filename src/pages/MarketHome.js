@@ -48,8 +48,8 @@ function MarketHome() {
     <>
       <Navi />
       <div className={classes.carouseldiv}>
-        <HomeCarousel />
         <HomeFeatureCard />
+        <HomeCarousel />
       </div>
       {/* <HomeCarousel /> */}
       <div className={classes.markethome}>
