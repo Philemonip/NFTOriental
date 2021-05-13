@@ -19,11 +19,21 @@ function DetailRight({ itemdata, loginStatus, NFTaddress }) {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               <h6 className={classes.title}>Created by</h6>
-              <a className={classes.atag} href={`/profile/${itemdata.creator}`}>
+              <a
+                className={classes.atag}
+                href={`/profile/${itemdata.creator}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <p className={classes.item}>{itemdata.creator}</p>
               </a>
               <h6 className={classes.title}>Owned by</h6>
-              <a className={classes.atag} href={`/profile/${itemdata.owner}`}>
+              <a
+                className={classes.atag}
+                href={`/profile/${itemdata.owner}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <p className={classes.item}>{itemdata.owner}</p>
               </a>
               <h6 className="font-weight-bold">Description</h6>
@@ -44,6 +54,8 @@ function DetailRight({ itemdata, loginStatus, NFTaddress }) {
                 <a
                   className={classes.atag}
                   href={`https://rinkeby.etherscan.io/address/${CloseSeaNFT.networks[4].address}`}
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <p className={classes.item}>
                     {CloseSeaNFT.networks[4].address}
