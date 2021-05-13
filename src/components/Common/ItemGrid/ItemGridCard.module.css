@@ -9,6 +9,7 @@
   transition: top ease 0.2s;
   overflow-y: hidden;
   background-color: white;
+  border: #00acee 1px solid;
 }
 
 .card:hover {

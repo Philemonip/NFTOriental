@@ -14,11 +14,14 @@
   align-content: center;
   background-position: center;
   background-size: cover;
+  background-size: 100%;
 }
 
 .button:hover {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  transition: 0.2s box-shadow;
+  transition: 1s box-shadow ease-in-out;
+  transition: background-size ease-in-out 0.4s;
+  background-size: 110%;
 }
 
 .ptext {

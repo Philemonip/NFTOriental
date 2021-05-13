@@ -1,9 +1,5 @@
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import classes from "./HomeFeatureCard.module.css";
-// import one from "../../../asset/features/1.jpg";
-// import two from "../../../asset/features/2.jpg";
-// import three from "../../../asset/features/3.png";
-// import four from "../../../asset/features/4.jpg";
 import beeple from "../../../asset/features/beeple.jpg";
 
 function HomeFeatureCard() {
@@ -13,13 +9,13 @@ function HomeFeatureCard() {
         <Row className={classes.row}>
           <Col lg={6}>
             <Card className={classes.card}>
-              <Card.Img
-                variant="top"
+              <img
+                // variant="top"
                 className={classes.image}
                 src={beeple}
                 alt="Features"
               />
-              <Card.Body>
+              <Card.Body className={classes.cardbody}>
                 <Card.Text>
                   <b>Sunset Behind Waves</b>
                   <br />
