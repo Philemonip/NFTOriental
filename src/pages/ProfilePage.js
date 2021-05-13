@@ -197,42 +197,48 @@ function ProfilePage() {
     e.preventDefault();
     try {
       dispatch(detailSliceActions.updateEtherscanLoad(true));
-      await contractNFT.methods
-        .mint(name)
-        .send({ from: currentUser })
-        .on("transactionHash", function (hash) {
-          console.log("hash on(transactionHash nft " + hash);
-          dispatch(detailSliceActions.updateNftHash(hash));
-        });
-      //etherscan
-      const minting = await contractNFT.methods.getAllItems().call();
-      await dispatch(detailSliceActions.updateItem(minting));
-      const NFTitem = minting[minting.length - 1];
-      const id = NFTitem.id;
-      const bcName = NFTitem.itemName;
-      const creator = NFTitem.creator;
-      const owner = NFTitem.owner;
-      // const price = NFTitem.price;
-      const forSale = NFTitem.forSale;
 
       const data = new FormData();
       data.append("file", file);
       console.log(0);
-      let imageUrl = await dispatch(uploadToImgurThunk(data));
-      await dispatch(
-        addmetadataThunk({
-          token_id: id,
-          name: bcName,
-          creator,
-          owner,
-          on_sale: forSale,
-          collection,
-          asset_id: "260156",
-          image: imageUrl,
-          externalUrl,
-          description,
-        })
-      );
+      await dispatch(uploadToImgurThunk(data)).then(async (imageUrl) => {
+        if (imageUrl) {
+          await contractNFT.methods
+            .mint(name)
+            .send({ from: currentUser })
+            .on("transactionHash", function (hash) {
+              console.log("hash on(transactionHash nft " + hash);
+              dispatch(detailSliceActions.updateNftHash(hash));
+            });
+          //etherscan
+          const minting = await contractNFT.methods.getAllItems().call();
+          await dispatch(detailSliceActions.updateItem(minting));
+          const NFTitem = minting[minting.length - 1];
+          const id = NFTitem.id;
+          const bcName = NFTitem.itemName;
+          const creator = NFTitem.creator;
+          const owner = NFTitem.owner;
+          // const price = NFTitem.price;
+          const forSale = NFTitem.forSale;
+          await dispatch(
+            addmetadataThunk({
+              token_id: id,
+              name: bcName,
+              creator,
+              owner,
+              on_sale: forSale,
+              collection,
+              asset_id: "260156",
+              image: imageUrl,
+              externalUrl,
+              description,
+            })
+          );
+        } else {
+          dispatch(detailSliceActions.updateEtherscanLoad(false));
+          window.alert("image not good");
+        }
+      });
 
       dispatch(mintingSliceActions.postUploadCleanup());
 
