@@ -6,6 +6,7 @@ import MarketDetail from "./pages/MarketDetail";
 import BancoHome from "./pages/BancoHome";
 import ProfilePage from "./pages/ProfilePage";
 import SellerPage from "./pages/SellerPage";
+import AdminPage from "./pages/AdminPage"
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route path="/cincochicos">
           <BancoHome />
+        </Route>
+        <Route path="/admin">
+          <AdminPage />
         </Route>
         <Route path="*">
           <NoMatch />
