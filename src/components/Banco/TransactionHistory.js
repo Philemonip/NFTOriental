@@ -50,7 +50,7 @@ const TransactionHistory = () => {
           </div>
           <div className="col d-flex justify-content-center align-items-center">
             <p>
-              {t.amount / 1e18}
+              {t.amount / 1e18} &nbsp;
               {t.currency}
             </p>
           </div>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./CollectiblesGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
@@ -13,7 +14,9 @@ const CollectiblesGridCard = ({
   itemNotForSale,
   burnToken,
 }) => {
-  console.log(item);
+  const { currentUser } = useSelector(
+    (state) => state.detail
+  );
   //Text shortener helper function
   const [imageSrc, setImageSrc] = useState(null);
   const getImageUrl = async (id) => {
@@ -73,35 +76,42 @@ const CollectiblesGridCard = ({
         </Card>
       </a>
       <div>
-        <div className={`${classes.buttons} py-2`}>
-          {item.forSale === true ? (
-            <button
-              className={`mx-1 px-4 btn ${classes.collectiblesButton}`}
-              onClick={(e) => itemNotForSale(item.id)}
-            >
-              Cancel Listing
-            </button>
-          ) : (
-            <button
-              className={`mx-1 px-4 btn ${classes.collectiblesButton}`}
-              onClick={() => modalHandler(item.id)}
-            >
-              List Item
-            </button>
-          )}
-          {/* <Button variant="success">Approve</Button>
-                                <Button variant="warning">Cancel Approve</Button> */}
-          {item.owner === item.creator && (
-            <div>
+        {item.owner === currentUser ? (
+          <div className={`${classes.buttons} py-2`}>
+            {item.forSale === true ? (
               <button
-                className="mx-1 btn btn-danger"
-                onClick={(e) => burnToken(item.id)}
+                className={`mx-1 px-4 btn ${classes.collectiblesButton}`}
+                onClick={(e) => itemNotForSale(item.id)}
               >
-                Burn Token
+                Cancel Listing
               </button>
-            </div>
-          )}
-        </div>
+            ) : (
+              <button
+                className={`mx-1 px-4 btn ${classes.collectiblesButton}`}
+                onClick={() => modalHandler(item.id)}
+              >
+                List Item
+              </button>
+            )
+            }
+            {/* <Button variant="success">Approve</Button>
+                                <Button variant="warning">Cancel Approve</Button> */}
+            {item.owner === item.creator && (
+              <div>
+                <button
+                  className="mx-1 btn btn-danger"
+                  onClick={(e) => burnToken(item.id)}
+                >
+                  Burn Token
+              </button>
+              </div>
+            )}
+          </div>
+        ) : (<div className={`${classes.buttons} py-2`}></div>)
+          //need this div for closing border
+        }
+
+
       </div>
     </div>
   );
