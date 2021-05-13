@@ -147,7 +147,7 @@ const Mint = ({ handleMintingSubmit, show, setShow }) => {
           </Form.Group>
         </Form>
       </Container>
-      <LoadModal show={etherscanLoad} title="minting" />
+      {/* <LoadModal show={etherscanLoad} title="minting" /> */}
     </div>
   );
 };

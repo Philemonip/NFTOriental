@@ -6,7 +6,6 @@ const TransferCCHOfBanco = ({ transferCCH }) => {
   const dispatch = useDispatch();
   return (
     <div>
-
       <h4 className="pt-5 mx-5"> Transfer CCH to other addresses</h4>
 
       <br></br>
@@ -17,6 +16,8 @@ const TransferCCHOfBanco = ({ transferCCH }) => {
             let amount = transferAmount;
             amount = amount * 10 ** 18; //convert to wei
             transferCCH(targetAccount, amount);
+            dispatch(bancoSliceActions.updateTransferAmount(0));
+            dispatch(bancoSliceActions.updateTargetAccount(""));
           }}
         >
           <div className="form-group px-4">

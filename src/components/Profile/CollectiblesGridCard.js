@@ -6,6 +6,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import dotenv from "dotenv";
+import coin_tiny from "../../asset/coin_tiny.png"
 dotenv.config();
 
 const CollectiblesGridCard = ({
@@ -67,7 +68,12 @@ const CollectiblesGridCard = ({
                 <Card.Text
                   className={`${classes.cardtext} ${classes.textalignright}`}
                 >
-                  <b>CCH</b> {item.price / 1e18}
+                  <img
+                    src={coin_tiny}
+                    alt="coinicon"
+                    className={classes.coinicon}
+                  />
+                  {item.price / 1e18}
                 </Card.Text>
               </Col>
             </Row>
