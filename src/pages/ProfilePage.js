@@ -68,6 +68,7 @@ function ProfilePage() {
           dispatch(getTransactionThunk(accounts[0]));
           dispatch(getNameThunk(accounts[0]));
         } else {
+          setLoginStatus(false);
           window.alert("Please use correct network and refresh the page.");
         }
       };
@@ -263,9 +264,7 @@ function ProfilePage() {
         <Jumbotron className="jumbotronProfile mb-1 pb-3 pt-5">
           {loginStatus ? (
             <h3 className="font-weight-bold text-dark">
-              {userName &&
-                <i>Hello, {userName}</i>
-              }
+              {userName && <i>Hello, {userName}</i>}
             </h3>
           ) : (
             <Redirect to="/" />

@@ -77,6 +77,7 @@ const BancoHome = () => {
         } catch (e) {
           console.log("Error", e);
           dispatch(bancoSliceActions.toggleLoading(false));
+          setLoginStatus(false);
           window.alert("Contracts not deployed to the current network");
         }
       } else {
