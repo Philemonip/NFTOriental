@@ -1,4 +1,3 @@
-// import Spinner from "../../Common/Spinner";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import classes from "./ItemGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -24,10 +23,7 @@ const ItemGridCard = ({ item }) => {
             src={item.image}
             // src="https://gateway.pinata.cloud/ipfs/QmSTMzMGpJvLC9K2ahaDtsvSaswsWfGDZdYnL7TPQktFZM"
             className={classes.image}
-            placeholder={
-              <Spinner animation="border" variant="info" size="lg" />
-            }
-            // placeholder={<h1>HI</h1>}
+            placeholder={<Spinner animation="grow" variant="primary" />}
           />
         </div>
         <Card.Body className={classes.cardbody}>

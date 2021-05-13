@@ -1,0 +1,62 @@
+.pricediv {
+  border-radius: 10px;
+  background-color: rgb(147, 205, 241);
+  padding: 15px;
+}
+
+.collection {
+  color: #6181e4;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+.imagediv {
+  border: 2px solid #e5e8eb;
+  border-radius: 5px;
+  /* max-height: 30rem; */
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.image {
+  /* max-width: 100%;
+  max-height: 100%; */
+  width: auto;
+  max-height: 30rem;
+  max-width: min-content;
+}
+
+.buttonOnList {
+  width: 12rem;
+  border-radius: 20px;
+  background-color: rgb(25, 50, 165);
+  padding: 0.6rem 0;
+  font-weight: 600;
+}
+
+.buttonDeList {
+  width: 12rem;
+  border-radius: 20px;
+  border-color: none;
+  padding: 0.6rem 0;
+  font-weight: 600;
+}
+
+.buttonBuy {
+  width: 12rem;
+  border-radius: 20px;
+  background-color: rgb(25, 50, 165);
+  padding: 0.6rem 0;
+  font-weight: 600;
+}
+
+.coinicon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 3px;
+}

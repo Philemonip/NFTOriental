@@ -8,8 +8,8 @@ import CloseSeaNFT from "../abi/CloseSeaNFT.json";
 import { detailSliceActions } from "../redux/Marketplace/detailSlice";
 import { addNFTtransactionThunk, updateItemThunk } from "../redux/NFT/nftSlice";
 import Navi from "../components/Common/Navbar";
-import DetailImgInfo from "../components/Marketplace/Detail/DetailImgInfo";
-import DetailTitlePrice from "../components/Marketplace/Detail/DetailTitlePrice";
+import DetailRight from "../components/Marketplace/Detail/DetailRight";
+import DetailLeft from "../components/Marketplace/Detail/DetailLeft";
 import DetailTradingHistory from "../components/Marketplace/Detail/DetailTradingHistory";
 import LoadModal from "../components/Common/LoadModal";
 import classes from "./MarketDetail.module.css";
@@ -271,30 +271,26 @@ function MarketDetail() {
       dispatch(detailSliceActions.updateNftHash(null));
     }
   }
-
+  /////////////////////////////////////////////////////////////////////////
   return (
     <div>
       <Navi />
       <Container className={classes.containerstyle}>
-        {/* {params.itemAddress && currentUser ? (
-          <p>
-            You are in ItemDetail, address: {params.itemAddress}, you are
-            {currentUser}
-          </p>
-        ) : (
-          <p>You are in ItemDetail, address: {params.itemAddress}</p>
-        )} */}
-        <Row>
-          <Col xl={5}>
-            {item ? (
-              <DetailImgInfo itemdata={item[0]} loginStatus={loginStatus} />
-            ) : (
-              ""
+        <Row className="ml-0">
+          <>
+            {item && (
+              <div className="ml-2 my-2">
+                <span className={classes.collection}>{item[0].collection}</span>
+                <br />
+                <span className={`${classes.title}`}>{item[0].name} </span>
+              </div>
             )}
-          </Col>
+          </>
+        </Row>
+        <Row>
           <Col>
             {item && (
-              <DetailTitlePrice
+              <DetailLeft
                 itemdata={item[0]}
                 buyWithoutApprovalToken={buyWithoutApprovalToken}
                 token_id={params.itemAddress}
@@ -302,6 +298,13 @@ function MarketDetail() {
                 itemNotForSale={itemNotForSale}
                 itemOnSale={itemOnSale}
               />
+            )}
+          </Col>
+          <Col>
+            {item ? (
+              <DetailRight itemdata={item[0]} loginStatus={loginStatus} />
+            ) : (
+              ""
             )}
           </Col>
         </Row>
