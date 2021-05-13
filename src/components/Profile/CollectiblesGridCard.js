@@ -23,6 +23,7 @@ const CollectiblesGridCard = ({
     const { data } = await axios.get(
       `${process.env.REACT_APP_API_SERVER}/items/asset/${id}`
     );
+    console.log(123123123, data[0]);
     setImageSrc(data[0].image);
   };
   getImageUrl(item.id);
