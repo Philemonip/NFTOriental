@@ -37,19 +37,20 @@ const HomeCarousel = () => {
         additionalTransfrom={0}
         arrows={false}
         autoPlay
-        autoPlaySpeed={6000}
+        autoPlaySpeed={5000}
         centerMode={false}
         className="mt-5 mb-5"
-        containerClass="container-with-dots"
+        containerClass=""
         dotListClass=""
         focusOnSelect={false}
         infinite
         itemClass="carouselitem"
-        renderButtonGroupOutside={true}
+        renderButtonGroupOutside={false}
         renderDotsOutside={true}
         responsive={responsive}
         showDots={true}
         sliderClass=""
+        draggable
       >
         <div>
           <img className="carouselimg" src={one} alt="banner" />

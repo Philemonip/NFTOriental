@@ -3,8 +3,8 @@ import { LinkContainer } from "react-router-bootstrap";
 import classes from "./DetailBuyModal.module.css";
 import { useDispatch } from "react-redux";
 import { detailSliceActions } from "../../../redux/Marketplace/detailSlice";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function DetailBuyModal(props) {
   // const cchBalance = useSelector((state) => state.banco.cchBalance);
@@ -23,13 +23,20 @@ function DetailBuyModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       dialogClassName={classes.modalDialog}
       centered
-      animation={false}
+      animation={true}
+      onHide={() => {
+        dispatch(detailSliceActions.updateBuyModal(false));
+      }}
     >
       <Modal.Header className={classes.modalheader}>
-        <button className="btn btn-light" onClick={() => {
-          dispatch(detailSliceActions.updateBuyModal(false));
-        }}><FontAwesomeIcon icon={faTimes} /></button>
-
+        <button
+          className="btn btn-light"
+          onClick={() => {
+            dispatch(detailSliceActions.updateBuyModal(false));
+          }}
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
       </Modal.Header>
       <Modal.Body className={classes.modalbody}>
         <Row className="mb-3 d-flex justify-content-center align-items-center">
