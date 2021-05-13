@@ -20,11 +20,11 @@ const SideBanco = () => {
         windowWidth >= 1204
           ? { display: "block" }
           : sideDisplay
-            ? { display: "flex", backgroundColor: "rgb(31, 31, 31)" }
+            ? { display: "flex", justifyContent: "space-around", backgroundColor: "rgb(31, 31, 31)" }
             : { display: "none" }
       }
     >
-      <div className="col-3">
+      <div>
         <button
           className="btn"
           onClick={() => dispatch(bancoSliceActions.changeBancoContent("Home"))}
@@ -35,7 +35,7 @@ const SideBanco = () => {
           Home
         </button>
       </div>
-      <div className="col-3">
+      <div>
         <button
           className="btn"
           onClick={() =>
@@ -48,7 +48,7 @@ const SideBanco = () => {
           Profile
         </button>
       </div>
-      <div className="col-3">
+      <div>
         <button
           className="btn"
           onClick={() =>
@@ -61,9 +61,9 @@ const SideBanco = () => {
           Action
         </button>
       </div>
-      <div className="col-3">
+      <div>
         <LinkContainer to="/">
-          <button className="btn pl-2">
+          <button className="btn">
             <div>
               <FontAwesomeIcon icon={faGifts} />
             </div>

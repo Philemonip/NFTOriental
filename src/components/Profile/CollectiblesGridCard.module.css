@@ -83,3 +83,9 @@
 .aTag:hover {
   text-decoration: underline;
 }
+
+.coinicon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 3px;
+}

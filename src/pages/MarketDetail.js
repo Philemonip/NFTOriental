@@ -24,6 +24,8 @@ var web3;
 var cch;
 var contractNFT;
 
+console.log(CloseSeaNFT.networks[5777].add)
+
 function MarketDetail() {
   const params = useParams();
   const [item, setItems] = useState("");
