@@ -82,6 +82,7 @@ const BancoHome = () => {
       } else {
         dispatch(bancoSliceActions.toggleLoading(false));
         window.alert("Please install MetaMask");
+        setLoginStatus(false);
       }
     };
     loadBlockchainData();
