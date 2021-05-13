@@ -36,7 +36,7 @@
   display: flex;
   border-radius: 360px;
   /* background-color: rgb(214, 214, 214); */
-  background-color: #23659b;
+  background-color: #043850;
   justify-content: center;
   box-shadow: none;
   padding: 4px;
@@ -51,5 +51,5 @@
 }
 
 .activebutton {
-  background-color: #008cff;
+  background-color: #036bc0;
 }

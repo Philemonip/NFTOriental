@@ -7,19 +7,26 @@ const LoadModal = ({ show, title }) => {
 
   return (
     <>
-      <Modal show={show} backdrop="static" keyboard={false}
+      <Modal
+        show={show}
+        backdrop="static"
+        keyboard={false}
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-center">Please continue on Metamask</Modal.Body>
+        <Modal.Body className="text-center">
+          Please continue on MetaMask
+        </Modal.Body>
         {cchHash != null && (
           <Modal.Body>
-            CCH transaction in progress, usually takes up to 30 seconds. You
-            may check the status
-            <a style={{ color: "#1E90FF" }}
+            CCH transaction in progress, which usually takes up to 30 seconds to
+            be recorded on the Ethereum blockchain. You may check the status of
+            the transaction
+            <a
+              style={{ color: "#1E90FF" }}
               href={`https://rinkeby.etherscan.io/tx/${cchHash}`}
               target="_blank"
               rel="noreferrer"
@@ -32,9 +39,11 @@ const LoadModal = ({ show, title }) => {
         )}
         {nftHash != null && (
           <Modal.Body>
-            NFT transaction in progress, usually takes up to 30 seconds. You
-            may check the status
-            <a style={{ color: "#1E90FF" }}
+            NFT transaction in progress, which usually takes up to 30 seconds to
+            be recorded on the Ethereum blockchain. You may check the status of
+            the transaction
+            <a
+              style={{ color: "#1E90FF" }}
               href={`https://rinkeby.etherscan.io/tx/${nftHash}`}
               target="_blank"
               rel="noreferrer"
@@ -47,9 +56,11 @@ const LoadModal = ({ show, title }) => {
         )}
         {ethHash != null && (
           <Modal.Body>
-            ETH transaction in progress, usually takes up to 30 seconds. You
-            may check the status
-            <a style={{ color: "#1E90FF" }}
+            ETH transaction in progress, which usually takes up to 30 seconds to
+            be recorded on the Ethereum blockchain. You may check the status of
+            the transaction
+            <a
+              style={{ color: "#1E90FF" }}
               href={`https://rinkeby.etherscan.io/tx/${ethHash}`}
               target="_blank"
               rel="noreferrer"

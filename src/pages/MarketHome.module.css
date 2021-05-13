@@ -1,3 +1,8 @@
+.carouseldiv {
+  padding-left: 9%;
+  padding-right: 9%;
+}
+
 .markethome {
   padding-left: 10%;
   padding-right: 10%;
@@ -7,7 +12,7 @@
   margin-top: 25px;
   margin-bottom: 25px;
   padding-bottom: 5px;
-  border-bottom: 2px solid #ffa31a;
+  border-bottom: 3px solid #1c75bc;
 }
 
 .centertitlediv {
