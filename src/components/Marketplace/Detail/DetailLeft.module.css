@@ -1,6 +1,8 @@
 .pricediv {
+  font-size: 20px;
   border-radius: 10px;
-  background-color: rgb(147, 205, 241);
+  /* background-color: #beedff; */
+  /* border: 2px solid #00abee71; */
   padding: 15px;
 }
 
@@ -10,7 +12,7 @@
 
 .title {
   font-weight: 600;
-  font-size: 26px;
+  font-size: 28px;
   letter-spacing: 1px;
   padding-top: 0.7rem;
 }
@@ -27,8 +29,9 @@
 .image {
   max-width: 35rem;
   /* max-height: 100%;  */
-  width: auto;
+  width: -webkit-fill-available;
   max-height: 30rem;
+  object-fit: contain;
   /* max-width: min-content; */
 }
 
