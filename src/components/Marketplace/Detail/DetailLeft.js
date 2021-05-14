@@ -49,20 +49,20 @@ function DetailLeft({
         <img className={classes.image} src={itemdata.image} alt="Product" />
       </div>
       <div className={`mt-4 ${classes.pricediv}`}>
-        <h5>Current Price</h5>
+        <h4>Current Price</h4>
         <hr className="my-2"></hr>
         {itemDetailLoaded && (
           <>
             <img src={coin_tiny} alt="coinicon" className={classes.coinicon} />
-            <p className={classes.title}> CCH {itemDetailLoaded.price / 1e18}</p>
+            <p className={classes.title}>CCH {itemDetailLoaded.price / 1e18}</p>
           </>
         )}
 
         {loginStatus === true ? (
           <div>
             {itemDetailLoaded &&
-              currentUser &&
-              currentUser === itemDetailLoaded.owner ? (
+            currentUser &&
+            currentUser === itemDetailLoaded.owner ? (
               <div>
                 {itemDetailLoaded.forSale === false ? (
                   <Button
@@ -123,7 +123,7 @@ function DetailLeft({
           show={buyModal}
           buyWithoutApprovalToken={buyWithoutApprovalToken}
           token_id={token_id}
-        // onHide={() => setShowBuyModal(false)}
+          // onHide={() => setShowBuyModal(false)}
         />
       </div>
     </>
