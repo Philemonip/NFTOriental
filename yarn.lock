@@ -3876,7 +3876,7 @@
   "resolved" "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   "version" "4.2.2"
 
-"@zondax/filecoin-signing-tools@@zondax/filecoin-signing-tools@github:Digital-MOB-Filecoin/filecoin-signing-tools-js":
+"@zondax/filecoin-signing-tools@@zondax/filecoin-signing-tools@github:Digital-MOB-Filecoin/filecoin-signing-tools-js", "@zondax/filecoin-signing-tools@*":
   "resolved" "git+ssh://git@github.com/Digital-MOB-Filecoin/filecoin-signing-tools-js.git#8f8e92157cac2556d35cab866779e9a8ea8a4e25"
   dependencies:
     "axios" "^0.20.0"
