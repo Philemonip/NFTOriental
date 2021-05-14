@@ -24,7 +24,7 @@ var web3;
 var cch;
 var contractNFT;
 
-console.log(CloseSeaNFT.networks[5777].add)
+console.log(CloseSeaNFT.networks[5777].add);
 
 function MarketDetail() {
   const params = useParams();
@@ -111,7 +111,7 @@ function MarketDetail() {
         await loadBlockchainData();
       } else {
         setLoginStatus(false);
-        window.alert("working here");
+        window.alert("Please login with MetaMask to continue");
       }
     };
     fetchData();
