@@ -29,6 +29,7 @@
   /* max-height: 100%;  */
   width: -webkit-fill-available;
   max-height: 30rem;
+  object-fit: contain;
   /* max-width: min-content; */
 }
 
