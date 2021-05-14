@@ -1,7 +1,7 @@
 import Navi from "../components/Common/Navbar";
 import { IoMdCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Jumbotron, Image } from "react-bootstrap";
+import { Jumbotron } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
@@ -280,14 +280,14 @@ function ProfilePage() {
           <div xs={6} md={4} className="text-center">
             <ProfilePicSwitch address={currentUser} />
             <div className="text-center UserClipboard">
-              <h4 className="font-weight-bold">{userName}</h4>
+              <h4 className="font-weight-bold mt-3 mb-2">{userName}</h4>
               <span className="mx-2">{currentUser}</span>
               <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
                 <button className="btn">
                   <IoMdCopy size={20} />
                 </button>
               </CopyToClipboard>
-              {isCopied ? <p style={{ color: "grey" }}>Copied!</p> : null}
+              {isCopied ? <span className="mx-2" style={{ color: "grey" }}>Copied!</span> : null}
               {/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
