@@ -14,11 +14,24 @@ const HomeItemCard = ({ item }) => {
     }
   };
 
+  //Pricetag helper function
+  const priceHelper = (price) => {
+    if (!price || +Number(price) === 0) {
+      return "Not Listed";
+    } else {
+      return (
+        <>
+          <img src={coin_tiny} alt="coinicon" className={classes.coinicon} />
+          {+Number(price).toFixed(2)}
+        </>
+      );
+    }
+  };
+
   return (
     <a href={"/items/asset/" + item.token_id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
-          {/* <Image fluid className={classes.image} src={item.image} /> */}
           <LazyLoadImage
             alt="Products"
             src={item.image}
@@ -46,12 +59,7 @@ const HomeItemCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <img
-                  src={coin_tiny}
-                  alt="coinicon"
-                  className={classes.coinicon}
-                />
-                {item.current_price}
+                {priceHelper(item.current_price)}
               </Card.Text>
             </Col>
           </Row>

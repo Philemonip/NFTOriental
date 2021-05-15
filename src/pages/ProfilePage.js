@@ -1,7 +1,7 @@
 import Navi from "../components/Common/Navbar";
 import { IoMdCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Jumbotron, Image } from "react-bootstrap";
+import { Jumbotron } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";

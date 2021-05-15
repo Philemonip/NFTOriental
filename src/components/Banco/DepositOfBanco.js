@@ -15,11 +15,11 @@ const DepositOfBanco = ({ deposit }) => {
           <h5 className="pt-4">Earn CCH interest by depositing your ETH.</h5>
           <div className="text-left mx-4">
             <br></br>
-          1. Make ONE deposit at a time.
-          <br></br>
-          2. CCH Interest grows with deposit time.
-          <br></br>
-          3. Withdraw ETH with CCH interest to buy NFTs at CloseSea!
+            1. Make ONE deposit at a time.
+            <br></br>
+            2. CCH Interest grows with deposit time.
+            <br></br>
+            3. Withdraw ETH with CCH interest to buy NFTs at OrientalNFT!
           </div>
           <form
             onSubmit={(e) => {
