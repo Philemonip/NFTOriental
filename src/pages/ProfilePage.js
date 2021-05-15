@@ -1,7 +1,6 @@
-import Navi from "../components/Common/Navbar";
 import { IoMdCopy } from "react-icons/io";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
@@ -20,6 +19,7 @@ import {
   mintingSliceActions,
   uploadToImgurThunk,
 } from "../redux/Minting/mintingSlice";
+import Navi from "../components/Common/Navbar";
 import NFTtransactions from "../components/Profile/Transactions";
 import Settings from "../components/Profile/Setting";
 import Collectibles from "../components/Profile/Collectibles";
@@ -264,30 +264,33 @@ function ProfilePage() {
     }, 800);
   }
 
+  //Address shortener
+  // function shortAddress(address) {
+  //   return address.toString(16).substring(0, 6);
+  // }
+
   return (
     <>
       <Navi />
       <div className="profile">
         <Jumbotron className="jumbotronProfile mb-1 pb-3 pt-5">
-          {loginStatus ? (
-            <h3 className="font-weight-bold text-dark">
-              {userName && <i>Hello, {userName}</i>}
-            </h3>
-          ) : (
-            <Redirect to="/" />
-          )}
-
+          {!loginStatus && <Redirect to="/" />}
           <div xs={6} md={4} className="text-center">
             <ProfilePicSwitch address={currentUser} />
             <div className="text-center UserClipboard">
-              <h4 className="font-weight-bold mt-3 mb-2">{userName}</h4>
+              <h4 className="font-weight-bold mt-3">{userName}</h4>
+              {/* Apply shortened address here */}
               <span className="mx-2">{currentUser}</span>
               <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
                 <button className="btn">
                   <IoMdCopy size={20} />
                 </button>
               </CopyToClipboard>
-              {isCopied ? <span className="mx-2" style={{ color: "grey" }}>Copied!</span> : null}
+              {isCopied ? (
+                <span className="mx-2" style={{ color: "grey" }}>
+                  Copied!
+                </span>
+              ) : null}
               {/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
@@ -296,7 +299,7 @@ function ProfilePage() {
         </Jumbotron>
         <div className="profileContent">
           <div className="px-4 buttonForChange">
-            <button
+            {/* <button
               className="mx-1"
               onClick={() => setProfileContent("Collectibles")}
             >
@@ -329,9 +332,54 @@ function ProfilePage() {
                   Create NFT
                 </button>
               </>
-            )}
+            )} */}
 
-            <hr></hr>
+            <Nav
+              variant="tabs"
+              defaultActiveKey="Collectibles"
+              className="profile_navtabs"
+            >
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="Collectibles"
+                  onSelect={() => setProfileContent("Collectibles")}
+                >
+                  Collectibles
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="Created"
+                  onSelect={() => setProfileContent("Created")}
+                >
+                  Created
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="Transactions"
+                  onSelect={() => setProfileContent("Transactions")}
+                >
+                  Transactions
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="Settings"
+                  onSelect={() => setProfileContent("Settings")}
+                >
+                  Settings
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="Mint"
+                  onSelect={() => setProfileContent("Mint")}
+                >
+                  Create NFT
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
           </div>
 
           <div className="px-4">

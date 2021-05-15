@@ -1,9 +1,23 @@
-import { Card, Row, Col, Spinner } from "react-bootstrap";
+import {
+  Card,
+  Row,
+  Col,
+  Spinner,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import classes from "./ItemGridCard.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import coin_tiny from "../../../asset/coin_tiny.png";
 
 const ItemGridCard = ({ item }) => {
+  //Tooltip code
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      CCH
+    </Tooltip>
+  );
+
   //Text shortener helper function
   const shortText = (longtext) => {
     const TEXT_LIMIT = 20;
@@ -11,6 +25,23 @@ const ItemGridCard = ({ item }) => {
       return longtext.substring(0, TEXT_LIMIT) + "...";
     } else {
       return longtext;
+    }
+  };
+
+  //Pricetag helper function
+  const priceHelper = (price) => {
+    if (!price || +Number(price) === 0) {
+      return "Not Listed";
+    } else {
+      return (
+        <>
+          {/* CCH Tooltip code */}
+          <OverlayTrigger placement="top" overlay={renderTooltip}>
+            <img src={coin_tiny} alt="coinicon" className={classes.coinicon} />
+          </OverlayTrigger>
+          {+Number(price).toFixed(2)}
+        </>
+      );
     }
   };
 
@@ -45,12 +76,7 @@ const ItemGridCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <img
-                  src={coin_tiny}
-                  alt="coinicon"
-                  className={classes.coinicon}
-                />
-                {item.current_price}
+                {priceHelper(item.current_price)}
               </Card.Text>
             </Col>
           </Row>

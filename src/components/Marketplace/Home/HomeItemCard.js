@@ -1,9 +1,22 @@
-import { Card, Row, Col, Spinner } from "react-bootstrap";
+import {
+  Card,
+  Row,
+  Col,
+  Spinner,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import classes from "./HomeItemCard.module.css";
 import coin_tiny from "../../../asset/coin_tiny.png";
 
 const HomeItemCard = ({ item }) => {
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      CCH
+    </Tooltip>
+  );
+
   //Text shortener helper function
   const shortText = (longtext) => {
     const TEXT_LIMIT = 20;
@@ -14,11 +27,26 @@ const HomeItemCard = ({ item }) => {
     }
   };
 
+  //Pricetag helper function
+  const priceHelper = (price) => {
+    if (!price || +Number(price) === 0) {
+      return "Not Listed";
+    } else {
+      return (
+        <>
+          <OverlayTrigger placement="top" overlay={renderTooltip}>
+            <img src={coin_tiny} alt="coinicon" className={classes.coinicon} />
+          </OverlayTrigger>
+          {+Number(price).toFixed(2)}
+        </>
+      );
+    }
+  };
+
   return (
     <a href={"/items/asset/" + item.token_id}>
       <Card className={classes.card}>
         <div className={classes.imagediv}>
-          {/* <Image fluid className={classes.image} src={item.image} /> */}
           <LazyLoadImage
             alt="Products"
             src={item.image}
@@ -46,12 +74,7 @@ const HomeItemCard = ({ item }) => {
               <Card.Text
                 className={`${classes.cardtext} ${classes.textalignright}`}
               >
-                <img
-                  src={coin_tiny}
-                  alt="coinicon"
-                  className={classes.coinicon}
-                />
-                {item.current_price}
+                {priceHelper(item.current_price)}
               </Card.Text>
             </Col>
           </Row>

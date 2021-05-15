@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import classes from "./DetailLeft.module.css";
 import DetailBuyModal from "./DetailBuyModal";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,14 +16,9 @@ function DetailLeft({
   itemOnSale,
 }) {
   const [itemDetailLoaded, setItemDetailLoaded] = useState(0);
-  // const currentUser = useSelector((state) => state.detail.currentUser);
-  // const itemOwner = useSelector((state) => state.detail.owner);
-  // const listModal = useSelector((state) => state.detail.listModal);
-  // const items = useSelector((state) => state.detail.items);
   const { currentUser, listModal, buyModal, items } = useSelector(
     (state) => state.detail
   );
-  // const [showListItemModal, setListItemModal] = useState(false);
   const dispatch = useDispatch();
   let itemDetail;
 
@@ -36,25 +31,34 @@ function DetailLeft({
   };
   item(items, token_id);
 
-  // console.log(itemdata);
+  //Tooltip code
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      CCH
+    </Tooltip>
+  );
 
   return (
     <>
-      {/* <div className="ml-2 my-2">
-        <span className={classes.collection}>{itemdata.collection}</span>
-        <br />
-        <span className={`${classes.title}`}>{itemdata.name} </span>
-      </div> */}
       <div className={`${classes.imagediv} mt-2`}>
         <img className={classes.image} src={itemdata.image} alt="Product" />
       </div>
       <div className={`mt-4 ${classes.pricediv}`}>
         <h4>Current Price</h4>
         <hr className="my-2"></hr>
-        {itemDetailLoaded && (
+        {itemdata.on_sale === true && itemDetailLoaded && (
           <>
-            <img src={coin_tiny} alt="coinicon" className={classes.coinicon} />
-            <p className={classes.title}>CCH {itemDetailLoaded.price / 1e18}</p>
+            <div className={classes.pricetext}>
+              {/* CCH Tooltip code */}
+              <OverlayTrigger placement="top" overlay={renderTooltip}>
+                <img
+                  src={coin_tiny}
+                  alt="coinicon"
+                  className={classes.coinicon}
+                />
+              </OverlayTrigger>
+              {itemDetailLoaded.price / 1e18}
+            </div>
           </>
         )}
 
@@ -103,7 +107,7 @@ function DetailLeft({
                     Buy Now
                   </Button>
                 ) : (
-                  <p>This item is not for sale.</p>
+                  <h5>This item is not for sale.</h5>
                 )}
               </div>
             )}

@@ -20,8 +20,12 @@ const SideBanco = () => {
         windowWidth >= 1204
           ? { display: "block" }
           : sideDisplay
-            ? { display: "flex", justifyContent: "space-around", backgroundColor: "rgb(31, 31, 31)" }
-            : { display: "none" }
+          ? {
+              display: "flex",
+              justifyContent: "space-around",
+              backgroundColor: "rgb(31, 31, 31)",
+            }
+          : { display: "none" }
       }
     >
       <div>
@@ -67,7 +71,7 @@ const SideBanco = () => {
             <div>
               <FontAwesomeIcon icon={faGifts} />
             </div>
-            Oriental NFT
+            OrientalNFT
           </button>
         </LinkContainer>
       </div>

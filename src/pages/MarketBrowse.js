@@ -21,8 +21,7 @@ function MarketBrowse() {
   useEffect(() => {
     const fetchData = async () => {
       console.log("First load Marketbrowse");
-      await dispatch(browseToggleThunk("init", "", false));
-      // console.log("data from marketbrowse useeffect");
+      await dispatch(browseToggleThunk("sort", "CREATE_DATE", false));
     };
     fetchData();
     return function browseclearup() {
@@ -40,7 +39,7 @@ function MarketBrowse() {
             {(statusfilter.length > 0 || collectionfilter.length > 0) && (
               <SidebarFilterbar isSeller={false} />
             )}
-            <ItemGrid items={itemArr} />
+            <ItemGrid items={itemArr} style={{ overflowY: "auto" }} />
           </Col>
         </Row>
       </Container>
