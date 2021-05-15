@@ -18,6 +18,7 @@
 /* .card:hover {
   top: -4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: aqua;
 } */
 
 .imagediv {
@@ -76,12 +77,14 @@
 }
 
 .profileHover:hover {
-  top: -4px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px px 0 rgba(0, 0, 0, 0.19);
+  /* top: -4px; */
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px px 0 rgba(0, 0, 0, 0.19) !important; */
+  /* clip-path: inset(-8px -8px 0px -8px); */
 }
 
 .aTag:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  font-weight: 600;
 }
 
 .coinicon {

@@ -19,6 +19,7 @@
 
 .profileContent {
   margin-top: 2%;
+  margin-bottom: 1.5%;
 }
 
 .profileContent .transaction a {
@@ -42,7 +43,7 @@
   box-shadow: none;
 }
 
-.buttonForChange button {
+/* .buttonForChange {
   background-color: Transparent;
   background-repeat: no-repeat;
   border: none;
@@ -50,16 +51,19 @@
   overflow: hidden;
   color: rgb(121, 121, 121);
   font-weight: 700;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
+} */
 
-.buttonForChange button:hover {
+/* .buttonForChange button:hover {
   color: rgb(44, 44, 44);
 }
 
 .buttonForChange button:focus {
   color: rgb(44, 44, 44);
   border-bottom: 2px solid rgb(44, 44, 44);
+} */
+
+.profile_navtabs {
+  margin-bottom: 10px;
 }
 
 .MintPage .btn {
