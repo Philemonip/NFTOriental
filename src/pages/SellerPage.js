@@ -59,7 +59,11 @@ function SellerPage() {
             <IoMdCopy size={20} />
           </button>
         </CopyToClipboard>
-        {isCopied ? <p style={{ color: "grey" }}>Copied!</p> : null}
+        {isCopied ? (
+          <span className="mx-2" style={{ color: "grey" }}>
+            Copied!
+          </span>
+        ) : null}
       </Jumbotron>
 
       <Container fluid>

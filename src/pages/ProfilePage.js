@@ -286,7 +286,11 @@ function ProfilePage() {
                   <IoMdCopy size={20} />
                 </button>
               </CopyToClipboard>
-              {isCopied ? <p style={{ color: "grey" }}>Copied!</p> : null}
+              {isCopied ? (
+                <span className="mx-2" style={{ color: "grey" }}>
+                  Copied!
+                </span>
+              ) : null}
               {/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
