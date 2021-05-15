@@ -7,13 +7,14 @@ import {
   browseToggleThunk,
   browseActions,
 } from "../redux/Marketplace/browseSlice";
-import { Jumbotron, Image, Col, Container, Row } from "react-bootstrap";
+import { Jumbotron, Col, Container, Row } from "react-bootstrap";
 import Navi from "../components/Common/Navbar";
 import ItemGrid from "../components/Common/ItemGrid/ItemGrid";
 import SellerSidebar from "../components/Marketplace/Browse_Seller/SellerSidebar";
 import SidebarFilterbar from "../components/Common/Sidebar/SidebarFilterbar";
+import ProfilePicSwitch from "../components/Common/ProfilePicSwitch";
 import classes from "./SellerPage.module.css";
-import "./ProfilePage.css";
+// import "./ProfilePage.css";
 
 function SellerPage() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function SellerPage() {
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(browseActions.getSellerAddress(params.walletAddress));
-      await dispatch(browseToggleThunk("init", "", true));
+      await dispatch(browseToggleThunk("sort", "CREATE_DATE", true));
     };
     fetchData();
     return function browseclearup() {
@@ -43,20 +44,15 @@ function SellerPage() {
       setCopied(false);
     }, 800);
   }
-
+  // mb-2 pb-1 pt-5
   return (
     <div className={classes.page}>
       <Navi />
-      <Jumbotron className="jumbotronProfile mb-2 pb-1 pt-5">
-        <div className="text-center">
-          <Image
-            className="profileImage"
-            src="https://cdn.vox-cdn.com/thumbor/ypiSSPbwKx2XUYeKPJOlW0E89ZM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7812969/nick_young_confused_face_300x256_nqlyaa.png"
-          />
-        </div>
-      </Jumbotron>
-      <div className="mt-3 text-center">
-        <h4>{itemArr.length > 0 && itemArr[0].alias}</h4>
+      <Jumbotron className={classes.jumbotronProfile}>
+        <ProfilePicSwitch address={params.walletAddress} />
+        <h4 className="mt-3">
+          <b>{itemArr.length > 0 && itemArr[0].alias}</b>
+        </h4>
         <span className="mx-2">{params.walletAddress}</span>
         <CopyToClipboard text={params.walletAddress} onCopy={copyWalletAdress}>
           <button className="btn">
@@ -64,7 +60,7 @@ function SellerPage() {
           </button>
         </CopyToClipboard>
         {isCopied ? <p style={{ color: "grey" }}>Copied!</p> : null}
-      </div>
+      </Jumbotron>
 
       <Container fluid>
         <Row>
@@ -73,7 +69,7 @@ function SellerPage() {
             {(statusfilter.length > 0 || collectionfilter.length > 0) && (
               <SidebarFilterbar isSeller={true} />
             )}
-            <ItemGrid items={itemArr} />
+            <ItemGrid items={itemArr} overflowOption={"visible"} />
           </Col>
         </Row>
       </Container>

@@ -17,7 +17,7 @@ function HomeFeatureCard() {
               />
               <Card.Body className={classes.cardbody}>
                 <Card.Text>
-                  <b>Sunset Behind Waves</b>
+                  <b>Cosmonaut</b>
                   <br />
                   Created by Mitchellflautt
                 </Card.Text>

@@ -264,23 +264,22 @@ function ProfilePage() {
     }, 800);
   }
 
+  //Address shortener
+  function shortAddress(address) {
+    return address.toString(16).substring(0, 6);
+  }
+
   return (
     <>
       <Navi />
       <div className="profile">
         <Jumbotron className="jumbotronProfile mb-1 pb-3 pt-5">
-          {loginStatus ? (
-            <h3 className="font-weight-bold text-dark">
-              {userName && <i>Hello, {userName}</i>}
-            </h3>
-          ) : (
-            <Redirect to="/" />
-          )}
-
+          {!loginStatus && <Redirect to="/" />}
           <div xs={6} md={4} className="text-center">
             <ProfilePicSwitch address={currentUser} />
             <div className="text-center UserClipboard">
-              <h4 className="font-weight-bold">{userName}</h4>
+              <h4 className="font-weight-bold mt-3">{userName}</h4>
+              {/* Apply shortened address here */}
               <span className="mx-2">{currentUser}</span>
               <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
                 <button className="btn">

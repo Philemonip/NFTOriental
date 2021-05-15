@@ -8,6 +8,7 @@ import six from "../../asset/profilepic/6.png";
 import seven from "../../asset/profilepic/7.png";
 import eight from "../../asset/profilepic/8.png";
 import nine from "../../asset/profilepic/9.png";
+import classes from "./ProfilePicSwitch.module.css";
 
 const ProfilePicSwitch = ({ address }) => {
   // console.log("PropicSwitch", address);
@@ -21,7 +22,6 @@ const ProfilePicSwitch = ({ address }) => {
       return Number((decimal + "").substring(3, 4));
     }
   };
-  console.log(addressReducer(address));
   switch (addressReducer(address)) {
     case 0:
       propicvalue = zero;
@@ -60,7 +60,7 @@ const ProfilePicSwitch = ({ address }) => {
   return (
     <div>
       {/* <h1>Your Propic no. is {addressReducer(address)}</h1> */}
-      <img className="profileImage" src={propicvalue} alt="Profile" />
+      <img className={classes.profileImage} src={propicvalue} alt="Profile" />
     </div>
   );
 };

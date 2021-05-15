@@ -1,9 +1,22 @@
-import { Card, Row, Col, Spinner } from "react-bootstrap";
+import {
+  Card,
+  Row,
+  Col,
+  Spinner,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import classes from "./HomeItemCard.module.css";
 import coin_tiny from "../../../asset/coin_tiny.png";
 
 const HomeItemCard = ({ item }) => {
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      CCH
+    </Tooltip>
+  );
+
   //Text shortener helper function
   const shortText = (longtext) => {
     const TEXT_LIMIT = 20;
@@ -21,7 +34,9 @@ const HomeItemCard = ({ item }) => {
     } else {
       return (
         <>
-          <img src={coin_tiny} alt="coinicon" className={classes.coinicon} />
+          <OverlayTrigger placement="top" overlay={renderTooltip}>
+            <img src={coin_tiny} alt="coinicon" className={classes.coinicon} />
+          </OverlayTrigger>
           {+Number(price).toFixed(2)}
         </>
       );
