@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { browseActions } from "../redux/Marketplace/browseSlice";
 import { browseToggleThunk } from "../redux/Marketplace/browseSlice";
@@ -20,7 +20,7 @@ function MarketBrowse() {
   //browseToggleThunk: (type, data, isSellers)
   useEffect(() => {
     const fetchData = async () => {
-      console.log("First load Marketbrowse");
+      // console.log("First load Marketbrowse");
       await dispatch(browseToggleThunk("sort", "CREATE_DATE", false));
     };
     fetchData();

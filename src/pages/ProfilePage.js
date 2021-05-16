@@ -53,7 +53,7 @@ function ProfilePage() {
         const networkId = await web3.eth.net.getId();
         // dispatch(detailSliceActions.updateWeb3(web3));
         dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
-        console.log("current user:", accounts[0]);
+        // console.log("current user:", accounts[0]);
 
         //load contract
         const networkData = CloseSeaNFT.networks[networkId];
@@ -65,7 +65,7 @@ function ProfilePage() {
           // dispatch(detailSliceActions.updateContract(contract));
           const getItem = await contractNFT.methods.getAllItems().call();
           dispatch(detailSliceActions.updateItem(getItem));
-          console.log(getItem);
+          // console.log(getItem);
           dispatch(getTransactionThunk(accounts[0]));
           dispatch(getNameThunk(accounts[0]));
         } else {
@@ -108,7 +108,7 @@ function ProfilePage() {
         .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser })
         .on("transactionHash", function (hash) {
-          console.log("hash on(transactionHash nft " + hash);
+          // console.log("hash on(transactionHash nft " + hash);
           dispatch(detailSliceActions.updateNftHash(hash));
         });
       const getItem = await contractNFT.methods.getAllItems().call();
@@ -141,7 +141,7 @@ function ProfilePage() {
         .notForSale(tokenId)
         .send({ from: currentUser })
         .on("transactionHash", function (hash) {
-          console.log("hash on(transactionHash nft " + hash);
+          // console.log("hash on(transactionHash nft " + hash);
           dispatch(detailSliceActions.updateNftHash(hash));
         });
       const getItem = await contractNFT.methods.getAllItems().call();
@@ -175,7 +175,7 @@ function ProfilePage() {
         .burnToken(tokenId)
         .send({ from: currentUser })
         .on("transactionHash", function (hash) {
-          console.log("hash on(transactionHash nft " + hash);
+          // console.log("hash on(transactionHash nft " + hash);
           dispatch(detailSliceActions.updateNftHash(hash));
         });
       const getItem = await contractNFT.methods.getAllItems().call();
@@ -201,14 +201,13 @@ function ProfilePage() {
 
       const data = new FormData();
       data.append("file", file);
-      console.log(0);
       await dispatch(uploadToImgurThunk(data)).then(async (imageUrl) => {
         if (imageUrl) {
           await contractNFT.methods
             .mint(name)
             .send({ from: currentUser })
             .on("transactionHash", function (hash) {
-              console.log("hash on(transactionHash nft " + hash);
+              // console.log("hash on(transactionHash nft " + hash);
               dispatch(detailSliceActions.updateNftHash(hash));
             });
           //etherscan

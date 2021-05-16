@@ -24,7 +24,7 @@ function HomeFeatureCard() {
               </Card.Body>
             </Card>
           </Col>
-          <Col lg={4} className={classes.rightcol}>
+          <Col lg={6} className={classes.rightcol}>
             <div className={classes.textdiv}>
               <h2 className={classes.title}>
                 Create, buy & sell <br />

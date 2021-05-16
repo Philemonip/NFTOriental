@@ -5,7 +5,7 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
 function DetailTradingHistory({ itemdata }) {
   //   className={classes.card}
-  console.log(itemdata);
+  // console.log(itemdata);
   let transactionDateArr = [];
 
   if (itemdata[1]) {
@@ -14,7 +14,7 @@ function DetailTradingHistory({ itemdata }) {
       createdDate: new Date(i.created_at).toLocaleDateString("en-GB"),
       createdTime: new Date(i.created_at).toLocaleTimeString("en-GB"),
     }));
-    console.log(transactionDateArr);
+    // console.log(transactionDateArr);
   }
   return (
     <>

@@ -43,7 +43,7 @@ const nftSlice = createSlice({
 export const nftSliceActions = nftSlice.actions;
 
 export const getTransactionThunk = (address) => async (dispatch) => {
-  console.log("GET TRANSACTION thunk");
+  // console.log("GET TRANSACTION thunk");
   const getTransactionRequest = async () => {
     return await axios.get(
       `${process.env.REACT_APP_API_SERVER}/nfttransaction/profile`,
@@ -55,7 +55,7 @@ export const getTransactionThunk = (address) => async (dispatch) => {
   try {
     let res = await getTransactionRequest();
     dispatch(nftSliceActions.getTransaction(res.data));
-    console.log("DATA", res.data);
+    // console.log("DATA", res.data);
   } catch (err) {
     console.log("get transaction fail", err);
   }
@@ -64,7 +64,7 @@ export const getTransactionThunk = (address) => async (dispatch) => {
 export const addNFTtransactionThunk = (newTransactionData) => async (
   dispatch
 ) => {
-  console.log("add Transaction Thunk", newTransactionData);
+  // console.log("add Transaction Thunk", newTransactionData);
   const addNFTtransactionRequest = async () => {
     return await axios.post(
       `${process.env.REACT_APP_API_SERVER}/nfttransaction/items`,
@@ -80,7 +80,7 @@ export const addNFTtransactionThunk = (newTransactionData) => async (
 };
 
 export const addmetadataThunk = (newMetaData) => async (dispatch) => {
-  console.log("new metadata", newMetaData);
+  // console.log("new metadata", newMetaData);
   const addMetaData = async () => {
     return await axios.post(
       `${process.env.REACT_APP_API_SERVER}/profile`,
@@ -95,7 +95,7 @@ export const addmetadataThunk = (newMetaData) => async (dispatch) => {
 };
 
 export const updateItemThunk = (updateData) => async (dispatch) => {
-  console.log("changing item status");
+  // console.log("changing item status");
   const updateItem = async () => {
     return await axios.put(
       `${process.env.REACT_APP_API_SERVER}/profile`,
@@ -110,7 +110,7 @@ export const updateItemThunk = (updateData) => async (dispatch) => {
 };
 
 export const deleteItemThunk = (deleteData) => async (dispatch) => {
-  console.log("deleting item");
+  // console.log("deleting item");
   const deleteItem = async () => {
     return await axios.delete(`${process.env.REACT_APP_API_SERVER}/profile`, {
       data: deleteData,
@@ -124,7 +124,7 @@ export const deleteItemThunk = (deleteData) => async (dispatch) => {
 };
 
 export const addNameThunk = (name) => async (dispatch) => {
-  console.log("updating name");
+  // console.log("updating name");
   const addName = async () => {
     return await axios.post(
       `${process.env.REACT_APP_API_SERVER}/displayname`,
@@ -133,7 +133,7 @@ export const addNameThunk = (name) => async (dispatch) => {
   };
   try {
     let res = await addName();
-    console.log(res);
+    // console.log(res);
     dispatch(nftSliceActions.getName(res.data));
   } catch (err) {
     console.log("change name fail", err);
@@ -141,8 +141,8 @@ export const addNameThunk = (name) => async (dispatch) => {
 };
 
 export const getNameThunk = (address) => async (dispatch) => {
-  console.log("getting name");
-  console.log(address);
+  // console.log("getting name");
+  // console.log(address);
   const getName = async () => {
     return await axios.get(`${process.env.REACT_APP_API_SERVER}/displayname`, {
       params: { address },

@@ -71,7 +71,7 @@ const SideBanco = () => {
             <div>
               <FontAwesomeIcon icon={faGifts} />
             </div>
-            OrientalNFT
+            Oriental NFT
           </button>
         </LinkContainer>
       </div>

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import classes from "./CollectiblesGrid.module.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import ListSaleModal from "./ListSaleModal";
 // import { LinkContainer } from "react-router-bootstrap";
 import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
@@ -18,7 +18,7 @@ const CreatedNFT = ({ itemNotForSale, itemOnSale, burnToken }) => {
 
   const creatorItems = (items, currentUser) => {
     createdArr = items.filter((i) => i.creator === currentUser);
-    console.log("this creator created", createdArr);
+    // console.log("this creator created", createdArr);
   };
   creatorItems(items, currentUser);
 
@@ -30,7 +30,7 @@ const CreatedNFT = ({ itemNotForSale, itemOnSale, burnToken }) => {
   return (
     <Container fluid className={classes.browseitem}>
       <Row className={classes.row}>
-        {createdArr.length > 0 ?
+        {createdArr.length > 0 ? (
           createdArr.map((item, index) => {
             return (
               // <Col className="mt-4 d-flex justify-content-center" key={index}>
@@ -47,13 +47,15 @@ const CreatedNFT = ({ itemNotForSale, itemOnSale, burnToken }) => {
               </div>
             );
           })
-          :
+        ) : (
           <div className={classes.divWidth}>
             <div className={classes.noMatch}>
-              <h4 className={`p-5 text-dark ${classes.notice}`}>You haven't created any items</h4>
+              <h4 className={`p-5 text-dark ${classes.notice}`}>
+                You haven't created any items
+              </h4>
             </div>
           </div>
-        }
+        )}
       </Row>
       <ListSaleModal
         show={listModal}

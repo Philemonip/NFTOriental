@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,7 +10,7 @@ const SettingGeneral = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("edit", desireName, currentUser);
+    // console.log("edit", desireName, currentUser);
     await dispatch(
       addNameThunk({
         alias: desireName,
