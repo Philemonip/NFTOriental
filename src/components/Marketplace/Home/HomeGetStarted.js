@@ -57,7 +57,7 @@ const HomeGetStarted = () => {
       <Row className={classes.buttonrow}>
         <Col className="px-0">
           <div
-            className={`mr-3 ${classes.infobutton} ${sell}`}
+            className={` ${classes.infobutton} ${sell}`}
             onClick={() => setIsBuyer(false)}
           >
             <p className={classes.ptext}>Seller</p>
@@ -65,7 +65,7 @@ const HomeGetStarted = () => {
         </Col>
         <Col className="px-0">
           <div
-            className={`ml-3 ${classes.infobutton} ${buy}`}
+            className={` ${classes.infobutton} ${buy}`}
             onClick={() => setIsBuyer(true)}
           >
             <p className={classes.ptext}>Buyer</p>
