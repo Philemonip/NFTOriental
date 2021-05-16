@@ -69,7 +69,7 @@ export const uploadToImgurThunk = (data) => async (dispatch) => {
 };
 
 export const mintNFTThunk = (newNftInfo) => async (dispatch) => {
-  console.log("mintnew");
+  // console.log("mintnew");
   const mintNewNFT = async () => {
     return axios.post(
       `${process.env.REACT_APP_API_SERVER}/upload/newnftinfo`,
@@ -78,7 +78,7 @@ export const mintNFTThunk = (newNftInfo) => async (dispatch) => {
   };
   try {
     mintNewNFT();
-    console.log("done hello");
+    // console.log("done hello");
     // let imageUrl = await uploadToImgur();
     // dispatch(mintingSliceActions.updateImage(imageUrl));
   } catch (err) {

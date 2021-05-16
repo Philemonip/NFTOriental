@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import classes from "./CollectiblesGrid.module.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import ListSaleModal from "./ListSaleModal";
 // import { LinkContainer } from "react-router-bootstrap";
 import { detailSliceActions } from "../../redux/Marketplace/detailSlice";
@@ -24,14 +24,14 @@ const Collectibles = ({ itemNotForSale, itemOnSale, burnToken }) => {
 
   const ownerItems = (items, currentUser) => {
     ownedArr = items.filter((i) => i.owner === currentUser);
-    console.log("this owner owns", ownedArr);
+    // console.log("this owner owns", ownedArr);
   };
   ownerItems(items, currentUser);
 
   return (
     <Container fluid className={classes.browseitem}>
       <Row className={classes.row}>
-        {ownedArr.length > 0 ?
+        {ownedArr.length > 0 ? (
           ownedArr.map((item, index) => {
             return (
               // <Col className="mt-4 d-flex justify-content-center" key={index}>
@@ -48,13 +48,15 @@ const Collectibles = ({ itemNotForSale, itemOnSale, burnToken }) => {
               </div>
             );
           })
-          :
+        ) : (
           <div className={classes.divWidth}>
             <div className={classes.noMatch}>
-              <h4 className={`p-5 text-dark ${classes.notice}`}>You don't have any collectibles</h4>
+              <h4 className={`p-5 text-dark ${classes.notice}`}>
+                You don't have any collectibles
+              </h4>
             </div>
           </div>
-        }
+        )}
       </Row>
       <ListSaleModal
         show={listModal}

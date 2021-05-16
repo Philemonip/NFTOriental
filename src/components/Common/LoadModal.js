@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import React from "react";
+// import React from "react";
 
 const LoadModal = ({ show, title }) => {
   const { cchHash, nftHash, ethHash } = useSelector((state) => state.detail);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col } from "react-bootstrap";
@@ -24,7 +24,7 @@ var web3;
 var cch;
 var contractNFT;
 
-console.log(CloseSeaNFT.networks[5777].add);
+// console.log(CloseSeaNFT.networks[5777].add);
 
 function MarketDetail() {
   const params = useParams();
@@ -59,7 +59,7 @@ function MarketDetail() {
         const networkId = await web3.eth.net.getId();
         // dispatch(detailSliceActions.updateWeb3(web3));
         dispatch(detailSliceActions.updateCurrentUser(accounts[0]));
-        console.log("current user:", accounts[0]);
+        // console.log("current user:", accounts[0]);
 
         //load contract
         const networkData = CloseSeaNFT.networks[networkId];
@@ -71,7 +71,7 @@ function MarketDetail() {
           // dispatch(detailSliceActions.updateContract(contract));
           const getItem = await contractNFT.methods.getAllItems().call();
           dispatch(detailSliceActions.updateItem(getItem));
-          console.log(getItem);
+          // console.log(getItem);
           const getToken = await contractNFT.methods
             .getToken(params.itemAddress)
             .call();
@@ -81,7 +81,7 @@ function MarketDetail() {
             .call();
           dispatch(detailSliceActions.updateOwner(itemOwner));
 
-          console.log(itemOwner);
+          // console.log(itemOwner);
 
           cch = new web3.eth.Contract(
             Token.abi,
@@ -154,7 +154,7 @@ function MarketDetail() {
       .transfer(targetAccount, `${amount}`)
       .send({ from: currentUser })
       .on("transactionHash", async function (hash) {
-        console.log("hash on(transactionHash cch " + hash);
+        // console.log("hash on(transactionHash cch " + hash);
         dispatch(detailSliceActions.updateCchHash(hash));
         await dispatch(
           addTransactionThunk({
@@ -165,23 +165,23 @@ function MarketDetail() {
             currency: "CCH",
           })
         );
-        console.log("hi", targetAccount);
+        // console.log("hi", targetAccount);
         await contractNFT.methods
           .buyingWithoutApproval(tokenId)
           .send({ from: currentUser })
           .on("transactionHash", async function (hash) {
-            console.log("hash on(transactionHash nft " + hash);
+            // console.log("hash on(transactionHash nft " + hash);
             dispatch(detailSliceActions.updateNftHash(hash));
           })
           .then(async () => {
             const getItem = await contractNFT.methods.getAllItems().call();
             await dispatch(detailSliceActions.updateItem(getItem));
-            console.log(getItem, "please get this item");
+            // console.log(getItem, "please get this item");
             const NFTitem = getItem.filter((i) => i.id === tokenId);
-            console.log(NFTitem);
+            // console.log(NFTitem);
             const owner = NFTitem[0].owner;
             // const NFThash = transaction.transactionHash;
-            console.log(hash);
+            // console.log(hash);
             await dispatch(
               addNFTtransactionThunk({
                 token_id: tokenId,
@@ -238,7 +238,7 @@ function MarketDetail() {
         .tokenOnSale(tokenId, `${price * 1e18}`)
         .send({ from: currentUser })
         .on("transactionHash", function (hash) {
-          console.log("hash on(transactionHash nft " + hash);
+          // console.log("hash on(transactionHash nft " + hash);
           dispatch(detailSliceActions.updateNftHash(hash));
         });
       const getItem = await contractNFT.methods.getAllItems().call();
@@ -269,7 +269,7 @@ function MarketDetail() {
         .notForSale(tokenId)
         .send({ from: currentUser })
         .on("transactionHash", function (hash) {
-          console.log("hash on(transactionHash nft " + hash);
+          // console.log("hash on(transactionHash nft " + hash);
           dispatch(detailSliceActions.updateNftHash(hash));
         });
       const getItem = await contractNFT.methods.getAllItems().call();

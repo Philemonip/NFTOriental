@@ -5,7 +5,7 @@ import CloseSeaNFT from "../../../abi/CloseSeaNFT.json";
 // import { useSelector, useDispatch } from "react-redux";
 
 function DetailRight({ itemdata, loginStatus, NFTaddress }) {
-  console.log(CloseSeaNFT.networks[4].address);
+  // console.log(CloseSeaNFT.networks[4].address);
   // const token = useSelector((state) => state.detail.token);
   // const dispatch = useDispatch();
 
