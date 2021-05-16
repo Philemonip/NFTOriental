@@ -13,7 +13,7 @@ const ItemGrid = (props) => {
 
   return (
     <Col className="px-0">
-      <Container fluid className={classes.browseitem}>
+      <Container fluid className={classes.browseitem} style={props.style}>
         <Row className={classes.row}>
           {props.items &&
             props.items.map((item, index) => {

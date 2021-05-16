@@ -19,6 +19,7 @@
 .activebutton {
   background-color: #00acee;
   box-shadow: none;
+  color: white;
 }
 
 .ptext {

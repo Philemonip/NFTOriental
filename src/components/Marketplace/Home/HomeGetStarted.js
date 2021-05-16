@@ -47,6 +47,7 @@ const BuyerItems = [
 ];
 
 const HomeGetStarted = () => {
+  // Button active state
   const [isBuyer, setIsBuyer] = useState(false);
   const buy = isBuyer ? classes.activebutton : "";
   const sell = isBuyer ? "" : classes.activebutton;

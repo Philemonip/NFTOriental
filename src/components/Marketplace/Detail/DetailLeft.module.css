@@ -10,7 +10,7 @@
   color: #6181e4;
 }
 
-.title {
+.pricetext {
   font-weight: 600;
   font-size: 28px;
   letter-spacing: 1px;
@@ -57,10 +57,12 @@
   background-color: rgb(25, 50, 165);
   padding: 0.6rem 0;
   font-weight: 600;
+  margin-top: 20px;
 }
 
 .coinicon {
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 3px;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 10px;
+  margin-bottom: 5px;
 }

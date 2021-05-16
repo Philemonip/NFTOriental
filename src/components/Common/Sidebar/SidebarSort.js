@@ -22,9 +22,10 @@ const BrowseSidebarCollection = ({ isSeller }) => {
         size="lg"
         value={sortOption}
       >
-        <option value="0">Sort by</option>
-        <option value="LIST_DATE">Recently Listed</option>
+        {/* <option value="0">Sort by</option> */}
         <option value="CREATE_DATE">Recently Created</option>
+        <option value="LIST_DATE">Recently Listed</option>
+        {/* <option value="CREATE_DATE">Recently Created</option> */}
         <option value="PRICE_DESC">Price: High to Low</option>
         <option value="PRICE_ASC">Price: Low to High</option>
         <option value="ALPHABET_ASC">Alphabetical: A-Z</option>

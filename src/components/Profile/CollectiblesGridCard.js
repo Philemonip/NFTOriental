@@ -6,7 +6,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import dotenv from "dotenv";
-import coin_tiny from "../../asset/coin_tiny.png"
+import coin_tiny from "../../asset/coin_tiny.png";
 dotenv.config();
 
 const CollectiblesGridCard = ({
@@ -31,7 +31,7 @@ const CollectiblesGridCard = ({
   return (
     <div className={classes.profileHover}>
       <a className={classes.aTag} href={"/items/asset/" + item.id}>
-        <Card className={classes.card}>
+        <Card className={classes.card} style={{ overflowX: "hidden" }}>
           <div className={classes.imagediv}>
             {imageSrc && (
               <LazyLoadImage
@@ -53,9 +53,9 @@ const CollectiblesGridCard = ({
                 </Card.Text>
                 <Card.Text>
                   {item.forSale === true ? (
-                    <h6 className="text-dark">Status: Listing </h6>
+                    <p className="text-dark">Status: Listing </p>
                   ) : (
-                    <h6 className="text-dark">Status: Not Listing </h6>
+                    <p className="text-dark">Status: Not Listing </p>
                   )}
                 </Card.Text>
               </Col>

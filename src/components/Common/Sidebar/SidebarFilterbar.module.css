@@ -24,6 +24,7 @@
   cursor: pointer;
   background-color: #00acee;
   box-shadow: none;
+  color: white;
 }
 
 .active:hover {
