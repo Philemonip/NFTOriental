@@ -22,7 +22,8 @@
 
 .textdiv {
   /* margin-left: 60px; */
-  width: max-content;
+  /* width: max-content; */
+  width: 100%;
 }
 
 .imagediv {
