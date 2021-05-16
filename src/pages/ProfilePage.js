@@ -263,152 +263,122 @@ function ProfilePage() {
     }, 800);
   }
 
-  //Address shortener
-  // function shortAddress(address) {
-  //   return address.toString(16).substring(0, 6);
-  // }
+  function shortAddress(address) {
+    console.log(address.toString(16).substring(0, 6));
+    return `${address.toString(16).substring(0, 6)}...${address
+      .toString(16)
+      .substring(address.length - 4)}`;
+  }
 
   return (
     <>
       <Navi />
-      <div className="profile">
-        <Jumbotron className="jumbotronProfile mb-1 pb-3 pt-5">
-          {!loginStatus && <Redirect to="/" />}
-          <div xs={6} md={4} className="text-center">
-            <ProfilePicSwitch address={currentUser} />
-            <div className="text-center UserClipboard">
-              <h4 className="font-weight-bold mt-3">{userName}</h4>
-              {/* Apply shortened address here */}
-              <span className="mx-2">{currentUser}</span>
-              <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
-                <button className="btn">
-                  <IoMdCopy size={20} />
-                </button>
-              </CopyToClipboard>
-              {isCopied ? (
-                <span className="mx-2" style={{ color: "grey" }}>
-                  Copied!
-                </span>
-              ) : null}
-              {/* <button className="mx-1" onClick={() => mint("item1")}>
+      {!loginStatus ? (
+        <Redirect to="/" />
+      ) : (
+        <div className="profile">
+          <Jumbotron className="jumbotronProfile mb-1 pb-3 pt-5">
+            <div xs={6} md={4} className="text-center">
+              <ProfilePicSwitch address={currentUser} />
+              <div className="text-center UserClipboard">
+                <h4 className="font-weight-bold mt-3">{userName}</h4>
+                {/* Apply shortened address here */}
+                <span className="mx-2">{shortAddress(currentUser)}</span>
+                <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
+                  <button className="btn">
+                    <IoMdCopy size={20} />
+                  </button>
+                </CopyToClipboard>
+                {isCopied && (
+                  <span className="mx-2" style={{ color: "grey" }}>
+                    Copied!
+                  </span>
+                )}
+                {/* <button className="mx-1" onClick={() => mint("item1")}>
 						Mint stuff
 					</button> */}
+              </div>
+            </div>
+          </Jumbotron>
+          <div className="profileContent">
+            <div className="px-4 buttonForChange">
+              <Nav
+                variant="tabs"
+                defaultActiveKey="Collectibles"
+                className="profile_navtabs"
+              >
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="Collectibles"
+                    onSelect={() => setProfileContent("Collectibles")}
+                  >
+                    Collectibles
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="Created"
+                    onSelect={() => setProfileContent("Created")}
+                  >
+                    Created
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="Transactions"
+                    onSelect={() => setProfileContent("Transactions")}
+                  >
+                    Transactions
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="Settings"
+                    onSelect={() => setProfileContent("Settings")}
+                  >
+                    Settings
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="Mint"
+                    onSelect={() => setProfileContent("Mint")}
+                  >
+                    Create NFT
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </div>
+
+            <div className="px-4">
+              {profileContent === "Collectibles" ? (
+                <Collectibles
+                  itemNotForSale={itemNotForSale}
+                  itemOnSale={itemOnSale}
+                  burnToken={burnToken}
+                  itemArr={itemArr}
+                />
+              ) : profileContent === "Created" ? (
+                <CreatedNFT
+                  itemNotForSale={itemNotForSale}
+                  itemOnSale={itemOnSale}
+                  burnToken={burnToken}
+                  itemArr={itemArr}
+                />
+              ) : profileContent === "Transactions" ? (
+                <NFTtransactions />
+              ) : profileContent === "Settings" ? (
+                <Settings />
+              ) : (
+                profileContent === "Mint" && (
+                  <Mint handleMintingSubmit={handleMintingSubmit} />
+                )
+              )}
             </div>
           </div>
-        </Jumbotron>
-        <div className="profileContent">
-          <div className="px-4 buttonForChange">
-            {/* <button
-              className="mx-1"
-              onClick={() => setProfileContent("Collectibles")}
-            >
-              Collectibles
-            </button>
-            <button
-              className="mx-1"
-              onClick={() => setProfileContent("Created")}
-            >
-              Created NFT
-            </button>
-            <button
-              className="mx-1"
-              onClick={() => setProfileContent("Transactions")}
-            >
-              Transactions
-            </button>
-            {loginStatus && (
-              <>
-                <button
-                  className="mx-1"
-                  onClick={() => setProfileContent("Settings")}
-                >
-                  Settings
-                </button>
-                <button
-                  className="mx-1"
-                  onClick={() => setProfileContent("Mint")}
-                >
-                  Create NFT
-                </button>
-              </>
-            )} */}
-
-            <Nav
-              variant="tabs"
-              defaultActiveKey="Collectibles"
-              className="profile_navtabs"
-            >
-              <Nav.Item>
-                <Nav.Link
-                  eventKey="Collectibles"
-                  onSelect={() => setProfileContent("Collectibles")}
-                >
-                  Collectibles
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  eventKey="Created"
-                  onSelect={() => setProfileContent("Created")}
-                >
-                  Created
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  eventKey="Transactions"
-                  onSelect={() => setProfileContent("Transactions")}
-                >
-                  Transactions
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  eventKey="Settings"
-                  onSelect={() => setProfileContent("Settings")}
-                >
-                  Settings
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  eventKey="Mint"
-                  onSelect={() => setProfileContent("Mint")}
-                >
-                  Create NFT
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </div>
-
-          <div className="px-4">
-            {profileContent === "Collectibles" ? (
-              <Collectibles
-                itemNotForSale={itemNotForSale}
-                itemOnSale={itemOnSale}
-                burnToken={burnToken}
-                itemArr={itemArr}
-              />
-            ) : profileContent === "Created" ? (
-              <CreatedNFT
-                itemNotForSale={itemNotForSale}
-                itemOnSale={itemOnSale}
-                burnToken={burnToken}
-                itemArr={itemArr}
-              />
-            ) : profileContent === "Transactions" ? (
-              <NFTtransactions />
-            ) : profileContent === "Settings" ? (
-              <Settings />
-            ) : (
-              profileContent === "Mint" && (
-                <Mint handleMintingSubmit={handleMintingSubmit} />
-              )
-            )}
-          </div>
+          <LoadModal show={etherscanLoad} />
         </div>
-        <LoadModal show={etherscanLoad} />
-      </div>
+      )}
     </>
   );
 }

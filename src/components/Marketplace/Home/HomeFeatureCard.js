@@ -8,21 +8,23 @@ function HomeFeatureCard() {
       <Container fluid>
         <Row className={classes.row}>
           <Col lg={6}>
-            <Card className={classes.card}>
-              <img
-                // variant="top"
-                className={classes.image}
-                src={beeple}
-                alt="Features"
-              />
-              <Card.Body className={classes.cardbody}>
-                <Card.Text>
-                  <b>Cosmonaut</b>
-                  <br />
-                  Created by Mitchellflautt
-                </Card.Text>
-              </Card.Body>
-            </Card>
+            <a href="https://nftoriental.com/items/asset/45">
+              <Card className={classes.card}>
+                <img
+                  // variant="top"
+                  className={classes.image}
+                  src={beeple}
+                  alt="Features"
+                />
+                <Card.Body className={classes.cardbody}>
+                  <Card.Text>
+                    <b>Cosmonaut</b>
+                    <br />
+                    Created by Mitchellflautt
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </a>
           </Col>
           <Col lg={6} className={classes.rightcol}>
             <div className={classes.textdiv}>

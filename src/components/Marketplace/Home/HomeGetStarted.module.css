@@ -8,7 +8,7 @@
   position: relative;
   top: 50%;
   transform: translateY(25%);
-  font-size: 22px;
+  font-size: 18px;
   text-align: center;
   /* color: #6c757d; */
   color: white;
@@ -39,8 +39,8 @@
   background-color: #043850;
   justify-content: center;
   box-shadow: none;
-  padding: 4px;
-  margin: 4px;
+  padding: 4px 10px;
+  margin: 10px;
   user-select: none;
   cursor: pointer;
 }
