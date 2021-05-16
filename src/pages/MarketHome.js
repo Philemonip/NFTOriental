@@ -28,7 +28,7 @@ function MarketHome() {
           }
         );
         setHomeItem(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         if (axios.isCancel(error)) {
         } else {

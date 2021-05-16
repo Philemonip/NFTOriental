@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import classes from "./DetailLeft.module.css";
 import DetailBuyModal from "./DetailBuyModal";
@@ -26,7 +26,7 @@ function DetailLeft({
     itemDetail = await items.filter(
       (i) => i.id === tokenId && i.itemName === itemdata.name
     );
-    console.log("this is the item", itemDetail[0]);
+    // console.log("this is the item", itemDetail[0]);
     setItemDetailLoaded(itemDetail[0]);
   };
   item(items, token_id);

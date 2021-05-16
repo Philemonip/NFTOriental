@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bancoSliceActions } from "../../redux/Banco/bancoSlice";
 const TransferCCHOfBanco = ({ transferCCH }) => {

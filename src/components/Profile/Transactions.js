@@ -5,7 +5,7 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
 const TransactionHistory = () => {
   const transaction = useSelector((state) => state.nft.transaction);
-  console.log(transaction);
+  // console.log(transaction);
 
   //Date and Time Data manipulation
   const transactionDateArr = transaction.map((i) => ({
@@ -13,10 +13,17 @@ const TransactionHistory = () => {
     createdDate: new Date(i.created_at).toLocaleDateString("en-GB"),
     createdTime: new Date(i.created_at).toLocaleTimeString("en-GB"),
   }));
-  console.log(transactionDateArr);
+  // console.log(transactionDateArr);
 
   return (
-    <Table responsive striped bordered hover variant="dark" className="transaction">
+    <Table
+      responsive
+      striped
+      bordered
+      hover
+      variant="dark"
+      className="transaction"
+    >
       <thead>
         <tr>
           <th>Date</th>

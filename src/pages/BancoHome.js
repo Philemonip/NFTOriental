@@ -107,7 +107,7 @@ const BancoHome = () => {
           .deposit()
           .send({ value: amount.toString(), from: account })
           .on("transactionHash", function (hash) {
-            console.log("hash on(transactionHash eth " + hash);
+            // console.log("hash on(transactionHash eth " + hash);
             dispatch(detailSliceActions.updateEthHash(hash));
           });
         await showBalance();
@@ -133,7 +133,7 @@ const BancoHome = () => {
           .withdraw()
           .send({ from: account })
           .on("transactionHash", function (hash) {
-            console.log("hash on(transactionHash eth " + hash);
+            // console.log("hash on(transactionHash eth " + hash);
             dispatch(detailSliceActions.updateEthHash(hash));
           });
         await showBalance();
@@ -186,7 +186,7 @@ const BancoHome = () => {
           .transfer(targetAccount, `${amount}`)
           .send({ from: account })
           .on("transactionHash", function (hash) {
-            console.log("hash on(transactionHash cch " + hash);
+            // console.log("hash on(transactionHash cch " + hash);
             dispatch(detailSliceActions.updateCchHash(hash));
           });
         await dispatch(
