@@ -19,22 +19,20 @@ function DetailRight({ itemdata, loginStatus, NFTaddress }) {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               <h6 className={classes.title}>Created by</h6>
-              <a
-                className={classes.atag}
-                href={`/profile/${itemdata.creator}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <p className={classes.item}>{itemdata.creator}</p>
+              <a className={classes.atag} href={`/profile/${itemdata.creator}`}>
+                {itemdata.aliasCreator && itemdata.aliasCreator.length > 0 ? (
+                  <p className={classes.item}>{itemdata.aliasCreator}</p>
+                ) : (
+                  <p className={classes.item}>{itemdata.creator}</p>
+                )}
               </a>
               <h6 className={classes.title}>Owned by</h6>
-              <a
-                className={classes.atag}
-                href={`/profile/${itemdata.owner}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <p className={classes.item}>{itemdata.owner}</p>
+              <a className={classes.atag} href={`/profile/${itemdata.owner}`}>
+                {itemdata.aliasOwner && itemdata.aliasOwner.length > 0 ? (
+                  <p className={classes.item}>{itemdata.aliasOwner}</p>
+                ) : (
+                  <p className={classes.item}>{itemdata.owner}</p>
+                )}
               </a>
               <h6 className="font-weight-bold">Description</h6>
               <p>{itemdata.description}</p>
