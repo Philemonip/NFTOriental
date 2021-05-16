@@ -9,6 +9,14 @@ function DetailRight({ itemdata, loginStatus, NFTaddress }) {
   // const token = useSelector((state) => state.detail.token);
   // const dispatch = useDispatch();
 
+  //Address shortener
+  function shortAddress(address) {
+    console.log(address.toString(16).substring(0, 6));
+    return `${address.toString(16).substring(0, 6)}...${address
+      .toString(16)
+      .substring(address.length - 4)}`;
+  }
+
   return (
     <>
       <Accordion defaultActiveKey="0" className="mt-2">
@@ -23,7 +31,9 @@ function DetailRight({ itemdata, loginStatus, NFTaddress }) {
                 {itemdata.aliasCreator && itemdata.aliasCreator.length > 0 ? (
                   <p className={classes.item}>{itemdata.aliasCreator}</p>
                 ) : (
-                  <p className={classes.item}>{itemdata.creator}</p>
+                  <p className={classes.item}>
+                    {shortAddress(itemdata.creator)}
+                  </p>
                 )}
               </a>
               <h6 className={classes.title}>Owned by</h6>

@@ -263,10 +263,12 @@ function ProfilePage() {
     }, 800);
   }
 
-  //Address shortener
-  // function shortAddress(address) {
-  //   return address.toString(16).substring(0, 6);
-  // }
+  function shortAddress(address) {
+    console.log(address.toString(16).substring(0, 6));
+    return `${address.toString(16).substring(0, 6)}...${address
+      .toString(16)
+      .substring(address.length - 4)}`;
+  }
 
   return (
     <>
@@ -281,7 +283,7 @@ function ProfilePage() {
               <div className="text-center UserClipboard">
                 <h4 className="font-weight-bold mt-3">{userName}</h4>
                 {/* Apply shortened address here */}
-                <span className="mx-2">{currentUser}</span>
+                <span className="mx-2">{shortAddress(currentUser)}</span>
                 <CopyToClipboard text={currentUser} onCopy={copyWalletAdress}>
                   <button className="btn">
                     <IoMdCopy size={20} />
@@ -300,41 +302,6 @@ function ProfilePage() {
           </Jumbotron>
           <div className="profileContent">
             <div className="px-4 buttonForChange">
-              {/* <button
-              className="mx-1"
-              onClick={() => setProfileContent("Collectibles")}
-            >
-              Collectibles
-            </button>
-            <button
-              className="mx-1"
-              onClick={() => setProfileContent("Created")}
-            >
-              Created NFT
-            </button>
-            <button
-              className="mx-1"
-              onClick={() => setProfileContent("Transactions")}
-            >
-              Transactions
-            </button>
-            {loginStatus && (
-              <>
-                <button
-                  className="mx-1"
-                  onClick={() => setProfileContent("Settings")}
-                >
-                  Settings
-                </button>
-                <button
-                  className="mx-1"
-                  onClick={() => setProfileContent("Mint")}
-                >
-                  Create NFT
-                </button>
-              </>
-            )} */}
-
               <Nav
                 variant="tabs"
                 defaultActiveKey="Collectibles"

@@ -1,0 +1,20 @@
+.noMatch {
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.divWidth {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 576px) {
+  .notice {
+    font-size: 1rem;
+  }
+}

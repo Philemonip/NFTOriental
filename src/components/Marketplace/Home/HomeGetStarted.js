@@ -8,6 +8,7 @@ import {
   FaCloudUploadAlt,
   FaShoppingCart,
   FaCoins,
+  FaEthereum,
 } from "react-icons/fa";
 
 const SellerItems = [
@@ -35,9 +36,14 @@ const BuyerItems = [
     body: "OrientalNFT is powered by Metamask on Ethereum Rinkeby Network. Connect to OrientalNFT with your Metamask account to access all the functions we offer including receiving Cinco Chicos Coin (CCH) at our De-Fi bank and making NFT transactions.",
   },
   {
+    logo: <FaEthereum />,
+    title: "Import CCH to Metamask",
+    body: "In your Metamask extention, scroll to bottom in the mainpage, press 'Add Token', then paste '0xbe63D70116B4efd27b7Ed42F0851BdF6d6ae3DbB' in the Token Contract Address, press 'Next' afterwards to add our ERC20 token to your Metamask wallet.",
+  },
+  {
     logo: <FaCoins />,
     title: "Earn CCH",
-    body: "Our NFTs are traded in ERC-20 compliant Cinco Chicos Coin (CCH), you can earn CCH as interest by depositing Ethereum (ETH) into our De-Fi bank. the amount of CCH you earn is based on the amount of ETH you have deposited and the duration of deposit.",
+    body: "Our NFTs are traded in ERC-20 compliant Cinco Chicos Coin (CCH), you can earn CCH as interest by depositing Ethereum (ETH) into our De-Fi bank. The amount of CCH you earn is based on the amount of ETH you have deposited and the duration of deposit.",
   },
   {
     logo: <FaShoppingCart />,
