@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# OrientalNFT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Oriental NFT is A marketplace for user-owned digital goods tokenized as ERC-721 compliant non-fungible tokens (NFTs) backed on a blockchain linked to a decentralized finance application (DeFi app) where users can acquire a ERC-20 compliant token issued by us to trade the NFTs. Some NFT collectibles are also tied to a 3D chat room and users who own these NFTs can interact with the assets in the chat room.
+
+Our project can be seperated in three parts
+
+OrientalNFT
+
+OrientalNFT is a marketplace for user-owned digital goods tokenized as ERC-721 compliant non-fungible tokens (NFTs) through smart contracts backed on the Ethereum Blockchain. The NFTs are categorized into 6 unique collections, including art, avatar, exclusive events, sports, trading cards and virtual worlds for users to browse and purchase.
+
+Users can create their own NFTs on our platform by uploading their work and list their NFTs on sale to trade with other users. Our NFTs are traded in Cinco Chicos Coin (CCH), a ERC-20 token, which users can acquire on our decentralized finance application (DeFi App) linked to our marketplace.
+
+DeFi App
+
+Our DeFi App implements a basic non-custodial protocol. Users are able to earn CCH as interest when they deposit ETH. After a transaction has been confirmed, the ETH deposited will be successfully locked in a smart contract on the blockchain and users will begin earning CCH interest. Upon withdrawal of their ETH, users will receive CCH in their digital wallet which would enable them to trade NFTs in our marketplace.
+
+3D chat room (Bonfire)
+
+We also created Bonfire, a 3D chat room, using three.js and socket.io. Users can hang around a bonfire to chat and interact with their friends. Users who own the NFTs of the virtual worlds collection in OrientalNFT can interact with these assets when they access the chat room."
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
