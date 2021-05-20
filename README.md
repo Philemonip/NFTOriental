@@ -1,6 +1,6 @@
 # OrientalNFT
 
-Oriental NFT is A marketplace for user-owned digital goods tokenized as ERC-721 compliant non-fungible tokens (NFTs) backed on a blockchain linked to a decentralized finance application (DeFi app) where users can acquire a ERC-20 compliant token issued by us to trade the NFTs. Some NFT collectibles are also tied to a 3D chat room and users who own these NFTs can interact with the assets in the chat room.
+Oriental NFT is a marketplace for user-owned digital goods tokenized as ERC-721 compliant non-fungible tokens (NFTs) backed on a blockchain linked to a decentralized finance application (DeFi app) where users can acquire a ERC-20 compliant token issued by us to trade the NFTs. Some NFT collectibles are also tied to a 3D chat room and users who own these NFTs can interact with the assets in the chat room.
 
 Our project can be seperated in three parts
 
